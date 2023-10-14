@@ -11,14 +11,22 @@
 		C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A772ADB270B00E90C66 /* ContentView.swift */; };
 		C2128A7A2ADB271300E90C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2128A792ADB271300E90C66 /* Assets.xcassets */; };
 		C2128A7D2ADB271300E90C66 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2128A7C2ADB271300E90C66 /* Preview Assets.xcassets */; };
+		C2128A852ADB2B1100E90C66 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C2128A842ADB2B1100E90C66 /* .swiftlint.yml */; };
+		C2128A882ADB2B8100E90C66 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2128A8A2ADB2B8100E90C66 /* Localizable.strings */; };
+		FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
+		C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.debug.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.debug.xcconfig"; sourceTree = "<group>"; };
 		C2128A722ADB270B00E90C66 /* Discite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2128A752ADB270B00E90C66 /* DisciteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteApp.swift; sourceTree = "<group>"; };
 		C2128A772ADB270B00E90C66 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C2128A792ADB271300E90C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2128A7C2ADB271300E90C66 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C2128A842ADB2B1100E90C66 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C2128A892ADB2B8100E90C66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,17 +34,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3333F2F5D339A8AE32F61636 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3622EC259FD8B4B212031657 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */,
+				0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C2128A692ADB270B00E90C66 = {
 			isa = PBXGroup;
 			children = (
 				C2128A742ADB270B00E90C66 /* Discite */,
 				C2128A732ADB270B00E90C66 /* Products */,
+				3622EC259FD8B4B212031657 /* Pods */,
+				3333F2F5D339A8AE32F61636 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +82,8 @@
 				C2128A752ADB270B00E90C66 /* DisciteApp.swift */,
 				C2128A772ADB270B00E90C66 /* ContentView.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
+				C2128A8C2ADB2BA100E90C66 /* Configuration */,
+				C2128A8B2ADB2B9100E90C66 /* Shared */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
 			);
 			path = Discite;
@@ -67,6 +97,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		C2128A8B2ADB2B9100E90C66 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C2128A8C2ADB2BA100E90C66 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				C2128A842ADB2B1100E90C66 /* .swiftlint.yml */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +120,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2128A802ADB271300E90C66 /* Build configuration list for PBXNativeTarget "Discite" */;
 			buildPhases = (
+				F864583DEE599EEF629CA64E /* [CP] Check Pods Manifest.lock */,
 				C2128A6E2ADB270B00E90C66 /* Sources */,
 				C2128A6F2ADB270B00E90C66 /* Frameworks */,
 				C2128A702ADB270B00E90C66 /* Resources */,
+				C2128A832ADB2ACD00E90C66 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -125,12 +173,57 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2128A852ADB2B1100E90C66 /* .swiftlint.yml in Resources */,
+				C2128A882ADB2B8100E90C66 /* Localizable.strings in Resources */,
 				C2128A7D2ADB271300E90C66 /* Preview Assets.xcassets in Resources */,
 				C2128A7A2ADB271300E90C66 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C2128A832ADB2ACD00E90C66 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		F864583DEE599EEF629CA64E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Discite-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C2128A6E2ADB270B00E90C66 /* Sources */ = {
@@ -143,6 +236,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C2128A8A2ADB2B8100E90C66 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C2128A892ADB2B8100E90C66 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C2128A7E2ADB271300E90C66 /* Debug */ = {
@@ -261,6 +365,7 @@
 		};
 		C2128A812ADB271300E90C66 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -289,6 +394,7 @@
 		};
 		C2128A822ADB271300E90C66 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
