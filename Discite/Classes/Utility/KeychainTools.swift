@@ -1,10 +1,12 @@
 //
-//  Auth.swift
+//  KeychainTools.swift
 //  Discite
 //
 //  Created by Jessie Li on 10/17/23.
-//  References:
+//
+//  Main source:
 //      https://github.com/jrendel/SwiftKeychainWrapper/blob/develop/SwiftKeychainWrapper/KeychainWrapper.swift
+//  Additional sources:
 //      https://developer.apple.com/documentation/security/keychain_services/keychain_items/adding_a_password_to_the_keychain
 //      https://medium.com/mop-developers/build-your-first-swiftui-app-part-5-handling-authorization-95f49cdb0b29
 
@@ -20,12 +22,6 @@ class KeychainTools {
     private let SecAttrAccount: String! = kSecAttrAccount as String
     
     private (set) public var serviceName: String
-    
-    enum KeychainError: Error {
-        case noPassword
-        case unexpectedPasswordData
-        case unhandledError(status: OSStatus)
-    }
     
     // Default serviceName is the app bundle identifier
     public init(serviceName: String? = nil) {
@@ -99,7 +95,8 @@ class KeychainTools {
     
     // MARK: Private Methods
     
-    // Update existing data associated with a specified key name. The existing data will be overwritten by the new data.
+    // Update existing data associated with a specified key name.
+    // The existing data will be overwritten by the new data.
     private func update(_ value: Data, forKey key: String) -> Bool {
         var query: [String: Any] = createKeychainQuery(forKey: key)
         let updateDictionary = [SecValueData: value]

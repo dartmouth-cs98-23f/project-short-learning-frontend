@@ -16,8 +16,6 @@
 		C2128A902ADB341400E90C66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A8F2ADB341400E90C66 /* LoginView.swift */; };
 		C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A932ADB454500E90C66 /* AuthenticationService.swift */; };
 		C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */; };
-		C2128A9B2ADB4FAA00E90C66 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A9A2ADB4FAA00E90C66 /* LoginRequest.swift */; };
-		C2128A9D2ADB4FB100E90C66 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A9C2ADB4FB100E90C66 /* LoginResponse.swift */; };
 		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
 		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
 		FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */; };
@@ -36,8 +34,6 @@
 		C2128A8F2ADB341400E90C66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C2128A932ADB454500E90C66 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		C2128A9A2ADB4FAA00E90C66 /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
-		C2128A9C2ADB4FB100E90C66 /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
 		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,8 +129,6 @@
 			children = (
 				C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */,
 				C2128A8F2ADB341400E90C66 /* LoginView.swift */,
-				C2128A9A2ADB4FAA00E90C66 /* LoginRequest.swift */,
-				C2128A9C2ADB4FB100E90C66 /* LoginResponse.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -287,8 +281,6 @@
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C2128A762ADB270B00E90C66 /* DisciteApp.swift in Sources */,
 				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
-				C2128A9B2ADB4FAA00E90C66 /* LoginRequest.swift in Sources */,
-				C2128A9D2ADB4FB100E90C66 /* LoginResponse.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,

@@ -3,19 +3,13 @@
 //  Discite
 //
 //  Created by Jessie Li on 10/17/23.
+//
 //  Source:
 //      https://medium.com/mop-developers/build-your-first-swiftui-app-part-5-handling-authorization-95f49cdb0b29
 
 import Foundation
 
 class Auth: ObservableObject {
-    
-    enum AuthError: Error {
-        case noToken
-        case noPassword
-        case unexpectedPasswordData
-        case unhandledError(status: OSStatus)
-    }
     
     struct Credentials {
         var token: String?
@@ -42,10 +36,17 @@ class Auth: ObservableObject {
         )
     }
     
-    func setCredentials(credentials: Credentials) throws {
-        guard credentials.token != nil else { throw AuthError.noToken }
-        keychain.set(credentials.token!, forKey: KeychainKey.token.rawValue)
-        loggedIn = true
+    // Stores token in keychain
+    func setCredentials(credentials: Credentials) -> Bool {
+        if (credentials.token == nil) { return false }
+        
+        let success = keychain.set(credentials.token!, forKey: KeychainKey.token.rawValue)
+        if (success) {
+            loggedIn = true
+            return true
+        }
+        
+        return false
     }
     
     func hasToken() -> Bool {
@@ -58,8 +59,6 @@ class Auth: ObservableObject {
 
     func logout() {
         keychain.removeObject(forKey: KeychainKey.token.rawValue)
-        
         loggedIn = false
     }
-    
 }
