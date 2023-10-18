@@ -13,6 +13,11 @@
 		C2128A7D2ADB271300E90C66 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2128A7C2ADB271300E90C66 /* Preview Assets.xcassets */; };
 		C2128A852ADB2B1100E90C66 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C2128A842ADB2B1100E90C66 /* .swiftlint.yml */; };
 		C2128A882ADB2B8100E90C66 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2128A8A2ADB2B8100E90C66 /* Localizable.strings */; };
+		C2128A902ADB341400E90C66 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A8F2ADB341400E90C66 /* LoginView.swift */; };
+		C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A932ADB454500E90C66 /* AuthenticationService.swift */; };
+		C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */; };
+		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
+		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
 		FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +31,11 @@
 		C2128A7C2ADB271300E90C66 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C2128A842ADB2B1100E90C66 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C2128A892ADB2B8100E90C66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C2128A8F2ADB341400E90C66 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C2128A932ADB454500E90C66 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
+		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -81,7 +91,7 @@
 			children = (
 				C2128A752ADB270B00E90C66 /* DisciteApp.swift */,
 				C2128A772ADB270B00E90C66 /* ContentView.swift */,
-				C2128A792ADB271300E90C66 /* Assets.xcassets */,
+				C2128A8E2ADB32B100E90C66 /* Classes */,
 				C2128A8C2ADB2BA100E90C66 /* Configuration */,
 				C2128A8B2ADB2B9100E90C66 /* Shared */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
@@ -100,6 +110,7 @@
 		C2128A8B2ADB2B9100E90C66 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 			);
 			path = Shared;
@@ -111,6 +122,42 @@
 				C2128A842ADB2B1100E90C66 /* .swiftlint.yml */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		C2128A8D2ADB32A600E90C66 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */,
+				C2128A8F2ADB341400E90C66 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C2128A8E2ADB32B100E90C66 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C2128A972ADB4F3A00E90C66 /* Authentication */,
+				C2128A8D2ADB32A600E90C66 /* Login */,
+				C235C6712ADF460C00870600 /* Utility */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C2128A972ADB4F3A00E90C66 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		C235C6712ADF460C00870600 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C235C6722ADF463600870600 /* KeychainTools.swift */,
+				C235C6742ADF842500870600 /* Auth.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,8 +277,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2128A902ADB341400E90C66 /* LoginView.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C2128A762ADB270B00E90C66 /* DisciteApp.swift in Sources */,
+				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
+				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
+				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
+				C235C6752ADF842500870600 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
