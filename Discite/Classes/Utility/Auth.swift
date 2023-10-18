@@ -11,9 +11,9 @@ import Foundation
 
 class Auth: ObservableObject {
     
-    struct Credentials {
-        var token: String?
-        var userId: String?
+    enum AuthError: Error {
+        case noToken
+        case setToken
     }
     
     enum KeychainKey: String {
@@ -30,31 +30,22 @@ class Auth: ObservableObject {
         loggedIn = hasToken()
     }
     
-    func getCredentials() -> Credentials {
-        return Credentials(
-            token: keychain.string(forKey: KeychainKey.token.rawValue)
-        )
-    }
-    
     // Stores token in keychain
-    func setCredentials(credentials: Credentials) -> Bool {
-        if (credentials.token == nil) { return false }
+    func setToken(token: String?) throws {
+        guard token != nil else { throw AuthError.noToken }
         
-        let success = keychain.set(credentials.token!, forKey: KeychainKey.token.rawValue)
-        if (success) {
-            loggedIn = true
-            return true
-        }
+        let success = keychain.set(token!, forKey: KeychainKey.token.rawValue)
+        guard success else { throw AuthError.setToken }
         
-        return false
+        loggedIn = true
     }
     
     func hasToken() -> Bool {
-        return getCredentials().token != nil
+        return getToken() != nil
     }
     
     func getToken() -> String? {
-        return getCredentials().token
+        return keychain.string(forKey: KeychainKey.token.rawValue)
     }
 
     func logout() {

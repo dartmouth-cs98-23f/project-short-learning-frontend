@@ -39,10 +39,6 @@ struct LoginView: View {
             .frame(width: 500, height: 50)
             .foregroundColor(Color.white)
             .background(Color.blue)
-
-            if viewModel.showSuccess {
-                Text("Success!")
-            }
         }
     }
 }

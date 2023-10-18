@@ -13,20 +13,26 @@ class LoginViewModel: ObservableObject {
 
     @Published var usernameOrEmail: String = ""
     @Published var password: String = ""
-    @Published var showSuccess = false
 
     func login() {
-        self.showSuccess = false
-
         AuthenticationService(
             parameters: LoginRequest(
                 usernameOrEmail: usernameOrEmail,
                 password: password
             )
-        ).call { response in
-            // Login successful
-            print("JWT token:", response.data.token)
-            self.showSuccess = true
+        ).call { result in
+            
+            switch result {
+            case .success(let response):
+                do {
+                    try Auth.shared.setToken(token: response.data.token)
+                } catch {
+                    print("Error: Unable to store token in keychain.")
+                }
+            
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+            }
         }
     }
 }

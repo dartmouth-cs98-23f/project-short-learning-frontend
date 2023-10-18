@@ -9,3 +9,6 @@
 "Login.UsernameOrEmailField.Title" = "Username or email";
 "Login.PasswordField.Title" = "Password";
 "Login.Button.Text" = "Login";
+
+"Error.NetworkError.InvalidJSON" = "Unable to decode response JSON.";
+"Error.NetworkError.RequestFailed" = "API request failed.";
