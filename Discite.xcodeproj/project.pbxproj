@@ -18,6 +18,8 @@
 		C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */; };
 		C2128A9B2ADB4FAA00E90C66 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A9A2ADB4FAA00E90C66 /* LoginRequest.swift */; };
 		C2128A9D2ADB4FB100E90C66 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A9C2ADB4FB100E90C66 /* LoginResponse.swift */; };
+		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
+		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
 		FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C2128A9A2ADB4FAA00E90C66 /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		C2128A9C2ADB4FB100E90C66 /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
+		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,7 +95,7 @@
 			children = (
 				C2128A752ADB270B00E90C66 /* DisciteApp.swift */,
 				C2128A772ADB270B00E90C66 /* ContentView.swift */,
-				C2128A8E2ADB32B100E90C66 /* Features */,
+				C2128A8E2ADB32B100E90C66 /* Classes */,
 				C2128A8C2ADB2BA100E90C66 /* Configuration */,
 				C2128A8B2ADB2B9100E90C66 /* Shared */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
@@ -135,13 +139,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		C2128A8E2ADB32B100E90C66 /* Features */ = {
+		C2128A8E2ADB32B100E90C66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
 				C2128A8D2ADB32A600E90C66 /* Login */,
+				C235C6712ADF460C00870600 /* Utility */,
 			);
-			path = Features;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		C2128A972ADB4F3A00E90C66 /* Authentication */ = {
@@ -150,6 +155,15 @@
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		C235C6712ADF460C00870600 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C235C6722ADF463600870600 /* KeychainTools.swift */,
+				C235C6742ADF842500870600 /* Auth.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +290,8 @@
 				C2128A9B2ADB4FAA00E90C66 /* LoginRequest.swift in Sources */,
 				C2128A9D2ADB4FB100E90C66 /* LoginResponse.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
+				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
+				C235C6752ADF842500870600 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
