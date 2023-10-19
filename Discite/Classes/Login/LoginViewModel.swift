@@ -14,25 +14,25 @@ class LoginViewModel: ObservableObject {
     @Published var usernameOrEmail: String = ""
     @Published var password: String = ""
 
+    @Published var error: APIError?
+    
     func login() {
         AuthenticationService(
             parameters: LoginRequest(
                 usernameOrEmail: usernameOrEmail,
                 password: password
             )
-        ).call { result in
+        ).call { response in
+            self.error = nil
             
-            switch result {
-            case .success(let response):
-                do {
-                    try Auth.shared.setToken(token: response.data.token)
-                } catch {
-                    print("Error: Unable to store token in keychain.")
-                }
-            
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
+            do {
+                try Auth.shared.setToken(token: response.data.token)
+            } catch {
+                print("Error: Unable to store token in keychain.")
             }
+            
+        } failure: { error in
+            self.error = error
         }
     }
 }

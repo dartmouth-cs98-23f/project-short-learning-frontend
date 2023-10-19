@@ -25,69 +25,40 @@ struct LoginRequest: Encodable {
     let password: String
 }
 
-enum NetworkError: Error {
-    case invalidJSON
-    case requestFailed
-}
-
-extension NetworkError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .invalidJSON:
-            return NSLocalizedString("Error.NetworkError.InvalidJSON", comment: "Network error")
-        case .requestFailed:
-            return NSLocalizedString("Error.NetworkError.RequestFailed", comment: "Network error")
-        }
-    }
+class AuthConfig {
+    static let shared = AuthConfig()
+    
+    let scheme: String = "https"
+    let host: String = "72a29288-615d-4ed4-8f9a-21b224056d7f.mock.pstmn.io" // Mock server
 }
 
 struct AuthenticationService {
 
+    let path = "/login"
+    let method: HTTPMethod = .post
     var parameters: LoginRequest
-
-    func call(completion: @escaping (Result<LoginResponse, NetworkError>) -> Void) {
-        let scheme: String = "https"
-        let host: String = "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io" // mock server
-        let path = "/login"
-
-        // Construct the URL
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = path
-        guard let url = components.url else {
-            return
-        }
-
-        // Construct the request: method, body, and headers
-        var request = URLRequest(url: url)
-        request.httpMethod = "post"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
-
-        do {
-            request.httpBody = try JSONEncoder().encode(parameters)
-        } catch {
-
-        }
-
-        // Make the request
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            if let data = data, error == nil {
+        
+    func call(
+        completion: @escaping (LoginResponse) -> Void,
+        failure: @escaping (APIError) -> Void
+    ) {
+        APIRequest<LoginRequest, LoginResponse>.call(
+            scheme: AuthConfig.shared.scheme,
+            host: AuthConfig.shared.host,
+            path: path,
+            method: method,
+            authorized: false,
+            parameters: parameters) { data in
+                
                 do {
                     let response = try JSONDecoder().decode(LoginResponse.self, from: data)
-                    completion(.success(response))
+                    completion(response)
                 } catch {
-                    // Error: Unable to decode response JSON
-                    completion(.failure(NetworkError.invalidJSON))
+                    failure(.invalidJSON)
                 }
-
-            } else {
-                // Error: API request failed
-                completion(.failure(NetworkError.requestFailed))
+                
+            } failure: { error in
+                failure(error)
             }
-        }
-        task.resume()
     }
 }

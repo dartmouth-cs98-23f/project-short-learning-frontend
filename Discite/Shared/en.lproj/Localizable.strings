@@ -13,5 +13,6 @@
 "Home.Title" = "Welcome!";
 "Home.LogoutButton.Title" = "Log out";
 
-"Error.NetworkError.InvalidJSON" = "Unable to decode response JSON.";
-"Error.NetworkError.RequestFailed" = "API request failed.";
+"Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
+"Error.APIError.RequestFailed" = "API request failed.";
+"Error.APIError.NoInternet" = "No internet.";

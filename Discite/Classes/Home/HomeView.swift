@@ -25,11 +25,7 @@ struct HomeView: View {
                 action: viewModel.logout,
                 label: {
                     Text("Home.LogoutButton.Title")
-                        .font(.system(size: 24, weight: .bold, design: .default))
-                        .frame(maxWidth: .infinity, maxHeight: 60)
-                        .foregroundColor(Color.white)
-                        .background(Color.red)
-                        .cornerRadius(10)
+                        .modifier(PrimaryButton(color: Color.red))
                 }
             )
         }
