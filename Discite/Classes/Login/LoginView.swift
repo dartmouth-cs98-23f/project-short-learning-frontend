@@ -34,7 +34,7 @@ struct LoginView: View {
             }
             
             if viewModel.error != nil {
-                Text("\(viewModel.error?.localizedDescription ?? "Error")")
+                Text("\(viewModel.error?.localizedDescription ?? "Unknown error")")
                     .fontWeight(.bold)
                     .foregroundColor(.red)
             }

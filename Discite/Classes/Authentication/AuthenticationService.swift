@@ -29,7 +29,7 @@ class AuthConfig {
     static let shared = AuthConfig()
     
     let scheme: String = "https"
-    let host: String = "72a29288-615d-4ed4-8f9a-21b224056d7f.mock.pstmn.io" // Mock server
+    let host: String = "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io" // Mock server
 }
 
 struct AuthenticationService {
