@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  WatchView.swift
 //  Discite
 //
 //  Created by Jessie Li on 10/18/23.
@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var viewModel: HomeViewModel = HomeViewModel()
+    @ObservedObject var viewModel: WatchViewModel = WatchViewModel()
 
     var body: some View {
         VStack {

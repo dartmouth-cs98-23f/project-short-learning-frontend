@@ -10,10 +10,6 @@
 
 import Foundation
 
-struct LoginResponse: Decodable {
-    let data: LoginResponseData
-}
-
 struct LoginResponseData: Decodable {
     let token: String
     let userId: String
@@ -39,10 +35,10 @@ struct AuthenticationService {
     var parameters: LoginRequest
         
     func call(
-        completion: @escaping (LoginResponse) -> Void,
+        completion: @escaping (LoginResponseData) -> Void,
         failure: @escaping (APIError) -> Void
     ) {
-        APIRequest<LoginRequest, LoginResponse>.call(
+        APIRequest<LoginRequest, LoginResponseData>.call(
             scheme: AuthConfig.shared.scheme,
             host: AuthConfig.shared.host,
             path: path,
@@ -51,7 +47,7 @@ struct AuthenticationService {
             parameters: parameters) { data in
                 
                 do {
-                    let response = try JSONDecoder().decode(LoginResponse.self, from: data)
+                    let response = try JSONDecoder().decode(LoginResponseData.self, from: data)
                     completion(response)
                 } catch {
                     failure(.invalidJSON)

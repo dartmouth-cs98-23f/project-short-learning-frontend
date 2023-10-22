@@ -18,8 +18,8 @@
 		C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */; };
 		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
 		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
-		C235C6782AE06E4700870600 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6772AE06E4700870600 /* HomeView.swift */; };
-		C235C67A2AE06E8300870600 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6792AE06E8300870600 /* HomeViewModel.swift */; };
+		C235C6782AE06E4700870600 /* WatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6772AE06E4700870600 /* WatchView.swift */; };
+		C235C67A2AE06E8300870600 /* WatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6792AE06E8300870600 /* WatchViewModel.swift */; };
 		C2D287222AE0B05100BB263C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287212AE0B05100BB263C /* RootView.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -42,8 +42,8 @@
 		C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
 		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		C235C6772AE06E4700870600 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		C235C6792AE06E8300870600 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C235C6772AE06E4700870600 /* WatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchView.swift; sourceTree = "<group>"; };
+		C235C6792AE06E8300870600 /* WatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViewModel.swift; sourceTree = "<group>"; };
 		C2D287212AE0B05100BB263C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				C2D287202AE0B03B00BB263C /* Root */,
-				C235C6762AE06DD700870600 /* Home */,
+				C235C6762AE06DD700870600 /* Watch */,
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
 				C2128A8D2ADB32A600E90C66 /* Login */,
 				C235C6712ADF460C00870600 /* Utility */,
@@ -154,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
+				C235C6742ADF842500870600 /* Auth.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -162,20 +163,19 @@
 			isa = PBXGroup;
 			children = (
 				C235C6722ADF463600870600 /* KeychainTools.swift */,
-				C235C6742ADF842500870600 /* Auth.swift */,
 				C2D287262AE0BA8F00BB263C /* APIRequest.swift */,
 				C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		C235C6762AE06DD700870600 /* Home */ = {
+		C235C6762AE06DD700870600 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
-				C235C6772AE06E4700870600 /* HomeView.swift */,
-				C235C6792AE06E8300870600 /* HomeViewModel.swift */,
+				C235C6772AE06E4700870600 /* WatchView.swift */,
+				C235C6792AE06E8300870600 /* WatchViewModel.swift */,
 			);
-			path = Home;
+			path = Watch;
 			sourceTree = "<group>";
 		};
 		C2D287202AE0B03B00BB263C /* Root */ = {
@@ -313,12 +313,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2128A902ADB341400E90C66 /* LoginView.swift in Sources */,
-				C235C67A2AE06E8300870600 /* HomeViewModel.swift in Sources */,
+				C235C67A2AE06E8300870600 /* WatchViewModel.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C2128A762ADB270B00E90C66 /* DisciteApp.swift in Sources */,
 				C2D287222AE0B05100BB263C /* RootView.swift in Sources */,
 				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
-				C235C6782AE06E4700870600 /* HomeView.swift in Sources */,
+				C235C6782AE06E4700870600 /* WatchView.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,

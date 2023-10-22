@@ -26,6 +26,7 @@ enum APIError: Error {
     case invalidJSON
     case requestFailed
     case noInternet
+    case unknownError
 }
 
 extension APIError: LocalizedError {
@@ -37,6 +38,8 @@ extension APIError: LocalizedError {
             return NSLocalizedString("Error.APIError.RequestFailed", comment: "API error")
         case .noInternet:
             return NSLocalizedString("Error.APIError.NoInternet", comment: "API error")
+        case .unknownError:
+            return NSLocalizedString("Error.APIError.UnknownError", comment: "API error")
         }
     }
 }
@@ -58,9 +61,6 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         if !NetworkMonitor.shared.isReachable {
             return failure(.noInternet)
         }
-        
-        let scheme: String = "https"
-        let host: String = "72a29288-615d-4ed4-8f9a-21b224056d7f.mock.pstmn.io" // Mock server
         
         // Construct the URL
         var components = URLComponents()
@@ -93,13 +93,11 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         }
         
         // Make the request
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 completion(data)
-            } else {
-                if error != nil {
-                    failure(APIError.requestFailed)
-                }
+            } else if error != nil {
+                failure(APIError.requestFailed)
             }
         }
         

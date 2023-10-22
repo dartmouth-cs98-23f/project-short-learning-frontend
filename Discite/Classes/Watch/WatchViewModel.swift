@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  WatchViewModel.swift
 //  Discite
 //
 //  Created by Jessie Li on 10/18/23.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-class HomeViewModel: ObservableObject {
+class WatchViewModel: ObservableObject {
 
     func logout() {
         Auth.shared.logout()
