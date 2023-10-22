@@ -32,13 +32,17 @@ struct LoginView: View {
                 .frame(width: 500, height: 50)
                 .background(Color.black.opacity(0.05))
             }
-
+            
+            if viewModel.error != nil {
+                Text("\(viewModel.error?.localizedDescription ?? "Unknown error")")
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+            }
+            
             Button("Login.Button.Text") {
                 viewModel.login()
             }
-            .frame(width: 500, height: 50)
-            .foregroundColor(Color.white)
-            .background(Color.blue)
+            .modifier(PrimaryButton())
         }
     }
 }

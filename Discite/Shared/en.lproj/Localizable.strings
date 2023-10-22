@@ -8,7 +8,12 @@
 
 "Login.UsernameOrEmailField.Title" = "Username or email";
 "Login.PasswordField.Title" = "Password";
-"Login.Button.Text" = "Login";
+"Login.Button.Text" = "Log In";
 
-"Error.NetworkError.InvalidJSON" = "Unable to decode response JSON.";
-"Error.NetworkError.RequestFailed" = "API request failed.";
+"Home.Title" = "Welcome!";
+"Home.LogoutButton.Title" = "Log Out";
+
+"Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
+"Error.APIError.RequestFailed" = "API request failed.";
+"Error.APIError.NoInternet" = "No internet.";
+"Error.APIError.UnknownError" = "Unknown error.";
