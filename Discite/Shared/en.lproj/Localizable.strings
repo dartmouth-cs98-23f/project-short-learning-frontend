@@ -8,10 +8,10 @@
 
 "Login.UsernameOrEmailField.Title" = "Username or email";
 "Login.PasswordField.Title" = "Password";
-"Login.Button.Text" = "Login";
+"Login.Button.Text" = "Log In";
 
 "Home.Title" = "Welcome!";
-"Home.LogoutButton.Title" = "Log out";
+"Home.LogoutButton.Title" = "Log Out";
 
 "Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
 "Error.APIError.RequestFailed" = "API request failed.";
