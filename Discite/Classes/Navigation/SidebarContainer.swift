@@ -28,7 +28,7 @@ struct SidebarContainer<SidebarContent: View>: View {
     var body: some View {
         ZStack(alignment: .leading) {
             
-            if (showSidebar) {
+            if showSidebar {
                 // Dim background
                 Color.black
                     .opacity(0.3)
@@ -49,17 +49,19 @@ struct SidebarContainer<SidebarContent: View>: View {
     }
 }
 
-struct SidebarStack_Previews: PreviewProvider {
+struct SidebarContainer_Previews: PreviewProvider {
     
     static var previews: some View {
-        ContainerView(sidebarWidth: 150, showSidebar: .constant(true)) {
+        SidebarContainer(sidebarWidth: 150, showSidebar: .constant(true)) {
             VStack {
-                Text("Item 1")
-                Text("Item 2")
-                Text("Item 3")
+                Text("Item 1").padding(5)
+                Text("Item 2").padding(5)
+                Text("Item 3").padding(5)
+                Spacer()
             }
-        } content: {
-            Text("Main content")
-        }.edgesIgnoringSafeArea(.all)
+            .padding(.top, 100)
+            .frame(width: 150)
+            .background(Color.white)
+        }
     }
 }

@@ -20,9 +20,10 @@ struct WatchView: View {
                 Button {
                     showSidebar.toggle()
                 } label: {
-                    Image(systemName: "lines.3.horizontal")
+                    Image(systemName: "line.3.horizontal")
                         .resizable()
                         .frame(width: 32, height: 32)
+                        .foregroundColor(Color.black)
                 }
                 
                 Spacer()

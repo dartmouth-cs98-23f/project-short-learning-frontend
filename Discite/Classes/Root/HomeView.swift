@@ -15,7 +15,7 @@ struct HomeView: View {
     @State var selectedSidebarItem = 0
     
     var body: some View {
-        ZStack{
+        ZStack {
             
             TabView(selection: $selectedSidebarItem) {
                 WatchView(showSidebar: $showSidebar)
@@ -28,8 +28,8 @@ struct HomeView: View {
                     .tag(3)
             }
             
-            SidebarContainer(sidebarWidth: 150, showSidebar: $showSidebar) {
-                Sidebar(selectedSidebarItem: $selectedSidebarItem, showSidebar: $showSidebar)
+            SidebarContainer(sidebarWidth: 200, showSidebar: $showSidebar) {
+                Sidebar(selectedSidebarItem: $selectedSidebarItem, showSidebar: $showSidebar, sidebarWidth: 200)
             }
         }
     }
