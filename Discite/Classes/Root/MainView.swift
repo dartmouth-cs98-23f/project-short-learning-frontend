@@ -4,11 +4,13 @@
 //
 //  Created by Jessie Li on 10/18/23.
 //
-//  Source: https://medium.com/mop-developers/build-your-first-swiftui-app-part-5-handling-authorization-95f49cdb0b29
+//  Source:
+//      https://medium.com/mop-developers/build-your-first-swiftui-app-part-5-handling-authorization-95f49cdb0b29
+//      https://medium.com/geekculture/side-menu-in-ios-swiftui-9fe1b69fc487
 
 import SwiftUI
 
-struct RootView: View {
+struct MainView: View {
     
     @EnvironmentObject var auth: Auth
     
@@ -21,9 +23,9 @@ struct RootView: View {
     }
 }
 
-struct RootScreen_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        MainView()
             .environmentObject(Auth.shared)
     }
 }

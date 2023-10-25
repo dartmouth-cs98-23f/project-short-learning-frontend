@@ -1,17 +1,16 @@
 //
-//  WatchView.swift
+//  AccountView.swift
 //  Discite
 //
-//  Created by Jessie Li on 10/18/23.
+//  Created by Jessie Li on 10/22/23.
 //
 //  Source:
-//      https://medium.com/mop-developers/build-your-first-swiftui-app-part-5-handling-authorization-95f49cdb0b29
+//      https://medium.com/geekculture/side-menu-in-ios-swiftui-9fe1b69fc487
 
 import SwiftUI
 
-struct WatchView: View {
+struct AccountView: View {
     
-    @ObservedObject var viewModel: WatchViewModel = WatchViewModel()
     @Binding var showSidebar: Bool
 
     var body: some View {
@@ -30,15 +29,10 @@ struct WatchView: View {
             }
                     
             Spacer()
-            Text("Watch View")
+            Text("Account View")
             Spacer()
         }
         .padding(.horizontal, 24)
     }
-}
-
-struct WatchView_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchView(showSidebar: .constant(false))
-    }
+    
 }
