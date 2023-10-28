@@ -7,7 +7,7 @@
 
 import AVKit
 
-class TestVideoQueue {
+class VideoQueue {
     
     @Published var player: AVPlayer = AVPlayer()
     

@@ -34,7 +34,7 @@
 		C29DB07F2AEC55D40081C354 /* video3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07C2AEC55D40081C354 /* video3.mp4 */; };
 		C29DB0802AEC55D40081C354 /* video2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07D2AEC55D40081C354 /* video2.mp4 */; };
 		C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */; };
-		C2BA1CBF2AEC6CA000DC21B2 /* TestVideoQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CBE2AEC6CA000DC21B2 /* TestVideoQueue.swift */; };
+		C2BA1CBF2AEC6CA000DC21B2 /* VideoQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CBE2AEC6CA000DC21B2 /* VideoQueue.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287222AE0B05100BB263C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287212AE0B05100BB263C /* MainView.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
@@ -74,7 +74,7 @@
 		C29DB07C2AEC55D40081C354 /* video3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video3.mp4; sourceTree = "<group>"; };
 		C29DB07D2AEC55D40081C354 /* video2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video2.mp4; sourceTree = "<group>"; };
 		C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSimplePlayerView.swift; sourceTree = "<group>"; };
-		C2BA1CBE2AEC6CA000DC21B2 /* TestVideoQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVideoQueue.swift; sourceTree = "<group>"; };
+		C2BA1CBE2AEC6CA000DC21B2 /* VideoQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoQueue.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287212AE0B05100BB263C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
@@ -231,9 +231,9 @@
 				C235C6792AE06E8300870600 /* WatchViewModel.swift */,
 				C23A44182AE9E813004C6927 /* TestVideoService.swift */,
 				C259067F2AE99B8B00B2C81C /* VideoPlayerView.swift */,
-				C2BA1CBE2AEC6CA000DC21B2 /* TestVideoQueue.swift */,
-				C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */,
+				C2BA1CBE2AEC6CA000DC21B2 /* VideoQueue.swift */,
 				C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */,
+				C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -425,7 +425,7 @@
 				C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
-				C2BA1CBF2AEC6CA000DC21B2 /* TestVideoQueue.swift in Sources */,
+				C2BA1CBF2AEC6CA000DC21B2 /* VideoQueue.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,

@@ -14,26 +14,26 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    private let testVideoQueue = TestVideoQueue()
+    private let videoQueue = VideoQueue()
     
     var body: some View {
-        VideoPlayer(player: testVideoQueue.player)
+        VideoPlayer(player: videoQueue.player)
             .edgesIgnoringSafeArea(.all)
             .onAppear {
-                testVideoQueue.player.play()
+                videoQueue.player.play()
                 
                 NotificationCenter.default.addObserver(
                     forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                    object: testVideoQueue.player.currentItem,
+                    object: videoQueue.player.currentItem,
                     queue: .main) { (_) in
                     
                     // Loop the video
-                    testVideoQueue.player.seek(to: .zero)
-                    testVideoQueue.player.play()
+                    videoQueue.player.seek(to: .zero)
+                    videoQueue.player.play()
                 }
             }
             .onDisappear {
-                testVideoQueue.player.pause()
+                videoQueue.player.pause()
             }
             .gesture(DragGesture(minimumDistance: 20)
                 .onEnded({ value in
@@ -42,7 +42,7 @@ struct VideoPlayerView: View {
                     switch swipeDirection {
                     case .right:
                         // Move to the next video
-                        testVideoQueue.nextVideo()
+                        videoQueue.nextVideo()
                     default:
                         print("No action required.")
                     }
