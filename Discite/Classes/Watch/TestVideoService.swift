@@ -26,15 +26,15 @@ struct TestVideoService {
     
     func fetchVideos(
         videoId: String,
-        completion: @escaping (TestVideoResponse) -> Void,
+        completion: @escaping (VideoData) -> Void,
         failure: @escaping (APIError) -> Void
     ) {
         
         let path: String = "/videos/videos/" + videoId
         let method: HTTPMethod = .get
-        let headerFields: [String : String] = ["Authorization": VideoAPIConfiguration.shared.APIkey]
+        let headerFields: [String: String] = ["Authorization": VideoAPIConfiguration.shared.APIkey]
         
-        APIRequest<TestVideoRequest, TestVideoResponse>.call(
+        APIRequest<TestVideoRequest, VideoData>.call(
             scheme: VideoAPIConfiguration.shared.scheme,
             host: VideoAPIConfiguration.shared.host,
             path: path,
@@ -43,8 +43,12 @@ struct TestVideoService {
             headerFields: headerFields) { data in
                 
                 do {
-                    let response = try JSONDecoder().decode(TestVideoResponse.self, from: data)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    
+                    let response = try decoder.decode(VideoData.self, from: data)
                     completion(response)
+
                 } catch {
                     failure(.invalidJSON)
                 }
@@ -57,15 +61,14 @@ struct TestVideoService {
 }
 
 // From Pexels API
-struct TestVideoResponse: Decodable {
+struct VideoData: Identifiable, Decodable {
     var id: Int
-    var url: Int
-    var video_files: [VideoFile]
-}
-
-struct VideoFile: Identifiable, Decodable {
-    var id: Int
-    var quality: String
-    var file_type: String
-    var link: String
+    var videoFiles: [VideoFile]
+    
+    struct VideoFile: Identifiable, Decodable {
+        var id: Int
+        var quality: String
+        var fileType: String
+        var link: String
+    }
 }

@@ -7,15 +7,15 @@
 
 import AVKit
 
-class VideoQueue {
+class VideoQueue: ObservableObject {
     
     @Published var player: AVPlayer = AVPlayer()
     @Published var fetchSuccessful: Bool = false
+    @Published var fetchError: APIError?
     
     private var playerQueue: [AVPlayerItem] = []
     private var videoService: TestVideoService = TestVideoService()
 
-    
     init() {
         let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
         let playerItem2 = AVPlayerItem(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
@@ -38,13 +38,16 @@ class VideoQueue {
     
     // Fetch videos from an API and add them to the queue
     func fetchVideos() {
-        videoService.fetchVideos(videoId: "2499611") { videoResponse in
+        videoService.fetchVideos(videoId: "2499611") { (_) in
+            self.fetchError = nil
             self.fetchSuccessful = true
             
+            // Add the video to the queue
+            
         } failure: { error in
+            self.fetchError = error
             self.fetchSuccessful = false
         }
 
-        
     }
 }

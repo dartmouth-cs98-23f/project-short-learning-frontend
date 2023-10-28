@@ -54,7 +54,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         authorized: Bool,
         queryItems: [URLQueryItem]? = nil,
         parameters: Parameters? = nil,
-        headerFields: [String : String]? = nil,
+        headerFields: [String: String]? = nil,
         completion: @escaping CompletionHandler,
         failure: @escaping FailureHandler
     ) {
@@ -102,7 +102,9 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         }
         
         // Make the request
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else { return }
+                        
             if let data = data {
                 completion(data)
             } else if error != nil {

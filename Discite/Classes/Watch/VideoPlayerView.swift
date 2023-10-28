@@ -14,17 +14,21 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    private let videoQueue = VideoQueue()
+    @StateObject private var videoQueue = VideoQueue()
     
     var body: some View {
         
         VStack {
-            Button("Fetch videos") {
+            Button {
                 videoQueue.fetchVideos()
+            } label: {
+                Text("Fetch videos")
             }
-            
+
             if videoQueue.fetchSuccessful {
                 Text("Fetch was successful.")
+            } else if videoQueue.fetchError != nil {
+                Text("\(videoQueue.fetchError?.localizedDescription ?? "Unknown error")")
             }
             
             VideoPlayer(player: videoQueue.player)
