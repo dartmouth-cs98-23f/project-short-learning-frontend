@@ -10,8 +10,11 @@ import AVKit
 class VideoQueue {
     
     @Published var player: AVPlayer = AVPlayer()
+    @Published var fetchSuccessful: Bool = false
     
     private var playerQueue: [AVPlayerItem] = []
+    private var videoService: TestVideoService = TestVideoService()
+
     
     init() {
         let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
@@ -25,10 +28,23 @@ class VideoQueue {
         nextVideo()
     }
     
+    // Advance to the next video in the queue, if there is one
     func nextVideo() {
         if !self.playerQueue.isEmpty {
             let nextPlayerItem = self.playerQueue.removeFirst()
             player.replaceCurrentItem(with: nextPlayerItem)
         }
+    }
+    
+    // Fetch videos from an API and add them to the queue
+    func fetchVideos() {
+        videoService.fetchVideos(videoId: "2499611") { videoResponse in
+            self.fetchSuccessful = true
+            
+        } failure: { error in
+            self.fetchSuccessful = false
+        }
+
+        
     }
 }

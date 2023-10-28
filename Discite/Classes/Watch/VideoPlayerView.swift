@@ -17,39 +17,51 @@ struct VideoPlayerView: View {
     private let videoQueue = VideoQueue()
     
     var body: some View {
-        VideoPlayer(player: videoQueue.player)
-            .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                videoQueue.player.play()
-                
-                NotificationCenter.default.addObserver(
-                    forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                    object: videoQueue.player.currentItem,
-                    queue: .main) { (_) in
-                    
-                    // Loop the video
-                    videoQueue.player.seek(to: .zero)
+        
+        VStack {
+            Button("Fetch videos") {
+                videoQueue.fetchVideos()
+            }
+            
+            if videoQueue.fetchSuccessful {
+                Text("Fetch was successful.")
+            }
+            
+            VideoPlayer(player: videoQueue.player)
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
                     videoQueue.player.play()
-                }
-            }
-            .onDisappear {
-                videoQueue.player.pause()
-            }
-            .gesture(DragGesture(minimumDistance: 20)
-                .onEnded({ value in
-                    let swipeDirection = swipeDirection(value: value)
                     
-                    switch swipeDirection {
-                    case .right:
-                        // Move to the next video
-                        videoQueue.nextVideo()
-                    default:
-                        print("No action required.")
+                    NotificationCenter.default.addObserver(
+                        forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                        object: videoQueue.player.currentItem,
+                        queue: .main) { (_) in
+                        
+                        // Loop the video
+                        videoQueue.player.seek(to: .zero)
+                        videoQueue.player.play()
                     }
-                })
+                }
+                .onDisappear {
+                    videoQueue.player.pause()
+                }
+                .gesture(DragGesture(minimumDistance: 20)
+                    .onEnded({ value in
+                        let swipeDirection = swipeDirection(value: value)
+                        
+                        switch swipeDirection {
+                        case .right:
+                            // Move to the next video
+                            videoQueue.nextVideo()
+                        default:
+                            print("No action required.")
+                        }
+                    })
             )
+        }
     }
 }
+
 struct VideoPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         VideoPlayerView()
