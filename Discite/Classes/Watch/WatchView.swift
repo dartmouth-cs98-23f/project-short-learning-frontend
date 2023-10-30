@@ -31,6 +31,12 @@ struct WatchView: View {
                     
             Spacer()
             Text("Watch View")
+            
+            Button("Home.LogoutButton.Title") {
+                viewModel.logout()
+            }
+            .modifier(PrimaryButton(color: Color.red))
+            
             Spacer()
         }
         .padding(.horizontal, 24)

@@ -54,6 +54,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         authorized: Bool,
         queryItems: [URLQueryItem]? = nil,
         parameters: Parameters? = nil,
+        headerFields: [String: String]? = nil,
         completion: @escaping CompletionHandler,
         failure: @escaping FailureHandler
     ) {
@@ -80,9 +81,17 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
+        if let headerFields = headerFields {
+            for headerField in headerFields {
+                request.addValue(headerField.value, forHTTPHeaderField: headerField.key)
+            }
+            
+        } else {
+            // For the mock server
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
+        }
         
         if let parameters = parameters {
             request.httpBody = try? JSONEncoder().encode(parameters)
@@ -93,7 +102,9 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         }
         
         // Make the request
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else { return }
+                        
             if let data = data {
                 completion(data)
             } else if error != nil {
