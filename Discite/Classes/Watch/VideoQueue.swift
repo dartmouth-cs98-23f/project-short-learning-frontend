@@ -20,10 +20,10 @@ class VideoQueue: ObservableObject {
 
     init() {
         let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
-        // let playerItem2 = AVPlayerItem(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
+        let playerItem2 = AVPlayerItem(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
         // let playerItem3 = AVPlayerItem(url: Bundle.main.url(forResource: "video3", withExtension: "mp4")!)
         
-        for playerItem in [playerItem1] {
+        for playerItem in [playerItem1, playerItem2] {
            playerQueue.append(playerItem)
         }
         
@@ -39,14 +39,19 @@ class VideoQueue: ObservableObject {
     }
     
     // Advance to the next video in the queue, if there is one
+    // Otherwise, fetch next playlist
     func nextVideo() {
         if self.currentIndex < self.playerQueue.count {
-            self.currentIndex += 1
             player.replaceCurrentItem(with: self.playerQueue[currentIndex])
+            self.currentIndex += 1
         } else {
             // Retrieve the next playlist
-            // fetchNextPlaylist()
-            self.currentIndex = 0
+            fetchNextPlaylist()
+            
+            if !self.playerQueue.isEmpty {
+                self.currentIndex = 0
+                player.replaceCurrentItem(with: self.playerQueue[0])
+            }
         }
     }
     
@@ -64,18 +69,19 @@ class VideoQueue: ObservableObject {
                 let videoFile = videoData.videoFiles[5]
                 let playerItem = AVPlayerItem(url: URL(string: videoFile.link)!)
                 nextPlaylist.append(playerItem)
+                
+                // Replace videos from an API and add them to the queue
+                self.playerQueue = nextPlaylist
+                self.currentIndex = 0
+                
+                // Start playing this queue
+                self.nextVideo()
 
             } failure: { error in
                 self.fetchError = error
                 self.fetchSuccessful = false
             }
         }
-        
-        // Replace videos from an API and add them to the queue
-        self.playerQueue = nextPlaylist
-        self.currentIndex = 0
-        
-        // Start playing this queue
-        nextVideo()
+
     }
 }
