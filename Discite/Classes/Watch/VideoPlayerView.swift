@@ -20,13 +20,13 @@ struct VideoPlayerView: View {
         
         VStack {
             Button {
-                videoQueue.fetchVideos()
+                videoQueue.fetchNextPlaylist()
             } label: {
                 Text("Fetch videos")
             }
 
             if videoQueue.fetchSuccessful {
-                Text("Fetch was successful.")
+                Text("Fetch was successful. Queue length: \(videoQueue.queueLength())")
             } else if videoQueue.fetchError != nil {
                 Text("\(videoQueue.fetchError?.localizedDescription ?? "Unknown error")")
             }
