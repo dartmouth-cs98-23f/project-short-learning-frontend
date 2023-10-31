@@ -22,9 +22,11 @@ struct VideoAPIConfiguration {
     let APIkey: String = "5GNjXyXuHegB03rbiBcXjsdiMaZABuNfmAdOpzsjdFkVtMfPim9AEZ59"
 }
 
-struct TestVideoService {
+class TestVideoService: ObservableObject {
     
-    func fetchVideos(
+    static let shared: TestVideoService = TestVideoService()
+    
+    func fetchVideo(
         videoId: String,
         completion: @escaping (VideoData) -> Void,
         failure: @escaping (APIError) -> Void

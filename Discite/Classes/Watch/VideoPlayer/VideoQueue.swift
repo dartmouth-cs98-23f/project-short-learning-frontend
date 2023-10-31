@@ -16,7 +16,7 @@ class VideoQueue: ObservableObject {
     private(set) var playerQueue: [AVPlayerItem] = []
     var currentIndex: Int = 0
     
-    private var videoService: TestVideoService = TestVideoService()
+    private var videoService: TestVideoService = TestVideoService.shared
 
     init() {
         let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
@@ -38,8 +38,7 @@ class VideoQueue: ObservableObject {
         return playerQueue.isEmpty
     }
     
-    // Advance to the next video in the queue, if there is one
-    // Otherwise, fetch next playlist
+    // Advance to the next video in the queue, if none left, fetch the next playlist
     func nextVideo() {
         if self.currentIndex < self.playerQueue.count {
             player.replaceCurrentItem(with: self.playerQueue[currentIndex])
@@ -61,7 +60,7 @@ class VideoQueue: ObservableObject {
         var nextPlaylist: [AVPlayerItem] = []
         
         for id in ["6748095", "6747803", "6747794"] {
-            videoService.fetchVideos(videoId: id) { videoData in
+            videoService.fetchVideo(videoId: id) { videoData in
                 self.fetchError = nil
                 self.fetchSuccessful = true
                 
