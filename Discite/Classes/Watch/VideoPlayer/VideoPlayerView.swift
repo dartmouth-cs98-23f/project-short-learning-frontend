@@ -14,7 +14,9 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    @StateObject private var videoQueue = VideoQueue()
+    
+    @EnvironmentObject private var videoQueue: VideoQueue
+    @State private var showingDeepDive = false
     
     var body: some View {
         
@@ -57,11 +59,20 @@ struct VideoPlayerView: View {
                         case .right:
                             // Move to the next video
                             videoQueue.nextVideo()
+                            
+                        case .up:
+                            // Show DeepDive
+                            // videoQueue.player.pause()
+                            showingDeepDive = true
+                            
                         default:
                             print("No action required.")
                         }
                     })
-            )
+                )
+        }
+        .sheet(isPresented: $showingDeepDive) {
+            DeepDiveView(isPresented: $showingDeepDive)
         }
     }
 }
@@ -69,5 +80,6 @@ struct VideoPlayerView: View {
 struct VideoPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         VideoPlayerView()
+            .environmentObject(VideoQueue())
     }
 }

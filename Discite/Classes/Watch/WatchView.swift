@@ -9,6 +9,7 @@
 
 import SwiftUI
 
+// Determines whether to display video player, deepdive, or redirect user to login
 struct WatchView: View {
     
     @ObservedObject var viewModel: WatchViewModel = WatchViewModel()
