@@ -14,40 +14,34 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    @StateObject private var videoQueue = VideoQueue()
+    
+    @EnvironmentObject var videoQueue: VideoQueue
+    @State private var showingDeepDive = false
     
     var body: some View {
         
         VStack {
             Button {
-                videoQueue.fetchVideos()
+                videoQueue.fetchNextPlaylist()
             } label: {
                 Text("Fetch videos")
             }
 
             if videoQueue.fetchSuccessful {
-                Text("Fetch was successful.")
+                Text("Fetch was successful. Queue length: \(videoQueue.queueLength())")
             } else if videoQueue.fetchError != nil {
                 Text("\(videoQueue.fetchError?.localizedDescription ?? "Unknown error")")
             }
             
-            VideoPlayer(player: videoQueue.player)
+            VideoPlayer(player: videoQueue.getCurrentPlayer())
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
-                    videoQueue.player.play()
+                    videoQueue.play()
                     
-                    NotificationCenter.default.addObserver(
-                        forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                        object: videoQueue.player.currentItem,
-                        queue: .main) { (_) in
-                        
-                        // Loop the video
-                        videoQueue.player.seek(to: .zero)
-                        videoQueue.player.play()
-                    }
                 }
                 .onDisappear {
-                    videoQueue.player.pause()
+                    videoQueue.pause()
+        
                 }
                 .gesture(DragGesture(minimumDistance: 20)
                     .onEnded({ value in
@@ -57,11 +51,20 @@ struct VideoPlayerView: View {
                         case .right:
                             // Move to the next video
                             videoQueue.nextVideo()
+                        
+                        case .up:
+                            // Show DeepDive
+                            // videoQueue.player.pause()
+                            showingDeepDive = true
+                            
                         default:
                             print("No action required.")
                         }
                     })
-            )
+                )
+        }
+        .sheet(isPresented: $showingDeepDive) {
+            DeepDiveView(isPresented: $showingDeepDive)
         }
     }
 }
@@ -69,5 +72,6 @@ struct VideoPlayerView: View {
 struct VideoPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         VideoPlayerView()
+            .environmentObject(VideoQueue())
     }
 }
