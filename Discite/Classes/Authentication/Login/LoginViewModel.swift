@@ -17,7 +17,7 @@ class LoginViewModel: ObservableObject {
     @Published var error: APIError?
     
     func login() {
-        AuthenticationService(
+        AuthenticationService.LoginService(
             parameters: LoginRequest(
                 usernameOrEmail: usernameOrEmail,
                 password: password
