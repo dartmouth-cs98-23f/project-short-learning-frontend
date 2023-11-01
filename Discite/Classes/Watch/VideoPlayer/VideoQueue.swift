@@ -112,12 +112,14 @@ class VideoQueue: ObservableObject {
     // Fetch videos from an API and add them to the queue
     func fetchNextPlaylist() {
         
+        self.fetchError = nil
+        self.fetchSuccessful = false
+        
         var nextVideoQueue: [Video] = []
         var index = 0
         
         for id in ["6748095", "6747803", "6747794"] {
             videoService.fetchVideo(videoId: id) { videoData in
-                self.fetchError = nil
                 self.fetchSuccessful = true
                 
                 // Choose the HLS video file
@@ -125,25 +127,19 @@ class VideoQueue: ObservableObject {
                 let playerItem = AVPlayerItem(url: URL(string: videoFile.link)!)
                 
                 // Add this video to the queue
-                let video: Video = Video(index: index, data: videoData, playerItem: playerItem)
+                let video = Video(index: index, data: videoData, playerItem: playerItem)
                 nextVideoQueue.append(video)
                 index += 1
 
             } failure: { error in
                 self.fetchError = error
-                self.fetchSuccessful = false
                 return
             }
         }
         
-        // Replace videos from an API and add them to the queue
+        // Replace current queue with the new queue
         self.videoQueue = nextVideoQueue
-        self.currentIndex = 0
         
         // Update title, description, and creator of playlist
-        
-        // Start playing this queue
-        self.nextVideo()
-
     }
 }

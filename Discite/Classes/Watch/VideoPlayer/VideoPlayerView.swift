@@ -15,7 +15,7 @@ import AVKit
 
 struct VideoPlayerView: View {
     
-    @EnvironmentObject private var videoQueue: VideoQueue
+    @EnvironmentObject var videoQueue: VideoQueue
     @State private var showingDeepDive = false
     
     var body: some View {
