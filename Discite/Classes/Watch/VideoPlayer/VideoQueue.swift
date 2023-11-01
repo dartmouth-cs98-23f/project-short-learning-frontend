@@ -101,7 +101,7 @@ class VideoQueue: ObservableObject {
             // Retrieve the next playlist
             fetchNextPlaylist()
             
-            if !self.videoQueue.isEmpty {
+            if self.fetchSuccessful && !self.videoQueue.isEmpty {
                 self.currentIndex = 0
                 let nextVideo: Video = self.videoQueue[0]
                 player.replaceCurrentItem(with: nextVideo.playerItem)
@@ -120,8 +120,6 @@ class VideoQueue: ObservableObject {
         
         for id in ["6748095", "6747803", "6747794"] {
             videoService.fetchVideo(videoId: id) { videoData in
-                self.fetchSuccessful = true
-                
                 // Choose the HLS video file
                 let videoFile = videoData.videoFiles[5]
                 let playerItem = AVPlayerItem(url: URL(string: videoFile.link)!)
@@ -138,7 +136,10 @@ class VideoQueue: ObservableObject {
         }
         
         // Replace current queue with the new queue
-        self.videoQueue = nextVideoQueue
+        if !nextVideoQueue.isEmpty {
+            self.videoQueue = nextVideoQueue
+            self.fetchSuccessful = true
+        }
         
         // Update title, description, and creator of playlist
     }
