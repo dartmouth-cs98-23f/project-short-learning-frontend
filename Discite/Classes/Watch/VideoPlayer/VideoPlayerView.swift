@@ -33,23 +33,15 @@ struct VideoPlayerView: View {
                 Text("\(videoQueue.fetchError?.localizedDescription ?? "Unknown error")")
             }
             
-            VideoPlayer(player: videoQueue.player)
+            VideoPlayer(player: videoQueue.getCurrentPlayer())
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
-                    videoQueue.player.play()
+                    videoQueue.play()
                     
-                    NotificationCenter.default.addObserver(
-                        forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                        object: videoQueue.player.currentItem,
-                        queue: .main) { (_) in
-                        
-                        // Loop the video
-                        videoQueue.player.seek(to: .zero)
-                        videoQueue.player.play()
-                    }
                 }
                 .onDisappear {
-                    videoQueue.player.pause()
+                    videoQueue.pause()
+        
                 }
                 .gesture(DragGesture(minimumDistance: 20)
                     .onEnded({ value in
@@ -59,7 +51,7 @@ struct VideoPlayerView: View {
                         case .right:
                             // Move to the next video
                             videoQueue.nextVideo()
-                            
+                        
                         case .up:
                             // Show DeepDive
                             // videoQueue.player.pause()

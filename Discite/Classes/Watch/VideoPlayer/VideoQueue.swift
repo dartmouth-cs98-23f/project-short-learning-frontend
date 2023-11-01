@@ -31,8 +31,13 @@ class VideoQueue: ObservableObject {
     var currentIndex: Int = 0
     
     private var videoService: TestVideoService = TestVideoService.shared
+    
+    // Instead of storing a player instance, try storing a playerLooper for the current video
+    var playerLooper: AVPlayerLooper?
+    var queuePlayer: AVQueuePlayer?
 
     init() {
+        
         let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
         let playerItem2 = AVPlayerItem(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
         
@@ -73,6 +78,10 @@ class VideoQueue: ObservableObject {
         return currentIndex
     }
     
+    func getCurrentPlayer() -> AVPlayer {
+        return player
+    }
+    
     func getVideo(index: Int) -> Video? {
         if index > videoQueue.count {
             return nil
@@ -93,13 +102,29 @@ class VideoQueue: ObservableObject {
     
     // MARK: Queue Management
     
+    func play() {
+        self.player.play()
+    }
+    
+    func pause() {
+        self.player.pause()
+    }
+    
+    func seek(to: CMTime) {
+        self.player.seek(to: to)
+    }
+    
     // Advance to the next video in the queue, if none left, fetch the next playlist
     func nextVideo() {
-
+        removeVideoEndedNotification(player: self.player)
+        
         if self.currentIndex < self.videoQueue.count {
             let nextVideo: Video = self.videoQueue[self.currentIndex]
             player.replaceCurrentItem(with: nextVideo.playerItem)
             self.currentIndex += 1
+            
+            play()
+            addVideoEndedNotification(player: self.player)
             
         } else {
             // Retrieve the next playlist
@@ -109,8 +134,43 @@ class VideoQueue: ObservableObject {
                 self.currentIndex = 0
                 let nextVideo: Video = self.videoQueue[0]
                 player.replaceCurrentItem(with: nextVideo.playerItem)
+                
+                play()
+                addVideoEndedNotification(player: self.player)
             }
         }
+    }
+    
+    func removeVideoEndedNotification(player: AVPlayer) {
+        NotificationCenter
+            .default
+            .removeObserver(self,
+                            name: .AVPlayerItemDidPlayToEndTime,
+                            object: self.player.currentItem)
+    }
+    
+    func addVideoEndedNotification(player: AVPlayer) {
+        NotificationCenter
+            .default
+            .addObserver(self,
+                         selector: #selector(self.videoPlayBackFinished),
+                         name: .AVPlayerItemDidPlayToEndTime,
+                         object: self.player.currentItem)
+        
+//        NotificationCenter.default.addObserver(
+//            forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+//            object: self.player,
+//            queue: .main) { (_) in
+//
+//                // Loop the video
+//                self.player.seek(to: .zero)
+//                self.player.play()
+//        }
+    }
+    
+    @objc func videoPlayBackFinished(_ notification: Notification) {
+        self.player.seek(to: .zero)
+        self.player.play()
     }
     
     // Fetch videos from an API and add them to the queue
@@ -124,7 +184,7 @@ class VideoQueue: ObservableObject {
         
         let dispatchGroup = DispatchGroup()
         
-        for id in ["6748095", "6747803", "6747794"] {
+        for id in ["3704780", "6747803", "6747794"] {
             dispatchGroup.enter()
             
             videoService.fetchVideo(videoId: id) { videoData in
