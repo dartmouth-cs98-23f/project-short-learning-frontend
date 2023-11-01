@@ -32,10 +32,6 @@ class VideoQueue: ObservableObject {
     
     private var videoService: TestVideoService = TestVideoService.shared
     
-    // Instead of storing a player instance, try storing a playerLooper for the current video
-    var playerLooper: AVPlayerLooper?
-    var queuePlayer: AVQueuePlayer?
-
     init() {
         
         let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
@@ -104,6 +100,7 @@ class VideoQueue: ObservableObject {
     
     func play() {
         self.player.play()
+        addVideoEndedNotification(player: self.player)
     }
     
     func pause() {
@@ -124,7 +121,6 @@ class VideoQueue: ObservableObject {
             self.currentIndex += 1
             
             play()
-            addVideoEndedNotification(player: self.player)
             
         } else {
             // Retrieve the next playlist
@@ -136,7 +132,7 @@ class VideoQueue: ObservableObject {
                 player.replaceCurrentItem(with: nextVideo.playerItem)
                 
                 play()
-                addVideoEndedNotification(player: self.player)
+                
             }
         }
     }
@@ -156,16 +152,6 @@ class VideoQueue: ObservableObject {
                          selector: #selector(self.videoPlayBackFinished),
                          name: .AVPlayerItemDidPlayToEndTime,
                          object: self.player.currentItem)
-        
-//        NotificationCenter.default.addObserver(
-//            forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-//            object: self.player,
-//            queue: .main) { (_) in
-//
-//                // Loop the video
-//                self.player.seek(to: .zero)
-//                self.player.play()
-//        }
     }
     
     @objc func videoPlayBackFinished(_ notification: Notification) {
