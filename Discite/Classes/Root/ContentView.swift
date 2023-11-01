@@ -9,8 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        MainView()
-            .environmentObject(Auth.shared)
+        
+        NavigationView {
+            MainView()
+                .environmentObject(Auth.shared)
+                .fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
+                
+        }
     }
 }
 

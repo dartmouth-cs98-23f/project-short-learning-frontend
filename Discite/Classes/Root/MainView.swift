@@ -15,11 +15,7 @@ struct MainView: View {
     @EnvironmentObject var auth: Auth
     
     var body: some View {
-        if auth.loggedIn {
-            HomeView()
-        } else {
-            LoginView()
-        }
+        LoginView()
     }
 }
 

@@ -7,5 +7,5 @@ target 'Discite' do
 
   # Pods for Discite
   pod 'SwiftLint'
-
+  pod 'IQKeyboardManagerSwift'
 end

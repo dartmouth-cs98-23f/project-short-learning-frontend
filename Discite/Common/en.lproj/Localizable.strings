@@ -9,6 +9,9 @@
 "Login.UsernameOrEmailField.Title" = "Username or email";
 "Login.PasswordField.Title" = "Password";
 "Login.Button.Text" = "Log In";
+"Signup.UsernameField.Title" = "Username";
+"Signup.EmailField.Title" = "Email";
+
 
 "Home.Title" = "Welcome!";
 "Home.LogoutButton.Title" = "Log Out";
