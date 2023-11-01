@@ -4,6 +4,10 @@
 //
 //  Created by Jessie Li on 10/27/23.
 //
+//  Sources:
+//      Synchronizing a group of behaviors with DispatchGroup
+//      https://stackoverflow.com/questions/48667834/swift-array-not-filled-in-completion-block
+//      https://developer.apple.com/documentation/dispatch/dispatchgroup
 
 import AVKit
 
@@ -118,7 +122,11 @@ class VideoQueue: ObservableObject {
         var nextVideoQueue: [Video] = []
         var index = 0
         
+        let dispatchGroup = DispatchGroup()
+        
         for id in ["6748095", "6747803", "6747794"] {
+            dispatchGroup.enter()
+            
             videoService.fetchVideo(videoId: id) { videoData in
                 // Choose the HLS video file
                 let videoFile = videoData.videoFiles[5]
@@ -128,19 +136,25 @@ class VideoQueue: ObservableObject {
                 let video = Video(index: index, data: videoData, playerItem: playerItem)
                 nextVideoQueue.append(video)
                 index += 1
+                
+                dispatchGroup.leave()
 
             } failure: { error in
                 self.fetchError = error
+                dispatchGroup.leave()
                 return
             }
         }
         
-        // Replace current queue with the new queue
-        if !nextVideoQueue.isEmpty {
-            self.videoQueue = nextVideoQueue
-            self.fetchSuccessful = true
-        }
-        
-        // Update title, description, and creator of playlist
+        dispatchGroup.notify(queue: .main, execute: {
+            // Replace current queue with the new queue
+            if !nextVideoQueue.isEmpty {
+                self.videoQueue = nextVideoQueue
+                self.fetchSuccessful = true
+            }
+            
+            // Update title, description, and creator of playlist
+        })
+    
     }
 }
