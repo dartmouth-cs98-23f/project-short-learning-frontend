@@ -37,22 +37,6 @@ struct ContinueButton: View {
     }
 }
 
-struct ShareButton: View {
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack {
-                Image(systemName: "paperplane")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-            
-            }
-        }
-    }
-}
-
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
         ContinueButton(action: { })
