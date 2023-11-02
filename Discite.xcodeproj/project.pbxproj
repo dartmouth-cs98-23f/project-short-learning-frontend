@@ -28,6 +28,30 @@
 		C235C67A2AE06E8300870600 /* WatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6792AE06E8300870600 /* WatchViewModel.swift */; };
 		C23A44192AE9E813004C6927 /* TestVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A44182AE9E813004C6927 /* TestVideoService.swift */; };
 		C25906802AE99B8B00B2C81C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C259067F2AE99B8B00B2C81C /* VideoPlayerView.swift */; };
+		C28ABE902AF30A0B007181F4 /* VideoSequenceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE8F2AF30A0B007181F4 /* VideoSequenceData.swift */; };
+		C28ABE922AF30A77007181F4 /* videoresponsesample.json in Resources */ = {isa = PBXBuildFile; fileRef = C28ABE912AF30A77007181F4 /* videoresponsesample.json */; };
+		C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */; };
+		C28ABE982AF31D9E007181F4 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE972AF31D9E007181F4 /* Buttons.swift */; };
+		C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE992AF33118007181F4 /* Colors.swift */; };
+		C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE9C2AF3370B007181F4 /* Fonts.swift */; };
+		C28ABEB42AF33D74007181F4 /* Mulish-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA02AF33D74007181F4 /* Mulish-LightItalic.ttf */; };
+		C28ABEB52AF33D74007181F4 /* Mulish-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA12AF33D74007181F4 /* Mulish-ExtraBoldItalic.ttf */; };
+		C28ABEB62AF33D74007181F4 /* Mulish-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA22AF33D74007181F4 /* Mulish-Italic.ttf */; };
+		C28ABEB72AF33D74007181F4 /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA32AF33D74007181F4 /* Mulish-Regular.ttf */; };
+		C28ABEB82AF33D74007181F4 /* Mulish-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA42AF33D74007181F4 /* Mulish-Black.ttf */; };
+		C28ABEB92AF33D74007181F4 /* Mulish-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA52AF33D74007181F4 /* Mulish-BlackItalic.ttf */; };
+		C28ABEBA2AF33D74007181F4 /* Mulish-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA62AF33D74007181F4 /* Mulish-SemiBoldItalic.ttf */; };
+		C28ABEBB2AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA72AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf */; };
+		C28ABEBC2AF33D74007181F4 /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA82AF33D74007181F4 /* Mulish-Bold.ttf */; };
+		C28ABEBD2AF33D74007181F4 /* Mulish-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA92AF33D74007181F4 /* Mulish-Light.ttf */; };
+		C28ABEBE2AF33D74007181F4 /* Mulish-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEAA2AF33D74007181F4 /* Mulish-ExtraBold.ttf */; };
+		C28ABEBF2AF33D74007181F4 /* Mulish-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEAB2AF33D74007181F4 /* Mulish-ExtraLight.ttf */; };
+		C28ABEC02AF33D75007181F4 /* Mulish-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEAC2AF33D74007181F4 /* Mulish-Medium.ttf */; };
+		C28ABEC12AF33D75007181F4 /* Mulish-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEAD2AF33D74007181F4 /* Mulish-MediumItalic.ttf */; };
+		C28ABEC22AF33D75007181F4 /* Mulish-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEAE2AF33D74007181F4 /* Mulish-SemiBold.ttf */; };
+		C28ABEC32AF33D75007181F4 /* Mulish-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEAF2AF33D74007181F4 /* Mulish-BoldItalic.ttf */; };
+		C28ABEC42AF33D75007181F4 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEB02AF33D74007181F4 /* OFL.txt */; };
+		C28ABEC52AF33D75007181F4 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEB12AF33D74007181F4 /* README.txt */; };
 		C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29145092AE60DBA000BEB88 /* TopicsView.swift */; };
 		C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C291450D2AE60DF1000BEB88 /* SharedView.swift */; };
 		C29145102AE6B125000BEB88 /* SidebarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C291450F2AE6B125000BEB88 /* SidebarContainer.swift */; };
@@ -70,6 +94,33 @@
 		C235C6792AE06E8300870600 /* WatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViewModel.swift; sourceTree = "<group>"; };
 		C23A44182AE9E813004C6927 /* TestVideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVideoService.swift; sourceTree = "<group>"; };
 		C259067F2AE99B8B00B2C81C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		C28ABE8F2AF30A0B007181F4 /* VideoSequenceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSequenceData.swift; sourceTree = "<group>"; };
+		C28ABE912AF30A77007181F4 /* videoresponsesample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoresponsesample.json; sourceTree = "<group>"; };
+		C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomJSONDecoder.swift; sourceTree = "<group>"; };
+		C28ABE972AF31D9E007181F4 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		C28ABE992AF33118007181F4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C28ABE9C2AF3370B007181F4 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		C28ABEA02AF33D74007181F4 /* Mulish-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-LightItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEA12AF33D74007181F4 /* Mulish-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEA22AF33D74007181F4 /* Mulish-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Italic.ttf"; sourceTree = "<group>"; };
+		C28ABEA32AF33D74007181F4 /* Mulish-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Regular.ttf"; sourceTree = "<group>"; };
+		C28ABEA42AF33D74007181F4 /* Mulish-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Black.ttf"; sourceTree = "<group>"; };
+		C28ABEA52AF33D74007181F4 /* Mulish-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-BlackItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEA62AF33D74007181F4 /* Mulish-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEA72AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEA82AF33D74007181F4 /* Mulish-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Bold.ttf"; sourceTree = "<group>"; };
+		C28ABEA92AF33D74007181F4 /* Mulish-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Light.ttf"; sourceTree = "<group>"; };
+		C28ABEAA2AF33D74007181F4 /* Mulish-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C28ABEAB2AF33D74007181F4 /* Mulish-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C28ABEAC2AF33D74007181F4 /* Mulish-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Medium.ttf"; sourceTree = "<group>"; };
+		C28ABEAD2AF33D74007181F4 /* Mulish-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEAE2AF33D74007181F4 /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
+		C28ABEAF2AF33D74007181F4 /* Mulish-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-BoldItalic.ttf"; sourceTree = "<group>"; };
+		C28ABEB02AF33D74007181F4 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		C28ABEB12AF33D74007181F4 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		C28ABEC82AF3409C007181F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C28ABEC92AF34464007181F4 /* Mulish-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mulish-VariableFont_wght.ttf"; path = "Discite/Common/Styles/Mulish/Mulish-VariableFont_wght.ttf"; sourceTree = SOURCE_ROOT; };
+		C28ABECA2AF3447F007181F4 /* Mulish-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		C29145092AE60DBA000BEB88 /* TopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsView.swift; sourceTree = "<group>"; };
 		C291450D2AE60DF1000BEB88 /* SharedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedView.swift; sourceTree = "<group>"; };
 		C291450F2AE6B125000BEB88 /* SidebarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarContainer.swift; sourceTree = "<group>"; };
@@ -137,6 +188,7 @@
 		C2128A742ADB270B00E90C66 /* Discite */ = {
 			isa = PBXGroup;
 			children = (
+				C28ABEC82AF3409C007181F4 /* Info.plist */,
 				C2128A842ADB2B1100E90C66 /* .swiftlint.yml */,
 				C2128A752ADB270B00E90C66 /* DisciteApp.swift */,
 				C2128A8E2ADB32B100E90C66 /* Classes */,
@@ -159,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
+				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
+				C28ABE972AF31D9E007181F4 /* Buttons.swift */,
 				C2D287232AE0B25800BB263C /* Styles */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
@@ -223,6 +277,8 @@
 			isa = PBXGroup;
 			children = (
 				C22A8F552AF187F400D05DB9 /* DeepDiveView.swift */,
+				C28ABE8F2AF30A0B007181F4 /* VideoSequenceData.swift */,
+				C28ABE912AF30A77007181F4 /* videoresponsesample.json */,
 			);
 			path = DeepDive;
 			sourceTree = "<group>";
@@ -258,6 +314,41 @@
 				C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */,
 			);
 			path = Watch;
+			sourceTree = "<group>";
+		};
+		C28ABE9E2AF33D74007181F4 /* Mulish */ = {
+			isa = PBXGroup;
+			children = (
+				C28ABE9F2AF33D74007181F4 /* static */,
+				C28ABEC92AF34464007181F4 /* Mulish-VariableFont_wght.ttf */,
+				C28ABECA2AF3447F007181F4 /* Mulish-Italic-VariableFont_wght.ttf */,
+				C28ABEB02AF33D74007181F4 /* OFL.txt */,
+				C28ABEB12AF33D74007181F4 /* README.txt */,
+			);
+			path = Mulish;
+			sourceTree = "<group>";
+		};
+		C28ABE9F2AF33D74007181F4 /* static */ = {
+			isa = PBXGroup;
+			children = (
+				C28ABEA02AF33D74007181F4 /* Mulish-LightItalic.ttf */,
+				C28ABEA12AF33D74007181F4 /* Mulish-ExtraBoldItalic.ttf */,
+				C28ABEA22AF33D74007181F4 /* Mulish-Italic.ttf */,
+				C28ABEA32AF33D74007181F4 /* Mulish-Regular.ttf */,
+				C28ABEA42AF33D74007181F4 /* Mulish-Black.ttf */,
+				C28ABEA52AF33D74007181F4 /* Mulish-BlackItalic.ttf */,
+				C28ABEA62AF33D74007181F4 /* Mulish-SemiBoldItalic.ttf */,
+				C28ABEA72AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf */,
+				C28ABEA82AF33D74007181F4 /* Mulish-Bold.ttf */,
+				C28ABEA92AF33D74007181F4 /* Mulish-Light.ttf */,
+				C28ABEAA2AF33D74007181F4 /* Mulish-ExtraBold.ttf */,
+				C28ABEAB2AF33D74007181F4 /* Mulish-ExtraLight.ttf */,
+				C28ABEAC2AF33D74007181F4 /* Mulish-Medium.ttf */,
+				C28ABEAD2AF33D74007181F4 /* Mulish-MediumItalic.ttf */,
+				C28ABEAE2AF33D74007181F4 /* Mulish-SemiBold.ttf */,
+				C28ABEAF2AF33D74007181F4 /* Mulish-BoldItalic.ttf */,
+			);
+			path = static;
 			sourceTree = "<group>";
 		};
 		C291450B2AE60DBF000BEB88 /* Topics */ = {
@@ -300,7 +391,10 @@
 		C2D287232AE0B25800BB263C /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				C28ABE9E2AF33D74007181F4 /* Mulish */,
 				C2D287242AE0B2C200BB263C /* ButtonStyle.swift */,
+				C28ABE992AF33118007181F4 /* Colors.swift */,
+				C28ABE9C2AF3370B007181F4 /* Fonts.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -365,13 +459,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C28ABEB42AF33D74007181F4 /* Mulish-LightItalic.ttf in Resources */,
+				C28ABEB82AF33D74007181F4 /* Mulish-Black.ttf in Resources */,
+				C28ABE922AF30A77007181F4 /* videoresponsesample.json in Resources */,
 				C29DB0802AEC55D40081C354 /* video2.mp4 in Resources */,
+				C28ABEB72AF33D74007181F4 /* Mulish-Regular.ttf in Resources */,
+				C28ABEB62AF33D74007181F4 /* Mulish-Italic.ttf in Resources */,
 				C2128A852ADB2B1100E90C66 /* .swiftlint.yml in Resources */,
+				C28ABEBD2AF33D74007181F4 /* Mulish-Light.ttf in Resources */,
+				C28ABEB52AF33D74007181F4 /* Mulish-ExtraBoldItalic.ttf in Resources */,
+				C28ABEC12AF33D75007181F4 /* Mulish-MediumItalic.ttf in Resources */,
+				C28ABEC22AF33D75007181F4 /* Mulish-SemiBold.ttf in Resources */,
+				C28ABEBC2AF33D74007181F4 /* Mulish-Bold.ttf in Resources */,
+				C28ABEBB2AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf in Resources */,
 				C29DB07F2AEC55D40081C354 /* video3.mp4 in Resources */,
+				C28ABEBF2AF33D74007181F4 /* Mulish-ExtraLight.ttf in Resources */,
+				C28ABEC42AF33D75007181F4 /* OFL.txt in Resources */,
+				C28ABEC52AF33D75007181F4 /* README.txt in Resources */,
+				C28ABEC32AF33D75007181F4 /* Mulish-BoldItalic.ttf in Resources */,
+				C28ABEC02AF33D75007181F4 /* Mulish-Medium.ttf in Resources */,
 				C2128A882ADB2B8100E90C66 /* Localizable.strings in Resources */,
+				C28ABEB92AF33D74007181F4 /* Mulish-BlackItalic.ttf in Resources */,
 				C2128A7D2ADB271300E90C66 /* Preview Assets.xcassets in Resources */,
 				C29DB07E2AEC55D40081C354 /* video1.mp4 in Resources */,
+				C28ABEBE2AF33D74007181F4 /* Mulish-ExtraBold.ttf in Resources */,
 				C2128A7A2ADB271300E90C66 /* Assets.xcassets in Resources */,
+				C28ABEBA2AF33D74007181F4 /* Mulish-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,18 +549,23 @@
 				C2D287222AE0B05100BB263C /* MainView.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
 				C29145122AE705E7000BEB88 /* AccountSidebarItem.swift in Sources */,
+				C28ABE982AF31D9E007181F4 /* Buttons.swift in Sources */,
 				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
 				C29145102AE6B125000BEB88 /* SidebarContainer.swift in Sources */,
 				C235C6782AE06E4700870600 /* WatchView.swift in Sources */,
 				C22A8F562AF187F400D05DB9 /* DeepDiveView.swift in Sources */,
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
 				C233A0FE2AE71B3000E95D0D /* Sidebar.swift in Sources */,
+				C28ABE902AF30A0B007181F4 /* VideoSequenceData.swift in Sources */,
+				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
+				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				C233A1002AE72F7D00E95D0D /* HomeView.swift in Sources */,
 				C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
+				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
 				C2BA1CBF2AEC6CA000DC21B2 /* VideoQueue.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
@@ -596,6 +714,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Discite/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Discite/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -625,6 +744,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Discite/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Discite/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
