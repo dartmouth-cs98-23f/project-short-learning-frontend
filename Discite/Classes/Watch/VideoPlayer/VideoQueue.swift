@@ -170,12 +170,13 @@ class VideoQueue: ObservableObject {
         
         let dispatchGroup = DispatchGroup()
         
-        for id in ["3704780", "6747803", "6747794"] {
+        for id in ["4686840", "6747803", "6747794"] {
             dispatchGroup.enter()
             
             videoService.fetchVideo(videoId: id) { videoData in
                 // Choose the HLS video file
                 let videoFile = videoData.videoFiles[5]
+                print(videoFile.link)
                 let playerItem = AVPlayerItem(url: URL(string: videoFile.link)!)
                 
                 // Add this video to the queue

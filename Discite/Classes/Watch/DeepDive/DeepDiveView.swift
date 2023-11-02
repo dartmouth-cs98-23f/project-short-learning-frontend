@@ -20,16 +20,16 @@ struct DeepDiveView: View {
             // Playlist details
             playListDetails(videoQueue: videoQueue)
             
-            // Continue button should close DeepDive
-            Button {
-                isPresented = false
-            } label: {
-                VStack {
-                    Image(systemName: "play.circle.fill")
-                    Text("Continue")
+            HStack {
+                Spacer()
+                
+                // Continue button should close DeepDive
+                ContinueButton {
+                    isPresented = false
                 }
             }
-
+            .padding([.bottom, .top], 20)
+            
             // Display a row for each video in the playlist
             ForEach(videoQueue.getAllVideos(), id: \.index) { video in
                 videoRow(title: "Video title",
@@ -39,23 +39,30 @@ struct DeepDiveView: View {
             }
 
         }
+        .padding(32)
         
     }
     
     func playListDetails(videoQueue: VideoQueue) -> some View {
-        VStack {
-            Text(videoQueue.getQueueTitle())
-            Text(videoQueue.getQueueDescription())
+        VStack(alignment: .leading) {
+            Text("Topic 1, Topic 2, Topic 3").font(Font.body1)
+            Text(videoQueue.getQueueTitle()).font(Font.H3)
             
             HStack {
                 // Placeholder profile image
                 Image(systemName: "person.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
                 
-                VStack {
-                    Text(videoQueue.getQueueCreator().getFullName())
-                    Text(videoQueue.getQueueCreator().getUserName())
+                VStack(alignment: .leading) {
+                    Text(videoQueue.getQueueCreator().getFullName()).font(Font.H6)
+                    Text("@" + videoQueue.getQueueCreator().getUserName()).font(Font.small)
                 }
             }
+            .padding(.bottom, 15)
+            
+            Text(videoQueue.getQueueDescription()).font(Font.body1)
         }
     }
     
@@ -66,10 +73,10 @@ struct DeepDiveView: View {
                   index: Int) -> some View {
         
         HStack {
-            VStack {
-                Text(title)
-                Text(description)
-            }
+            VStack(alignment: .leading, content: {
+                Text(title).font(Font.H6)
+                Text(description).font(Font.body2)
+            })
             
             Spacer()
             
@@ -82,6 +89,7 @@ struct DeepDiveView: View {
             }
 
         }
+        .padding([.top, .bottom], 12)
         
     }
     
