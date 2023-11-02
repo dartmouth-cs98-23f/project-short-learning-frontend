@@ -31,7 +31,7 @@ struct ContinueButton: View {
                 
                 Text("CONTINUE")
                     .foregroundColor(Color.secondaryPink)
-                    .font(Font.caption)
+                    .font(Font.captionBold)
             }
         }
     }
