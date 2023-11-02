@@ -50,6 +50,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         scheme: String,
         host: String,
         path: String,
+        port: Int? = nil,
         method: HTTPMethod,
         authorized: Bool,
         queryItems: [URLQueryItem]? = nil,
@@ -68,6 +69,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         components.scheme = scheme
         components.host = host
         components.path = path
+        components.port = port
         
         if let queryItems = queryItems {
             components.queryItems = queryItems
