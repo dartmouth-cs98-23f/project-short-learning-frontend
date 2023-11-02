@@ -29,8 +29,9 @@ struct ContinueButton: View {
                     .frame(width: 80, height: 80)
                     .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                 
-                Text("Continue")
+                Text("CONTINUE")
                     .foregroundColor(Color.secondaryPink)
+                    .font(Font.caption)
             }
         }
     }
