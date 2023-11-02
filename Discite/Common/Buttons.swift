@@ -31,7 +31,23 @@ struct ContinueButton: View {
                 
                 Text("CONTINUE")
                     .foregroundColor(Color.secondaryPink)
-                    .font(Font.caption)
+                    .font(Font.captionBold)
+            }
+        }
+    }
+}
+
+struct ShareButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack {
+                Image(systemName: "paperplane")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
+            
             }
         }
     }

@@ -30,7 +30,7 @@ extension Font {
     // Special
     static let small = Font.custom("Mulish-SemiBold", size: 12)
     static let button = Font.custom("Mulish-Bold", size: 14)
-    static let caption = Font.custom("Mulish-ExtraBold", size: 12)
+    static let captionBold = Font.custom("Mulish-ExtraBold", size: 12)
     static let price = Font.custom("Mulish-ExtraBold", size: 48)
 
 }
@@ -38,28 +38,37 @@ extension Font {
 struct Fonts: View {
     var body: some View {
         VStack {
-            Text("H1")
-                .font(Font.H1)
-            Text("H2")
-                .font(Font.H2)
-            Text("H3")
-                .font(Font.H3)
-            Text("H4")
-                .font(Font.H4)
-            Text("H5")
-                .font(Font.H5)
-            Text("H6")
-                .font(Font.H6)
+            VStack {
+                Text("H1")
+                    .font(Font.H1)
+                Text("H2")
+                    .font(Font.H2)
+                Text("H3")
+                    .font(Font.H3)
+                Text("H4")
+                    .font(Font.H4)
+                Text("H5")
+                    .font(Font.H5)
+                Text("H6")
+                    .font(Font.H6)
+            }
             
-            Text("Body 1")
-                .font(Font.body1)
-            Text("Body 2")
-                .font(Font.body2)
+            VStack {
+                Text("Body 1")
+                    .font(Font.body1)
+                Text("Body 2")
+                    .font(Font.body2)
+            }
             
-            Text("Button")
-                .font(Font.button)
-            Text("Small")
-                .font(Font.small)
+            VStack {
+                Text("Button")
+                    .font(Font.button)
+                Text("Small")
+                    .font(Font.small)
+            }
+            
+            Text("CAPTION")
+                .font(Font.captionBold)
             
         }
     }
