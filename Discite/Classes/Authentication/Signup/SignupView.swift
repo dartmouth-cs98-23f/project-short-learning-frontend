@@ -27,7 +27,7 @@ struct SignupView: View {
                         )
                         .autocapitalization(.none)
                         .padding()
-                        .frame(width: geometry.size == .zero ? geometry.size.width/3 : orientation.isLandscape ? 500 : 300, height: 50)
+                        .frame(width: geometry.size.width/3, height: 50)
                         .background(Color.black.opacity(0.05))
                         
                         TextField(
@@ -36,7 +36,7 @@ struct SignupView: View {
                         )
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                         .padding()
-                        .frame(width: geometry.size == .zero ? geometry.size.width/3 : orientation.isLandscape ? 500 : 300, height: 50)
+                        .frame(width: geometry.size.width/3, height: 50)
                         .background(Color.black.opacity(0.05))
                     }
                     HStack {
@@ -46,7 +46,7 @@ struct SignupView: View {
                         )
                         .autocapitalization(.words)
                         .padding()
-                        .frame(width: geometry.size == .zero ? geometry.size.width/3 : orientation.isLandscape ? 500 : 300, height: 50)
+                        .frame(width: geometry.size.width/3, height: 50)
                         .background(Color.black.opacity(0.05))
                         
                         TextField(
@@ -55,7 +55,7 @@ struct SignupView: View {
                         )
                         .autocapitalization(.words)
                         .padding()
-                        .frame(width: geometry.size == .zero ? geometry.size.width/3 : orientation.isLandscape ? 500 : 300, height: 50)
+                        .frame(width: geometry.size.width/3, height: 50)
                         .background(Color.black.opacity(0.05))
                     }
                     HStack {
@@ -65,7 +65,7 @@ struct SignupView: View {
                         )
                         .autocapitalization(.none)
                         .padding()
-                        .frame(width: geometry.size == .zero ? geometry.size.width/3 : orientation.isLandscape ? 500 : 300, height: 50)
+                        .frame(width: geometry.size.width/3, height: 50)
                         .background(Color.black.opacity(0.05))
                         
                         SecureField(
@@ -74,7 +74,7 @@ struct SignupView: View {
                         )
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                         .padding()
-                        .frame(width: geometry.size == .zero ? geometry.size.width/3 : orientation.isLandscape ? 500 : 300, height: 50)
+                        .frame(width: geometry.size.width/3, height: 50)
                         .background(Color.black.opacity(0.05))
                         
                     }

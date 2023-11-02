@@ -13,7 +13,6 @@ struct ContentView: View {
         NavigationView {
             MainView()
                 .environmentObject(Auth.shared)
-                .fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
                 
         }
     }
