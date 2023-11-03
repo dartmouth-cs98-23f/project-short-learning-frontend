@@ -7,7 +7,6 @@
 //  Source:
 //      https://medium.com/geekculture/side-menu-in-ios-swiftui-9fe1b69fc487
 
-
 import SwiftUI
 
 struct SharedView: View {

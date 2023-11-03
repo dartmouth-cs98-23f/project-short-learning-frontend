@@ -1,6 +1,8 @@
 disabled_rules:
 - trailing_whitespace
 - function_parameter_count
+- line_length
+- identifier_name
 
 excluded:
 - ${PWD}/Pods

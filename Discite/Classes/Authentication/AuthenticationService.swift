@@ -35,6 +35,7 @@ class AuthConfig {
     
     let scheme: String = "https"
     let host: String = "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io" // Mock server
+    let port: Int? = nil
 }
 
 struct AuthenticationService {
