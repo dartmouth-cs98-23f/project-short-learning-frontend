@@ -26,6 +26,19 @@ class TestVideoService: ObservableObject {
     
     static let shared: TestVideoService = TestVideoService()
     
+    // Fetches hard-coded video sequence data (multiple playlists)
+    func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
+                            failure: @escaping (APIError) -> Void) {
+        
+        do {
+            let videoSequenceData = try TestVideoData.videoSequenceData()
+            completion(videoSequenceData)
+        } catch {
+            failure(APIError.unknownError)
+        }
+    }
+    
+    // Fetches a specific video from Pexels API based on ID
     func fetchVideo(
         videoId: String,
         completion: @escaping (VideoData) -> Void,

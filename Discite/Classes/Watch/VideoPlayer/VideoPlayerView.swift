@@ -22,7 +22,7 @@ struct VideoPlayerView: View {
         
         VStack {
             Button {
-                videoQueue.fetchNextPlaylist()
+                // videoQueue.fetchNextPlaylist()
             } label: {
                 Text("Fetch videos")
             }

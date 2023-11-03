@@ -10,7 +10,6 @@ import Foundation
 struct TestVideoData {
     static let decoder = CustomJSONDecoder()
 
-
     static func getSampleData<T> (_ type: T.Type,
                                   forResource: String,
                                   withExtension: String)
@@ -26,32 +25,30 @@ struct TestVideoData {
             return result
 
         } catch {
-            throw error
+            throw APIError.unknownError
         }
         
     }
     
-    static func videoSequenceData() -> VideoSequenceData? {
+    static func videoSequenceData() throws -> SequenceData {
         do {
-            let data = try getSampleData(VideoSequenceData.self,
+            let data = try getSampleData(SequenceData.self,
                                          forResource: "videosequencesample",
                                          withExtension: "json")
             return data
         } catch {
-            print(error.localizedDescription)
-            return nil
+            throw error
         }
     }
     
-    static func playlistData() -> VideoSequenceData.PlaylistData? {
+    static func playlistData() throws -> SequenceData.PlaylistData {
         do {
-            let data = try getSampleData(VideoSequenceData.PlaylistData.self,
+            let data = try getSampleData(SequenceData.PlaylistData.self,
                                          forResource: "videosequencesample",
                                          withExtension: "json")
             return data
         } catch {
-            print(error.localizedDescription)
-            return nil
+            throw error
         }
     }
 

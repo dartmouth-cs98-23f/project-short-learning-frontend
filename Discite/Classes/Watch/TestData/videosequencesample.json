@@ -2,95 +2,110 @@
   "message": "Sucess!",
   "currentClipIndex": [1, 0],
   "videos": [
-    {
-      "_id": "61f1e1b7e1d1c2a1b2c3d4e5",
-      "title": "Introduction to Algebra",
-      "description": "This video covers the basics of algebra.",
-      "uploadDate": "2023-10-30T22:33:37.886Z",
-      "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
-      "tags": ["algebra", "math", "introduction"],
-      "duration": 1200,
-      "thumbnailURL": "https://example.com/thumbnails/algebra_intro.jpg",
-      "clips": [
-        {
+      {
+          "_id": "61f1e1b7e1d1c2a1b2c3d4e5",
+          "title": "Fluffy Buttermilk Pancakes",
+          "description": "Impossibly light, fluffy, and moist. These homemade buttermilk pancakes make an easy and satisfying breakfast for the whole family.",
+          "uploadDate": "2023-10-30T22:33:37.886Z",
+          "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
+          "tags": ["Cooking", "Breakfast", "Pancakes"],
+          "duration": 1800,
+          "thumbnailURL": "https://example.com/thumbnails/algebra_intro.jpg",
+          "clips": [
+              {
+                "_id": "6998421",
+                "videoId": "61f1e1b7e1d1c2a1b2c3d4e5",
+                "title": "Sift dry ingredients",
+                "description": "Sift flour, baking powder, sugar, and salt together in a large bowl.",
+                "uploadDate": "2023-10-30T22:33:37.886Z",
+                "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
+                "tags": ["Cooking", "Breakfast", "Pancakes"],
+                "duration": 600,
+                "thumbnailURL": "https://example.com/thumbnails/algebra_part1.jpg",
+                "clipURL": "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761",
+                "views": [],
+                "likes": [],
+                "dislikes": []
+              },
+              {
+                "_id": "6998428",
+                "videoId": "61f1e1b7e1d1c2a1b2c3d4e5",
+                "title": "Mix until smooth",
+                "description": "Combine with milk, butter, and egg. Mix until smooth.",
+                "uploadDate": "2023-10-30T22:33:37.886Z",
+                "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
+                "tags": ["Cooking", "Breakfast", "Pancakes"],
+                "duration": 600,
+                "thumbnailURL": "https://example.com/thumbnails/algebra_part2.jpg",
+                "clipURL": "https://player.vimeo.com/external/518111071.hd.mp4?s=39ad49273b0169602ef4b8521c98f5617229bb40&profile_id=170&oauth2_token_id=57447761",
+                "views": [],
+                "likes": [],
+                "dislikes": []
+              },
+              {
+                "_id": "7010637",
+                "videoId": "61f1e1b7e1d1c2a1b2c3d4e5",
+                "title": "Cook pancakes on medium-high heat",
+                "description": "Heat a lightly oiled griddle over medium-high heat. Pour about 1/4 cup of batter for each pancake.",
+                "uploadDate": "2023-10-30T22:33:37.886Z",
+                "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
+                "tags": ["Cooking", "Breakfast", "Pancakes"],
+                "duration": 600,
+                "thumbnailURL": "https://example.com/thumbnails/algebra_part2.jpg",
+                "clipURL": "https://player.vimeo.com/external/518111059.hd.mp4?s=7d71fd2315b6150c3e0f402daf2012b2fede9b8a&profile_id=174&oauth2_token_id=57447761",
+                "views": [],
+                "likes": [],
+                "dislikes": []
+              }
+            ],
+            "views": [],
+            "likes": [],
+            "dislikes": []
+      },
+      {
           "_id": "61f1e1b7e1d1c2a1b2c3d4e6",
-          "videoId": "61f1e1b7e1d1c2a1b2c3d4e5",
-          "title": "Algebra Part 1",
-          "description": "Part 1 of our algebra series.",
+          "title": "Homemade Latte",
+          "description": "Start your day with a cup of hot, steamy, and delicious homemade latte.",
           "uploadDate": "2023-10-30T22:33:37.886Z",
           "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
-          "tags": ["algebra", "part1"],
-          "duration": 600,
-          "thumbnailURL": "https://example.com/thumbnails/algebra_part1.jpg",
-          "clipURL": "https://example.com/clips/algebra_part1.mp4",
-          "views": [],
-          "likes": [],
-          "dislikes": []
-        },
-        {
-          "_id": "61f1e1b7e1d1c2a1b2c3d4e7",
-          "videoId": "61f1e1b7e1d1c2a1b2c3d4e5",
-          "title": "Algebra Part 2",
-          "description": "Part 2 of our algebra series.",
-          "uploadDate": "2023-10-30T22:33:37.886Z",
-          "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
-          "tags": ["algebra", "part2"],
-          "duration": 600,
-          "thumbnailURL": "https://example.com/thumbnails/algebra_part2.jpg",
-          "clipURL": "https://example.com/clips/algebra_part2.mp4",
-          "views": [],
-          "likes": [],
-          "dislikes": []
-        }
-      ],
-      "views": [],
-      "likes": [],
-      "dislikes": []
-    },
-    {
-      "_id": "61f1e1b7e1d1c2a1b2c3d4e8",
-      "title": "Calculus Fundamentals",
-      "description": "An introductory video on the fundamentals of calculus.",
-      "uploadDate": "2023-10-30T22:33:37.886Z",
-      "uploader": "61f1e1b7e1d1c2a1b2c3d4f2",
-      "tags": ["calculus", "math", "fundamentals"],
-      "duration": 1500,
-      "thumbnailURL": "https://example.com/thumbnails/calculus_fundamentals.jpg",
-      "clips": [
-        {
-          "_id": "61f1e1b7e1d1c2a1b2c3d4e9",
-          "videoId": "61f1e1b7e1d1c2a1b2c3d4e8",
-          "title": "Calculus Part 1: Limits",
-          "description": "The first part of our calculus series, introducing limits.",
-          "uploadDate": "2023-10-30T22:33:37.886Z",
-          "uploader": "61f1e1b7e1d1c2a1b2c3d4f2",
-          "tags": ["calculus", "limits", "part1"],
-          "duration": 750,
-          "thumbnailURL": "https://example.com/thumbnails/calculus_limits.jpg",
-          "clipURL": "https://example.com/clips/calculus_limits.mp4",
-          "views": [],
-          "likes": [],
-          "dislikes": []
-        },
-        {
-          "_id": "61f1e1b7e1d1c2a1b2c3d4ea",
-          "videoId": "61f1e1b7e1d1c2a1b2c3d4e8",
-          "title": "Calculus Part 2: Derivatives",
-          "description": "The second part of our calculus series, covering derivatives.",
-          "uploadDate": "2023-10-30T22:33:37.886Z",
-          "uploader": "61f1e1b7e1d1c2a1b2c3d4f2",
-          "tags": ["calculus", "derivatives", "part2"],
-          "duration": 750,
-          "thumbnailURL": "https://example.com/thumbnails/calculus_derivatives.jpg",
-          "clipURL": "https://example.com/clips/calculus_derivatives.mp4",
-          "views": [],
-          "likes": [],
-          "dislikes": []
-        }
-      ],
-      "views": [],
-      "likes": [],
-      "dislikes": []
-    }
+          "tags": ["Breakfast", "Coffee"],
+          "duration": 1200,
+          "thumbnailURL": "https://example.com/thumbnails/algebra_intro.jpg",
+          "clips": [
+              {
+                "_id": "2853788",
+                "videoId": "61f1e1b7e1d1c2a1b2c3d4e6",
+                "title": "Make the espresso",
+                "description": "Use an espresso machine to make two shots of espresso and pour it into the mug.",
+                "uploadDate": "2023-10-30T22:33:37.886Z",
+                "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
+                "tags": ["Breakfast", "Coffee"],
+                "duration": 600,
+                "thumbnailURL": "https://example.com/thumbnails/algebra_part1.jpg",
+                "clipURL": "https://player.vimeo.com/external/417279070.hd.mp4?s=cbe8e6778b52716d5b472f11aba548ca23b1dc85&profile_id=172&oauth2_token_id=57447761",
+                "views": [],
+                "likes": [],
+                "dislikes": []
+              },
+              {
+                "_id": "4378109",
+                "videoId": "61f1e1b7e1d1c2a1b2c3d4e5",
+                "title": "Pour the milk",
+                "description": "Tilt the cup and hold the pitcher high. Pour the milk into the center of the espresso until the cup is nearly half full, then lower the pour to end with light foam.",
+                "uploadDate": "2023-10-30T22:33:37.886Z",
+                "uploader": "61f1e1b7e1d1c2a1b2c3d4f1",
+                "tags": ["Breakfast", "Coffee"],
+                "duration": 600,
+                "thumbnailURL": "https://example.com/thumbnails/algebra_part2.jpg",
+                "clipURL": "https://player.vimeo.com/external/356200097.sd.mp4?s=f5906c30696841eae9a3c01ce7c4603ae960f96e&profile_id=139&oauth2_token_id=57447761",
+                "views": [],
+                "likes": [],
+                "dislikes": []
+              },
+            ],
+            "views": [],
+            "likes": [],
+            "dislikes": []
+      }
   ]
 }

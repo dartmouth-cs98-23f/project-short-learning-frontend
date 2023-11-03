@@ -1,5 +1,5 @@
 //
-//  VideoSequenceData.swift
+//  SequenceData.swift
 //  Discite
 //
 //  Created by Jessie Li on 11/2/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct VideoSequenceData: Decodable {
+struct SequenceData: Decodable {
     var message: String
     var videos: [PlaylistData]
     var views: [Int]
@@ -23,9 +23,9 @@ struct VideoSequenceData: Decodable {
         var tags: [String]
         var duration: Int
         var thumbnailURL: String
-        var clips: [ClipData]
+        var clips: [VideoData]
         
-        struct ClipData: Identifiable, Decodable {
+        struct VideoData: Identifiable, Decodable {
             var id: String
             var videoId: String
             var title: String

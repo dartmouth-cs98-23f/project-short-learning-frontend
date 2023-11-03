@@ -11,12 +11,6 @@
 
 import AVKit
 
-struct Video {
-    var index: Int
-    var data: VideoData?
-    var playerItem: AVPlayerItem
-}
-
 class VideoQueue: ObservableObject {
     
     @Published var player: AVPlayer = AVPlayer()
@@ -30,22 +24,26 @@ class VideoQueue: ObservableObject {
     private(set) var videoQueue: [Video] = []
     var currentIndex: Int = 0
     
+    var videoSequence: [[Video]] = []
+    var sequenceIndex: Int = 0
+    var videoIndex: Int = 0
+    
     private var videoService: TestVideoService = TestVideoService.shared
     
     init() {
         
-        let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
-        let playerItem2 = AVPlayerItem(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
+        // let playerItem1 = AVPlayerItem(url: Bundle.main.url(forResource: "video1", withExtension: "mp4")!)
+        // let playerItem2 = AVPlayerItem(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
         
-        var index = 0
-        for playerItem in [playerItem1, playerItem2] {
-            let video = Video(index: index, data: nil, playerItem: playerItem)
-            videoQueue.append(video)
+        // var index = 0
+        // for playerItem in [playerItem1, playerItem2] {
+            // let video = Video(index: index, data: nil, playerItem: playerItem)
+            // videoQueue.append(video)
             
-            index += 1
-        }
+            // index += 1
+        // }
         
-        nextVideo()
+        // nextVideo()
     }
     
     // MARK: Public Getters
@@ -124,7 +122,7 @@ class VideoQueue: ObservableObject {
             
         } else {
             // Retrieve the next playlist
-            fetchNextPlaylist()
+            // fetchNextPlaylist()
             
             if self.fetchSuccessful && !self.videoQueue.isEmpty {
                 self.currentIndex = 0
@@ -158,50 +156,51 @@ class VideoQueue: ObservableObject {
         self.player.seek(to: .zero)
         self.player.play()
     }
-    
-    // Fetch videos from an API and add them to the queue
-    func fetchNextPlaylist() {
-        
-        self.fetchError = nil
-        self.fetchSuccessful = false
-        
-        var nextVideoQueue: [Video] = []
-        var index = 0
-        
-        let dispatchGroup = DispatchGroup()
-        
-        for id in ["4686840", "6747803", "6747794"] {
-            dispatchGroup.enter()
-            
-            videoService.fetchVideo(videoId: id) { videoData in
-                // Choose the HLS video file
-                let videoFile = videoData.videoFiles[5]
-                print(videoFile.link)
-                let playerItem = AVPlayerItem(url: URL(string: videoFile.link)!)
-                
-                // Add this video to the queue
-                let video = Video(index: index, data: videoData, playerItem: playerItem)
-                nextVideoQueue.append(video)
-                index += 1
-                
-                dispatchGroup.leave()
 
-            } failure: { error in
-                self.fetchError = error
-                dispatchGroup.leave()
-                return
-            }
-        }
-        
-        dispatchGroup.notify(queue: .main, execute: {
-            // Replace current queue with the new queue
-            if !nextVideoQueue.isEmpty {
-                self.videoQueue = nextVideoQueue
-                self.fetchSuccessful = true
-            }
-            
-            // Update title, description, and creator of playlist
-        })
-    
-    }
+// Fetch videos from an API and add them to the queue
+//    func fetchNextPlaylist() {
+//        
+//        self.fetchError = nil
+//        self.fetchSuccessful = false
+//        
+//        var nextVideoQueue: [Video] = []
+//        var index = 0
+//        
+//        let dispatchGroup = DispatchGroup()
+//        
+//        for id in ["2853788", "4378109"] {
+//            dispatchGroup.enter()
+//            
+//            videoService.fetchVideo(videoId: id) { videoData in
+//                // Choose the HLS video file
+//                let videoFile = videoData.videoFiles[5]
+//                print(videoFile.link)
+//                
+//                let playerItem = AVPlayerItem(url: URL(string: videoFile.link)!)
+//                
+//                // Add this video to the queue
+//                let video = Video(index: index, data: videoData, playerItem: playerItem)
+//                nextVideoQueue.append(video)
+//                index += 1
+//                
+//                dispatchGroup.leave()
+//
+//            } failure: { error in
+//                self.fetchError = error
+//                dispatchGroup.leave()
+//                return
+//            }
+//        }
+//        
+//        dispatchGroup.notify(queue: .main, execute: {
+//            // Replace current queue with the new queue
+//            if !nextVideoQueue.isEmpty {
+//                self.videoQueue = nextVideoQueue
+//                self.fetchSuccessful = true
+//            }
+//            
+//            // Update title, description, and creator of playlist
+//        })
+//
+//    }
 }
