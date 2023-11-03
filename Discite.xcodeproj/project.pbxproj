@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */; };
+		66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB52AF4D4A500F65F38 /* SignupView.swift */; };
 		C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20DB8DF2AF1A8A5006FC33A /* User.swift */; };
 		C2128A762ADB270B00E90C66 /* DisciteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A752ADB270B00E90C66 /* DisciteApp.swift */; };
 		C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A772ADB270B00E90C66 /* ContentView.swift */; };
@@ -64,11 +66,12 @@
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
 		C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */; };
-		FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
+		66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		66EE0EB52AF4D4A500F65F38 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.debug.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.debug.xcconfig"; sourceTree = "<group>"; };
 		C20DB8DF2AF1A8A5006FC33A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C2128A722ADB270B00E90C66 /* Discite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discite.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,7 +134,6 @@
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
-		CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,21 +141,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3333F2F5D339A8AE32F61636 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3622EC259FD8B4B212031657 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,13 +156,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		66EE0EB32AF4D4A500F65F38 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */,
+				66EE0EB52AF4D4A500F65F38 /* SignupView.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
 		C2128A692ADB270B00E90C66 = {
 			isa = PBXGroup;
 			children = (
 				C2128A742ADB270B00E90C66 /* Discite */,
 				C2128A732ADB270B00E90C66 /* Products */,
 				3622EC259FD8B4B212031657 /* Pods */,
-				3333F2F5D339A8AE32F61636 /* Frameworks */,
+				E7C69860EC6BE8FC0C8F03B0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -231,7 +233,6 @@
 				C2D287202AE0B03B00BB263C /* Root */,
 				C2237F302AE59E6500C9396E /* Navigation */,
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
-				C2128A8D2ADB32A600E90C66 /* Login */,
 				C235C6762AE06DD700870600 /* Watch */,
 				C291450B2AE60DBF000BEB88 /* Topics */,
 				C291450C2AE60DDA000BEB88 /* Shared */,
@@ -244,6 +245,8 @@
 		C2128A972ADB4F3A00E90C66 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				66EE0EB32AF4D4A500F65F38 /* Signup */,
+				C2128A8D2ADB32A600E90C66 /* Login */,
 				C235C6742ADF842500870600 /* Auth.swift */,
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
 			);
@@ -391,6 +394,13 @@
 				C28ABE9C2AF3370B007181F4 /* Fonts.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		E7C69860EC6BE8FC0C8F03B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,11 +564,13 @@
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
+				66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */,
 				C233A1002AE72F7D00E95D0D /* HomeView.swift in Sources */,
 				C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
+				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
 				C2BA1CBF2AEC6CA000DC21B2 /* VideoQueue.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,

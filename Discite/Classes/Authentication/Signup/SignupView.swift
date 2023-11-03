@@ -15,95 +15,92 @@ struct SignupView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack {
-                Spacer()
-                ScrollView {
-                    VStack {
+            ScrollView {
+                VStack {
+                    HStack {
                         Spacer()
                         Image(.disciteLogo)
                             .resizable()
                             .frame(width: 250, height: 130)
                             .padding()
-                        HStack {
-                            TextField(
-                                "Username",
-                                text: $signupModel.username
-                            )
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: geometry.size.width/2-10, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            
-                            TextField(
-                                "Email",
-                                text: $signupModel.email
-                            )
-                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                            .padding()
-                            .frame(width: geometry.size.width/2-10, height: 50)
-                            .background(Color.black.opacity(0.05))
-                        }
-                        HStack {
-                            TextField(
-                                "First Name",
-                                text: $signupModel.firstname
-                            )
-                            .autocapitalization(.words)
-                            .padding()
-                            .frame(width: geometry.size.width/2-10, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            
-                            TextField(
-                                "Last Name",
-                                text: $signupModel.lastname
-                            )
-                            .autocapitalization(.words)
-                            .padding()
-                            .frame(width: geometry.size.width/2-10, height: 50)
-                            .background(Color.black.opacity(0.05))
-                        }
-                        HStack {
-                            SecureField(
-                                "Password",
-                                text: $signupModel.password
-                            )
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: geometry.size.width/2-10, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            
-                            SecureField(
-                                "Confirm Password",
-                                text: $signupModel.confirmPassword
-                            )
-                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                            .padding()
-                            .frame(width: geometry.size.width/2-10, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            
-                        }
-                        Button("Sign up") {
-                            signupModel.signup()
-                        }
-                            .modifier(PrimaryButton())
-                            .frame(width: geometry.size.width - 10, height: 50)
-                        HStack {
-                            Text("Already have an account?")
-                            NavigationLink(destination: LoginView()) {
-                                Text("Log In")
-                                    .navigationBarTitle("")
-                                    .navigationBarHidden(true)
-                            }
-                        }
                         Spacer()
                     }
-                    Spacer()
+                    
+                    TextField(
+                        "Username",
+                        text: $signupModel.username
+                    )
+                    .autocapitalization(.none)
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    TextField(
+                        "Email",
+                        text: $signupModel.email
+                    )
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    TextField(
+                        "First Name",
+                        text: $signupModel.firstname
+                    )
+                    .autocapitalization(.words)
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    TextField(
+                        "Last Name",
+                        text: $signupModel.lastname
+                    )
+                    .autocapitalization(.words)
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    SecureField(
+                        "Password",
+                        text: $signupModel.password
+                    )
+                    .autocapitalization(.none)
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    SecureField(
+                        "Confirm Password",
+                        text: $signupModel.confirmPassword
+                    )
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    Button("Sign up") {
+                        signupModel.signup()
+                    }
+                    .modifier(PrimaryButton())
+                    .frame(width: geometry.size.width - 20, height: 50)
+                    HStack {
+                        Text("Already have an account?")
+                        NavigationLink(destination: LoginView()) {
+                            Text("Log In")
+                                .navigationBarTitle("")
+                                .navigationBarHidden(true)
+                        }
+                    }
                     Spacer()
                 }
             }
         }
     }
 }
+
+
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
