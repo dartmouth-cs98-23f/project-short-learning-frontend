@@ -10,46 +10,76 @@ import AVKit
 
 struct PlayerView: View {
     @EnvironmentObject var sequence: Sequence
+    
+    @State private var player = AVPlayer()
     @State private var showingDeepDive = false
     
     var body: some View {
-        Button {
-            sequence.fetchNextSequence()
-        } label: {
-            Text("Fetch next sequence")
-        }
+        VStack {
+            Button {
+                sequence.fetchNextSequence()
+            } label: {
+                Text("Fetch next sequence")
+            }
+            
+            VideoPlayer(player: player)
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
+                    player.play()
+                    addVideoEndedNotification()
+                    
+                }
+                .onDisappear {
+                    player.pause()
         
-        VideoPlayer(player: sequence.getCurrentPlayer())
-            .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                sequence.play()
-                
-            }
-            .onDisappear {
-                sequence.pause()
-    
-            }
-            .gesture(DragGesture(minimumDistance: 20)
-                .onEnded({ value in
-                    let swipeDirection = swipeDirection(value: value)
-                    
-                    switch swipeDirection {
-                    case .right:
-                        // Move to the next video
-                        sequence.nextVideo(swipeDirection: .right)
-                    
-                    case .up:
-                        // Show DeepDive
-                        // videoQueue.player.pause()
-                        showingDeepDive = true
+                }
+                .gesture(DragGesture(minimumDistance: 20)
+                    .onEnded({ value in
+                        let swipeDirection = swipeDirection(value: value)
                         
-                    default:
-                        print("No action required.")
-                    }
-                })
-            )
+                        switch swipeDirection {
+                        case .right:
+                            // Move to the next video
+                            removeVideoEndedNotification()
+                            sequence.nextVideo(swipeDirection: .right, player: player)
+                        
+                        case .up:
+                            // Show DeepDive
+                            // videoQueue.player.pause()
+                            showingDeepDive = true
+                            
+                        default:
+                            print("No action required.")
+                        }
+                    })
+                )
+        }
+        .sheet(isPresented: $showingDeepDive) {
+            DeepDiveView(isPresented: $showingDeepDive)
+        }
 
     }
+    
+    func removeVideoEndedNotification() {
+        NotificationCenter
+            .default
+            .removeObserver(self,
+                            name: .AVPlayerItemDidPlayToEndTime,
+                            object: player.currentItem)
+    }
+    
+    func addVideoEndedNotification() {
+        NotificationCenter
+            .default
+            .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                         object: player.currentItem,
+                         queue: .main) { (_) in
+                
+                player.seek(to: .zero)
+                player.play()
+            }
+    }
+    
 }
 
 #Preview {

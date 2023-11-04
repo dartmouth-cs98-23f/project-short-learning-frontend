@@ -41,6 +41,8 @@ class Playlist: ObservableObject {
         currentIndex = 0
     }
     
+    // MARK: Getters
+    
     func onLastVideo() -> Bool {
         return currentIndex >= videos.count - 1
     }
@@ -56,5 +58,19 @@ class Playlist: ObservableObject {
     
     func allVideos() -> [Video] {
         return videos
+    }
+    
+    func getCurrentIndex() -> Int {
+        return currentIndex
+    }
+    
+    func getData() -> SequenceData.PlaylistData {
+        return data
+    }
+    
+    // MARK: Setters
+    
+    func setCurrentIndex(index: Int) {
+        currentIndex = index
     }
 }

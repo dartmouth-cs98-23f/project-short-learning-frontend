@@ -301,10 +301,10 @@
 			isa = PBXGroup;
 			children = (
 				C251C98B2AF4AD8C00922B00 /* PlayerView.swift */,
-				C259067F2AE99B8B00B2C81C /* VideoPlayerView.swift */,
-				C251C9892AF4AD1100922B00 /* Video.swift */,
-				C251C9852AF4960F00922B00 /* Playlist.swift */,
 				C251C9872AF4963100922B00 /* Sequence.swift */,
+				C251C9852AF4960F00922B00 /* Playlist.swift */,
+				C251C9892AF4AD1100922B00 /* Video.swift */,
+				C259067F2AE99B8B00B2C81C /* VideoPlayerView.swift */,
 				C2BA1CBE2AEC6CA000DC21B2 /* TestVideoQueue.swift */,
 				C23A44182AE9E813004C6927 /* TestVideoService.swift */,
 			);

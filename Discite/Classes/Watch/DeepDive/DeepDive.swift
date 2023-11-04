@@ -16,7 +16,7 @@ struct DeepDive: View {
         VStack(alignment: .leading, spacing: 0) {
             
             // Playlist details
-            playlistDetails(playlist: sequence.playlists[sequence.currentIndex])
+            playlistDetails(playlistData: sequence.currentPlaylist().getData())
             
             HStack {
                 Spacer()
@@ -29,10 +29,10 @@ struct DeepDive: View {
             .padding([.bottom, .top], 20)
             
             // Display a row for each video in the playlist
-            ForEach(sequence.playlists[sequence.currentIndex].allVideos(), id: \.index) { video in
+            ForEach(sequence.currentPlaylist().allVideos(), id: \.index) { video in
                 videoRow(title: video.data.title,
                          description: video.data.description,
-                         currentIndex: sequence.playlists[sequence.currentIndex].currentIndex,
+                         currentIndex: sequence.currentPlaylist().getCurrentIndex(),
                          videoIndex: video.index)
             }
 
@@ -40,10 +40,10 @@ struct DeepDive: View {
         .padding(32)
     }
     
-    func playlistDetails(playlist: Playlist) -> some View {
+    func playlistDetails(playlistData: SequenceData.PlaylistData) -> some View {
         VStack(alignment: .leading) {
-            Text(playlist.data.tags.joined(separator: ", ")).font(Font.body1)
-            Text(playlist.data.title).font(Font.H3)
+            Text(playlistData.tags.joined(separator: ", ")).font(Font.body1)
+            Text(playlistData.title).font(Font.H3)
             
             HStack {
                 // Placeholder profile image
@@ -59,7 +59,7 @@ struct DeepDive: View {
             }
             .padding(.bottom, 15)
             
-            Text(playlist.data.description).font(Font.body1)
+            Text(playlistData.description).font(Font.body1)
         }
     }
     
@@ -79,7 +79,7 @@ struct DeepDive: View {
             
             // Clicking on "play" should update queue position and close DeepDive
             Button {
-                sequence.playlists[sequence.currentIndex].currentIndex = videoIndex
+                sequence.currentPlaylist().setCurrentIndex(index: videoIndex)
                 isPresented = false
                 
             } label: {

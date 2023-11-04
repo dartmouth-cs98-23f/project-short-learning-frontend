@@ -7,11 +7,9 @@
 
 import Foundation
 import AVKit
+import SwiftUI
 
 class Sequence: ObservableObject {
-    
-    // Player for the current video
-    @Published var player: AVPlayer = AVPlayer()
     
     var playlists: [Playlist] = []
     var currentIndex = 0
@@ -36,8 +34,8 @@ class Sequence: ObservableObject {
         return currentIndex == playlists.count - 1
     }
     
-    func getCurrentPlayer() -> AVPlayer {
-        return player
+    func currentPlaylist() -> Playlist {
+        return playlists[currentIndex]
     }
     
     func length() -> Int {
@@ -46,40 +44,7 @@ class Sequence: ObservableObject {
     
     // MARK: Player Management
     
-    func play() {
-        self.player.play()
-        addVideoEndedNotification(player: self.player)
-    }
-    
-    func pause() {
-        self.player.pause()
-        
-    }
-    
-    func removeVideoEndedNotification(player: AVPlayer) {
-        NotificationCenter
-            .default
-            .removeObserver(self,
-                            name: .AVPlayerItemDidPlayToEndTime,
-                            object: self.player.currentItem)
-    }
-    
-    func addVideoEndedNotification(player: AVPlayer) {
-        NotificationCenter
-            .default
-            .addObserver(self,
-                         selector: #selector(self.videoPlayBackFinished),
-                         name: .AVPlayerItemDidPlayToEndTime,
-                         object: self.player.currentItem)
-    }
-    
-    @objc func videoPlayBackFinished(_ notification: Notification) {
-        self.player.seek(to: .zero)
-        self.player.play()
-    }
-    
-    func nextVideo(swipeDirection: SwipeDirection) throws {
-        removeVideoEndedNotification(player: player)
+    func nextVideo(swipeDirection: SwipeDirection, player: AVPlayer) {
         
         // If swiped right, keep playing the current sequence
         if swipeDirection == .right {
@@ -107,7 +72,8 @@ class Sequence: ObservableObject {
         
         // Get next video in current playlist
         guard let nextVideo = currentPlaylist.nextVideo() else {
-            throw PlaylistError.noNextVideo
+            print(PlaylistError.noNextVideo.localizedDescription)
+            return
         }
         
         // Update the player
