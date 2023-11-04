@@ -78,7 +78,7 @@ class Sequence: ObservableObject {
         
         // Update the player
         player.replaceCurrentItem(with: nextVideo.playerItem)
-        play()
+        player.play()
     }
     
     // MARK: Additional Methods
