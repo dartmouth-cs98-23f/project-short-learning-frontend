@@ -38,9 +38,16 @@ struct PlayerView: View {
                         
                         switch swipeDirection {
                         case .right:
+                            print("Swiped right for next video.")
                             // Move to the next video
                             removeVideoEndedNotification()
                             sequence.nextVideo(swipeDirection: .right, player: player)
+                            
+                        case .left:
+                            print("Swiped left to skip current playlist.")
+                            // Skip current playlist
+                            removeVideoEndedNotification()
+                            sequence.nextVideo(swipeDirection: .left, player: player)
                         
                         case .up:
                             // Show DeepDive

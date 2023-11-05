@@ -12,7 +12,6 @@ import SwiftUI
 class Sequence: ObservableObject {
     
     var playlists: [Playlist] = []
-    var currentIndex = 0
     
     private var videoService: TestVideoService = TestVideoService.shared
     @Published private(set) var fetchSuccessful: Bool = false
@@ -20,10 +19,7 @@ class Sequence: ObservableObject {
     
     // MARK: Initializers
     
-    init() {
-        // print("Initializing sequence...")
-        // fetchNextSequence()
-    }
+    init() { }
     
     init(playlists: [Playlist]) {
         self.playlists = playlists
@@ -31,13 +27,9 @@ class Sequence: ObservableObject {
     
     // MARK: Getters
     
-    func onLastPlaylist() -> Bool {
-        return currentIndex >= playlists.count - 1
-    }
-    
     func currentPlaylist() -> Playlist? {
-        if currentIndex < playlists.count {
-            return playlists[currentIndex]
+        if !playlists.isEmpty {
+            return playlists[0]
         }
         
         return nil
@@ -49,32 +41,75 @@ class Sequence: ObservableObject {
     
     // MARK: Player Management
     
+    func addPlaylist() {
+        print("Adding new playlist...")
+        
+        // Synchronizes asynchronous behaviors
+        let dispatchGroup = DispatchGroup()
+        
+        videoService.fetchPlaylist { playlistData in
+            do {
+                dispatchGroup.enter()
+                let playlist = try Playlist(data: playlistData)
+                self.playlists.append(playlist)
+                dispatchGroup.leave()
+                
+                print("New playlist added to queue.")
+                
+            } catch {
+                dispatchGroup.leave()
+                print("Error adding playlist: \(error.localizedDescription)")
+                
+            }
+            
+        } failure: { error in
+            print(error.localizedDescription)
+            return
+            
+        }
+    }
+    
+    func dequeuePlaylist() {
+        print("Dequeuing first playlist...")
+        
+        if playlists.isEmpty {
+            print(PlaylistError.emptyPlaylist.localizedDescription)
+            return
+        }
+        
+        playlists.removeFirst()
+    }
+    
     func nextVideo(swipeDirection: SwipeDirection, player: AVPlayer) {
 
         // If swiped right, keep playing the current sequence
         if swipeDirection == .right {
-            print("Swiped right for next video.")
-
-            // If end of sequence (last playlist, last video)
-            if onLastPlaylist() {
-                if playlists.isEmpty || playlists[currentIndex].onLastVideo() {
-                    print("Last playlist, last video. Proceed to fetch next sequence.")
-                    fetchNextSequence()
-                }
-
-            // If not last playlist, but current playlist is on last video
-            } else if playlists[currentIndex].onLastVideo() {
-                currentIndex += 1
             
-            // If not last video in current playlist
-            } else {
+            // First fetch, populate sequence
+            if playlists.isEmpty {
+                print("Playlist is empty, fetch a sequence of playlists.")
+                fetchSequence()
+                
+            // If current playlist is on last video
+            } else if playlists[0].onLastVideo() {
+                
+                // Dequeue current playlist
+                dequeuePlaylist()
+                
+                // Add playlist to end of sequence
+                addPlaylist()
                 
             }
         }
         
-        // Fetch next sequence, with new parameters
-        else if swipeDirection == .left {
-            
+        // Skip current playlist
+        else if swipeDirection == .left && !playlists.isEmpty {
+                
+            // Dequeue current video
+            dequeuePlaylist()
+                
+            // Add playlist, but call with different parameters (TBD)
+            addPlaylist()
         }
     
         // Make sure playlist is not empty
@@ -83,23 +118,21 @@ class Sequence: ObservableObject {
             return
         }
         
-        let currentPlaylist = playlists[currentIndex]
-        
-        // Get next video in current playlist
-        guard let nextVideo = currentPlaylist.nextVideo() else {
+        guard let nextVideo = playlists[0].nextVideo() else {
             print(PlaylistError.noNextVideo.localizedDescription)
             return
         }
         
         // Update the player
         player.replaceCurrentItem(with: nextVideo.playerItem)
+        print("Updated player, sequence length is \(playlists.count).")
     }
     
     // MARK: Additional Methods
 
-    // Fetches next sequence of playlists
-    func fetchNextSequence() {
-        print("Fetching next sequence...")
+    // Fetches a sequence of playlists
+    func fetchSequence() {
+        print("Fetching sequence...")
         self.fetchError = nil
         self.fetchSuccessful = false
         
@@ -133,7 +166,6 @@ class Sequence: ObservableObject {
             if !nextPlaylists.isEmpty {
                 self.playlists = nextPlaylists
                 self.fetchSuccessful = true
-                self.currentIndex = 0
                 print("Fetch successful. Sequence loaded with \(self.playlists.count) playlists.")
             }
             

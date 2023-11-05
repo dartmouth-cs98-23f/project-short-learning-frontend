@@ -26,6 +26,20 @@ class TestVideoService: ObservableObject {
     
     static let shared: TestVideoService = TestVideoService()
     
+    // Fetches hard-coded playlist data
+    func fetchPlaylist(completion: @escaping (SequenceData.PlaylistData) -> Void,
+                       failure: @escaping (APIError) -> Void) {
+        
+        print("Fetching playlist...")
+        
+        do {
+            let playlistData = try TestVideoData.playlistData()
+            completion(playlistData)
+        } catch {
+            failure(APIError.unknownError)
+        }
+    }
+    
     // Fetches hard-coded video sequence data (multiple playlists)
     func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
                             failure: @escaping (APIError) -> Void) {
