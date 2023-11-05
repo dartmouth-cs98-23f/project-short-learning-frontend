@@ -11,7 +11,7 @@ import AVKit
 struct PlayerView: View {
     @EnvironmentObject var sequence: Sequence
     
-    @State private var player = AVPlayer()
+    @State var player = AVPlayer()
     @State private var showingDeepDive = false
     
     var body: some View {
@@ -27,6 +27,11 @@ struct PlayerView: View {
                 .onAppear {
                     player.play()
                     addVideoEndedNotification()
+                    
+                    if player.currentItem == nil {
+                        sequence.nextVideo(swipeDirection: .right, player: player)
+                        player.play()
+                    }
                     
                 }
                 .onDisappear {

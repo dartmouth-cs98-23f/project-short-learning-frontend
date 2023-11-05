@@ -8,35 +8,61 @@
 import Foundation
 
 struct TestVideoData {
-    static let decoder = CustomJSONDecoder()
-
+    
+    struct SimpleTest: Decodable {
+        var name: String
+        var age: Int
+    }
+    
     static func getSampleData<T> (_ type: T.Type,
                                   forResource: String,
                                   withExtension: String)
     throws -> T where T: Decodable {
         
+        let decoder = JSONDecoder()
+        
+        // Find path to resource
         guard let path = Bundle.main.url(forResource: forResource, withExtension: withExtension) else {
+            print("Couldn't locate local resource.")
             throw APIError.unknownError
         }
         
         do {
-            let data = try Data(contentsOf: path)
-            let result = try decoder.decode(type, from: data)
+            guard let data = try? Data(contentsOf: path) else {
+                print("Failed to load data from path URL.")
+                throw APIError.unknownError
+            }
+            
+            let result = try decoder.decode(type.self, from: data)
             return result
 
         } catch {
+            print(String(describing: error))
             throw APIError.unknownError
         }
         
     }
     
+    static func simpleTest() {
+        
+        do {
+            _ = try getSampleData(SimpleTest.self, forResource: "simpletest", withExtension: "json")
+            print("Test passed.")
+        } catch {
+            print("Test failed.")
+        }
+    }
+    
     static func videoSequenceData() throws -> SequenceData {
         do {
             let data = try getSampleData(SequenceData.self,
-                                         forResource: "videosequencesample",
-                                         withExtension: "json")
+                                        forResource: "sequencesample",
+                                        withExtension: "json")
+            
+            print("Got sample data, returning it.")
             return data
         } catch {
+            print("Couldn't get sample data.")
             throw error
         }
     }

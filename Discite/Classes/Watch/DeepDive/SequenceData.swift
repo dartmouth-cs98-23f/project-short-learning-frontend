@@ -9,6 +9,7 @@ import Foundation
 
 struct SequenceData: Decodable {
     var message: String
+    var currentClipIndex: [Int]
     var videos: [PlaylistData]
     var views: [Int]
     var likes: [Int]
@@ -18,7 +19,7 @@ struct SequenceData: Decodable {
         var id: String
         var title: String
         var description: String
-        var uploadDate: Date
+        var uploadDate: String // Date
         var uploader: String
         var tags: [String]
         var duration: Int
@@ -30,7 +31,7 @@ struct SequenceData: Decodable {
             var videoId: String
             var title: String
             var description: String
-            var uploadDate: Date
+            var uploadDate: String // Date
             var uploader: String
             var tags: [String]
             var duration: Int

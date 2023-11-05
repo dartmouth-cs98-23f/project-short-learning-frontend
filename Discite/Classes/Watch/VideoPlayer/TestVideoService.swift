@@ -30,6 +30,8 @@ class TestVideoService: ObservableObject {
     func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
                             failure: @escaping (APIError) -> Void) {
         
+        print("Fetching video sequence...")
+        
         do {
             let videoSequenceData = try TestVideoData.videoSequenceData()
             completion(videoSequenceData)

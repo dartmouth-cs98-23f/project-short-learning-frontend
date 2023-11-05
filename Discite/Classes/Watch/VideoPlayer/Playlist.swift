@@ -13,6 +13,17 @@ enum PlaylistError: Error {
     case emptyPlaylist
 }
 
+extension PlaylistError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .noNextVideo:
+            return NSLocalizedString("Error.PlaylistError.NoNextVideo", comment: "Playlist error")
+        case .emptyPlaylist:
+            return NSLocalizedString("Error.PlaylistError.EmptyPlaylist", comment: "Playlist error")
+        }
+    }
+}
+
 class Playlist: ObservableObject {
     
     var data: SequenceData.PlaylistData
@@ -22,7 +33,7 @@ class Playlist: ObservableObject {
     init(data: SequenceData.PlaylistData) throws {
         self.data = data
         self.videos = []
-        self.currentIndex = 0
+        self.currentIndex = -1
         
         // Add each clip (video) to this playlist's queue
         for videoClip in data.clips {
@@ -37,8 +48,8 @@ class Playlist: ObservableObject {
             throw PlaylistError.emptyPlaylist
         }
         
-        // Set current index back to 0
-        currentIndex = 0
+        // Set current index back to -1 (not yet started)
+        currentIndex = -1
     }
     
     // MARK: Getters
@@ -60,12 +71,20 @@ class Playlist: ObservableObject {
         return videos
     }
     
+    func currentVideo() -> Video {
+        return videos[currentIndex]
+    }
+    
     func getCurrentIndex() -> Int {
         return currentIndex
     }
     
     func getData() -> SequenceData.PlaylistData {
         return data
+    }
+    
+    func length() -> Int {
+        return videos.count
     }
     
     // MARK: Setters
