@@ -34,8 +34,55 @@ struct AccentPlayButton: View {
     }
 }
 
+struct ShareButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack {
+                Image(systemName: "paperplane")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryBlue)
+                
+                Text("Share")
+                    .foregroundColor(.primaryBlue)
+                    .font(.button)
+            }
+        }
+    }
+}
+
+struct SaveButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack {
+                Image(systemName: "bookmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryBlue)
+                
+                Text("Save")
+                    .foregroundColor(.primaryBlue)
+                    .font(.button)
+            }
+        }
+    }
+}
+
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
         AccentPlayButton(action: { }, label: "PLAY")
+            .previewDisplayName("Accent Play")
+        
+        ShareButton(action: { })
+            .previewDisplayName("Share")
+        
+        SaveButton(action: { })
+            .previewDisplayName("Save")
     }
 }
