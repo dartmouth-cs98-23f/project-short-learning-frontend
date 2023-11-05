@@ -56,7 +56,7 @@ struct TestVideoData {
     static func videoSequenceData() throws -> SequenceData {
         do {
             let data = try getSampleData(SequenceData.self,
-                                        forResource: "sequencesample",
+                                        forResource: "smallsequencesample",
                                         withExtension: "json")
             
             print("Got sample data, returning it.")
