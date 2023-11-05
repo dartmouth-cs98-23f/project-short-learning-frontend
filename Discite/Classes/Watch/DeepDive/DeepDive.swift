@@ -9,58 +9,69 @@ import SwiftUI
 
 struct DeepDive: View {
     
-    @EnvironmentObject var sequence: Sequence
+    var playlist: Playlist?
     @Binding var isPresented: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            
-            // Playlist details
-            playlistDetails(playlistData: sequence.currentPlaylist().getData())
-            
-            HStack {
-                Spacer()
-                
-                // Continue button should close DeepDive
-                ContinueButton {
-                    isPresented = false
-                }
-            }
-            .padding([.bottom, .top], 20)
-            
-            // Display a row for each video in the playlist
-            ForEach(sequence.currentPlaylist().allVideos(), id: \.index) { video in
-                videoRow(title: video.data.title,
-                         description: video.data.description,
-                         currentIndex: sequence.currentPlaylist().getCurrentIndex(),
-                         videoIndex: video.index)
-            }
+        if playlist != nil {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    
+                    // Playlist details
+                    playlistDetails(playlistData: playlist!.getData())
+                    
+                    HStack(alignment: .top) {
+                        uploaderProfile()
+                        
+                        Spacer()
+                        
+                        // Continue button should close DeepDive
+                        AccentPlayButton(action: {
+                            isPresented = false
+                        }, label: playlist!.getCurrentIndex() >= 0 ? "CONTINUE" : "PLAY")
+                    }
+                    .padding([.bottom, .top], 12)
+                    
+                    // Display a row for each video in the playlist
+                    ForEach(playlist!.allVideos(), id: \.index) { video in
+                        videoRow(title: video.data.title,
+                                 description: video.data.description,
+                                 currentIndex: playlist!.getCurrentIndex(),
+                                 videoIndex: video.index)
+                    }
 
+                }
+                .padding(32)
+            }
+            
+        } else {
+            Text("No playlist is playing.")
         }
-        .padding(32)
     }
     
     func playlistDetails(playlistData: SequenceData.PlaylistData) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(playlistData.tags.joined(separator: ", ")).font(Font.body1)
             Text(playlistData.title).font(Font.H3)
-            
-            HStack {
-                // Placeholder profile image
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
-                
-                VStack(alignment: .leading) {
-                    Text("Tom Smith").font(Font.H6)
-                    Text("@tomsmith").font(Font.small)
-                }
-            }
-            .padding(.bottom, 15)
-            
+    
             Text(playlistData.description).font(Font.body1)
         }
+    }
+    
+    func uploaderProfile() -> some View {
+        HStack {
+            // Placeholder profile image
+            Image(systemName: "person.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 40, height: 40)
+            
+            VStack(alignment: .leading) {
+                Text("Tom Smith").font(Font.H6)
+                Text("@tomsmith11").font(Font.small)
+            }
+        }
+        .padding(.top, 12)
     }
     
     // Returns a row for each video in the playlist
@@ -79,13 +90,13 @@ struct DeepDive: View {
             
             // Clicking on "play" should update queue position and close DeepDive
             Button {
-                sequence.currentPlaylist().setCurrentIndex(index: videoIndex)
+                playlist!.setCurrentIndex(index: videoIndex)
                 isPresented = false
                 
             } label: {
                 if currentIndex == videoIndex {
-                    Image(systemName: "play.filled")
-                } else if currentIndex > videoIndex {
+                    Image(systemName: "play.fill")
+                } else if currentIndex < videoIndex {
                     Image(systemName: "play")
                 } else {
                     Image(systemName: "arrow.counterclockwise")
@@ -100,6 +111,11 @@ struct DeepDive: View {
 }
 
 #Preview {
-    DeepDive(isPresented: .constant(true))
-        .environmentObject(Sequence())
+    do {
+        let playlistData = try TestVideoData.playlistData()
+        let playlist = try Playlist(data: playlistData)
+        return DeepDive(playlist: playlist, isPresented: .constant(true))
+    } catch {
+        return Text("No preview available.")
+    }
 }

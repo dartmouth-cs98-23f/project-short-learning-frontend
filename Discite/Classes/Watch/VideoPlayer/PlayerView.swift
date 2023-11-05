@@ -60,7 +60,7 @@ struct PlayerView: View {
                 )
         }
         .sheet(isPresented: $showingDeepDive) {
-            DeepDiveView(isPresented: $showingDeepDive)
+            DeepDive(playlist: sequence.currentPlaylist(), isPresented: $showingDeepDive)
         }
 
     }

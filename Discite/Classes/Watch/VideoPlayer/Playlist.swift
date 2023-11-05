@@ -33,7 +33,7 @@ class Playlist: ObservableObject {
     init(data: SequenceData.PlaylistData) throws {
         self.data = data
         self.videos = []
-        self.currentIndex = -1
+        self.currentIndex = 0
         
         // Add each clip (video) to this playlist's queue
         for videoClip in data.clips {
@@ -48,7 +48,7 @@ class Playlist: ObservableObject {
             throw PlaylistError.emptyPlaylist
         }
         
-        // Set current index back to -1 (not yet started)
+        // Set current index to -1 (not yet started)
         currentIndex = -1
     }
     

@@ -13,12 +13,9 @@ struct Buttons: View {
     }
 }
 
-enum ContinueButtonSize: CaseIterable {
-    case small, medium, large
-}
-
-struct ContinueButton: View {
+struct AccentPlayButton: View {
     let action: () -> Void
+    let label: String
     
     var body: some View {
         Button(action: action) {
@@ -29,7 +26,7 @@ struct ContinueButton: View {
                     .frame(width: 80, height: 80)
                     .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                 
-                Text("CONTINUE")
+                Text(label)
                     .foregroundColor(Color.secondaryPink)
                     .font(Font.captionBold)
             }
@@ -39,6 +36,6 @@ struct ContinueButton: View {
 
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
-        ContinueButton(action: { })
+        AccentPlayButton(action: { }, label: "PLAY")
     }
 }

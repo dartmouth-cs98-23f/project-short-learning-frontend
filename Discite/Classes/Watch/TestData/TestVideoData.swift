@@ -44,7 +44,6 @@ struct TestVideoData {
     }
     
     static func simpleTest() {
-        
         do {
             _ = try getSampleData(SimpleTest.self, forResource: "simpletest", withExtension: "json")
             print("Test passed.")
@@ -70,7 +69,7 @@ struct TestVideoData {
     static func playlistData() throws -> SequenceData.PlaylistData {
         do {
             let data = try getSampleData(SequenceData.PlaylistData.self,
-                                         forResource: "videosequencesample",
+                                         forResource: "playlistsample",
                                          withExtension: "json")
             return data
         } catch {

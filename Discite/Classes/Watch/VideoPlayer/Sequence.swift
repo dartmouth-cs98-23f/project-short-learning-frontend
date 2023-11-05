@@ -35,8 +35,12 @@ class Sequence: ObservableObject {
         return currentIndex >= playlists.count - 1
     }
     
-    func currentPlaylist() -> Playlist {
-        return playlists[currentIndex]
+    func currentPlaylist() -> Playlist? {
+        if currentIndex < playlists.count {
+            return playlists[currentIndex]
+        }
+        
+        return nil
     }
     
     func length() -> Int {
