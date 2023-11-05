@@ -15,8 +15,8 @@ struct SequenceData: Decodable {
     var likes: [Int]
     var dislikes: [Int]
     
-    struct PlaylistData: Identifiable, Decodable {
-        var id: String
+    struct PlaylistData: Decodable {
+        var _id: String
         var title: String
         var description: String
         var uploadDate: Date
@@ -26,8 +26,8 @@ struct SequenceData: Decodable {
         var thumbnailURL: String
         var clips: [VideoData]
         
-        struct VideoData: Identifiable, Decodable {
-            var id: String
+        struct VideoData: Decodable {
+            var _id: String
             var videoId: String
             var title: String
             var description: String

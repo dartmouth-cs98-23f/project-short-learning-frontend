@@ -16,12 +16,6 @@ struct PlayerView: View {
     
     var body: some View {
         VStack {
-            Button {
-                sequence.fetchNextSequence()
-            } label: {
-                Text("Fetch next sequence")
-            }
-            
             VideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
