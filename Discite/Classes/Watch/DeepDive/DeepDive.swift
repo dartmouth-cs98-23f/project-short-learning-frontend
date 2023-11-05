@@ -51,9 +51,14 @@ struct DeepDive: View {
     
     func playlistDetails(playlistData: SequenceData.PlaylistData) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 18) {
+                Spacer()
+                ShareButton(action: {})
+                SaveButton(action: {})
+            }
+                
             Text(playlistData.tags.joined(separator: ", ")).font(Font.body1)
             Text(playlistData.title).font(Font.H3)
-    
             Text(playlistData.description).font(Font.body1)
         }
     }
