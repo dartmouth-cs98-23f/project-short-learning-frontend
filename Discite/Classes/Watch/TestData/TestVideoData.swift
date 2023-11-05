@@ -6,12 +6,32 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct TestVideoData {
+struct TestVideoData: View {
+    
+    @State var passedSimpleTest: Bool?
+    
+    var body: some View {
+        Button {
+            self.passedSimpleTest = TestVideoData.simpleTest()
+        } label: {
+            Text("Run simple test.")
+        }
+        
+        // Must explicitly compare with Bool because passedSimpleTest could be nil
+        if passedSimpleTest == false {
+            Text("Test failed.")
+        } else if passedSimpleTest == true {
+            Text("Test passed.")
+        }
+        
+    }
     
     struct SimpleTest: Decodable {
         var name: String
         var age: Int
+        var date: Date
     }
     
     static func getSampleData<T> (_ type: T.Type,
@@ -19,7 +39,7 @@ struct TestVideoData {
                                   withExtension: String)
     throws -> T where T: Decodable {
         
-        let decoder = JSONDecoder()
+        let decoder = CustomJSONDecoder()
         
         // Find path to resource
         guard let path = Bundle.main.url(forResource: forResource, withExtension: withExtension) else {
@@ -43,19 +63,21 @@ struct TestVideoData {
         
     }
     
-    static func simpleTest() {
+    static func simpleTest() -> Bool {
         do {
             _ = try getSampleData(SimpleTest.self, forResource: "simpletest", withExtension: "json")
             print("Test passed.")
+            return true
         } catch {
             print("Test failed.")
+            return false
         }
     }
     
     static func videoSequenceData() throws -> SequenceData {
         do {
             let data = try getSampleData(SequenceData.self,
-                                        forResource: "smallsequencesample",
+                                        forResource: "videosequencesample",
                                         withExtension: "json")
             
             print("Got sample data, returning it.")
@@ -77,4 +99,9 @@ struct TestVideoData {
         }
     }
 
+}
+
+#Preview {
+    TestVideoData()
+        .environmentObject(Sequence())
 }
