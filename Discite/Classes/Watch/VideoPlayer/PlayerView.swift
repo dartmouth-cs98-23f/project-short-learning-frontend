@@ -44,7 +44,7 @@ struct PlayerView: View {
                         
                         case .up:
                             // Show DeepDive
-                            // videoQueue.player.pause()
+                            player.pause()
                             showingDeepDive = true
                             
                         default:
@@ -53,10 +53,14 @@ struct PlayerView: View {
                     })
                 )
         }
-        .sheet(isPresented: $showingDeepDive) {
+        .sheet(isPresented: $showingDeepDive, onDismiss: deepDiveDismissed, content: {
             DeepDive(playlist: sequence.currentPlaylist(), isPresented: $showingDeepDive)
-        }
+        })
 
+    }
+    
+    func deepDiveDismissed() {
+        player.play()
     }
     
     func removeVideoEndedNotification() {
