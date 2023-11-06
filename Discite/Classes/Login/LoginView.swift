@@ -11,12 +11,13 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
-    @State var orientation = UIDevice.current.orientation
+    @ObservedObject var auth = Auth.shared
 
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack {
+                    Spacer()
                     HStack {
                         Spacer()
                         
@@ -65,7 +66,6 @@ struct LoginView: View {
                     }
                 }
             }
-            Spacer()
         }
     }
 }

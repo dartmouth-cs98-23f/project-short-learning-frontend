@@ -34,14 +34,14 @@ class AuthConfig {
     static let shared = AuthConfig()
     
     let scheme: String = "https"
-    let host: String = "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io" // Mock server
+    let host: String = "e8d65ca6-d3cc-402c-ac69-65ca5a371329.mock.pstmn.io" // Mock server
     let port: Int? = nil
 }
 
 struct AuthenticationService {
     struct LoginService {
         
-        let path = "/login"
+        let path = "/auth/signin"
         let method: HTTPMethod = .post
         var parameters: LoginRequest
         
@@ -72,7 +72,7 @@ struct AuthenticationService {
     
     struct SignupService {
         
-        let path = "/signup"
+        let path = "/auth/signup"
         let method: HTTPMethod = .post
         var parameters: SignupRequest
         

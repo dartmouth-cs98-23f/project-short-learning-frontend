@@ -11,17 +11,19 @@
 import SwiftUI
 
 struct MainView: View {
-    
-    @EnvironmentObject var auth: Auth
-    
+    @ObservedObject var auth = Auth.shared
+      
     var body: some View {
-        LoginView()
+        if auth.loggedIn {
+            HomeView()
+        } else {
+            LoginView()
+        }
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .environmentObject(Auth.shared)
     }
 }

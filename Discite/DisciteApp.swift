@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct DisciteApp: App {
-    
+        
     init() {
         NetworkMonitor.shared.startMonitoring()
     }

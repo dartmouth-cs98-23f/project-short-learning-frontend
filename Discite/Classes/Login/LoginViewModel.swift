@@ -27,6 +27,7 @@ class LoginViewModel: ObservableObject {
             
             do {
                 try Auth.shared.setToken(token: response.token)
+                print("Login successful", Auth.shared.loggedIn)
             } catch {
                 print("Error: Unable to store token in keychain.")
             }

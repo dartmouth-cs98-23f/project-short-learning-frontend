@@ -232,6 +232,8 @@
 			children = (
 				C2D287202AE0B03B00BB263C /* Root */,
 				C2237F302AE59E6500C9396E /* Navigation */,
+				66EE0EB32AF4D4A500F65F38 /* Signup */,
+				C2128A8D2ADB32A600E90C66 /* Login */,
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
 				C235C6762AE06DD700870600 /* Watch */,
 				C291450B2AE60DBF000BEB88 /* Topics */,
@@ -245,8 +247,6 @@
 		C2128A972ADB4F3A00E90C66 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				66EE0EB32AF4D4A500F65F38 /* Signup */,
-				C2128A8D2ADB32A600E90C66 /* Login */,
 				C235C6742ADF842500870600 /* Auth.swift */,
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
 			);
