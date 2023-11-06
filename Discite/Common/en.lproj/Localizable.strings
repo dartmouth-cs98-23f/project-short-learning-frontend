@@ -20,3 +20,6 @@
 "Error.APIError.RequestFailed" = "API request failed.";
 "Error.APIError.NoInternet" = "No internet.";
 "Error.APIError.UnknownError" = "Unknown error.";
+
+"Error.PlaylistError.NoNextVideo" = "No next video in playlist.";
+"Error.PlaylistError.EmptyPlaylist" = "Playlist is empty.";

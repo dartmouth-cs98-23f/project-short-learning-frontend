@@ -13,12 +13,9 @@ struct Buttons: View {
     }
 }
 
-enum ContinueButtonSize: CaseIterable {
-    case small, medium, large
-}
-
-struct ContinueButton: View {
+struct AccentPlayButton: View {
     let action: () -> Void
+    let label: String
     
     var body: some View {
         Button(action: action) {
@@ -29,7 +26,7 @@ struct ContinueButton: View {
                     .frame(width: 80, height: 80)
                     .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                 
-                Text("CONTINUE")
+                Text(label)
                     .foregroundColor(Color.secondaryPink)
                     .font(Font.captionBold)
             }
@@ -37,8 +34,55 @@ struct ContinueButton: View {
     }
 }
 
+struct ShareButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack {
+                Image(systemName: "paperplane")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryBlue)
+                
+                Text("Share")
+                    .foregroundColor(.primaryBlue)
+                    .font(.button)
+            }
+        }
+    }
+}
+
+struct SaveButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack {
+                Image(systemName: "bookmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryBlue)
+                
+                Text("Save")
+                    .foregroundColor(.primaryBlue)
+                    .font(.button)
+            }
+        }
+    }
+}
+
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
-        ContinueButton(action: { })
+        AccentPlayButton(action: { }, label: "PLAY")
+            .previewDisplayName("Accent Play")
+        
+        ShareButton(action: { })
+            .previewDisplayName("Share")
+        
+        SaveButton(action: { })
+            .previewDisplayName("Save")
     }
 }
