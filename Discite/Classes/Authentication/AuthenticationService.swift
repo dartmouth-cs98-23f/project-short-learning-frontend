@@ -29,7 +29,6 @@ struct SignupRequest: Encodable {
     let password: String
 }
 
-
 class AuthConfig {
     static let shared = AuthConfig()
     

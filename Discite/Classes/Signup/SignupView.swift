@@ -25,6 +25,10 @@ struct SignupView: View {
                             .padding()
                         Spacer()
                     }
+                    if signupModel.internalError != "" {
+                        Text(signupModel.internalError)
+                            .foregroundStyle(.red)
+                    }
                     
                     TextField(
                         "Username",

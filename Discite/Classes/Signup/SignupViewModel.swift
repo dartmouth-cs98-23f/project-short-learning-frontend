@@ -17,8 +17,10 @@ class SignupViewModel: ObservableObject {
     @Published var confirmPassword: String = ""
 
     @Published var error: APIError?
+    @Published var internalError: String = ""
     
     func signup() {
+        self.internalError = ""
         if password == confirmPassword {
             AuthenticationService.SignupService(
                 parameters: SignupRequest(
@@ -33,6 +35,7 @@ class SignupViewModel: ObservableObject {
                 
                 do {
                     try Auth.shared.setToken(token: response.token)
+                    print("Signup successful")
                 } catch {
                     print("Error: Unable to store token in keychain.")
                 }
@@ -41,6 +44,7 @@ class SignupViewModel: ObservableObject {
                 self.error = error
             }
         } else {
+            self.internalError = "Passwords do not match"
             print("Passwords do not match")
         }
     }
