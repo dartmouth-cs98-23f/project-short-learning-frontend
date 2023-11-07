@@ -2,10 +2,9 @@
 Podfile.lock
 Pods
 *.xcworkspace
-*.xcodeproj
-*/xcschemes
-Discite/.DS_Store
-Discite/Classes/.DS_Store
-Discite/Classes/Authentication/.DS_Store
-Discite/DisciteApp
+xcuserdata
+.DS_Store
+
+
+
 
