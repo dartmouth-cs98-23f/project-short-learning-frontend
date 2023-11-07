@@ -29,6 +29,7 @@ struct SignupView: View {
                     if signupModel.internalError != "" {
                         Text(signupModel.internalError)
                             .foregroundStyle(.red)
+                            .bold()
                     }
                     
                     TextField(

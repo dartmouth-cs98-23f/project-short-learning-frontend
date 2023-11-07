@@ -16,8 +16,7 @@ class SignupViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var date: Date = Date.now
-    @Published var birthdate: String = ""
-
+    @Published var birthDate: String = ""
 
     @Published var error: APIError?
     @Published var internalError: String = ""
@@ -25,30 +24,26 @@ class SignupViewModel: ObservableObject {
     func signup() {
         self.internalError = ""
         if password == confirmPassword {
-            self.birthdate = Date.toISO(date: self.date)
-            print(username, firstname, lastname, password, email, birthdate)
+            self.birthDate = Date.toStr(date: self.date)
             AuthenticationService.SignupService(
                 parameters: SignupRequest(
                     username: username.lowercased(),
                     email: email,
-                    firstname: firstname.lowercased(),
-                    lastname: lastname.lowercased(),
+                    firstName: firstname.lowercased(),
+                    lastName: lastname.lowercased(),
                     password: password,
-                    birthdate: birthdate
+                    birthDate: birthDate
                 )
             ).call { response in
                 self.error = nil
                 
                 do {
-                    print(self.birthdate)
                     try Auth.shared.setToken(token: response.token)
-                    print("Signup successful")
                 } catch {
                     print("Error: Unable to store token in keychain.")
                 }
                 
             } failure: { error in
-                print(self.birthdate)
                 self.error = error
             }
         } else {
@@ -59,7 +54,7 @@ class SignupViewModel: ObservableObject {
 }
 
 extension Date {
-    static func toISO(date: Date) -> String {
+    static func toStr(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date)

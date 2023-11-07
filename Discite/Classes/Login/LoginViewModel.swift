@@ -19,19 +19,18 @@ class LoginViewModel: ObservableObject {
     func login() {
         AuthenticationService.LoginService(
             parameters: LoginRequest(
-                usernameOrEmail: usernameOrEmail,
+                email: usernameOrEmail,
                 password: password
             )
         ).call { response in
             self.error = nil
-            
+            print("starting call")
             do {
                 try Auth.shared.setToken(token: response.token)
                 print("Login successful", Auth.shared.loggedIn)
             } catch {
                 print("Error: Unable to store token in keychain.")
             }
-            
         } failure: { error in
             self.error = error
         }

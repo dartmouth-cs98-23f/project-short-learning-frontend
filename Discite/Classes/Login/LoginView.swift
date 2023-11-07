@@ -27,8 +27,14 @@ struct LoginView: View {
                             .padding()
                         Spacer()
                     }
+                    if viewModel.error != nil {
+                        Text("Invalide Email or Password")
+                            .foregroundStyle(.red)
+                            .bold()
+                            .frame(alignment: .leading)
+                    }
                     TextField(
-                        "Auth.UsernameOrEmailField.Title",
+                        "Email",
                         text: $viewModel.usernameOrEmail
                     )
                     .autocapitalization(.none)
@@ -37,7 +43,7 @@ struct LoginView: View {
                     .background(Color.black.opacity(0.05))
                     
                     SecureField(
-                        "Auth.PasswordField.Title",
+                        "Password",
                         text: $viewModel.password
                     )
                     .padding()

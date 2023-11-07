@@ -12,22 +12,20 @@ import Foundation
 
 struct AuthResponseData: Decodable {
     let token: String
-    let userId: String
-    let message: String
 }
 
 struct LoginRequest: Encodable {
-    let usernameOrEmail: String
+    let email: String
     let password: String
 }
 
 struct SignupRequest: Encodable {
     let username: String
     let email: String
-    let firstname: String
-    let lastname: String
+    let firstName: String
+    let lastName: String
     let password: String
-    let birthdate: String
+    let birthDate: String
 }
 
 class AuthConfig {
