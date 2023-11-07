@@ -11,38 +11,67 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
+    @ObservedObject var auth = Auth.shared
 
     var body: some View {
-        VStack {
-            VStack {
-                TextField(
-                    "Login.UsernameOrEmailField.Title",
-                    text: $viewModel.usernameOrEmail
-                )
-                .autocapitalization(.none)
-                .padding()
-                .frame(width: 500, height: 50)
-                .background(Color.black.opacity(0.05))
-
-                SecureField(
-                    "Login.PasswordField.Title",
-                     text: $viewModel.password
-                )
-                .padding()
-                .frame(width: 500, height: 50)
-                .background(Color.black.opacity(0.05))
+        GeometryReader { geometry in
+            ScrollView {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        
+                        Image(.disciteLogo)
+                            .resizable()
+                            .frame(width: 250, height: 130)
+                            .padding()
+                        Spacer()
+                    }
+                    if viewModel.error != nil {
+                        Text("Invalide Email or Password")
+                            .foregroundStyle(.red)
+                            .bold()
+                            .frame(alignment: .leading)
+                    }
+                    TextField(
+                        "Email",
+                        text: $viewModel.usernameOrEmail
+                    )
+                    .autocapitalization(.none)
+                    .padding()
+                    .frame(width: geometry.size.width - 20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    SecureField(
+                        "Password",
+                        text: $viewModel.password
+                    )
+                    .padding()
+                    .frame(width: geometry.size.width-20, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    
+                    if viewModel.error != nil {
+                        Text("\(viewModel.error?.localizedDescription ?? "Unknown error")")
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                    }
+                    
+                    Button("Login.Button.Text") {
+                        viewModel.login()
+                    }
+                    .modifier(PrimaryButton())
+                    .frame(width: geometry.size.width-20, height: 50)
+                    
+                    HStack {
+                        Text("Don't have an account?")
+                        NavigationLink(destination: SignupView()) {
+                            Text("Sign Up")
+                                .navigationBarTitle("")
+                                .navigationBarHidden(true)
+                        }
+                    }
+                }
             }
-            
-            if viewModel.error != nil {
-                Text("\(viewModel.error?.localizedDescription ?? "Unknown error")")
-                    .fontWeight(.bold)
-                    .foregroundColor(.red)
-            }
-            
-            Button("Login.Button.Text") {
-                viewModel.login()
-            }
-            .modifier(PrimaryButton())
         }
     }
 }

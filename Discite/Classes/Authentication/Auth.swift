@@ -36,8 +36,9 @@ class Auth: ObservableObject {
         
         let success = keychain.set(token!, forKey: KeychainKey.token.rawValue)
         guard success else { throw AuthError.setToken }
-        
-        loggedIn = true
+        DispatchQueue.main.async {
+            Auth.shared.loggedIn = true
+        }
     }
     
     func hasToken() -> Bool {

@@ -2,3 +2,10 @@
 Podfile.lock
 Pods
 *.xcworkspace
+xcuserdata
+.DS_Store
+Discite/DisciteApp.swift
+Discite.xcodeproj/project.pbxproj
+
+
+

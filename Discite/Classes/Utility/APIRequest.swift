@@ -54,7 +54,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         method: HTTPMethod,
         authorized: Bool,
         queryItems: [URLQueryItem]? = nil,
-        parameters: Parameters? = nil,
+        parameters: Encodable? = nil,
         headerFields: [String: String]? = nil,
         completion: @escaping CompletionHandler,
         failure: @escaping FailureHandler
@@ -92,7 +92,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             // For the mock server
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
+            // request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
         }
         
         if let parameters = parameters {

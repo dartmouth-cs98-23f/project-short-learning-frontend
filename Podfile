@@ -7,5 +7,4 @@ target 'Discite' do
 
   # Pods for Discite
   pod 'SwiftLint'
-
 end
