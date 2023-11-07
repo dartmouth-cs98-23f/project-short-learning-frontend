@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SignupView: View {
+    
     @ObservedObject var signupModel: SignupViewModel = SignupViewModel()
     @State var orientation = UIDevice.current.orientation
     let fileManager = FileManager.default
@@ -65,6 +66,16 @@ struct SignupView: View {
                     .padding()
                     .frame(width: geometry.size.width-20, height: 50)
                     .background(Color.black.opacity(0.05))
+                    
+                    HStack {
+                        DatePicker(selection: $signupModel.date, displayedComponents: .date) {
+                            Text("Select Birthdate")
+                                .opacity(0.25)
+                        }
+                        .padding()
+                        .frame(width: geometry.size.width-20, height: 50)
+                        .background(Color.black.opacity(0.05))
+                    }
                     
                     SecureField(
                         "Password",

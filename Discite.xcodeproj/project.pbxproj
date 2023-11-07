@@ -74,7 +74,6 @@
 		C2ECB9672AF45ECA00433A3A /* playlistsample.json in Resources */ = {isa = PBXBuildFile; fileRef = C2ECB9662AF45ECA00433A3A /* playlistsample.json */; };
 		C2FEE2742AF7070300DBF997 /* smallsequencesample.json in Resources */ = {isa = PBXBuildFile; fileRef = C2FEE2732AF7070300DBF997 /* smallsequencesample.json */; };
 		C2FEE2762AF70BD700DBF997 /* simpletest.json in Resources */ = {isa = PBXBuildFile; fileRef = C2FEE2752AF70BD700DBF997 /* simpletest.json */; };
-		FDD7BADEBE32D233B56EA2E2 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,7 +150,6 @@
 		C2ECB9662AF45ECA00433A3A /* playlistsample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = playlistsample.json; sourceTree = "<group>"; };
 		C2FEE2732AF7070300DBF997 /* smallsequencesample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = smallsequencesample.json; sourceTree = "<group>"; };
 		C2FEE2752AF70BD700DBF997 /* simpletest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpletest.json; sourceTree = "<group>"; };
-		CD6D62B8A7298B2388E5006A /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,7 +187,6 @@
 				C2128A742ADB270B00E90C66 /* Discite */,
 				C2128A732ADB270B00E90C66 /* Products */,
 				3622EC259FD8B4B212031657 /* Pods */,
-				E7C69860EC6BE8FC0C8F03B0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -607,7 +604,6 @@
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
-				C2BA1CBF2AEC6CA000DC21B2 /* VideoQueue.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,

@@ -27,20 +27,21 @@ struct SignupRequest: Encodable {
     let firstname: String
     let lastname: String
     let password: String
+    let birthdate: String
 }
 
 class AuthConfig {
     static let shared = AuthConfig()
     
-    let scheme: String = "https"
-    let host: String = "e8d65ca6-d3cc-402c-ac69-65ca5a371329.mock.pstmn.io" // Mock server
-    let port: Int? = nil
+    let scheme: String = "http"
+    let host: String = "localhost" // must be running backend on localhost:3000
+    let port: Int? = 3000
 }
 
 struct AuthenticationService {
     struct LoginService {
         
-        let path = "/auth/signin"
+        let path = "/api/auth/signin"
         let method: HTTPMethod = .post
         var parameters: LoginRequest
         
@@ -52,6 +53,7 @@ struct AuthenticationService {
                 scheme: AuthConfig.shared.scheme,
                 host: AuthConfig.shared.host,
                 path: path,
+                port: AuthConfig.shared.port,
                 method: method,
                 authorized: false,
                 parameters: parameters) { data in
@@ -71,7 +73,7 @@ struct AuthenticationService {
     
     struct SignupService {
         
-        let path = "/auth/signup"
+        let path = "/api/auth/signup"
         let method: HTTPMethod = .post
         var parameters: SignupRequest
         
@@ -83,6 +85,7 @@ struct AuthenticationService {
                 scheme: AuthConfig.shared.scheme,
                 host: AuthConfig.shared.host,
                 path: path,
+                port: AuthConfig.shared.port,
                 method: method,
                 authorized: false,
                 parameters: parameters) { data in

@@ -15,6 +15,9 @@ class SignupViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
+    @Published var date: Date = Date.now
+    @Published var birthdate: String = ""
+
 
     @Published var error: APIError?
     @Published var internalError: String = ""
@@ -22,18 +25,22 @@ class SignupViewModel: ObservableObject {
     func signup() {
         self.internalError = ""
         if password == confirmPassword {
+            self.birthdate = Date.toISO(date: self.date)
+            print(username, firstname, lastname, password, email, birthdate)
             AuthenticationService.SignupService(
                 parameters: SignupRequest(
-                    username: username,
+                    username: username.lowercased(),
                     email: email,
-                    firstname: firstname,
-                    lastname: lastname,
-                    password: password
+                    firstname: firstname.lowercased(),
+                    lastname: lastname.lowercased(),
+                    password: password,
+                    birthdate: birthdate
                 )
             ).call { response in
                 self.error = nil
                 
                 do {
+                    print(self.birthdate)
                     try Auth.shared.setToken(token: response.token)
                     print("Signup successful")
                 } catch {
@@ -41,11 +48,20 @@ class SignupViewModel: ObservableObject {
                 }
                 
             } failure: { error in
+                print(self.birthdate)
                 self.error = error
             }
         } else {
             self.internalError = "Passwords do not match"
             print("Passwords do not match")
         }
+    }
+}
+
+extension Date {
+    static func toISO(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
     }
 }
