@@ -22,14 +22,21 @@ struct TopicCard: View {
                 // Update sequence on click
                 
             } label: {
-                VStack {
+                VStack(spacing: 12) {
                     Image(systemName: "moon.stars.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
                     Text(topic.title)
+                        .font(Font.button)
                 }
             }
-            .frame(width: 100, height: 140)
-            .background(Color.secondaryLightPeach)
-
+            .frame(width: 140, height: 150)
+            .background(Color.secondaryLightestBlue)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+            .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
+            .padding(12)
         }
 
     }
@@ -43,10 +50,9 @@ struct TopicCard: View {
     } failure: { error in
         print("\(error)")
     }
-
+    
     if previewTopic != nil {
         return TopicCard(topic: previewTopic!)
-        
     } else {
         return Text("Failed to fetch topic.")
     }

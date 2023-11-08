@@ -1,5 +1,5 @@
 //
-//  Explore.swift
+//  Recommender.swift
 //  Discite
 //
 //  Created by Jessie Li on 11/8/23.
@@ -7,7 +7,7 @@
 
 import Foundation
     
-class Explore: ObservableObject {
+class Recommender: ObservableObject {
     
     var recommendations: Recommendations?
     
@@ -18,7 +18,7 @@ class Explore: ObservableObject {
         ExploreService.fetchTestRecommendations { recommendations in
             self.recommendations = recommendations
         } failure: { error in
-            print("\(error.localizedDescription)")
+            print("Error fetching recommendations: \(error.localizedDescription)")
         }
     }
     

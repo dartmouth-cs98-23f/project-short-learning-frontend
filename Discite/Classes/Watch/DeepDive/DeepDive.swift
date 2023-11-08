@@ -56,8 +56,7 @@ struct DeepDive: View {
                 ShareButton(action: {})
                 SaveButton(action: {})
             }
-                
-            Text(playlistData.tags.joined(separator: ", ")).font(Font.body1)
+            
             Text(playlistData.title).font(Font.H3)
             Text(playlistData.description).font(Font.body1)
         }

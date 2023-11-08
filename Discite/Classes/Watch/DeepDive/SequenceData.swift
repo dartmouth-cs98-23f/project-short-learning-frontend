@@ -28,7 +28,7 @@ struct SequenceData: Decodable {
         var description: String
         var uploadDate: Date
         var uploader: String
-        var tags: [String]
+        var tags: [String]?
         var duration: Int
         var thumbnailURL: String
         var clips: [VideoData]
@@ -40,7 +40,6 @@ struct SequenceData: Decodable {
             var description: String
             var uploadDate: Date
             var uploader: String
-            var tags: [String]
             var duration: Int
             var thumbnailURL: String
             var clipURL: String

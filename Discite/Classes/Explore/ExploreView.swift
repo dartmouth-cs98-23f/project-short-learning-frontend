@@ -10,12 +10,12 @@ import SwiftUI
 struct ExploreView: View {
 
     @EnvironmentObject var sequence: Sequence
-    @ObservedObject var explore: Explore = Explore()
+    @ObservedObject var recommender = Recommender()
     
     var body: some View {
         
-        if explore.recommendations != nil {
-            topicScrollView(heading: "Explore.Topics.Title", topics: explore.recommendations!.topics)
+        if recommender.recommendations != nil {
+            topicScrollView(heading: "Explore.Topics.Title", topics: recommender.recommendations!.topics)
         } else {
             Text("No topics to show.")
         }

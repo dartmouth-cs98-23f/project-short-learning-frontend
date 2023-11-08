@@ -21,10 +21,11 @@ struct Recommendations: Decodable {
     enum RecommendationsKeys: String, CodingKey {
         case userId
         case topics = "topVideoRecommendations"
-        case subtopics = "topTopicVideoRecommmendations"
+        case subtopics = "topTopicVideoRecommendations"
     }
     
     init(from decoder: Decoder) throws {
+        print("Decoding container...")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let recommendations = try container.nestedContainer(keyedBy: RecommendationsKeys.self, forKey: .recommendations)
         
@@ -39,10 +40,12 @@ struct Topic: Decodable, Identifiable {
     var id: String
     var title: String
     var clipIndex: Int
-    var videos: [Playlist] = []
+    // var videos: [Playlist] = []
+    var playlist: Playlist
     
     enum CodingKeys: String, CodingKey {
-        case sequenceData = "videoId"
+        // case sequenceData = "videoId"
+        case playlist = "videoId"
         case clipIndex
         case title = "topicId"
         case id = "_id"
@@ -56,13 +59,16 @@ struct Topic: Decodable, Identifiable {
         clipIndex = try container.decode(Int.self, forKey: .clipIndex)
         
         // Translate sequence data into a list of Playlists
-        let sequence = try container.nestedContainer(keyedBy: SequenceData.CodingKeys.self, forKey: .sequenceData)
-        let playlists = try sequence.decode([SequenceData.PlaylistData].self, forKey: SequenceData.CodingKeys.videos)
+        // let sequence = try container.nestedContainer(keyedBy: SequenceData.CodingKeys.self, forKey: .sequenceData)
+        // let playlists = try sequence.decode([SequenceData.PlaylistData].self, forKey: SequenceData.CodingKeys.videos)
+        // let sequence = try container.decode([SequenceData.PlaylistData].self, forKey: .sequenceData)
         
-        for data in playlists {
-            let playlist = try Playlist(data: data)
-            videos.append(playlist)
-        }
-    
+//        for data in sequence {
+//            let playlist = try Playlist(data: data)
+//            videos.append(playlist)
+//        }
+        let playlistData = try container.decode(SequenceData.PlaylistData.self, forKey: .playlist)
+        playlist = try Playlist(data: playlistData)
+        
     }
 }
