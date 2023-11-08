@@ -4,8 +4,12 @@ Pods
 *.xcworkspace
 xcuserdata
 .DS_Store
+<<<<<<< HEAD
 Discite/DisciteApp.swift
 Discite.xcodeproj/project.pbxproj
+=======
+
+>>>>>>> 05ca4a3be394b59dea44e2d129b4a377de59b10d
 
 
 
