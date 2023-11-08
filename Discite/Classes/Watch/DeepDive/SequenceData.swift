@@ -8,12 +8,19 @@
 import Foundation
 
 struct SequenceData: Decodable {
-    var message: String
     var currentClipIndex: [Int]
     var videos: [PlaylistData]
     var views: [Int]
     var likes: [Int]
     var dislikes: [Int]
+    
+    enum CodingKeys: String, CodingKey {
+        case currentClipIndex
+        case videos
+        case views
+        case likes
+        case dislikes
+    }
     
     struct PlaylistData: Decodable {
         var _id: String

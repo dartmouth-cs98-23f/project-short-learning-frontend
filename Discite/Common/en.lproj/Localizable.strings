@@ -12,9 +12,10 @@
 "Signup.UsernameField.Title" = "Username";
 "Signup.EmailField.Title" = "Email";
 
-
 "Home.Title" = "Welcome!";
 "Home.LogoutButton.Title" = "Log Out";
+
+"Explore.Topics.Title" = "My interests";
 
 "Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
 "Error.APIError.RequestFailed" = "API request failed.";
