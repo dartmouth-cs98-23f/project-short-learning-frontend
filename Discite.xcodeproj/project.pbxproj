@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66A5A4012AFB6D7100E1B152 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A5A4002AFB6D7100E1B152 /* OnboardingView.swift */; };
+		66A5A4042AFB6D9A00E1B152 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A5A4032AFB6D9A00E1B152 /* OnboardingViewModel.swift */; };
 		66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */; };
 		66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB52AF4D4A500F65F38 /* SignupView.swift */; };
 		C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20DB8DF2AF1A8A5006FC33A /* User.swift */; };
@@ -78,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
+		66A5A4002AFB6D7100E1B152 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		66A5A4032AFB6D9A00E1B152 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		66EE0EB52AF4D4A500F65F38 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.debug.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.debug.xcconfig"; sourceTree = "<group>"; };
@@ -172,6 +176,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		66A5A4022AFB6D8000E1B152 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				66A5A4002AFB6D7100E1B152 /* OnboardingView.swift */,
+				66A5A4032AFB6D9A00E1B152 /* OnboardingViewModel.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		66EE0EB32AF4D4A500F65F38 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +258,7 @@
 		C2128A8E2ADB32B100E90C66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				66A5A4022AFB6D8000E1B152 /* Onboarding */,
 				C2D287202AE0B03B00BB263C /* Root */,
 				C2237F302AE59E6500C9396E /* Navigation */,
 				66EE0EB32AF4D4A500F65F38 /* Signup */,
@@ -594,6 +608,7 @@
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDive.swift in Sources */,
+				66A5A4012AFB6D7100E1B152 /* OnboardingView.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */,
@@ -604,6 +619,7 @@
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
+				66A5A4042AFB6D9A00E1B152 /* OnboardingViewModel.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,
