@@ -61,19 +61,11 @@ struct SaveButtonLabeled: View {
     var body: some View {
         Button(action: action) {
             VStack {
-                if isSaved {
-                    Image(systemName: "bookmark.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 28, height: 28)
-                        .foregroundColor(.primaryBlue)
-                } else {
-                    Image(systemName: "bookmark")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 28, height: 28)
-                        .foregroundColor(.primaryBlue)
-                }
+                Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryBlue)
                 
                 Text("Save")
                     .foregroundColor(.primaryBlue)
@@ -89,19 +81,11 @@ struct SaveButton: View {
     
     var body: some View {
         Button(action: action) {
-            if isSaved {
-                Image(systemName: "bookmark.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryDarkNavy)
-            } else {
-                Image(systemName: "bookmark")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryDarkNavy)
-            }
+            Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 28, height: 28)
+                .foregroundColor(.primaryDarkNavy)
         }
     }
 }
