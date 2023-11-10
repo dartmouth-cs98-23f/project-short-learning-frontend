@@ -54,7 +54,7 @@ struct DeepDive: View {
             HStack(spacing: 18) {
                 Spacer()
                 ShareButtonLabeled(action: {})
-                SaveButtonLabeled(action: {})
+                SaveButtonLabeled(action: {}, isSaved: false)
             }
             
             Text(playlistData.title).font(Font.H3).padding(.top, 18)

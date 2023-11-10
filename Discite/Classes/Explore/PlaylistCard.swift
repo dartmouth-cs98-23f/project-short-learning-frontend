@@ -29,7 +29,7 @@ struct PlaylistCard: View {
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        SaveButton(action: { })
+                        SaveButton(action: { }, isSaved: false)
                     }
                     
                     Spacer()

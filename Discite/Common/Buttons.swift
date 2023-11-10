@@ -56,15 +56,24 @@ struct ShareButtonLabeled: View {
 
 struct SaveButtonLabeled: View {
     let action: () -> Void
+    let isSaved: Bool
     
     var body: some View {
         Button(action: action) {
             VStack {
-                Image(systemName: "bookmark")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryBlue)
+                if isSaved {
+                    Image(systemName: "bookmark.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 28, height: 28)
+                        .foregroundColor(.primaryBlue)
+                } else {
+                    Image(systemName: "bookmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 28, height: 28)
+                        .foregroundColor(.primaryBlue)
+                }
                 
                 Text("Save")
                     .foregroundColor(.primaryBlue)
@@ -76,14 +85,23 @@ struct SaveButtonLabeled: View {
 
 struct SaveButton: View {
     let action: () -> Void
+    let isSaved: Bool
     
     var body: some View {
         Button(action: action) {
-            Image(systemName: "bookmark")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 28, height: 28)
-                .foregroundColor(.primaryDarkNavy)
+            if isSaved {
+                Image(systemName: "bookmark.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryDarkNavy)
+            } else {
+                Image(systemName: "bookmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .foregroundColor(.primaryDarkNavy)
+            }
         }
     }
 }
@@ -96,10 +114,10 @@ struct Buttons_Previews: PreviewProvider {
         ShareButtonLabeled(action: { })
             .previewDisplayName("Share (labeled)")
         
-        SaveButton(action: { })
+        SaveButton(action: { }, isSaved: false)
             .previewDisplayName("Save")
         
-        SaveButtonLabeled(action: { })
+        SaveButtonLabeled(action: { }, isSaved: false)
             .previewDisplayName("Save (labeled)")
     }
 }
