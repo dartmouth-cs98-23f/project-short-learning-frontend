@@ -10,28 +10,58 @@
 import SwiftUI
 
 struct HomeView: View {
+
+    @State private var selection: Tab = .Watch
     
-    @State var showSidebar = false
-    @State var selectedSidebarItem = 0
+    let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
+                TabItem(systemImage: "magnifyingglass", tag: .Explore),
+                TabItem(systemImage: "person.2.fill", tag: .Shared),
+                TabItem(systemImage: "person.crop.circle", tag: .Account)]
+    
+    enum Tab {
+        case Watch
+        case Explore
+        case Shared
+        case Account
+    }
+    
+    struct TabItem {
+        let systemImage: String
+        let tag: Tab
+    }
     
     var body: some View {
-        ZStack {
+        
+        VStack {
             
-            TabView(selection: $selectedSidebarItem) {
-                WatchView(showSidebar: $showSidebar)
-                    .tag(0)
-                TopicsView(showSidebar: $showSidebar)
-                    .tag(1)
-                SharedView(showSidebar: $showSidebar)
-                    .tag(2)
-                AccountView(showSidebar: $showSidebar)
-                    .tag(3)
+            switch selection {
+            case .Watch:
+                WatchView()
+            case .Explore:
+                ExploreView()
+            case .Shared:
+                SharedView()
+            case .Account:
+                AccountView()
             }
             
-            SidebarContainer(sidebarWidth: 200, showSidebar: $showSidebar) {
-                Sidebar(selectedSidebarItem: $selectedSidebarItem, showSidebar: $showSidebar, sidebarWidth: 200)
+            HStack {
+                ForEach(tabs, id: \.tag) { tab in
+                    Button {
+                        selection = tab.tag
+                    } label: {
+                        Image(systemName: tab.systemImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity, maxHeight: 32)
+                            .foregroundColor(.primaryBlueBlack)
+                    }
+                }
             }
+
         }
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        
     }
 }
 

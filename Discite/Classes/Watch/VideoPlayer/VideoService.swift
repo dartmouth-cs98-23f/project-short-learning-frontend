@@ -28,7 +28,7 @@ class VideoService: ObservableObject {
     
     // Fetches hard-coded playlist data
     static func fetchPlaylist(completion: @escaping (SequenceData.PlaylistData) -> Void,
-                       failure: @escaping (APIError) -> Void) {
+                              failure: @escaping (APIError) -> Void) {
         
         print("Fetching playlist...")
         
@@ -42,7 +42,7 @@ class VideoService: ObservableObject {
     
     // Fetches hard-coded video sequence data (multiple playlists)
     static func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
-                            failure: @escaping (APIError) -> Void) {
+                                   failure: @escaping (APIError) -> Void) {
         
         print("Fetching video sequence...")
         

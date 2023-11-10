@@ -11,23 +11,8 @@ import SwiftUI
 
 struct TopicsView: View {
     
-    @Binding var showSidebar: Bool
-
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    showSidebar.toggle()
-                } label: {
-                    Image(systemName: "line.3.horizontal")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(Color.black)
-                }
-                
-                Spacer()
-            }
-                    
             Spacer()
             Text("My Topics View")
             Spacer()

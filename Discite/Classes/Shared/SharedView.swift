@@ -10,24 +10,9 @@
 import SwiftUI
 
 struct SharedView: View {
-    
-    @Binding var showSidebar: Bool
 
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    showSidebar.toggle()
-                } label: {
-                    Image(systemName: "line.3.horizontal")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(Color.black)
-                }
-                
-                Spacer()
-            }
-                    
             Spacer()
             Text("Shared View")
             Spacer()

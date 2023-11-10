@@ -15,7 +15,7 @@ struct PlaylistCard: View {
     var body: some View {
         NavigationLink {
             // Navigate to Watch on click, placeholder for now
-            WatchView(showSidebar: .constant(false))
+            WatchView()
             
         } label: {
             Button {
