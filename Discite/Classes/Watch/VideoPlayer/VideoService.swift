@@ -1,5 +1,5 @@
 //
-//  TestVideoService.swift
+//  VideoService.swift
 //  Discite
 //
 //  Created by Jessie Li on 10/25/23.
@@ -10,7 +10,7 @@
 
 import Foundation
 
-struct TestVideoRequest: Encodable {
+struct VideoRequest: Encodable {
     
 }
 
@@ -22,12 +22,12 @@ struct VideoAPIConfiguration {
     let APIkey: String = "5GNjXyXuHegB03rbiBcXjsdiMaZABuNfmAdOpzsjdFkVtMfPim9AEZ59"
 }
 
-class TestVideoService: ObservableObject {
+class VideoService: ObservableObject {
     
-    static let shared: TestVideoService = TestVideoService()
+    static let shared: VideoService = VideoService()
     
     // Fetches hard-coded playlist data
-    func fetchPlaylist(completion: @escaping (SequenceData.PlaylistData) -> Void,
+    static func fetchPlaylist(completion: @escaping (SequenceData.PlaylistData) -> Void,
                        failure: @escaping (APIError) -> Void) {
         
         print("Fetching playlist...")
@@ -41,7 +41,7 @@ class TestVideoService: ObservableObject {
     }
     
     // Fetches hard-coded video sequence data (multiple playlists)
-    func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
+    static func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
                             failure: @escaping (APIError) -> Void) {
         
         print("Fetching video sequence...")
@@ -55,7 +55,7 @@ class TestVideoService: ObservableObject {
     }
     
     // Fetches a specific video from Pexels API based on ID
-    func fetchVideo(
+    static func fetchVideo(
         videoId: String,
         completion: @escaping (VideoData) -> Void,
         failure: @escaping (APIError) -> Void
@@ -65,7 +65,7 @@ class TestVideoService: ObservableObject {
         let method: HTTPMethod = .get
         let headerFields: [String: String] = ["Authorization": VideoAPIConfiguration.shared.APIkey]
         
-        APIRequest<TestVideoRequest, VideoData>.call(
+        APIRequest<VideoRequest, VideoData>.call(
             scheme: VideoAPIConfiguration.shared.scheme,
             host: VideoAPIConfiguration.shared.host,
             path: path,

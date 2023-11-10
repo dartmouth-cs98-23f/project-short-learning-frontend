@@ -12,8 +12,7 @@ import SwiftUI
 class Sequence: ObservableObject {
     
     var playlists: [Playlist] = []
-    
-    private var videoService: TestVideoService = TestVideoService.shared
+
     @Published private(set) var fetchSuccessful: Bool = false
     @Published private(set) var fetchError: APIError?
     
@@ -47,7 +46,7 @@ class Sequence: ObservableObject {
         // Synchronizes asynchronous behaviors
         let dispatchGroup = DispatchGroup()
         
-        videoService.fetchPlaylist { playlistData in
+        VideoService.fetchPlaylist { playlistData in
             do {
                 dispatchGroup.enter()
                 let playlist = try Playlist(data: playlistData)
@@ -142,7 +141,7 @@ class Sequence: ObservableObject {
         let dispatchGroup = DispatchGroup()
         
         // Mock fetch video sequence
-        videoService.fetchVideoSequence { videoSequenceData in
+        VideoService.fetchVideoSequence { videoSequenceData in
             print("Response received. Now adding playlists.")
             
             // Add each playlist to next sequence

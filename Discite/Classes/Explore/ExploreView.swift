@@ -14,21 +14,36 @@ struct ExploreView: View {
     
     var body: some View {
         
-        if recommender.recommendations != nil {
-            topicScrollView(heading: "Explore.Topics.Title", topics: recommender.recommendations!.topics)
-        } else {
-            Text("No topics to show.")
+        VStack(alignment: .leading, spacing: 24) {
+            
+            Text("Explore.Title")
+                .font(Font.H2)
+                .padding(.top, 18)
+            
+            // Section: My interests (topics)
+            if recommender.recommendations != nil {
+                topicScrollSection(heading: "My interests", topics: recommender.recommendations!.topics)
+            } else {
+                Text("No topics to show.")
+            }
+            
+            // Section: Continue learning (playlists)
+            
+            Spacer()
         }
+        .padding(32)
     }
     
     // Horizontally scrolling list of topics
-    func topicScrollView(heading: String, topics: [Topic]) -> some View {
-        VStack {
-            Text(heading).font(Font.H5)
+    func topicScrollSection(heading: String, topics: [Topic]) -> some View {
+        VStack(alignment: .leading) {
+            Text(heading).font(Font.H4)
 
             ScrollView(.horizontal) {
-                ForEach(topics) { topic in
-                    TopicCard(topic: topic)
+                HStack(spacing: 20) {
+                    ForEach(topics) { topic in
+                        TopicCard(topic: topic)
+                    }
                 }
             }
         }

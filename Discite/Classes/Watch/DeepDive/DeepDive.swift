@@ -53,11 +53,11 @@ struct DeepDive: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 18) {
                 Spacer()
-                ShareButton(action: {})
-                SaveButton(action: {})
+                ShareButtonLabeled(action: {})
+                SaveButtonLabeled(action: {})
             }
             
-            Text(playlistData.title).font(Font.H3)
+            Text(playlistData.title).font(Font.H3).padding(.top, 18)
             Text(playlistData.description).font(Font.body1)
         }
     }

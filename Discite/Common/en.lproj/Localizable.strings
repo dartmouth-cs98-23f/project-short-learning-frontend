@@ -15,6 +15,7 @@
 "Home.Title" = "Welcome!";
 "Home.LogoutButton.Title" = "Log Out";
 
+"Explore.Title" = "Explore";
 "Explore.Topics.Title" = "My interests";
 
 "Error.APIError.InvalidJSON" = "Unable to decode response JSON.";

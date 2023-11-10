@@ -31,12 +31,7 @@ struct TopicCard: View {
                         .font(Font.button)
                 }
             }
-            .frame(width: 140, height: 150)
-            .background(Color.secondaryLightestBlue)
-            .foregroundColor(Color.primaryBlueBlack)
-            .cornerRadius(10)
-            .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
-            .padding(12)
+            .cardButtonFrame(width: 140, height: 150)
         }
 
     }
