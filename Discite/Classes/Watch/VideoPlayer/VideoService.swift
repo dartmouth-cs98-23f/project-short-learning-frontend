@@ -23,83 +23,30 @@ struct VideoAPIConfiguration {
 }
 
 class VideoService: ObservableObject {
-    
-    static let shared: VideoService = VideoService()
-    
-    // Fetches hard-coded playlist data
-    static func fetchPlaylist(completion: @escaping (SequenceData.PlaylistData) -> Void,
-                              failure: @escaping (APIError) -> Void) {
-        
-        print("Fetching playlist...")
-        
-        do {
-            let playlistData = try TestVideoData.playlistData()
-            completion(playlistData)
-        } catch {
-            failure(APIError.unknownError)
-        }
-    }
-    
+
     // Fetches hard-coded video sequence data (multiple playlists)
-    static func fetchVideoSequence(completion: @escaping (SequenceData) -> Void,
-                                   failure: @escaping (APIError) -> Void) {
-        
-        print("Fetching video sequence...")
+    static func fetchTestSequence(topicId: String? = nil, numPlaylists: Int? = 2) -> Sequence? {
+        print("Fetching test playlists...")
         
         do {
-            let videoSequenceData = try TestVideoData.videoSequenceData()
-            completion(videoSequenceData)
+            let sequence = try getSampleData(Sequence.self,
+                                        forResource: "sampleplaylists",
+                                        withExtension: "json")
+            
+            print("Got sample playlists, returning it as a sequence.")
+            return sequence
+            
         } catch {
-            failure(APIError.unknownError)
+            print("Couldn't get sample playlists: \(error)")
+            return nil
         }
     }
     
-    // Fetches a specific video from Pexels API based on ID
-    static func fetchVideo(
-        videoId: String,
-        completion: @escaping (VideoData) -> Void,
-        failure: @escaping (APIError) -> Void
-    ) {
+    static func fetchTestPlaylist(topicId: String?) -> Playlist? {
+        print("Fetching a single playlist...")
         
-        let path: String = "/videos/videos/" + videoId
-        let method: HTTPMethod = .get
-        let headerFields: [String: String] = ["Authorization": VideoAPIConfiguration.shared.APIkey]
-        
-        APIRequest<VideoRequest, VideoData>.call(
-            scheme: VideoAPIConfiguration.shared.scheme,
-            host: VideoAPIConfiguration.shared.host,
-            path: path,
-            method: method,
-            authorized: false,
-            headerFields: headerFields) { data in
-                
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    
-                    let response = try decoder.decode(VideoData.self, from: data)
-                    completion(response)
-
-                } catch {
-                    failure(.invalidJSON)
-                }
-                
-            } failure: { error in
-                failure(error)
-            }
-        
+        let sequence = fetchTestSequence(topicId: topicId, numPlaylists: 1)
+        return sequence?.currentPlaylist()
     }
-}
-
-// From Pexels API
-struct VideoData: Identifiable, Decodable {
-    var id: Int
-    var videoFiles: [VideoFile]
     
-    struct VideoFile: Identifiable, Decodable {
-        var id: Int
-        var quality: String
-        var fileType: String
-        var link: String
-    }
 }

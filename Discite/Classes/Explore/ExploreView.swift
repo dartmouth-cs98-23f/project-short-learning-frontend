@@ -24,6 +24,7 @@ struct ExploreView: View {
             topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
             
             // Section: Continue learning (playlists)
+            playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
             
             Spacer()
         }
@@ -47,14 +48,33 @@ struct ExploreView: View {
         }
     }
     
+    func playlistScrollSection(heading: String, playlists: [Playlist]) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(heading).font(Font.H4)
+
+            ScrollView(.horizontal) {
+                HStack(spacing: 20) {
+                    ForEach(playlists) { playlist in
+                        PlaylistCard(playlist: playlist)
+                    }
+                }
+                .padding([.bottom, .top], 18)
+            }
+            
+        }
+    }
+    
 }
 
 #Preview {
     
     let recommendations = ExploreService.fetchTestRecommendations()
+    let sequence = VideoService.fetchTestSequence()
     
-    if recommendations != nil {
-        return ExploreView().environmentObject(recommendations!)
+    if recommendations != nil && sequence != nil {
+        return ExploreView()
+            .environmentObject(recommendations!)
+            .environmentObject(sequence!)
     } else {
         return Text("No topics to show.")
     }

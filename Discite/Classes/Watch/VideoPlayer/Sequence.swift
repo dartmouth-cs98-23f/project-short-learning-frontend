@@ -9,88 +9,87 @@ import Foundation
 import AVKit
 import SwiftUI
 
-class Sequence: ObservableObject {
+class Sequence: Decodable, ObservableObject {
     
     var playlists: [Playlist] = []
+    var currentIndex: Int
+    var topicId: String
+    
+    enum CodingKeys: String, CodingKey {
+        case message
+        case playlists
+        case topicId
+    }
 
     @Published private(set) var fetchSuccessful: Bool = false
     @Published private(set) var fetchError: APIError?
     
     // MARK: Initializers
     
-    init() { }
-    
-    init(playlists: [Playlist]) {
-        self.playlists = playlists
+    required init(from decoder: Decoder) throws {
+        print("In Sequence, decoding playlists...")
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        playlists = try container.decode([Playlist].self, forKey: .playlists)
+        topicId = try container.decode(String.self, forKey: .topicId)
+        currentIndex = 0
     }
     
-    // MARK: Getters
+    // MARK: Public Getters
     
-    func currentPlaylist() -> Playlist? {
-        if !playlists.isEmpty {
-            return playlists[0]
+    public func length() -> Int {
+        return playlists.count
+    }
+    
+    public func allPlaylists() -> [Playlist] {
+        return playlists
+    }
+    
+    public func currentPlaylist() -> Playlist? {
+        return !playlists.isEmpty ? playlists[currentIndex] : nil
+    }
+    
+    // MARK: Public Setters
+    
+    public func setCurrentIndex(index: Int) -> Bool {
+        if index > playlists.count - 1 {
+            print("Error: Index out of range.")
+            return false
         }
         
-        return nil
-    }
-    
-    func length() -> Int {
-        return playlists.count
+        currentIndex = index
+        return true
     }
     
     // MARK: Player Management
     
-    func addPlaylist() {
-        print("Adding new playlist...")
+    public func replaceQueueWithTopic(topicId: String) {
+        // Fetch new sequence with topicName, placeholder for now
+        let sequence = VideoService.fetchTestSequence(topicId: topicId)
         
-        // Synchronizes asynchronous behaviors
-        let dispatchGroup = DispatchGroup()
-        
-        VideoService.fetchPlaylist { playlistData in
-            do {
-                dispatchGroup.enter()
-                let playlist = try Playlist(data: playlistData)
-                self.playlists.append(playlist)
-                dispatchGroup.leave()
-                
-                print("New playlist added to queue.")
-                
-            } catch {
-                dispatchGroup.leave()
-                print("Error adding playlist: \(error.localizedDescription)")
-                
-            }
+        if sequence != nil {
+            self.playlists = sequence!.allPlaylists()
+            self.topicId = topicId
+            self.currentIndex = 0
             
-        } failure: { error in
-            print(error.localizedDescription)
-            return
-            
+        } else {
+            print("Error: Couldn't fetch sequence from topic \(topicId)")
         }
     }
     
-    func dequeuePlaylist() {
-        print("Dequeuing first playlist...")
-        
-        if playlists.isEmpty {
-            print(PlaylistError.emptyPlaylist.localizedDescription)
-            return
-        }
-        
-        playlists.removeFirst()
-    }
     
     func nextVideo(swipeDirection: SwipeDirection, player: AVPlayer) {
 
         // If swiped right, keep playing the current sequence
         if swipeDirection == .right {
             
-            // First fetch, populate sequence
+            // Queue could be empty if user skipped indices by clicking on a later video in Explore
             if playlists.isEmpty {
-                print("Playlist is empty, fetch a sequence of playlists.")
-                fetchSequence()
+                // Fetch new sequence, with same topicId
+                replaceQueueWithTopic(topicId: topicId)
                 
             // If current playlist is on last video
-            } else if playlists[0].onLastVideo() {
+            } else if playlists[currentIndex].onLastVideo() {
                 
                 // Dequeue current playlist
                 dequeuePlaylist()
@@ -117,61 +116,44 @@ class Sequence: ObservableObject {
             return
         }
         
-        guard let nextVideo = playlists[0].nextVideo() else {
+        guard let nextVideo = playlists[currentIndex].nextVideo() else {
             print(PlaylistError.noNextVideo.localizedDescription)
             return
         }
         
         // Update the player
-        player.replaceCurrentItem(with: nextVideo.playerItem)
+        player.replaceCurrentItem(with: nextVideo.getPlayerItem())
         print("Updated player, sequence length is \(playlists.count).")
     }
     
-    // MARK: Additional Methods
-
-    // Fetches a sequence of playlists
-    func fetchSequence() {
-        print("Fetching sequence...")
-        self.fetchError = nil
-        self.fetchSuccessful = false
-        
-        var nextPlaylists: [Playlist] = []
+    // MARK: Private Methods
+    
+    private func addPlaylist() {
+        print("Adding new playlist...")
         
         // Synchronizes asynchronous behaviors
-        let dispatchGroup = DispatchGroup()
+        // let dispatchGroup = DispatchGroup()
         
-        // Mock fetch video sequence
-        VideoService.fetchVideoSequence { videoSequenceData in
-            print("Response received. Now adding playlists.")
-            
-            // Add each playlist to next sequence
-            for playlist in videoSequenceData.videos {
-                
-                dispatchGroup.enter()
-                
-                do {
-                    let newPlaylist = try Playlist(data: playlist)
-                    nextPlaylists.append(newPlaylist)
-                    dispatchGroup.leave()
-                    print("Created playlist with \(newPlaylist.length()) videos.")
-                } catch {
-                    dispatchGroup.leave()
-                    print("Error initializing playlist: \(error.localizedDescription)")
-                }
+        let playlist = VideoService.fetchTestPlaylist(topicId: topicId)
+        
+        if playlist != nil {
+            playlists.append(playlist!)
+            print("New playlist added to queue.")
+        } else {
+            print("Error adding playlist.")
+        }
+
+    }
     
-            }
-            
-            // Replace current sequence with the new sequence
-            if !nextPlaylists.isEmpty {
-                self.playlists = nextPlaylists
-                self.fetchSuccessful = true
-                print("Fetch successful. Sequence loaded with \(self.playlists.count) playlists.")
-            }
-            
-        } failure: { error in
-            print(error.localizedDescription)
+    private func dequeuePlaylist() {
+        print("Dequeuing first playlist...")
+        
+        if playlists.isEmpty {
+            print(PlaylistError.emptyPlaylist.localizedDescription)
             return
         }
+        
+        playlists.removeFirst()
     }
 
 }

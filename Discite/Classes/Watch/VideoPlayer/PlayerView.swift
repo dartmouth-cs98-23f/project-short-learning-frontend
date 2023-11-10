@@ -61,7 +61,12 @@ struct PlayerView: View {
                 )
         }
         .sheet(isPresented: $showingDeepDive, onDismiss: deepDiveDismissed, content: {
-            DeepDive(playlist: sequence.currentPlaylist(), isPresented: $showingDeepDive)
+            let currentPlaylist = sequence.currentPlaylist()
+            if currentPlaylist != nil {
+                DeepDive(playlist: currentPlaylist!, isPresented: $showingDeepDive)
+            } else {
+                Text("No DeepDive to show.")
+            }
         })
 
     }
@@ -93,6 +98,12 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView()
-        .environmentObject(Sequence())
+    let sequence = VideoService.fetchTestSequence(topicId: nil)
+    
+    if sequence != nil {
+        return PlayerView()
+            .environmentObject(sequence!)
+    } else {
+        return Text("Error occurred while fetching test sequence.")
+    }
 }

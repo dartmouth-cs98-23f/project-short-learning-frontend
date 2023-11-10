@@ -24,7 +24,7 @@ struct PlaylistCard: View {
             } label: {
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(playlist.getData().title)
+                        Text(playlist.title)
                             .font(Font.H5)
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,23 +61,10 @@ struct PlaylistCard: View {
 }
 
 #Preview {
-    // PlaylistCard()
-    var previewPlaylist: Playlist?
+    let playlist = VideoService.fetchTestPlaylist(topicId: nil)
     
-    VideoService.fetchPlaylist(completion: { playlistData in
-        
-        do {
-            previewPlaylist = try Playlist(data: playlistData)
-        } catch {
-            print("\(error)")
-        }
-        
-    }, failure: { error in
-        print("\(error)")
-    })
-    
-    if previewPlaylist != nil {
-        return PlaylistCard(playlist: previewPlaylist!)
+    if playlist != nil {
+        return PlaylistCard(playlist: playlist!)
     } else {
         return Text("Failed to fetch playlist.")
     }
