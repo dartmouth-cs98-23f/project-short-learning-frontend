@@ -10,22 +10,18 @@ import SwiftUI
 struct ExploreView: View {
 
     @EnvironmentObject var sequence: Sequence
-    @ObservedObject var recommender = Recommender()
-    
+    @EnvironmentObject var recommendations: Recommendations
+
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: 18) {
             
             Text("Explore.Title")
                 .font(Font.H2)
                 .padding(.top, 18)
             
             // Section: My interests (topics)
-            if recommender.recommendations != nil {
-                topicScrollSection(heading: "My interests", topics: recommender.recommendations!.topics)
-            } else {
-                Text("No topics to show.")
-            }
+            topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
             
             // Section: Continue learning (playlists)
             
@@ -36,21 +32,30 @@ struct ExploreView: View {
     
     // Horizontally scrolling list of topics
     func topicScrollSection(heading: String, topics: [Topic]) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(heading).font(Font.H4)
 
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
-                    ForEach(topics) { topic in
+                    ForEach(topics, id: \._id) { topic in
                         TopicCard(topic: topic)
                     }
                 }
+                .padding([.bottom, .top], 18)
             }
+            
         }
     }
     
 }
 
 #Preview {
-    ExploreView()
+    
+    let recommendations = ExploreService.fetchTestRecommendations()
+    
+    if recommendations != nil {
+        return ExploreView().environmentObject(recommendations!)
+    } else {
+        return Text("No topics to show.")
+    }
 }

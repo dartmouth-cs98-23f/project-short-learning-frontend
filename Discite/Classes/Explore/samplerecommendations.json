@@ -1,0 +1,32 @@
+{
+  "message": "Topics fetched successfully",
+  "topics": [
+    {
+      "_id": "62c0bef761d1e8eaf07f1234",
+      "topicName": "Astronomy",
+      "subTopicName": "Planets",
+      "description": "A study of mathematical symbols and the rules for manipulating these symbols.",
+      "thumbnailURL": "moon.stars.fill",
+      "createdAt": "2023-04-01T10:00:00.000Z",
+      "updatedAt": "2023-04-01T10:00:00.000Z"
+    },
+    {
+      "_id": "62c0bef761d1e8eaf07f5678",
+      "topicName": "Geology",
+      "subTopicName": "Quantum Mechanics",
+      "description": "A fundamental theory in physics that provides a description of the physical properties of nature at the scale of atoms and subatomic particles.",
+      "thumbnailURL": "globe.americas.fill",
+      "createdAt": "2023-04-02T11:00:00.000Z",
+      "updatedAt": "2023-04-02T11:00:00.000Z"
+    },
+    {
+      "_id": "62c0bef761d1e8eaf07f9abc",
+      "topicName": "Chemistry",
+      "subTopicName": null,
+      "description": "The scientific discipline involved with elements and compounds composed of atoms, molecules and ions.",
+      "thumbnailURL": "flask",
+      "createdAt": "2023-04-03T12:00:00.000Z",
+      "updatedAt": "2023-04-03T12:00:00.000Z"
+    }
+  ]
+}

@@ -23,11 +23,11 @@ struct TopicCard: View {
                 
             } label: {
                 VStack(spacing: 12) {
-                    Image(systemName: "moon.stars.fill")
+                    Image(systemName: topic.thumbnailURL)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40, height: 40)
-                    Text(topic.title)
+                    Text(topic.topicName)
                         .font(Font.button)
                 }
             }
@@ -38,16 +38,10 @@ struct TopicCard: View {
 }
 
 #Preview {
-    var previewTopic: Topic?
+    let topic = ExploreService.fetchTestTopic()
     
-    ExploreService.fetchTestTopic { topic in
-        previewTopic = topic
-    } failure: { error in
-        print("\(error)")
-    }
-    
-    if previewTopic != nil {
-        return TopicCard(topic: previewTopic!)
+    if topic != nil {
+        return TopicCard(topic: topic!)
     } else {
         return Text("Failed to fetch topic.")
     }

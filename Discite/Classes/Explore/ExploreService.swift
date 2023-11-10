@@ -6,42 +6,43 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ExploreService {
     
     static let shared: ExploreService = ExploreService()
     
-    static func fetchTestRecommendations(completion: @escaping (Recommendations) -> Void,
-                                         failure: @escaping (APIError) -> Void) {
+    static func fetchTestRecommendations() -> Recommendations? {
         
         print("Fetching test recommendations...")
-        
+
         do {
             let recommendations = try getSampleData(Recommendations.self,
-                                        forResource: "recommendationssample",
+                                        forResource: "samplerecommendations",
                                         withExtension: "json")
             
             print("Got sample recommendations, returning it.")
-            completion(recommendations)
+            return recommendations
             
         } catch {
             print("Couldn't get sample recommendations: \(error)")
+            return nil
         }
     }
     
-    static func fetchTestTopic(completion: @escaping (Topic) -> Void,
-                               failure: @escaping (APIError) -> Void) {
+    static func fetchTestTopic() -> Topic? {
         
         print("Fetching test topic...")
         
         do {
-            let topic = try getSampleData(Topic.self, forResource: "topicsample", withExtension: "json")
+            let topic = try getSampleData(Topic.self, forResource: "sampletopic", withExtension: "json")
             
             print("Got sample topic, returning it.")
-            completion(topic)
+            return topic
             
         } catch {
             print("Couldn't get sample topic: \(error)")
+            return nil
         }
     }
 }
