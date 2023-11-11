@@ -19,10 +19,7 @@ struct ContentView: View {
                 .environmentObject(recommendations)
             
         } else {
-            // LoginView()
-            Navigator()
-                .environmentObject(sequence)
-                .environmentObject(recommendations)
+            LoginView()
         }
     }
 }

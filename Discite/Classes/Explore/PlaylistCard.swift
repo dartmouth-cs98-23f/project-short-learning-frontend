@@ -39,7 +39,7 @@ struct PlaylistCard: View {
                         .font(Font.small)
                     
                     HStack {
-                        let fractionComplete = Double((playlist.getCurrentIndex() + 1)/playlist.length())
+                        let fractionComplete = Double((playlist.getCurrentIndex())/playlist.length())
                         
                         ZStack(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 1)
