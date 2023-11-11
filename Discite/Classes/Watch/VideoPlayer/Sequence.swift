@@ -9,6 +9,22 @@ import Foundation
 import AVKit
 import SwiftUI
 
+enum SequenceError: Error {
+    case emptySequence
+    case indexOutOfRange
+}
+
+extension SequenceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .emptySequence:
+            return NSLocalizedString("Error.SequenceError.EmptySequence", comment: "Sequence error")
+        case .indexOutOfRange:
+            return NSLocalizedString("Error.SequenceError.IndexOutOfRange", comment: "Sequence error")
+        }
+    }
+}
+
 class Sequence: Decodable, ObservableObject {
     
     var playlists: [Playlist] = []
@@ -33,6 +49,11 @@ class Sequence: Decodable, ObservableObject {
         playlists = try container.decode([Playlist].self, forKey: .playlists)
         topicId = try container.decode(String.self, forKey: .topicId)
         currentIndex = 0
+        
+        if playlists.isEmpty {
+            throw SequenceError.emptySequence
+        }
+        
     }
     
     // MARK: Public Getters
@@ -77,13 +98,24 @@ class Sequence: Decodable, ObservableObject {
         // currentIndex should still be 0
     }
     
-    public func replaceQueueWithTopic(topicId: String) {
+    public func replaceQueueWithTopic(topicId: String, numPlaylists: Int = 4) {
         
-        let currentCount = playlists.count
+        // Fetches 4 by default if numPlaylists is not a positive integer
+        let currentCount = numPlaylists > 0 ? numPlaylists : 4
         
         // Replace current queue with an equal number of playlists
         addPlaylists(topicId: topicId, numPlaylists: playlists.count)
         dequeuePlaylists(numPlaylists: currentCount)
+    }
+    
+    func currentVideo(player: AVPlayer) {
+        if !playlists.isEmpty {
+            let video = playlists[currentIndex].currentVideo()
+            
+            // Update the player
+            player.replaceCurrentItem(with: video.getPlayerItem())
+            print("Starting player with current video.")
+        }
     }
     
     func nextVideo(swipeDirection: SwipeDirection, player: AVPlayer) {
@@ -91,9 +123,8 @@ class Sequence: Decodable, ObservableObject {
         // If swiped right, keep playing the current sequence
         if swipeDirection == .right {
             
-            // Queue could be empty if user skipped indices by clicking on a later video in Explore
+            // If queue is empty for whatever reason, fetch new sequence
             if playlists.isEmpty {
-                // Fetch new sequence, with same topicId
                 replaceQueueWithTopic(topicId: topicId)
                 
             // If current playlist is on last video
@@ -120,7 +151,7 @@ class Sequence: Decodable, ObservableObject {
     
         // Make sure playlist is not empty
         if playlists.isEmpty {
-            print("Error updating player: \(PlaylistError.emptyPlaylist.localizedDescription)")
+            print("Error updating player: \(SequenceError.emptySequence.localizedDescription)")
             return
         }
         

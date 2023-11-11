@@ -68,8 +68,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             throw PlaylistError.emptyPlaylist
         }
         
-        // Set current index to -1 (not yet started)
-        currentIndex = -1
+        currentIndex = 0
     }
     
     // MARK: Getters

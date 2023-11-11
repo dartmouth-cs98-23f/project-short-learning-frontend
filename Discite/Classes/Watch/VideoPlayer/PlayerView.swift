@@ -19,19 +19,23 @@ struct PlayerView: View {
             VideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
+                    if player.currentItem == nil {
+                        print("Confirming current item is nil onAppear.")
+                    }
+
+                    sequence.currentVideo(player: player)
                     player.play()
                     addVideoEndedNotification()
                     
-                    if player.currentItem == nil {
-                        sequence.nextVideo(swipeDirection: .right, player: player)
-                        player.play()
-                    }
-                    
                 }
                 .onDisappear {
+                    print("Cleaning up...")
+                    // Clean up
                     player.pause()
-        
+                    removeVideoEndedNotification()
+                    player.replaceCurrentItem(with: nil)
                 }
+            
                 .gesture(DragGesture(minimumDistance: 20)
                     .onEnded({ value in
                         let swipeDirection = swipeDirection(value: value)
@@ -42,12 +46,14 @@ struct PlayerView: View {
                             // Move to the next video
                             removeVideoEndedNotification()
                             sequence.nextVideo(swipeDirection: .right, player: player)
+                            addVideoEndedNotification()
                             
                         case .left:
                             print("Swiped left to skip current playlist.")
                             // Skip current playlist
                             removeVideoEndedNotification()
                             sequence.nextVideo(swipeDirection: .left, player: player)
+                            addVideoEndedNotification()
                         
                         case .up:
                             // Show DeepDive
