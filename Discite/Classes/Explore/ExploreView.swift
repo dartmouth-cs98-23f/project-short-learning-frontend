@@ -15,21 +15,24 @@ struct ExploreView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 18) {
-            
-            Text("Explore.Title")
-                .font(Font.H2)
-                .padding(.top, 18)
-            
-            // Section: My interests (topics)
-            topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
-            
-            // Section: Continue learning (playlists)
-            playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
-            
-            Spacer()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                
+                Text("Explore.Title")
+                    .font(Font.H2)
+                    .padding(.top, 18)
+                
+                // Section: My interests (topics)
+                topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
+                
+                // Section: Continue learning (playlists)
+                playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+                
+                Spacer()
+            }
+            .padding(32)
         }
-        .padding(32)
+
     }
     
     // Horizontally scrolling list of topics
