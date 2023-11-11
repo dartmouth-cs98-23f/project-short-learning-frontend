@@ -24,13 +24,8 @@ struct ExploreView: View {
             // Section: My interests (topics)
             topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
             
-            NavigationStack {
-                // Section: Continue learning (playlists)
-                playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
-            }
-            
             // Section: Continue learning (playlists)
-            // playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+            playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
             
             Spacer()
         }
