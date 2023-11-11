@@ -72,7 +72,7 @@ class Sequence: Decodable, ObservableObject {
     
     // MARK: Player Management
     
-    public func skipToPlaylist(index: Int, player: AVPlayer) {
+    public func skipToPlaylist(index: Int) {
         
         if index > playlists.count - 1 {
             print("Error: Index out of range.")
@@ -82,15 +82,6 @@ class Sequence: Decodable, ObservableObject {
         // Fill in the back of the queue
         let numSkipped = index - currentIndex
         addPlaylists(numPlaylists: numSkipped)
-        
-        guard let nextVideo = playlists[index].nextVideo() else {
-            print(PlaylistError.noNextVideo.localizedDescription)
-            return
-        }
-        
-        // Update the player
-        player.replaceCurrentItem(with: nextVideo.getPlayerItem())
-        print("Updated player, skipped to playlist at index \(currentIndex).")
         
         // Dequeue skipped playlists
         dequeuePlaylists(numPlaylists: index)

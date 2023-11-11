@@ -54,8 +54,8 @@ struct ExploreView: View {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
-                    ForEach(playlists) { playlist in
-                        PlaylistCard(playlist: playlist)
+                    ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
+                        PlaylistCard(playlist: playlist, index: index)
                     }
                 }
                 .padding([.bottom, .top], 18)

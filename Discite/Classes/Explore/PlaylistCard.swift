@@ -11,6 +11,7 @@ struct PlaylistCard: View {
     
     @EnvironmentObject var sequence: Sequence
     var playlist: Playlist
+    var index: Int
     
     var body: some View {
         NavigationLink {
@@ -20,6 +21,7 @@ struct PlaylistCard: View {
         } label: {
             Button {
                 // Update sequence on click
+                sequence.skipToPlaylist(index: index)
                 
             } label: {
                 VStack(alignment: .leading) {
@@ -64,7 +66,7 @@ struct PlaylistCard: View {
     let playlist = VideoService.fetchTestPlaylist(topicId: nil)
     
     if playlist != nil {
-        return PlaylistCard(playlist: playlist!)
+        return PlaylistCard(playlist: playlist!, index: 0)
     } else {
         return Text("Failed to fetch playlist.")
     }
