@@ -40,7 +40,7 @@ struct ExploreView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
                     ForEach(topics, id: \._id) { topic in
-                        TopicCard(topic: topic)
+                        TopicCard(tabSelection: $tabSelection, topic: topic)
                     }
                 }
                 .padding([.bottom, .top], 18)

@@ -89,13 +89,15 @@ class Sequence: Decodable, ObservableObject {
         // currentIndex should still be 0
     }
     
-    public func replaceQueueWithTopic(topicId: String, numPlaylists: Int = 4) {
+    public func replaceQueueWithTopic(topicId: String, numPlaylists: Int = 2) {
         
-        // Fetches 4 by default if numPlaylists is not a positive integer
-        let currentCount = numPlaylists > 0 ? numPlaylists : 4
+        let currentCount = playlists.count
+        
+        // Fetches 2 by default if numPlaylists is not a positive integer
+        let numToAdd = numPlaylists > 0 ? numPlaylists : 2
         
         // Replace current queue with an equal number of playlists
-        addPlaylists(topicId: topicId, numPlaylists: playlists.count)
+        addPlaylists(topicId: topicId, numPlaylists: numToAdd)
         dequeuePlaylists(numPlaylists: currentCount)
     }
     
