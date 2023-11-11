@@ -8,8 +8,41 @@
 import Foundation
 import AVKit
 
-struct Video {
-    var index: Int
-    var data: SequenceData.PlaylistData.VideoData
-    var playerItem: AVPlayerItem
+struct Video: Decodable, Identifiable {
+
+    var id: String
+    var playlistId: String
+    var title: String
+    var description: String
+    var videoURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case playlistId = "videoId"
+        case title
+        case description
+        case uploadDate
+        case uploader
+        case duration
+        case thumbnailURL
+        case videoURL = "clipURL"
+        case views
+        case likes
+        case dislikes
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decode(String.self, forKey: .id)
+        playlistId = try container.decode(String.self, forKey: .playlistId)
+        title = try container.decode(String.self, forKey: .title)
+        description = try container.decode(String.self, forKey: .description)
+        videoURL = try container.decode(String.self, forKey: .videoURL)
+    }
+    
+    public func getURL() -> String {
+        return videoURL
+    }
+    
 }

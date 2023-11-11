@@ -11,6 +11,7 @@ import AVKit
 enum PlaylistError: Error {
     case noNextVideo
     case emptyPlaylist
+    case indexOutOfRange
 }
 
 extension PlaylistError: LocalizedError {
@@ -20,36 +21,54 @@ extension PlaylistError: LocalizedError {
             return NSLocalizedString("Error.PlaylistError.NoNextVideo", comment: "Playlist error")
         case .emptyPlaylist:
             return NSLocalizedString("Error.PlaylistError.EmptyPlaylist", comment: "Playlist error")
+        case .indexOutOfRange:
+            return NSLocalizedString("Error.PlaylistError.IndexOutOfRange", comment: "Playlist error")
         }
     }
 }
 
-class Playlist: ObservableObject {
+class Playlist: Decodable, Identifiable, ObservableObject {
     
-    var data: SequenceData.PlaylistData
+    var id: String
+    var title: String
+    var description: String
+    var topicId: String?
+    var thumbnailURL: String
     var videos: [Video]
+    
     var currentIndex: Int
     
-    init(data: SequenceData.PlaylistData) throws {
-        self.data = data
-        self.videos = []
-        self.currentIndex = 0
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case title
+        case description
+        case uploadDate
+        case uploader
+        case duration
+        case thumbnailURL
+        case topicId
+        case videos = "clips"
+        case views
+        case likes
+        case dislikes
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        // Add each clip (video) to this playlist's queue
-        for videoClip in data.clips {
-            let playerItem = AVPlayerItem(url: URL(string: videoClip.clipURL)!)
-            let video = Video(index: currentIndex, data: videoClip, playerItem: playerItem)
-            
-            videos.append(video)
-            currentIndex += 1
-        }
+        id = try container.decode(String.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        description = try container.decode(String.self, forKey: .description)
+        topicId = try container.decode(String.self, forKey: .topicId)
+        thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
+        
+        videos = try container.decode([Video].self, forKey: .videos)
         
         if videos.isEmpty {
             throw PlaylistError.emptyPlaylist
         }
         
-        // Set current index to -1 (not yet started)
-        currentIndex = -1
+        currentIndex = 0
     }
     
     // MARK: Getters
@@ -79,17 +98,19 @@ class Playlist: ObservableObject {
         return currentIndex
     }
     
-    func getData() -> SequenceData.PlaylistData {
-        return data
-    }
-    
     func length() -> Int {
         return videos.count
     }
     
     // MARK: Setters
     
-    func setCurrentIndex(index: Int) {
+    func setCurrentIndex(index: Int) -> Bool {
+        if index > videos.count - 1 {
+            print("Error: Index out of range.")
+            return false
+        }
+        
         currentIndex = index
+        return true
     }
 }

@@ -11,58 +11,63 @@ import AVKit
 struct PlayerView: View {
     @EnvironmentObject var sequence: Sequence
     
-    @State var player = AVPlayer()
+    @State var player: AVPlayer = AVPlayer()
     @State private var showingDeepDive = false
     
     var body: some View {
-        VStack {
-            VideoPlayer(player: player)
-                .edgesIgnoringSafeArea(.all)
-                .onAppear {
-                    player.play()
-                    addVideoEndedNotification()
+        VideoPlayer(player: player)
+            .edgesIgnoringSafeArea(.all)
+            .onAppear {
+                print("Player appear, reload.")
+                player.replaceCurrentItem(with: sequence.currentVideo())
+                addVideoEndedNotification()
+                
+                player.play()
+            }
+            .onDisappear {
+                print("Player disappear.")
+                player.pause()
+                removeVideoEndedNotification()
+            }
+            .gesture(DragGesture(minimumDistance: 20)
+                .onEnded({ value in
+                    let swipeDirection = swipeDirection(value: value)
                     
-                    if player.currentItem == nil {
-                        sequence.nextVideo(swipeDirection: .right, player: player)
-                        player.play()
+                    switch swipeDirection {
+                    case .right:
+                        print("Swiped right for next video.")
+                        // Move to the next video
+                        removeVideoEndedNotification()
+                        let nextPlayerItem = sequence.nextVideo(swipeDirection: .right)
+                        player.replaceCurrentItem(with: nextPlayerItem)
+                        addVideoEndedNotification()
+                        
+                    case .left:
+                        print("Swiped left to skip current playlist.")
+                        // Skip current playlist
+                        removeVideoEndedNotification()
+                        let nextPlayerItem = sequence.nextVideo(swipeDirection: .left)
+                        player.replaceCurrentItem(with: nextPlayerItem)
+                        addVideoEndedNotification()
+                    
+                    case .up:
+                        // Show DeepDive
+                        player.pause()
+                        showingDeepDive = true
+                        
+                    default:
+                        print("No action required.")
                     }
-                    
+                })
+            )
+            .sheet(isPresented: $showingDeepDive, onDismiss: deepDiveDismissed, content: {
+                let currentPlaylist = sequence.currentPlaylist()
+                if currentPlaylist != nil {
+                    DeepDive(playlist: currentPlaylist!, isPresented: $showingDeepDive)
+                } else {
+                    Text("No DeepDive to show.")
                 }
-                .onDisappear {
-                    player.pause()
-        
-                }
-                .gesture(DragGesture(minimumDistance: 20)
-                    .onEnded({ value in
-                        let swipeDirection = swipeDirection(value: value)
-                        
-                        switch swipeDirection {
-                        case .right:
-                            print("Swiped right for next video.")
-                            // Move to the next video
-                            removeVideoEndedNotification()
-                            sequence.nextVideo(swipeDirection: .right, player: player)
-                            
-                        case .left:
-                            print("Swiped left to skip current playlist.")
-                            // Skip current playlist
-                            removeVideoEndedNotification()
-                            sequence.nextVideo(swipeDirection: .left, player: player)
-                        
-                        case .up:
-                            // Show DeepDive
-                            player.pause()
-                            showingDeepDive = true
-                            
-                        default:
-                            print("No action required.")
-                        }
-                    })
-                )
-        }
-        .sheet(isPresented: $showingDeepDive, onDismiss: deepDiveDismissed, content: {
-            DeepDive(playlist: sequence.currentPlaylist(), isPresented: $showingDeepDive)
-        })
+            })
 
     }
     
@@ -93,6 +98,12 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView()
-        .environmentObject(Sequence())
+    let sequence = VideoService.fetchTestSequence(topicId: nil)
+    
+    if sequence != nil {
+        return PlayerView()
+            .environmentObject(sequence!)
+    } else {
+        return Text("Error occurred while fetching test sequence.")
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  SharedViewController.swift
+//  TopicsViewController.swift
 //  Discite
 //
 //  Created by Jessie Li on 10/22/23.
@@ -9,20 +9,20 @@
 
 import SwiftUI
 
-struct SharedView: View {
-
+struct TopicsView: View {
+    
     var body: some View {
         VStack {
             Spacer()
-            Text("Shared View")
+            Text("My Topics View")
             Spacer()
         }
         .padding(.horizontal, 24)
         .onAppear {
-            print("Shared appear")
+            print("Topics appear")
         }
         .onDisappear {
-            print("Shared disappear")
+            print("Topics disappear")
         }
     }
     

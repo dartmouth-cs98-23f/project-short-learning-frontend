@@ -34,7 +34,7 @@ struct AccentPlayButton: View {
     }
 }
 
-struct ShareButton: View {
+struct ShareButtonLabeled: View {
     let action: () -> Void
     
     var body: some View {
@@ -54,13 +54,14 @@ struct ShareButton: View {
     }
 }
 
-struct SaveButton: View {
+struct SaveButtonLabeled: View {
     let action: () -> Void
+    let isSaved: Bool
     
     var body: some View {
         Button(action: action) {
             VStack {
-                Image(systemName: "bookmark")
+                Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 28, height: 28)
@@ -74,15 +75,33 @@ struct SaveButton: View {
     }
 }
 
+struct SaveButton: View {
+    let action: () -> Void
+    let isSaved: Bool
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 28, height: 28)
+                .foregroundColor(.primaryDarkNavy)
+        }
+    }
+}
+
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
         AccentPlayButton(action: { }, label: "PLAY")
             .previewDisplayName("Accent Play")
         
-        ShareButton(action: { })
-            .previewDisplayName("Share")
+        ShareButtonLabeled(action: { })
+            .previewDisplayName("Share (labeled)")
         
-        SaveButton(action: { })
+        SaveButton(action: { }, isSaved: false)
             .previewDisplayName("Save")
+        
+        SaveButtonLabeled(action: { }, isSaved: false)
+            .previewDisplayName("Save (labeled)")
     }
 }

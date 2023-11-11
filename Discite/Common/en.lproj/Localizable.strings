@@ -12,9 +12,11 @@
 "Signup.UsernameField.Title" = "Username";
 "Signup.EmailField.Title" = "Email";
 
-
 "Home.Title" = "Welcome!";
 "Home.LogoutButton.Title" = "Log Out";
+
+"Explore.Title" = "Explore";
+"Explore.Topics.Title" = "My interests";
 
 "Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
 "Error.APIError.RequestFailed" = "API request failed.";
@@ -23,3 +25,7 @@
 
 "Error.PlaylistError.NoNextVideo" = "No next video in playlist.";
 "Error.PlaylistError.EmptyPlaylist" = "Playlist is empty.";
+"Error.PlaylistError.IndexOutOfRange" = "Index out of range.";
+
+"Error.SequenceError.EmptySequence" = "Sequence is empty.";
+"Error.SequenceError.IndexOutOfRange" = "Index out of range.";

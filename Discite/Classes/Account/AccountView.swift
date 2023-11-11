@@ -10,29 +10,20 @@
 import SwiftUI
 
 struct AccountView: View {
-    
-    @Binding var showSidebar: Bool
 
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    showSidebar.toggle()
-                } label: {
-                    Image(systemName: "line.3.horizontal")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(Color.black)
-                }
-                
-                Spacer()
-            }
-                    
             Spacer()
             Text("Account View")
             Spacer()
         }
         .padding(.horizontal, 24)
+        .onAppear {
+            print("Account appear")
+        }
+        .onDisappear {
+            print("Account disappear")
+        }
     }
     
 }

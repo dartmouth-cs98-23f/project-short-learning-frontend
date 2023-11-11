@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var auth = Auth.shared
+    @StateObject var sequence = VideoService.fetchTestSequence()!
+    @StateObject var recommendations = ExploreService.fetchTestRecommendations()!
     
     var body: some View {
-        
-        NavigationView {
-            MainView()
-                
+        if auth.loggedIn {
+            Navigator()
+                .environmentObject(sequence)
+                .environmentObject(recommendations)
+            
+        } else {
+            LoginView()
         }
     }
 }

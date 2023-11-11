@@ -13,23 +13,9 @@ import SwiftUI
 struct WatchView: View {
     
     @ObservedObject var viewModel: WatchViewModel = WatchViewModel()
-    @Binding var showSidebar: Bool
 
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    showSidebar.toggle()
-                } label: {
-                    Image(systemName: "line.3.horizontal")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(Color.black)
-                }
-                
-                Spacer()
-            }
-                    
             Spacer()
             Text("Watch View")
             
@@ -43,11 +29,17 @@ struct WatchView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
+        .onAppear {
+            print("Watch appear")
+        }
+        .onDisappear {
+            print("Watch disappear")
+        }
     }
 }
 
 struct WatchView_Previews: PreviewProvider {
     static var previews: some View {
-        WatchView(showSidebar: .constant(false))
+        WatchView()
     }
 }
