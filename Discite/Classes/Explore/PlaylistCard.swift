@@ -41,13 +41,13 @@ struct PlaylistCard: View {
                     HStack {
                         let fractionComplete = Double((playlist.getCurrentIndex() + 1)/playlist.length())
                         
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 1)
-                                .fill(Color.primaryDarkNavy)
-                                .frame(width: 250 * fractionComplete, height: 4)
+                        ZStack(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 1)
                                 .fill(Color.lightGray)
                                 .frame(width: 250, height: 4)
+                            RoundedRectangle(cornerRadius: 1)
+                                .fill(Color.primaryDarkNavy)
+                                .frame(width: 250 * fractionComplete, height: 4)
                         }
                         
                     }
