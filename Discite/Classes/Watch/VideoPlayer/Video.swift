@@ -15,8 +15,6 @@ struct Video: Decodable, Identifiable {
     var title: String
     var description: String
     var videoURL: String
-
-    var playerItem: AVPlayerItem
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -41,12 +39,10 @@ struct Video: Decodable, Identifiable {
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
         videoURL = try container.decode(String.self, forKey: .videoURL)
-        
-        playerItem = AVPlayerItem(url: URL(string: videoURL)!)
     }
     
-    public func getPlayerItem() -> AVPlayerItem {
-        return playerItem
+    public func getURL() -> String {
+        return videoURL
     }
     
 }

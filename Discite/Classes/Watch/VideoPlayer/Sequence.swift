@@ -37,8 +37,6 @@ class Sequence: Decodable, ObservableObject {
         case topicId
     }
 
-    @Published var shouldPlayerReload: Bool = false
-    
     // MARK: Initializers
     
     required init(from decoder: Decoder) throws {
@@ -83,8 +81,7 @@ class Sequence: Decodable, ObservableObject {
         
         // Dequeue skipped playlists
         dequeuePlaylists(numPlaylists: index)
-        
-        shouldPlayerReload = true
+    
         // currentIndex should still be 0
     }
     
@@ -98,18 +95,17 @@ class Sequence: Decodable, ObservableObject {
         dequeuePlaylists(numPlaylists: currentCount)
     }
     
-    func currentVideo(player: AVPlayer) {
+    func currentVideo() -> AVPlayerItem? {
         if !playlists.isEmpty {
             let video = playlists[currentIndex].currentVideo()
         
-            print("Sequence trying to replace video")
-            player.replaceCurrentItem(with: video.getPlayerItem())
-            shouldPlayerReload = false
-            print("Sequence replaced video")
+            print("Sequence returning new item for current video.")
+            return AVPlayerItem(url: URL(string: video.getURL())!)
         }
+        return nil
     }
     
-    func nextVideo(swipeDirection: SwipeDirection, player: AVPlayer) {
+    func nextVideo(swipeDirection: SwipeDirection) -> AVPlayerItem? {
 
         // If swiped right, keep playing the current sequence
         if swipeDirection == .right {
@@ -144,17 +140,16 @@ class Sequence: Decodable, ObservableObject {
         // Make sure playlist is not empty
         if playlists.isEmpty {
             print("Error updating player: \(SequenceError.emptySequence.localizedDescription)")
-            return
+            return nil
         }
         
         guard let nextVideo = playlists[currentIndex].nextVideo() else {
             print(PlaylistError.noNextVideo.localizedDescription)
-            return
+            return nil
         }
         
-        // Update the player
-        player.replaceCurrentItem(with: nextVideo.getPlayerItem())
-        print("Updated player, sequence length is \(playlists.count).")
+        // Update next playerItem
+        return AVPlayerItem(url: URL(string: nextVideo.getURL())!)
     }
     
     // MARK: Private Methods
