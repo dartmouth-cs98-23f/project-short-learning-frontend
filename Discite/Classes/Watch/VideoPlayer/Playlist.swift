@@ -11,6 +11,7 @@ import AVKit
 enum PlaylistError: Error {
     case noNextVideo
     case emptyPlaylist
+    case indexOutOfRange
 }
 
 extension PlaylistError: LocalizedError {
@@ -20,6 +21,8 @@ extension PlaylistError: LocalizedError {
             return NSLocalizedString("Error.PlaylistError.NoNextVideo", comment: "Playlist error")
         case .emptyPlaylist:
             return NSLocalizedString("Error.PlaylistError.EmptyPlaylist", comment: "Playlist error")
+        case .indexOutOfRange:
+            return NSLocalizedString("Error.PlaylistError.IndexOutOfRange", comment: "Playlist error")
         }
     }
 }

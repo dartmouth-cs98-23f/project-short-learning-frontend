@@ -25,7 +25,7 @@ struct VideoAPIConfiguration {
 class VideoService: ObservableObject {
 
     // Fetches hard-coded video sequence data (multiple playlists)
-    static func fetchTestSequence(topicId: String? = nil, numPlaylists: Int? = 2) -> Sequence? {
+    static func fetchTestSequence(topicId: String? = nil, numPlaylists: Int = 2) -> Sequence? {
         print("Fetching test playlists...")
         
         do {

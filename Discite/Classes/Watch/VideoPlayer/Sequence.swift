@@ -12,7 +12,7 @@ import SwiftUI
 class Sequence: Decodable, ObservableObject {
     
     var playlists: [Playlist] = []
-    var currentIndex: Int
+    var currentIndex: Int // Currently always 0, but could be useful later
     var topicId: String
     
     enum CodingKeys: String, CodingKey {
@@ -49,34 +49,42 @@ class Sequence: Decodable, ObservableObject {
         return !playlists.isEmpty ? playlists[currentIndex] : nil
     }
     
-    // MARK: Public Setters
-    
-    public func setCurrentIndex(index: Int) -> Bool {
-        if index > playlists.count - 1 {
-            print("Error: Index out of range.")
-            return false
-        }
-        
-        currentIndex = index
-        return true
-    }
-    
     // MARK: Player Management
     
-    public func replaceQueueWithTopic(topicId: String) {
-        // Fetch new sequence with topicName, placeholder for now
-        let sequence = VideoService.fetchTestSequence(topicId: topicId)
+    public func skipToPlaylist(index: Int, player: AVPlayer) {
         
-        if sequence != nil {
-            self.playlists = sequence!.allPlaylists()
-            self.topicId = topicId
-            self.currentIndex = 0
-            
-        } else {
-            print("Error: Couldn't fetch sequence from topic \(topicId)")
+        if index > playlists.count - 1 {
+            print("Error: Index out of range.")
+            return
         }
+        
+        // Fill in the back of the queue
+        let numSkipped = index - currentIndex
+        addPlaylists(numPlaylists: numSkipped)
+        
+        guard let nextVideo = playlists[index].nextVideo() else {
+            print(PlaylistError.noNextVideo.localizedDescription)
+            return
+        }
+        
+        // Update the player
+        player.replaceCurrentItem(with: nextVideo.getPlayerItem())
+        print("Updated player, skipped to playlist at index \(currentIndex).")
+        
+        // Dequeue skipped playlists
+        dequeuePlaylists(numPlaylists: index)
+        
+        // currentIndex should still be 0
     }
     
+    public func replaceQueueWithTopic(topicId: String) {
+        
+        let currentCount = playlists.count
+        
+        // Replace current queue with an equal number of playlists
+        addPlaylists(topicId: topicId, numPlaylists: playlists.count)
+        dequeuePlaylists(numPlaylists: currentCount)
+    }
     
     func nextVideo(swipeDirection: SwipeDirection, player: AVPlayer) {
 
@@ -92,10 +100,10 @@ class Sequence: Decodable, ObservableObject {
             } else if playlists[currentIndex].onLastVideo() {
                 
                 // Dequeue current playlist
-                dequeuePlaylist()
+                dequeuePlaylists()
                 
                 // Add playlist to end of sequence
-                addPlaylist()
+                addPlaylists()
                 
             }
         }
@@ -104,10 +112,10 @@ class Sequence: Decodable, ObservableObject {
         else if swipeDirection == .left && !playlists.isEmpty {
                 
             // Dequeue current video
-            dequeuePlaylist()
+            dequeuePlaylists()
                 
             // Add playlist, but call with different parameters (TBD)
-            addPlaylist()
+            addPlaylists()
         }
     
         // Make sure playlist is not empty
@@ -128,32 +136,42 @@ class Sequence: Decodable, ObservableObject {
     
     // MARK: Private Methods
     
-    private func addPlaylist() {
-        print("Adding new playlist...")
+    private func addPlaylists(topicId: String? = nil, numPlaylists: Int = 1) {
+        print("Adding new playlist(s)...")
         
-        // Synchronizes asynchronous behaviors
-        // let dispatchGroup = DispatchGroup()
-        
-        let playlist = VideoService.fetchTestPlaylist(topicId: topicId)
-        
-        if playlist != nil {
-            playlists.append(playlist!)
-            print("New playlist added to queue.")
-        } else {
-            print("Error adding playlist.")
-        }
-
-    }
-    
-    private func dequeuePlaylist() {
-        print("Dequeuing first playlist...")
-        
-        if playlists.isEmpty {
-            print(PlaylistError.emptyPlaylist.localizedDescription)
+        if numPlaylists == 1 {
+            let playlist = VideoService.fetchTestPlaylist(topicId: topicId)
+            
+            if playlist != nil {
+                playlists.append(playlist!)
+                print("New playlist added to queue.")
+            } else {
+                print("Error adding playlist.")
+            }
+            
             return
         }
         
-        playlists.removeFirst()
+        let sequence = VideoService.fetchTestSequence(topicId: topicId, numPlaylists: numPlaylists)
+            
+        if sequence != nil {
+            self.playlists += sequence!.allPlaylists()
+            self.topicId = topicId ?? self.topicId
+            
+        } else {
+            print("Error: Couldn't fetch sequence from specified topic.")
+        }
+    }
+
+    private func dequeuePlaylists(numPlaylists: Int = 1) {
+        print("Dequeuing first playlist...")
+        
+        if numPlaylists > playlists.count {
+            print("Error: \(PlaylistError.emptyPlaylist.localizedDescription)")
+            return
+        }
+        
+        playlists.removeFirst(numPlaylists)
     }
 
 }
