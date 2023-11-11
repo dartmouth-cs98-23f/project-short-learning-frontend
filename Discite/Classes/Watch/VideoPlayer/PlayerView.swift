@@ -21,12 +21,11 @@ struct PlayerView: View {
                 .onAppear {
                     if player.currentItem == nil {
                         print("Confirming current item is nil onAppear.")
+                        sequence.currentVideo(player: player)
+                        addVideoEndedNotification()
                     }
 
-                    sequence.currentVideo(player: player)
                     player.play()
-                    addVideoEndedNotification()
-                    
                 }
                 .onDisappear {
                     print("Cleaning up...")

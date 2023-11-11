@@ -43,7 +43,6 @@ class Sequence: Decodable, ObservableObject {
     // MARK: Initializers
     
     required init(from decoder: Decoder) throws {
-        print("In Sequence, decoding playlists...")
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         playlists = try container.decode([Playlist].self, forKey: .playlists)
@@ -102,10 +101,11 @@ class Sequence: Decodable, ObservableObject {
     func currentVideo(player: AVPlayer) {
         if !playlists.isEmpty {
             let video = playlists[currentIndex].currentVideo()
-            
-            // Update the player
+        
             player.replaceCurrentItem(with: video.getPlayerItem())
             print("Starting player with current video.")
+        } else {
+            print("No playlists.")
         }
     }
     

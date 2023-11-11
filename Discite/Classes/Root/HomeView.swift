@@ -32,11 +32,12 @@ struct HomeView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             
             switch selection {
             case .Watch:
-                WatchView()
+                // WatchView()
+                PlayerView()
             case .Explore:
                 ExploreView()
             case .Shared:
@@ -54,10 +55,12 @@ struct HomeView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: 32)
-                            .foregroundColor(.primaryBlueBlack)
+                            .foregroundColor(selection == .Watch ? .secondaryLightPeach : .primaryBlueBlack)
                     }
                 }
             }
+            .padding(.top, 12)
+            .background(selection == .Watch ? .black : .white)
 
         }
         .frame(maxHeight: .infinity, alignment: .bottom)
@@ -67,6 +70,15 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        let sequence = VideoService.fetchTestSequence()
+        let recommendations = ExploreService.fetchTestRecommendations()
+        
+        if sequence != nil && recommendations != nil {
+            HomeView()
+                .environmentObject(sequence!)
+                .environmentObject(recommendations!)
+        } else {
+            Text("Error fetching sequence or recommendations.")
+        }
     }
 }

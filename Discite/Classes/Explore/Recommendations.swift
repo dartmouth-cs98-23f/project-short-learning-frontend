@@ -19,8 +19,7 @@ class Recommendations: Decodable, ObservableObject {
     // MARK: Initializer
     
     required init(from decoder: Decoder) throws {
-        print("Decoding recommendations...")
-        
+
         let container = try decoder.container(keyedBy: CodingKeys.self)
         topics = try container.decode([Topic].self, forKey: .topics)
     }

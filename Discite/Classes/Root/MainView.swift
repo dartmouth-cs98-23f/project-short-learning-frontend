@@ -12,10 +12,15 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var auth = Auth.shared
+    @StateObject var sequence = VideoService.fetchTestSequence()!
+    @StateObject var recommendations = ExploreService.fetchTestRecommendations()!
       
     var body: some View {
         if auth.loggedIn {
             HomeView()
+                .environmentObject(sequence)
+                .environmentObject(recommendations)
+            
         } else {
             LoginView()
         }
