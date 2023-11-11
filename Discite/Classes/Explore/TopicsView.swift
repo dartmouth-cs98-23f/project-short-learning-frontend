@@ -18,6 +18,12 @@ struct TopicsView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
+        .onAppear {
+            print("Topics appear")
+        }
+        .onDisappear {
+            print("Topics disappear")
+        }
     }
     
 }

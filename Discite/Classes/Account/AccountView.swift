@@ -18,6 +18,12 @@ struct AccountView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
+        .onAppear {
+            print("Account appear")
+        }
+        .onDisappear {
+            print("Account disappear")
+        }
     }
     
 }

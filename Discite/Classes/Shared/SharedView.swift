@@ -18,6 +18,12 @@ struct SharedView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
+        .onAppear {
+            print("Shared appear")
+        }
+        .onDisappear {
+            print("Shared disappear")
+        }
     }
     
 }

@@ -17,7 +17,7 @@ struct MainView: View {
       
     var body: some View {
         if auth.loggedIn {
-            HomeView()
+            Navigator()
                 .environmentObject(sequence)
                 .environmentObject(recommendations)
             

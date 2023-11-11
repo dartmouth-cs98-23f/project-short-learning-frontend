@@ -15,12 +15,18 @@ struct PlayerView: View {
     @State private var showingDeepDive = false
     
     var body: some View {
-        VStack {
+ //       VStack {
             VideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
-                    if player.currentItem == nil {
-                        print("Confirming current item is nil onAppear.")
+                    print("Player appear")
+                    if player.currentItem == nil || sequence.shouldPlayerReload {
+                        print("Player appear, reload")
+                        
+                        if player.currentItem != nil {
+                            removeVideoEndedNotification()
+                        }
+                        
                         sequence.currentVideo(player: player)
                         addVideoEndedNotification()
                     }
@@ -28,11 +34,11 @@ struct PlayerView: View {
                     player.play()
                 }
                 .onDisappear {
-                    print("Cleaning up...")
+                    print("Player disappear")
                     // Clean up
                     player.pause()
-                    removeVideoEndedNotification()
-                    player.replaceCurrentItem(with: nil)
+//                    removeVideoEndedNotification()
+//                    player.replaceCurrentItem(with: nil)
                 }
             
                 .gesture(DragGesture(minimumDistance: 20)
@@ -64,7 +70,7 @@ struct PlayerView: View {
                         }
                     })
                 )
-        }
+//        }
         .sheet(isPresented: $showingDeepDive, onDismiss: deepDiveDismissed, content: {
             let currentPlaylist = sequence.currentPlaylist()
             if currentPlaylist != nil {

@@ -37,8 +37,7 @@ class Sequence: Decodable, ObservableObject {
         case topicId
     }
 
-    @Published private(set) var fetchSuccessful: Bool = false
-    @Published private(set) var fetchError: APIError?
+    @Published var shouldPlayerReload: Bool = false
     
     // MARK: Initializers
     
@@ -85,6 +84,7 @@ class Sequence: Decodable, ObservableObject {
         // Dequeue skipped playlists
         dequeuePlaylists(numPlaylists: index)
         
+        shouldPlayerReload = true
         // currentIndex should still be 0
     }
     
@@ -103,9 +103,8 @@ class Sequence: Decodable, ObservableObject {
             let video = playlists[currentIndex].currentVideo()
         
             player.replaceCurrentItem(with: video.getPlayerItem())
-            print("Starting player with current video.")
-        } else {
-            print("No playlists.")
+            shouldPlayerReload = false
+            print("sequence.currentVideo")
         }
     }
     
@@ -116,6 +115,7 @@ class Sequence: Decodable, ObservableObject {
             
             // If queue is empty for whatever reason, fetch new sequence
             if playlists.isEmpty {
+                print("Playlists is empty, replacing queue")
                 replaceQueueWithTopic(topicId: topicId)
                 
             // If current playlist is on last video

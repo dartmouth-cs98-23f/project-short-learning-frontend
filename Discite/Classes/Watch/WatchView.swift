@@ -29,6 +29,12 @@ struct WatchView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
+        .onAppear {
+            print("Watch appear")
+        }
+        .onDisappear {
+            print("Watch disappear")
+        }
     }
 }
 

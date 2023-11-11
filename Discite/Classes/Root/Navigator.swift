@@ -1,16 +1,14 @@
 //
-//  HomeView.swift
+//  Navigator.swift
 //  Discite
 //
-//  Created by Jessie Li on 10/23/23.
+//  Created by Jessie Li on 11/11/23.
 //
-//  Source:
-//      https://medium.com/geekculture/side-menu-in-ios-swiftui-9fe1b69fc487
 
 import SwiftUI
 
-struct HomeView: View {
-
+struct Navigator: View {
+    
     @State private var selection: Tab = .Watch
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
@@ -32,14 +30,13 @@ struct HomeView: View {
     
     var body: some View {
         
-        VStack(spacing: 0) {
-            
+        VStack {
             switch selection {
             case .Watch:
-                // WatchView()
-                PlayerView()
+                WatchView()
+                // PlayerView()
             case .Explore:
-                ExploreView()
+                TopicsView()
             case .Shared:
                 SharedView()
             case .Account:
@@ -54,31 +51,28 @@ struct HomeView: View {
                         Image(systemName: tab.systemImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(maxWidth: .infinity, maxHeight: 32)
+                            .frame(maxWidth: .infinity, maxHeight: 24)
                             .foregroundColor(selection == .Watch ? .secondaryLightPeach : .primaryBlueBlack)
                     }
                 }
             }
-            .padding(.top, 12)
+            .padding(.top, 18)
             .background(selection == .Watch ? .black : .white)
-
         }
-        .frame(maxHeight: .infinity, alignment: .bottom)
-        
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        let sequence = VideoService.fetchTestSequence()
-        let recommendations = ExploreService.fetchTestRecommendations()
-        
-        if sequence != nil && recommendations != nil {
-            HomeView()
-                .environmentObject(sequence!)
-                .environmentObject(recommendations!)
-        } else {
-            Text("Error fetching sequence or recommendations.")
-        }
+#Preview {
+    
+    let sequence = VideoService.fetchTestSequence()
+    let recommendations = ExploreService.fetchTestRecommendations()
+    
+    if sequence != nil && recommendations != nil {
+        return Navigator()
+            .environmentObject(sequence!)
+            .environmentObject(recommendations!)
+    } else {
+        return Text("Error fetching sequence or recommendations.")
     }
+    
 }
