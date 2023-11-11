@@ -75,6 +75,10 @@ class Sequence: Decodable, ObservableObject {
             return
         }
         
+        if index <= 0 {
+            return
+        }
+        
         // Fill in the back of the queue
         let numSkipped = index - currentIndex
         addPlaylists(numPlaylists: numSkipped)
@@ -155,8 +159,8 @@ class Sequence: Decodable, ObservableObject {
     // MARK: Private Methods
     
     private func addPlaylists(topicId: String? = nil, numPlaylists: Int = 1) {
-        print("Adding new playlist(s)...")
-        
+        print("Adding \(numPlaylists) playlists...")
+
         if numPlaylists == 1 {
             let playlist = VideoService.fetchTestPlaylist(topicId: topicId)
             
@@ -182,7 +186,7 @@ class Sequence: Decodable, ObservableObject {
     }
 
     private func dequeuePlaylists(numPlaylists: Int = 1) {
-        print("Dequeuing first playlist...")
+        print("Dequeuing \(numPlaylists) playlists...")
         
         if numPlaylists > playlists.count {
             print("Error: \(PlaylistError.emptyPlaylist.localizedDescription)")

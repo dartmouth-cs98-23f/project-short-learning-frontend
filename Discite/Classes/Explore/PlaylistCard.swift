@@ -10,18 +10,21 @@ import SwiftUI
 struct PlaylistCard: View {
     
     @EnvironmentObject var sequence: Sequence
+    @Binding var tabSelection: Navigator.Tab
+    
     var playlist: Playlist
     var index: Int
     
     var body: some View {
         NavigationLink {
             // Navigate to Watch on click, placeholder for now
-            WatchView()
+            // WatchView()
             
         } label: {
             Button {
                 // Update sequence on click
                 sequence.skipToPlaylist(index: index)
+                tabSelection = .Watch
                 
             } label: {
                 VStack(alignment: .leading) {
@@ -66,7 +69,7 @@ struct PlaylistCard: View {
     let playlist = VideoService.fetchTestPlaylist(topicId: nil)
     
     if playlist != nil {
-        return PlaylistCard(playlist: playlist!, index: 0)
+        return PlaylistCard(tabSelection: .constant(Navigator.Tab.Explore), playlist: playlist!, index: 0)
     } else {
         return Text("Failed to fetch playlist.")
     }

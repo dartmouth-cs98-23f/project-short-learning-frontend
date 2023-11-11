@@ -35,7 +35,7 @@ struct Navigator: View {
             case .Watch:
                 PlayerView()
             case .Explore:
-                TopicsView()
+                ExploreView(tabSelection: $selection)
             case .Shared:
                 SharedView()
             case .Account:

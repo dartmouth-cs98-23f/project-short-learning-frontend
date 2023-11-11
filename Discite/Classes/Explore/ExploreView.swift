@@ -11,7 +11,8 @@ struct ExploreView: View {
 
     @EnvironmentObject var sequence: Sequence
     @EnvironmentObject var recommendations: Recommendations
-
+    @Binding var tabSelection: Navigator.Tab
+    
     var body: some View {
         
         VStack(alignment: .leading, spacing: 18) {
@@ -23,8 +24,13 @@ struct ExploreView: View {
             // Section: My interests (topics)
             topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
             
+            NavigationStack {
+                // Section: Continue learning (playlists)
+                playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+            }
+            
             // Section: Continue learning (playlists)
-            playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+            // playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
             
             Spacer()
         }
@@ -55,7 +61,7 @@ struct ExploreView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
                     ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
-                        PlaylistCard(playlist: playlist, index: index)
+                        PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index)
                     }
                 }
                 .padding([.bottom, .top], 18)
@@ -72,7 +78,7 @@ struct ExploreView: View {
     let sequence = VideoService.fetchTestSequence()
     
     if recommendations != nil && sequence != nil {
-        return ExploreView()
+        return ExploreView(tabSelection: .constant(Navigator.Tab.Explore))
             .environmentObject(recommendations!)
             .environmentObject(sequence!)
     } else {

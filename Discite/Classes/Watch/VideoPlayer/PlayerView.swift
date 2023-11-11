@@ -18,14 +18,14 @@ struct PlayerView: View {
         VideoPlayer(player: player)
             .edgesIgnoringSafeArea(.all)
             .onAppear {
-                print("Player appear, reload")
+                print("Player appear, reload.")
                 player.replaceCurrentItem(with: sequence.currentVideo())
                 addVideoEndedNotification()
                 
                 player.play()
             }
             .onDisappear {
-                print("Player disappear")
+                print("Player disappear.")
                 player.pause()
                 removeVideoEndedNotification()
             }
