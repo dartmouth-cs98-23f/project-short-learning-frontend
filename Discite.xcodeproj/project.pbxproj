@@ -68,7 +68,6 @@
 		C28ABEC52AF33D75007181F4 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEB12AF33D74007181F4 /* README.txt */; };
 		C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29145092AE60DBA000BEB88 /* TopicsView.swift */; };
 		C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C291450D2AE60DF1000BEB88 /* SharedView.swift */; };
-		C29145122AE705E7000BEB88 /* AccountSidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29145112AE705E7000BEB88 /* AccountSidebarItem.swift */; };
 		C29DB07E2AEC55D40081C354 /* video1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07B2AEC55D40081C354 /* video1.mp4 */; };
 		C29DB07F2AEC55D40081C354 /* video3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07C2AEC55D40081C354 /* video3.mp4 */; };
 		C29DB0802AEC55D40081C354 /* video2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07D2AEC55D40081C354 /* video2.mp4 */; };
@@ -78,7 +77,6 @@
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
 		C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */; };
-		C2ECB9672AF45ECA00433A3A /* playlistsample.json in Resources */ = {isa = PBXBuildFile; fileRef = C2ECB9662AF45ECA00433A3A /* playlistsample.json */; };
 		C2FEE2762AF70BD700DBF997 /* simpletest.json in Resources */ = {isa = PBXBuildFile; fileRef = C2FEE2752AF70BD700DBF997 /* simpletest.json */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +147,6 @@
 		C28ABECA2AF3447F007181F4 /* Mulish-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		C29145092AE60DBA000BEB88 /* TopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsView.swift; sourceTree = "<group>"; };
 		C291450D2AE60DF1000BEB88 /* SharedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedView.swift; sourceTree = "<group>"; };
-		C29145112AE705E7000BEB88 /* AccountSidebarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSidebarItem.swift; sourceTree = "<group>"; };
 		C29DB07B2AEC55D40081C354 /* video1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video1.mp4; sourceTree = "<group>"; };
 		C29DB07C2AEC55D40081C354 /* video3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video3.mp4; sourceTree = "<group>"; };
 		C29DB07D2AEC55D40081C354 /* video2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video2.mp4; sourceTree = "<group>"; };
@@ -159,7 +156,6 @@
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
-		C2ECB9662AF45ECA00433A3A /* playlistsample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = playlistsample.json; sourceTree = "<group>"; };
 		C2FEE2752AF70BD700DBF997 /* simpletest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpletest.json; sourceTree = "<group>"; };
 		C6A8AC8237B198727CE02A07 /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -212,6 +208,16 @@
 			path = SampleData;
 			sourceTree = "<group>";
 		};
+		C20EFE832AFFCEDB0074EC9A /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				C20EFE692AFBDC920074EC9A /* sampletopic.json */,
+				C20EFE732AFDCB740074EC9A /* samplerecommendations.json */,
+				C29145092AE60DBA000BEB88 /* TopicsView.swift */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
+		};
 		C2128A692ADB270B00E90C66 = {
 			isa = PBXGroup;
 			children = (
@@ -238,7 +244,6 @@
 				C20EFE562AFBABDD0074EC9A /* DisciteApp.swift */,
 				C2128A8E2ADB32B100E90C66 /* Classes */,
 				C2128A8B2ADB2B9100E90C66 /* Common */,
-				C29DB07A2AEC55D40081C354 /* TestVideos */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
 			);
 			path = Discite;
@@ -304,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				C2237F422AE5E4A600C9396E /* AccountView.swift */,
-				C29145112AE705E7000BEB88 /* AccountSidebarItem.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -345,10 +349,7 @@
 				C22A8F5A2AF18A8500D05DB9 /* VideoPlayer */,
 				C22A8F592AF18A5A00D05DB9 /* DeepDive */,
 				C2ECB9632AF4575100433A3A /* Testing */,
-				C235C6772AE06E4700870600 /* WatchView.swift */,
-				C235C6792AE06E8300870600 /* WatchViewModel.swift */,
 				C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */,
-				C20EFE7B2AFEC4F00074EC9A /* sampleplaylists.json */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -391,15 +392,13 @@
 		C291450B2AE60DBF000BEB88 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				C29145092AE60DBA000BEB88 /* TopicsView.swift */,
 				C20EFE652AFBCC3E0074EC9A /* TopicCard.swift */,
 				C20EFE6D2AFD93C20074EC9A /* PlaylistCard.swift */,
 				C20EFE672AFBCF4C0074EC9A /* ExploreView.swift */,
 				C20EFE632AFBC9C60074EC9A /* ExploreService.swift */,
 				C20EFE772AFDCC9E0074EC9A /* Topic.swift */,
 				C20EFE752AFDCC410074EC9A /* Recommendations.swift */,
-				C20EFE692AFBDC920074EC9A /* sampletopic.json */,
-				C20EFE732AFDCB740074EC9A /* samplerecommendations.json */,
+				C20EFE832AFFCEDB0074EC9A /* Testing */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -420,7 +419,7 @@
 				C29DB07D2AEC55D40081C354 /* video2.mp4 */,
 			);
 			name = TestVideos;
-			path = Discite/TestVideos;
+			path = Discite/Classes/Watch/Testing/TestVideos;
 			sourceTree = SOURCE_ROOT;
 		};
 		C2D287202AE0B03B00BB263C /* Root */ = {
@@ -448,7 +447,10 @@
 		C2ECB9632AF4575100433A3A /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				C2ECB9662AF45ECA00433A3A /* playlistsample.json */,
+				C29DB07A2AEC55D40081C354 /* TestVideos */,
+				C20EFE7B2AFEC4F00074EC9A /* sampleplaylists.json */,
+				C235C6772AE06E4700870600 /* WatchView.swift */,
+				C235C6792AE06E8300870600 /* WatchViewModel.swift */,
 				C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */,
 			);
 			path = Testing;
@@ -533,7 +535,6 @@
 				C28ABEBF2AF33D74007181F4 /* Mulish-ExtraLight.ttf in Resources */,
 				C28ABEC42AF33D75007181F4 /* OFL.txt in Resources */,
 				C28ABEC52AF33D75007181F4 /* README.txt in Resources */,
-				C2ECB9672AF45ECA00433A3A /* playlistsample.json in Resources */,
 				C28ABEC32AF33D75007181F4 /* Mulish-BoldItalic.ttf in Resources */,
 				C28ABEC02AF33D75007181F4 /* Mulish-Medium.ttf in Resources */,
 				C2128A882ADB2B8100E90C66 /* Localizable.strings in Resources */,
@@ -613,7 +614,6 @@
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
 				C2D287222AE0B05100BB263C /* MainView.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
-				C29145122AE705E7000BEB88 /* AccountSidebarItem.swift in Sources */,
 				C28ABE982AF31D9E007181F4 /* Buttons.swift in Sources */,
 				C20EFE702AFDA6D70074EC9A /* CardButtonFrame.swift in Sources */,
 				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
