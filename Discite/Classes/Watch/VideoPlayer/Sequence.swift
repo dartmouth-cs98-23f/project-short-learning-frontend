@@ -102,9 +102,10 @@ class Sequence: Decodable, ObservableObject {
         if !playlists.isEmpty {
             let video = playlists[currentIndex].currentVideo()
         
+            print("Sequence trying to replace video")
             player.replaceCurrentItem(with: video.getPlayerItem())
             shouldPlayerReload = false
-            print("sequence.currentVideo")
+            print("Sequence replaced video")
         }
     }
     

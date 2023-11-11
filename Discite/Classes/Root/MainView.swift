@@ -22,7 +22,10 @@ struct MainView: View {
                 .environmentObject(recommendations)
             
         } else {
-            LoginView()
+            // LoginView()
+            Navigator()
+                .environmentObject(sequence)
+                .environmentObject(recommendations)
         }
     }
 }

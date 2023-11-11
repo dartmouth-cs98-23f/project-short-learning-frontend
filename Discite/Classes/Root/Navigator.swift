@@ -30,11 +30,10 @@ struct Navigator: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             switch selection {
             case .Watch:
-                WatchView()
-                // PlayerView()
+                PlayerView()
             case .Explore:
                 TopicsView()
             case .Shared:

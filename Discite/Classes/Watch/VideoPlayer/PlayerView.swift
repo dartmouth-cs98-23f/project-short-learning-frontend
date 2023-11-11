@@ -24,7 +24,10 @@ struct PlayerView: View {
                         print("Player appear, reload")
                         
                         if player.currentItem != nil {
+                            print("Player reloading, but video not nil")
                             removeVideoEndedNotification()
+                        } else {
+                            print("Player reloading, video is nil")
                         }
                         
                         sequence.currentVideo(player: player)
