@@ -26,6 +26,7 @@ class Auth: ObservableObject {
     
     @Published var loggedIn: Bool = false
     
+    
     private init() {
         loggedIn = hasToken()
     }

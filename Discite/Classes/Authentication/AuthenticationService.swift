@@ -28,6 +28,14 @@ struct SignupRequest: Encodable {
     let birthDate: String
 }
 
+struct OnboardRequest: Encodable {
+    let topics: [String]
+}
+
+struct OnboardResponse: Decodable {
+    let affinities: [String]
+}
+
 class AuthConfig {
     static let shared = AuthConfig()
     
@@ -90,6 +98,36 @@ struct AuthenticationService {
                     
                     do {
                         let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
+                        completion(response)
+                    } catch {
+                        failure(.invalidJSON)
+                    }
+                    
+                } failure: { error in
+                    failure(error)
+                }
+        }
+    }
+    
+    struct OnboardService {
+        let path = "/api/user/affinities"
+        let method: HTTPMethod = .post
+        var parameters: OnboardRequest
+        
+        func call(
+            completion: @escaping (OnboardResponse) -> Void,
+            failure: @escaping (APIError) -> Void
+        ) {
+            APIRequest<OnboardRequest, OnboardResponse>.call(
+                scheme: AuthConfig.shared.scheme,
+                host: AuthConfig.shared.host,
+                path: path,
+                port: AuthConfig.shared.port,
+                method: method,
+                authorized: true,
+                parameters: parameters) { data in
+                    do {
+                        let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
                         completion(response)
                     } catch {
                         failure(.invalidJSON)

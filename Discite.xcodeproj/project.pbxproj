@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665D4CCF2AFED43D00F1C05C /* Constants.swift */; };
 		205AF64E5AB72EC6209C04A5 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A8AC8237B198727CE02A07 /* Pods_Discite.framework */; };
 		66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */; };
 		66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB52AF4D4A500F65F38 /* SignupView.swift */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
+		665D4CCF2AFED43D00F1C05C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		66EE0EB52AF4D4A500F65F38 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.debug.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.debug.xcconfig"; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				C28ABE972AF31D9E007181F4 /* Buttons.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
+				665D4CCF2AFED43D00F1C05C /* Constants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDive.swift in Sources */,
+				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */,
