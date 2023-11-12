@@ -86,3 +86,48 @@ struct Buttons_Previews: PreviewProvider {
             .previewDisplayName("Save")
     }
 }
+
+struct PreferenceButton: View {
+    var topic: String
+    @State var selected: Bool
+    var frameWidth: CGFloat
+    @ObservedObject var viewModel: OnboardingViewModel
+    let constants = Constants()
+    
+    var body: some View {
+        Button(action: {
+            if selected {
+                viewModel.topics.removeAll {$0 == topic}
+                selected = false
+            } else {
+                viewModel.topics.append(topic)
+                selected = true
+            }
+            print("Category clicked \(topic)" )
+            print(viewModel.topics)
+        }) {
+            VStack {
+                Spacer()
+                constants.icons[topic]?
+                    .font(.largeTitle)
+                Spacer()
+                Text(topic)
+                    .font(.system(size: 15))
+                Spacer()
+            }
+            .frame(width: frameWidth, height: 130)
+            .foregroundColor(viewModel.topics.contains(topic) == true ? .white : Color.primaryDarkNavy)
+            .cornerRadius(10)
+            .font(.small)
+            .accentColor(Color.blue)
+            .disabled(viewModel.topics.count == 0)
+        }
+        .padding()
+        .background(viewModel.topics.contains(topic) == true ? LinearGradient(colors: [Color.blue, Color.primaryDarkNavy], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [.white], startPoint: .topLeading, endPoint: .bottomTrailing))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.primaryDarkNavy, lineWidth: 2)
+        )
+    }
+}
