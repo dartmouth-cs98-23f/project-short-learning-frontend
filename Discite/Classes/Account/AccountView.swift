@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct AccountView: View {
+    
+    @ObservedObject var viewModel: AccountViewModel = AccountViewModel()
 
     var body: some View {
         VStack {
@@ -24,6 +26,12 @@ struct AccountView: View {
         .onDisappear {
             print("Account disappear")
         }
+        Button("Home.LogoutButton.Title") {
+                        viewModel.logout()
+                        print("Logged out")
+                        print(Auth.shared.loggedIn)
+                    }
+                    .modifier(PrimaryButton(color: Color.red))
     }
     
 }
