@@ -39,9 +39,9 @@ struct OnboardResponse: Decodable {
 class AuthConfig {
     static let shared = AuthConfig()
     
-    let scheme: String = "http"
-    let host: String = "localhost" // must be running backend on localhost:3000
-    let port: Int? = 3000
+    let scheme: String = "https"
+    let host: String = "e8d65ca6-d3cc-402c-ac69-65ca5a371329.mock.pstmn.io" // must be running backend on localhost:3000
+    let port: Int? = nil
 }
 
 struct AuthenticationService {
@@ -62,7 +62,8 @@ struct AuthenticationService {
                 port: AuthConfig.shared.port,
                 method: method,
                 authorized: false,
-                parameters: parameters) { data in
+                parameters: parameters,
+                headerFields: ["Authorization": Auth.shared.getToken() ?? ""] ) { data in
                     
                     do {
                         let response = try JSONDecoder().decode(AuthResponseData.self, from: data)

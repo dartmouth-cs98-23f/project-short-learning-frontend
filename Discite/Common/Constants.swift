@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Constants {
     let categories = ["Business", "Sports", "Cooking", "Finance", "Coding", "Math", "Boats", "Cars"]
-    let icons: [String : Image] =  ["Business": Image(systemName: "briefcase"),
+    let icons: [String: Image] =  ["Business": Image(systemName: "briefcase"),
                   "Sports": Image(systemName: "football"),
                   "Cooking": Image(systemName: "frying.pan"),
                   "Finance": Image(systemName: "dollarsign"),

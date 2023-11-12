@@ -43,7 +43,7 @@ struct OnboardingView: View {
                         }
                     }
                     .onAppear {
-                        updateGridColumns(geometry.size.width, geometry.size.height, frameWidth)
+                        updateGridColumns(width: geometry.size.width, height: geometry.size.height, frameWidth: frameWidth)
                     }
                 }
                 VStack {
@@ -63,7 +63,7 @@ struct OnboardingView: View {
         }
     }
     
-    private func updateGridColumns(_ width: CGFloat,_ height: CGFloat,_ frameWidth: CGFloat) {
+    private func updateGridColumns(width: CGFloat, height: CGFloat, frameWidth: CGFloat) {
         let columnsCount = Int((CGFloat(constants.categories.count)+2) / 3)
         print(frameWidth, columnsCount)
         var gridColumns: [GridItem] = []

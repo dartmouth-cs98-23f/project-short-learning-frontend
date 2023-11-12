@@ -27,6 +27,9 @@ class LoginViewModel: ObservableObject {
             print("starting call")
             do {
                 try Auth.shared.setToken(token: response.token)
+                DispatchQueue.main.async {
+                    Auth.shared.onboarded = true
+                }
                 print("Login successful", Auth.shared.loggedIn)
             } catch {
                 print("Error: Unable to store token in keychain.")

@@ -14,12 +14,15 @@ struct ContentView: View {
     
     var body: some View {
         if auth.loggedIn {
-            Navigator()
-                .environmentObject(sequence)
-                .environmentObject(recommendations)
-            
+            if auth.onboarded {
+                Navigator()
+                    .environmentObject(sequence)
+                    .environmentObject(recommendations)
+            } else {
+                OnboardingView()
+            }
         } else {
-            LoginView()
+            SignupView()
         }
     }
 }
