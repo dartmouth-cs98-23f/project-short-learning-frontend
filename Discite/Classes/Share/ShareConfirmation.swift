@@ -10,16 +10,23 @@ import SwiftUI
 struct ShareConfirmation: View {
     
     @Binding var isShowing: Bool
+    @State var appeared: Bool = false
     var playlist: Playlist
     
     var body: some View {
         
-        VStack(alignment: .center, spacing: 32) {
+        VStack(alignment: .center, spacing: 42) {
             Image(systemName: "checkmark")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80, height: 80)
                 .addGradient(gradient: LinearGradient.pinkOrangeGradient)
+                .scaleEffect(appeared ? 1 : 0.5)
+                .onAppear {
+                    withAnimation(Animation.smooth(duration: 2)) {
+                        appeared.toggle()
+                    }
+                }
             
             VStack(spacing: 8) {
                 Text("Thanks for sharing")

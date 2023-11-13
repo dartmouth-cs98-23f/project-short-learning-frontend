@@ -46,6 +46,7 @@ struct Share: View {
                 HStack(spacing: 18) {
                     Button {
                         self.isShowingActivities = true
+                        
                     } label: {
                         Image(systemName: "message.fill")
                             .resizable()
@@ -60,17 +61,10 @@ struct Share: View {
                     
                     ForEach(friends) { friend in
                         profileSelectButton(friend: friend)
-//                        VStack {
-//                            Image(systemName: friend.profileImage)
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 56, height: 56)
-//                            Text(friend.username).font(Font.small)
-//                        }
                     }
                 }
             }
-                    
+
             // Section: Video to be shared
             ShareCard(playlist: playlist.playlist)
             
@@ -93,8 +87,6 @@ struct Share: View {
             .sheet(isPresented: self.$isShowingConfirmation) {
                 ShareConfirmation(isShowing: $isShowingConfirmation, playlist: playlist.playlist)
             }
-            
-            Spacer()
         }
         .padding([.top, .bottom], 32)
         .padding([.leading, .trailing], 24)
@@ -125,12 +117,13 @@ struct Share: View {
 struct ShareRepresentable: UIViewControllerRepresentable {
     
     var message: String
+    var videoURL: String = "www.youtube.com"
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
     
     func makeUIViewController(context: Context) -> UIViewController {
-        
-        return UIActivityViewController(activityItems: [ message ], applicationActivities: nil)
+        let fullMessage = message + " [\(videoURL)]"
+        return UIActivityViewController(activityItems: [ fullMessage ], applicationActivities: nil)
         
     }
 }
