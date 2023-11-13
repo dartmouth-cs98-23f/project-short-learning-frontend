@@ -78,6 +78,7 @@
 		C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF152B01CF5F001EDE9F /* Friend.swift */; };
 		C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF192B01D84D001EDE9F /* SharedCard.swift */; };
 		C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */; };
+		C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -162,6 +163,7 @@
 		C2A3FF152B01CF5F001EDE9F /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		C2A3FF192B01D84D001EDE9F /* SharedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCard.swift; sourceTree = "<group>"; };
 		C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
+		C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfirmation.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				C20EFE842B012C400074EC9A /* Share.swift */,
 				C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */,
+				C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
+				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
 				C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */,
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
 				C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */,

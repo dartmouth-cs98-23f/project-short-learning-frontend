@@ -9,12 +9,15 @@ import SwiftUI
 
 struct Share: View {
     
+    var playlist: SharedPlaylist
+    var friends: [Friend]
+    
     @State private var isShowingActivities = false
+    @State private var isShowingConfirmation = false
     @State private var friendSearch = ""
     @State private var message = "This playlist is perfect for you. ✨ Join me on Discite to unlock more personalized, tailored content and enhance your learning experience! 📚"
     
-    var playlist: SharedPlaylist
-    var friends: [Friend]
+    @State private var selection = Set<Friend>()
     
     var searchBar: some View {
         HStack {
@@ -51,18 +54,19 @@ struct Share: View {
                             .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                     }
                     .sheet(isPresented: self.$isShowingActivities) {
-                        ShareRepresentable()
+                        ShareRepresentable(message: message)
                             .ignoresSafeArea()
                     }
                     
                     ForEach(friends) { friend in
-                        VStack {
-                            Image(systemName: friend.profileImage)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 56, height: 56)
-                            Text(friend.username).font(Font.small)
-                        }
+                        profileSelectButton(friend: friend)
+//                        VStack {
+//                            Image(systemName: friend.profileImage)
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 56, height: 56)
+//                            Text(friend.username).font(Font.small)
+//                        }
                     }
                 }
             }
@@ -83,16 +87,12 @@ struct Share: View {
                 )
             
             // Share button
-            Button {
-                
-            } label: {
-                Text("Share")
-                    .font(Font.H6)
-                    .frame(maxWidth: .infinity, maxHeight: 48)
-                    .foregroundColor(.white)
+            PrimaryActionButton(action: {
+                isShowingConfirmation = true
+            }, label: "Share")
+            .sheet(isPresented: self.$isShowingConfirmation) {
+                ShareConfirmation(isShowing: $isShowingConfirmation, playlist: playlist.playlist)
             }
-            .background(Color.primaryDarkNavy)
-            .cornerRadius(10)
             
             Spacer()
         }
@@ -100,15 +100,35 @@ struct Share: View {
         .padding([.leading, .trailing], 24)
     }
     
+    func profileSelectButton(friend: Friend) -> some View {
+        Button {
+            if selection.contains(friend) {
+                selection.remove(friend)
+            } else {
+                selection.insert(friend)
+            }
+            
+        } label: {
+            VStack {
+                Image(systemName: selection.contains(friend) ? "checkmark.circle.fill" : friend.profileImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 56, height: 56)
+                Text(friend.username).font(Font.small)
+            }
+        }
+        .foregroundColor(Color.primaryBlueBlack)
+    }
+    
 }
 
 struct ShareRepresentable: UIViewControllerRepresentable {
     
+    var message: String
+    
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
     
     func makeUIViewController(context: Context) -> UIViewController {
-        
-        let message = "Here's a video from Discite that I think you'll like! Create an account to start learning.\n\n[www.youtube.com]"
         
         return UIActivityViewController(activityItems: [ message ], applicationActivities: nil)
         

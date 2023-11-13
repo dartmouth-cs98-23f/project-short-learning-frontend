@@ -46,14 +46,6 @@ extension Button {
             .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
     }
     
-    public func cardButtonFramePeach(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
-        self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
-            .background(Color.secondaryLightPeach)
-            .foregroundColor(Color.primaryBlueBlack)
-            .cornerRadius(10)
-            .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
-    }
-    
     public func cardButtonPressed(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
         self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
             .overlay(

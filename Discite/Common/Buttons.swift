@@ -7,9 +7,32 @@
 
 import SwiftUI
 
-struct Buttons: View {
+struct PrimaryActionButton: View {
+    let action: () -> Void
+    let label: String
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: action) {
+            Text(label)
+                .font(Font.H6)
+                .frame(maxWidth: .infinity, maxHeight: 48)
+                .foregroundColor(.white)
+        }
+        .background(Color.primaryDarkNavy)
+        .cornerRadius(10)
+    }
+}
+
+struct TextualButton: View {
+    let action: () -> Void
+    let label: String
+
+    var body: some View {
+        Button(action: action) {
+            Text(label)
+                .font(Font.button)
+                .foregroundColor(Color.primaryBlue)
+        }
     }
 }
 

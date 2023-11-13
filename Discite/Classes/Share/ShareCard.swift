@@ -24,6 +24,8 @@ struct ShareCard: View {
                 }
                 
                 Spacer()
+                
+                Image(systemName: "link")
             }
             .padding(24)
             
@@ -36,10 +38,6 @@ struct ShareCard: View {
 #Preview {
     
     let samplePlaylists = VideoService.fetchTestSequence()!.allPlaylists()
-    let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
-    
-    let sharedPlaylist = SharedPlaylist(id: "1", playlist: samplePlaylists[0], sender: sampleFriend, hasWatched: false)
-                                         
-    return ShareCard(playlist: sharedPlaylist.playlist)
+    return ShareCard(playlist: samplePlaylists[0])
     
 }
