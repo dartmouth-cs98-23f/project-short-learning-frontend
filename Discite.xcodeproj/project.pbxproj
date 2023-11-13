@@ -25,6 +25,7 @@
 		C20EFE782AFDCC9E0074EC9A /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE772AFDCC9E0074EC9A /* Topic.swift */; };
 		C20EFE7C2AFEC4F00074EC9A /* sampleplaylists.json in Resources */ = {isa = PBXBuildFile; fileRef = C20EFE7B2AFEC4F00074EC9A /* sampleplaylists.json */; };
 		C20EFE822AFFA9A30074EC9A /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE812AFFA9A30074EC9A /* Navigator.swift */; };
+		C20EFE852B012C400074EC9A /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE842B012C400074EC9A /* Share.swift */; };
 		C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A772ADB270B00E90C66 /* ContentView.swift */; };
 		C2128A7A2ADB271300E90C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2128A792ADB271300E90C66 /* Assets.xcassets */; };
 		C2128A7D2ADB271300E90C66 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2128A7C2ADB271300E90C66 /* Preview Assets.xcassets */; };
@@ -72,6 +73,11 @@
 		C29DB07F2AEC55D40081C354 /* video3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07C2AEC55D40081C354 /* video3.mp4 */; };
 		C29DB0802AEC55D40081C354 /* video2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C29DB07D2AEC55D40081C354 /* video2.mp4 */; };
 		C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */; };
+		C2A3FF112B01CC57001EDE9F /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF102B01CC57001EDE9F /* Shared.swift */; };
+		C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF132B01CE5C001EDE9F /* SharedPlaylist.swift */; };
+		C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF152B01CF5F001EDE9F /* Friend.swift */; };
+		C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF192B01D84D001EDE9F /* SharedCard.swift */; };
+		C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -99,6 +105,7 @@
 		C20EFE772AFDCC9E0074EC9A /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		C20EFE7B2AFEC4F00074EC9A /* sampleplaylists.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleplaylists.json; sourceTree = "<group>"; };
 		C20EFE812AFFA9A30074EC9A /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		C20EFE842B012C400074EC9A /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		C2128A722ADB270B00E90C66 /* Discite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2128A772ADB270B00E90C66 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C2128A792ADB271300E90C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -150,6 +157,11 @@
 		C29DB07C2AEC55D40081C354 /* video3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video3.mp4; sourceTree = "<group>"; };
 		C29DB07D2AEC55D40081C354 /* video2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video2.mp4; sourceTree = "<group>"; };
 		C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSimplePlayerView.swift; sourceTree = "<group>"; };
+		C2A3FF102B01CC57001EDE9F /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		C2A3FF132B01CE5C001EDE9F /* SharedPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedPlaylist.swift; sourceTree = "<group>"; };
+		C2A3FF152B01CF5F001EDE9F /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		C2A3FF192B01D84D001EDE9F /* SharedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCard.swift; sourceTree = "<group>"; };
+		C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -216,6 +228,15 @@
 			path = Testing;
 			sourceTree = "<group>";
 		};
+		C20EFE862B012F6E0074EC9A /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				C20EFE842B012C400074EC9A /* Share.swift */,
+				C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		C2128A692ADB270B00E90C66 = {
 			isa = PBXGroup;
 			children = (
@@ -258,9 +279,9 @@
 		C2128A8B2ADB2B9100E90C66 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
-				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
 				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
 				C28ABE972AF31D9E007181F4 /* Buttons.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
@@ -289,6 +310,7 @@
 				C291450B2AE60DBF000BEB88 /* Explore */,
 				C291450C2AE60DDA000BEB88 /* Shared */,
 				C2237F412AE5E41500C9396E /* Account */,
+				C20EFE862B012F6E0074EC9A /* Share */,
 				C235C6712ADF460C00870600 /* Utility */,
 			);
 			path = Classes;
@@ -404,7 +426,11 @@
 		C291450C2AE60DDA000BEB88 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C291450D2AE60DF1000BEB88 /* SharedView.swift */,
+				C2A3FF102B01CC57001EDE9F /* Shared.swift */,
+				C2A3FF192B01D84D001EDE9F /* SharedCard.swift */,
+				C2A3FF132B01CE5C001EDE9F /* SharedPlaylist.swift */,
+				C2A3FF152B01CF5F001EDE9F /* Friend.swift */,
+				C2A3FF122B01CDF3001EDE9F /* Testing */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -419,6 +445,14 @@
 			name = TestVideos;
 			path = Discite/Classes/Watch/Testing/TestVideos;
 			sourceTree = SOURCE_ROOT;
+		};
+		C2A3FF122B01CDF3001EDE9F /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				C291450D2AE60DF1000BEB88 /* SharedView.swift */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
 		};
 		C2D287202AE0B03B00BB263C /* Root */ = {
 			isa = PBXGroup;
@@ -606,8 +640,11 @@
 				C251C9882AF4963100922B00 /* Sequence.swift in Sources */,
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
+				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
 				C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */,
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
+				C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */,
+				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
 				C28ABE982AF31D9E007181F4 /* Buttons.swift in Sources */,
@@ -615,6 +652,7 @@
 				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
 				C235C6782AE06E4700870600 /* WatchView.swift in Sources */,
 				C251C98C2AF4AD8C00922B00 /* PlayerView.swift in Sources */,
+				C2A3FF112B01CC57001EDE9F /* Shared.swift in Sources */,
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
 				C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */,
 				C20EFE682AFBCF4C0074EC9A /* ExploreView.swift in Sources */,
@@ -629,12 +667,14 @@
 				C251C9862AF4960F00922B00 /* Playlist.swift in Sources */,
 				C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
+				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
 				C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
+				C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -773,10 +813,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Discite/Preview Content\"";
-				DEVELOPMENT_TEAM = 8S8AHD45UC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Discite/Info.plist;
@@ -790,8 +831,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.jli.Discite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.jessieli.Discite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -804,10 +846,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Discite/Preview Content\"";
-				DEVELOPMENT_TEAM = 8S8AHD45UC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Discite/Info.plist;
@@ -821,8 +864,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.jli.Discite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.jessieli.Discite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
