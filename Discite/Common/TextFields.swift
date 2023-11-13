@@ -39,6 +39,7 @@ struct PrimaryTextField: View {
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                         .padding([.top, .bottom], 4)
+                        .font(Font.body1)
                     
                     Image(systemName: "checkmark")
                         .resizable()
