@@ -10,6 +10,14 @@ import SwiftUI
 struct PrimaryActionButton: View {
     let action: () -> Void
     let label: String
+    let disabled: Bool
+    
+    init(action: @escaping () -> Void, label: String, disabled: Bool = false) {
+        
+        self.action = action
+        self.label = label
+        self.disabled = disabled
+    }
 
     var body: some View {
         Button(action: action) {
@@ -18,7 +26,8 @@ struct PrimaryActionButton: View {
                 .frame(maxWidth: .infinity, maxHeight: 48)
                 .foregroundColor(.white)
         }
-        .background(Color.primaryDarkNavy)
+        .background(disabled ? Color.lightGray : Color.primaryDarkNavy)
+        .disabled(disabled)
         .cornerRadius(10)
     }
 }
@@ -115,6 +124,9 @@ struct SaveButton: View {
 
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
+        PrimaryActionButton(action: { }, label: "Share", disabled: true)
+            .previewDisplayName("Primary Action Button")
+        
         AccentPlayButton(action: { }, label: "PLAY")
             .previewDisplayName("Accent Play")
         

@@ -22,10 +22,9 @@ struct ShareConfirmation: View {
                 .frame(width: 80, height: 80)
                 .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                 .scaleEffect(appeared ? 1 : 0.5)
+                .animation(Animation.smooth(duration: 2), value: appeared)
                 .onAppear {
-                    withAnimation(Animation.smooth(duration: 2)) {
-                        appeared.toggle()
-                    }
+                    appeared.toggle()
                 }
             
             VStack(spacing: 8) {

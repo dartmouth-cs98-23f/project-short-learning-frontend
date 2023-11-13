@@ -81,12 +81,15 @@ struct Share: View {
                 )
             
             // Share button
-            PrimaryActionButton(action: {
-                isShowingConfirmation = true
-            }, label: "Share")
-            .sheet(isPresented: self.$isShowingConfirmation) {
+            PrimaryActionButton(action: { isShowingConfirmation = true }, 
+                                label: "Share",
+                                disabled: selection.count == 0)
+            
+            .sheet(isPresented: self.$isShowingConfirmation,
+                   onDismiss: clearProfileSelection) {
                 ShareConfirmation(isShowing: $isShowingConfirmation, playlist: playlist.playlist)
             }
+
         }
         .padding([.top, .bottom], 32)
         .padding([.leading, .trailing], 24)
@@ -110,6 +113,10 @@ struct Share: View {
             }
         }
         .foregroundColor(Color.primaryBlueBlack)
+    }
+    
+    func clearProfileSelection() {
+        selection.removeAll()
     }
     
 }
