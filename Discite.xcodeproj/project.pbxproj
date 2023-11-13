@@ -46,7 +46,7 @@
 		C251C98C2AF4AD8C00922B00 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C251C98B2AF4AD8C00922B00 /* PlayerView.swift */; };
 		C251C98E2AF4AFA000922B00 /* DeepDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C251C98D2AF4AFA000922B00 /* DeepDive.swift */; };
 		C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */; };
-		C28ABE982AF31D9E007181F4 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE972AF31D9E007181F4 /* Buttons.swift */; };
+		C28ABE982AF31D9E007181F4 /* TextButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE972AF31D9E007181F4 /* TextButtons.swift */; };
 		C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE992AF33118007181F4 /* Colors.swift */; };
 		C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28ABE9C2AF3370B007181F4 /* Fonts.swift */; };
 		C28ABEB42AF33D74007181F4 /* Mulish-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C28ABEA02AF33D74007181F4 /* Mulish-LightItalic.ttf */; };
@@ -79,6 +79,8 @@
 		C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF192B01D84D001EDE9F /* SharedCard.swift */; };
 		C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */; };
 		C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */; };
+		C2A3FF202B02B16F001EDE9F /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */; };
+		C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF212B02B185001EDE9F /* IconButtons.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -128,7 +130,7 @@
 		C251C98B2AF4AD8C00922B00 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		C251C98D2AF4AFA000922B00 /* DeepDive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDive.swift; sourceTree = "<group>"; };
 		C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomJSONDecoder.swift; sourceTree = "<group>"; };
-		C28ABE972AF31D9E007181F4 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		C28ABE972AF31D9E007181F4 /* TextButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtons.swift; sourceTree = "<group>"; };
 		C28ABE992AF33118007181F4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C28ABE9C2AF3370B007181F4 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		C28ABEA02AF33D74007181F4 /* Mulish-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -164,6 +166,8 @@
 		C2A3FF192B01D84D001EDE9F /* SharedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCard.swift; sourceTree = "<group>"; };
 		C2A3FF1B2B024B9E001EDE9F /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfirmation.swift; sourceTree = "<group>"; };
+		C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
+		C2A3FF212B02B185001EDE9F /* IconButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtons.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -286,7 +290,9 @@
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
 				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
-				C28ABE972AF31D9E007181F4 /* Buttons.swift */,
+				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
+				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
+				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 			);
@@ -651,11 +657,12 @@
 				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
-				C28ABE982AF31D9E007181F4 /* Buttons.swift in Sources */,
+				C28ABE982AF31D9E007181F4 /* TextButtons.swift in Sources */,
 				C20EFE702AFDA6D70074EC9A /* CardButtonFrame.swift in Sources */,
 				C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */,
 				C235C6782AE06E4700870600 /* WatchView.swift in Sources */,
 				C251C98C2AF4AD8C00922B00 /* PlayerView.swift in Sources */,
+				C2A3FF202B02B16F001EDE9F /* TextFields.swift in Sources */,
 				C2A3FF112B01CC57001EDE9F /* Shared.swift in Sources */,
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
 				C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */,
@@ -676,6 +683,7 @@
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
 				C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
+				C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */,
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */,
