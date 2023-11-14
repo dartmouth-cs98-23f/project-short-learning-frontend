@@ -12,6 +12,7 @@ import Foundation
 
 struct AuthResponseData: Decodable {
     let token: String
+    let status: String?
 }
 
 struct LoginRequest: Encodable {
@@ -131,7 +132,9 @@ struct AuthenticationService {
                         let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
                         
                         try completion(response)
-                        Auth.shared.onboarded=true
+                        DispatchQueue.main.async {
+                            Auth.shared.onboarded=true
+                        }
                     } catch {
                         failure(.invalidJSON)
                     }

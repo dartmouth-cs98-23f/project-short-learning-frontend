@@ -30,7 +30,7 @@ class Auth: ObservableObject {
     
     private init() {
         loggedIn = hasToken()
-        onboarded = false
+        onboarded = hasToken()
     }
     
     // Stores token in keychain
@@ -54,6 +54,8 @@ class Auth: ObservableObject {
 
     func logout() {
         keychain.removeObject(forKey: KeychainKey.token.rawValue)
-        loggedIn = false
+        DispatchQueue.main.async {
+            self.loggedIn = false
+        }
     }
 }
