@@ -11,6 +11,15 @@ struct CustomSecureTextField: View {
     
     let label: String
     @Binding var text: String
+    let isValid: (String) -> Bool
+    
+    init(label: String, text: Binding<String>, isValid: @escaping (String) -> Bool = { _ in return false }) {
+        
+        self.label = label
+        self._text = text
+        self.isValid = isValid
+        
+    }
     
     var body: some View {
         
@@ -19,25 +28,34 @@ struct CustomSecureTextField: View {
             if !text.isEmpty {
                 Text(label)
                     .font(Font.small)
-                    .foregroundColor(Color.primaryDarkNavy)
+                    .foregroundColor(isValid(text) ? Color.secondaryPink : Color.primaryDarkNavy)
             }
             
             VStack {
                 
-                SecureField(label, text: $text)
-                    .foregroundColor(Color.primaryBlueBlack)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                    .padding([.top, .bottom], 4)
-                    .font(Font.body1)
+                HStack {
+                    SecureField(label, text: $text)
+                        .foregroundColor(Color.primaryBlueBlack)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
+                        .padding([.top, .bottom], 4)
+                        .font(Font.body1)
+                    
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                        .foregroundColor(isValid(text) ? Color.secondaryPink : Color.clear)
+                }
                 
                 Rectangle()
-                    .fill(Color.primaryDarkNavy)
+                    .fill(isValid(text) ? Color.secondaryPink : Color.primaryDarkNavy)
                     .frame(height: 2)
                     .edgesIgnoringSafeArea(.horizontal)
             }
 
         }
+        .frame(height: 48)
     }
     
 }
@@ -90,6 +108,7 @@ struct PrimaryTextField: View {
             }
 
         }
+        .frame(height: 48)
     }
 }
 

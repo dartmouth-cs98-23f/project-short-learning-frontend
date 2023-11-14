@@ -40,7 +40,8 @@ class AuthConfig {
     static let shared = AuthConfig()
     
     let scheme: String = "http"
-    let host: String = "18.215.28.176" // must be running backend on localhost:3000
+    // let host: String = "localhost" // must be running backend on localhost:3000
+    let host: String = "18.215.28.176"
     let port: Int? = 3000
 }
 

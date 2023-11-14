@@ -14,11 +14,12 @@ class Auth: ObservableObject {
     enum AuthError: Error {
         case noToken
         case setToken
+        case failedOnboard
     }
     
     enum KeychainKey: String {
         case token
-        case userId
+        case onboarded
     }
     
     static let shared: Auth = Auth()
@@ -41,6 +42,15 @@ class Auth: ObservableObject {
         guard success else { throw AuthError.setToken }
         DispatchQueue.main.async {
             Auth.shared.loggedIn = true
+        }
+    }
+    
+    // Sets onboarding status to "complete" in keychain
+    func setOnboarded() throws {
+        let success = keychain.set("complete", forKey: KeychainKey.onboarded.rawValue)
+        guard success else { throw AuthError.failedOnboard }
+        DispatchQueue.main.async {
+            Auth.shared.onboarded = true
         }
     }
     

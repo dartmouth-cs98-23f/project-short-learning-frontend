@@ -10,11 +10,20 @@ import SwiftUI
 struct Navigator: View {
     
     @State private var selection: Tab = .Watch
+    @StateObject var sequence: Sequence = Sequence()
+    @StateObject var recommendations: Recommendations = Recommendations()
+    // @EnvironmentObject var sequence: Sequence
+    // @EnvironmentObject var recommendations: Recommendations
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
                 TabItem(systemImage: "person.2.fill", tag: .Shared),
                 TabItem(systemImage: "person.crop.circle", tag: .Account)]
+    
+    init() {
+        // sequence.addPlaylists(numPlaylists: 2)
+        // recommendations.fetchRecommendations()
+    }
     
     enum Tab {
         case Watch
@@ -34,8 +43,12 @@ struct Navigator: View {
             switch selection {
             case .Watch:
                 PlayerView()
+                    .environmentObject(sequence)
+                    .environmentObject(recommendations)
             case .Explore:
                 ExploreView(tabSelection: $selection)
+                    .environmentObject(sequence)
+                    .environmentObject(recommendations)
             case .Shared:
                 Shared()
             case .Account:
@@ -63,11 +76,11 @@ struct Navigator: View {
 
 #Preview {
     
-    let sequence = Sequence()
-    let recommendations = Recommendations()
+    // let sequence = Sequence()
+    // let recommendations = Recommendations()
     
     return Navigator()
-        .environmentObject(sequence)
-        .environmentObject(recommendations)
+        // .environmentObject(sequence)
+        // .environmentObject(recommendations)
     
 }

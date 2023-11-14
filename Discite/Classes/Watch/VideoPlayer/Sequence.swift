@@ -27,7 +27,7 @@ extension SequenceError: LocalizedError {
 
 struct SequenceData: Decodable {
     var playlists: [Playlist] = []
-    var topicId: String
+    var topicId: String?
     var combinedTopicName: String?
     
     enum CodingKeys: String, CodingKey {
@@ -61,8 +61,10 @@ class Sequence: ObservableObject {
     
     var currentIndex: Int = 0 // Currently always 0, but could be useful later
 
-    init() {
-        addPlaylists(numPlaylists: 2)
+    init() { 
+        if Auth.shared.loggedIn {
+            addPlaylists(numPlaylists: 2)
+        }
     }
     
     // MARK: Public Getters

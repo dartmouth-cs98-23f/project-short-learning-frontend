@@ -26,8 +26,10 @@ class Recommendations: ObservableObject {
     @Published var topics: [Topic]?
     @Published var fetchSuccessful: Bool = false
     
-    init() { 
-        fetchRecommendations()
+    init() {
+        if Auth.shared.loggedIn {
+            fetchRecommendations()
+        }
     }
     
     func getTopics() -> [Topic]? {
@@ -41,7 +43,7 @@ class Recommendations: ObservableObject {
         ExploreService.fetchRecommendations { recommendations in
             print("Successfully decoded recommendations.")
             self.topics = recommendations.topics
-            print("Recommendations loaded with \(recommendations.topics.count)")
+            print("Recommendations loaded with \(recommendations.topics.count) topics.")
             self.fetchSuccessful = true
             
         } failure: { error in

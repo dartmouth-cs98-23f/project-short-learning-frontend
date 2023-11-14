@@ -28,10 +28,7 @@ struct LoginPlaceholder: View {
             .padding(.bottom, 32)
             
             VStack(spacing: 24) {
-                PrimaryTextField(label: "Email", text: $viewModel.usernameOrEmail) {_ in
-                    return viewModel.usernameOrEmail.count > 0
-                }
-                
+                PrimaryTextField(label: "Email", text: $viewModel.usernameOrEmail)
                 CustomSecureTextField(label: "Password", text: $viewModel.password)
             }
             .padding(.bottom, 12)

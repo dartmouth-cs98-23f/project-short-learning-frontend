@@ -13,7 +13,7 @@ class TestSignupViewModel: ObservableObject {
     @Published var lastname: String = "John"
     @Published var username: String = ""
     @Published var email: String = ""
-    @Published var password: String = "asd"
+    @Published var password: String = ""
     @Published var birthDate: String = "2000-10-10"
 
     @Published var error: APIError?

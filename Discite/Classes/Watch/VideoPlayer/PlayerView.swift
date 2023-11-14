@@ -108,6 +108,7 @@ struct PlayerView: View {
 
 #Preview {
     let sequence = Sequence()
+    // sequence.addPlaylists(numPlaylists: 2)
     
     return PlayerView()
         .environmentObject(sequence)

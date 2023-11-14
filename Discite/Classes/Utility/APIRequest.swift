@@ -31,8 +31,8 @@ enum APIError: Error {
 
 struct APIConfiguration {
     static let scheme: String = "http"
-    // static let host: String = "18.215.28.176"
-    static let host: String = "localhost"
+    static let host: String = "18.215.28.176"
+    // static let host: String = "localhost"
     static let port: Int = 3000
 }
 
@@ -96,6 +96,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             
         } else {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            // request.addValue("application/json", forHTTPHeaderField: "Accept")
         }
         
         if let parameters = parameters {

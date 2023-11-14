@@ -28,24 +28,24 @@ struct SignUpPlaceholder: View {
             .padding(.bottom, 32)
             
             VStack(spacing: 24) {
-                PrimaryTextField(label: "Username", text: $viewModel.username) {_ in
-                    return viewModel.username.count > 0
-                }
-            
                 PrimaryTextField(label: "Email", text: $viewModel.email) {_ in
                     return viewModel.email.count > 0
                 }
+            
+                CustomSecureTextField(label: "Password", text: $viewModel.password) {_ in
+                    return viewModel.password.count > 0
+                }
                 
                 if viewModel.error != nil {
-                    Text("Invalid username or email.")
+                    Text("Error signing up.")
                         .foregroundColor(.red)
                 }
             }
-            .padding(.bottom, 12)
+            .padding(.bottom, 24)
             
             PrimaryActionButton(action: {
                 viewModel.signup()
-            }, label: "Sign up", disabled: viewModel.username.count == 0 || viewModel.email.count == 0)
+            }, label: "Sign up", disabled: viewModel.email.count == 0 || viewModel.password.count == 0)
             
             HStack {
                 Text("Already have an account?")
