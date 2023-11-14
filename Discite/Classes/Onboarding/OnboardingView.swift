@@ -21,35 +21,38 @@ struct OnboardingView: View {
             let frameWidth: CGFloat = geometry.size.width>geometry.size.height ? (geometry.size.width/8-20) : (geometry.size.width/4-20)
             
             ZStack {
-                ScrollView {
-                    HStack {
+                VStack {
+                    ScrollView {
+                        HStack {
+                            Spacer()
+                            Text("Select your interests")
+                                .frame(alignment: .center)
+                                .font(.title)
+                            Spacer()
+                        }
+                        .padding()
                         Spacer()
-                        Text("Select your interests")
-                            .frame(alignment: .center)
-                            .font(.title)
-                        Spacer()
-                    }
-                    .padding()
-                    if viewModel.internalError != "" {
-                        Text(viewModel.internalError)
-                            .foregroundStyle(.red)
-                            .bold()
-                    }
-                    
-                    LazyHGrid(rows: columns, spacing: 10) {
-                        ForEach(constants.categories, id: \.self) {category in
-                            VStack {
-                                PreferenceButton(
-                                    topic: category,
-                                    selected: false,
-                                    frameWidth: frameWidth,
-                                    viewModel: viewModel
-                                )
+                        if viewModel.internalError != "" {
+                            Text(viewModel.internalError)
+                                .foregroundStyle(.red)
+                                .bold()
+                        }
+                        
+                        LazyHGrid(rows: columns, spacing: 10) {
+                            ForEach(constants.categories, id: \.self) {category in
+                                VStack {
+                                    PreferenceButton(
+                                        topic: category,
+                                        selected: false,
+                                        frameWidth: frameWidth,
+                                        viewModel: viewModel
+                                    )
+                                }
                             }
                         }
-                    }
-                    .onAppear {
-                        updateGridColumns(width: geometry.size.width, height: geometry.size.height, frameWidth: frameWidth)
+                        .onAppear {
+                            updateGridColumns(width: geometry.size.width, height: geometry.size.height, frameWidth: frameWidth)
+                        }
                     }
                 }
                 VStack {
