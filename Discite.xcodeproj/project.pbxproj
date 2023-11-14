@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		662218692B02D810006F2D18 /* VideoMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662218682B02D810006F2D18 /* VideoMetaData.swift */; };
 		66365F822B0095AC009E0438 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66365F802B0095AC009E0438 /* OnboardingView.swift */; };
 		66365F832B0095AC009E0438 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66365F812B0095AC009E0438 /* OnboardingViewModel.swift */; };
 		665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665D4CCF2AFED43D00F1C05C /* Constants.swift */; };
@@ -84,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
+		662218682B02D810006F2D18 /* VideoMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetaData.swift; sourceTree = "<group>"; };
 		66365F802B0095AC009E0438 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		66365F812B0095AC009E0438 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		665D4CCF2AFED43D00F1C05C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 				665D4CCF2AFED43D00F1C05C /* Constants.swift */,
+				662218682B02D810006F2D18 /* VideoMetaData.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,
+				662218692B02D810006F2D18 /* VideoMetaData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

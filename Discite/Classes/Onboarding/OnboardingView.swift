@@ -30,6 +30,12 @@ struct OnboardingView: View {
                         Spacer()
                     }
                     .padding()
+                    if viewModel.internalError != "" {
+                        Text(viewModel.internalError)
+                            .foregroundStyle(.red)
+                            .bold()
+                    }
+                    
                     LazyHGrid(rows: columns, spacing: 10) {
                         ForEach(constants.categories, id: \.self) {category in
                             VStack {
@@ -48,6 +54,7 @@ struct OnboardingView: View {
                 }
                 VStack {
                     Spacer()
+                    Button(action: {Auth.shared.logout()}, label: { Text("logout")})
                     Button(action: {
                         viewModel.send()
                     }, label: {

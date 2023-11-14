@@ -26,6 +26,7 @@ class Auth: ObservableObject {
     
     @Published var loggedIn: Bool = false
     @Published var onboarded: Bool = false
+    @Published var playlist: Playlist?
     
     private init() {
         loggedIn = hasToken()

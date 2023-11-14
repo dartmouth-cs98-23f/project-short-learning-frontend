@@ -33,15 +33,15 @@ struct OnboardRequest: Encodable {
 }
 
 struct OnboardResponse: Decodable {
-    let affinities: [String]
+    let playlists: [Playlist]
 }
 
 class AuthConfig {
     static let shared = AuthConfig()
     
-    let scheme: String = "https"
-    let host: String = "e8d65ca6-d3cc-402c-ac69-65ca5a371329.mock.pstmn.io" // must be running backend on localhost:3000
-    let port: Int? = nil
+    let scheme: String = "http"
+    let host: String = "localhost" // must be running backend on localhost:3000
+    let port: Int? = 3000
 }
 
 struct AuthenticationService {
@@ -62,8 +62,7 @@ struct AuthenticationService {
                 port: AuthConfig.shared.port,
                 method: method,
                 authorized: false,
-                parameters: parameters,
-                headerFields: ["Authorization": Auth.shared.getToken() ?? ""] ) { data in
+                parameters: parameters) { data in
                     
                     do {
                         let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
@@ -111,12 +110,12 @@ struct AuthenticationService {
     }
     
     struct OnboardService {
-        let path = "/api/user/affinities"
+        let path = "/api/user/technigala/onboard"
         let method: HTTPMethod = .post
         var parameters: OnboardRequest
         
         func call(
-            completion: @escaping (OnboardResponse) -> Void,
+            completion: @escaping (OnboardResponse) throws -> Void,
             failure: @escaping (APIError) -> Void
         ) {
             APIRequest<OnboardRequest, OnboardResponse>.call(
@@ -126,10 +125,13 @@ struct AuthenticationService {
                 port: AuthConfig.shared.port,
                 method: method,
                 authorized: true,
-                parameters: parameters) { data in
+                parameters: parameters
+                ) { data in
                     do {
                         let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
-                        completion(response)
+                        
+                        try completion(response)
+                        Auth.shared.onboarded=true
                     } catch {
                         failure(.invalidJSON)
                     }
