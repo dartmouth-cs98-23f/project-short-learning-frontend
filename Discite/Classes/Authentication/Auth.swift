@@ -56,5 +56,6 @@ class Auth: ObservableObject {
     func logout() {
         keychain.removeObject(forKey: KeychainKey.token.rawValue)
         loggedIn = false
+        onboarded = false
     }
 }

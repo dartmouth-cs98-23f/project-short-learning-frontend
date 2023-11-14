@@ -11,6 +11,7 @@ struct SignUpPlaceholder: View {
     
     @ObservedObject var viewModel: TestSignupViewModel = TestSignupViewModel()
     @Binding var isSignupShowing: Bool
+    // @State var isOnboarding: Bool = false
     
     var body: some View {
         
@@ -51,16 +52,24 @@ struct SignUpPlaceholder: View {
                 
                 PrimaryActionButton(action: {
                     viewModel.signup()
+                    
+                    if viewModel.error == nil {
+                        // isOnboarding = true
+                    }
+                    
                 }, label: "Sign up", disabled: viewModel.email.count == 0 || viewModel.password.count == 0)
                 
                 HStack {
                     Text("Already have an account?")
-                    
                     TextualButton(action: { isSignupShowing = false }, label: "Log in")
                     
                 }
             }
             .padding(24)
+//             .sheet(isPresented: $isOnboarding, content: {
+//                 // OnboardingView(isShowing: $isOnboarding, isSigningUp: $isSignupShowing)
+//                 OnboardingView()
+//             })
             
         }
 
