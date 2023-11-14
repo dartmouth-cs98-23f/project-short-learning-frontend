@@ -15,22 +15,27 @@ struct ExploreView: View {
     
     var body: some View {
         
-        ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
-                
-                Text("Explore.Title")
-                    .font(Font.H2)
-                    .padding(.top, 18)
-                
-                // Section: My interests (topics)
-                topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
-                
-                // Section: Continue learning (playlists)
-                playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
-                
-                Spacer()
+        if recommendations.fetchSuccessful && sequence.playlists.count > 0 {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    
+                    Text("Explore.Title")
+                        .font(Font.H2)
+                        .padding(.top, 18)
+                    
+                    // Section: My interests (topics)
+                    topicScrollSection(heading: "My interests", topics: recommendations.getTopics()!)
+                    
+                    // Section: Continue learning (playlists)
+                    playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+                    
+                    Spacer()
+                }
+                .padding(32)
             }
-            .padding(32)
+            
+        } else {
+            Text("Something went wrong.")
         }
 
     }
@@ -72,14 +77,10 @@ struct ExploreView: View {
 
 #Preview {
     
-    let recommendations = ExploreService.fetchTestRecommendations()
-    let sequence = VideoService.fetchTestSequence()
-    
-    if recommendations != nil && sequence != nil {
-        return ExploreView(tabSelection: .constant(Navigator.Tab.Explore))
-            .environmentObject(recommendations!)
-            .environmentObject(sequence!)
-    } else {
-        return Text("No topics to show.")
-    }
+    let sequence = Sequence()
+    let recommendations = Recommendations()
+ 
+    return ExploreView(tabSelection: .constant(Navigator.Tab.Explore))
+        .environmentObject(recommendations)
+        .environmentObject(sequence)
 }

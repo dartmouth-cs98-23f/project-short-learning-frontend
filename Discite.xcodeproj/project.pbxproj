@@ -81,6 +81,10 @@
 		C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */; };
 		C2A3FF202B02B16F001EDE9F /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */; };
 		C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF212B02B185001EDE9F /* IconButtons.swift */; };
+		C2A3FF242B02BEC9001EDE9F /* LoginPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */; };
+		C2A3FF282B0307AB001EDE9F /* TestExplore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF272B0307AB001EDE9F /* TestExplore.swift */; };
+		C2A3FF2A2B0322A2001EDE9F /* TestWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF292B0322A2001EDE9F /* TestWatch.swift */; };
+		C2A3FF2C2B033F1B001EDE9F /* TestAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -168,6 +172,10 @@
 		C2A3FF1D2B0266FB001EDE9F /* ShareConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfirmation.swift; sourceTree = "<group>"; };
 		C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		C2A3FF212B02B185001EDE9F /* IconButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtons.swift; sourceTree = "<group>"; };
+		C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPlaceholder.swift; sourceTree = "<group>"; };
+		C2A3FF272B0307AB001EDE9F /* TestExplore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplore.swift; sourceTree = "<group>"; };
+		C2A3FF292B0322A2001EDE9F /* TestWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWatch.swift; sourceTree = "<group>"; };
+		C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthenticationService.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 				C20EFE692AFBDC920074EC9A /* sampletopic.json */,
 				C20EFE732AFDCB740074EC9A /* samplerecommendations.json */,
 				C29145092AE60DBA000BEB88 /* TopicsView.swift */,
+				C2A3FF272B0307AB001EDE9F /* TestExplore.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -302,6 +311,7 @@
 		C2128A8D2ADB32A600E90C66 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C2A3FF2D2B033F2D001EDE9F /* Testing */,
 				C2128A8F2ADB341400E90C66 /* LoginView.swift */,
 				C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */,
 			);
@@ -463,6 +473,15 @@
 			path = Testing;
 			sourceTree = "<group>";
 		};
+		C2A3FF2D2B033F2D001EDE9F /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */,
+				C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
+		};
 		C2D287202AE0B03B00BB263C /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +511,7 @@
 				C235C6772AE06E4700870600 /* WatchView.swift */,
 				C235C6792AE06E8300870600 /* WatchViewModel.swift */,
 				C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */,
+				C2A3FF292B0322A2001EDE9F /* TestWatch.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -641,6 +661,7 @@
 			files = (
 				C2128A902ADB341400E90C66 /* LoginView.swift in Sources */,
 				C20EFE782AFDCC9E0074EC9A /* Topic.swift in Sources */,
+				C2A3FF2C2B033F1B001EDE9F /* TestAuthenticationService.swift in Sources */,
 				C20EFE642AFBC9C60074EC9A /* ExploreService.swift in Sources */,
 				C235C67A2AE06E8300870600 /* WatchViewModel.swift in Sources */,
 				C20EFE822AFFA9A30074EC9A /* Navigator.swift in Sources */,
@@ -668,9 +689,11 @@
 				C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */,
 				C20EFE682AFBCF4C0074EC9A /* ExploreView.swift in Sources */,
 				C20EFE5C2AFBAFB90074EC9A /* SimpleTest.swift in Sources */,
+				C2A3FF242B02BEC9001EDE9F /* LoginPlaceholder.swift in Sources */,
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
+				C2A3FF2A2B0322A2001EDE9F /* TestWatch.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDive.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
@@ -681,6 +704,7 @@
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,
+				C2A3FF282B0307AB001EDE9F /* TestExplore.swift in Sources */,
 				C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
 				C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */,

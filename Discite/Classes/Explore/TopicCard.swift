@@ -17,7 +17,7 @@ struct TopicCard: View {
     var body: some View {
         Button {
             // Update sequence on click
-            sequence.replaceQueueWithTopic(topicId: topic.topicName)
+            sequence.replaceQueueWithTopic(combinedTopicName: topic.topicName, topicId: topic._id)
             tabSelection = .Watch
                 
         } label: {

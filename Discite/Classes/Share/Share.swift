@@ -142,7 +142,7 @@ struct ShareRepresentable: UIViewControllerRepresentable {
         friends.append(Friend(id: "\(i)", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle"))
     }
     
-    let samplePlaylists = VideoService.fetchTestSequence()!.allPlaylists()
+    let samplePlaylists = VideoService.fetchTestSequence()!.playlists
     let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
     
     let sharedPlaylist = SharedPlaylist(id: "1", playlist: samplePlaylists[0], sender: sampleFriend, hasWatched: false)

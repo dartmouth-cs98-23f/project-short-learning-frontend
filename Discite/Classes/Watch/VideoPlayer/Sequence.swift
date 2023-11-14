@@ -25,31 +25,42 @@ extension SequenceError: LocalizedError {
     }
 }
 
-class Sequence: Decodable, ObservableObject {
-    
+struct SequenceData: Decodable {
     var playlists: [Playlist] = []
-    var currentIndex: Int // Currently always 0, but could be useful later
     var topicId: String
+    var combinedTopicName: String
     
     enum CodingKeys: String, CodingKey {
         case message
         case playlists
+        case combinedTopicName
         case topicId
     }
-
-    // MARK: Initializers
     
-    required init(from decoder: Decoder) throws {
-        
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         playlists = try container.decode([Playlist].self, forKey: .playlists)
         topicId = try container.decode(String.self, forKey: .topicId)
-        currentIndex = 0
+        combinedTopicName = try container.decode(String.self, forKey: .combinedTopicName)
         
         if playlists.isEmpty {
             throw SequenceError.emptySequence
         }
-        
+    }
+}
+
+class Sequence: ObservableObject {
+    
+    @Published var playlists: [Playlist] = []
+    @Published var combinedTopicName: String?
+    @Published var fetchSuccessful: Bool = false
+    
+    var topicId: String?
+    
+    var currentIndex: Int = 0 // Currently always 0, but could be useful later
+
+    init() {
+        addPlaylists()
     }
     
     // MARK: Public Getters
@@ -66,12 +77,10 @@ class Sequence: Decodable, ObservableObject {
         return !playlists.isEmpty ? playlists[currentIndex] : nil
     }
     
-    // MARK: Player Management
-    
     public func skipToPlaylist(index: Int) {
         
         if index > playlists.count - 1 {
-            print("Error: Index out of range.")
+            print(SequenceError.indexOutOfRange)
             return
         }
         
@@ -89,7 +98,7 @@ class Sequence: Decodable, ObservableObject {
         // currentIndex should still be 0
     }
     
-    public func replaceQueueWithTopic(topicId: String, numPlaylists: Int = 2) {
+    public func replaceQueueWithTopic(combinedTopicName: String, topicId: String, numPlaylists: Int = 2) {
         
         let currentCount = playlists.count
         
@@ -97,7 +106,7 @@ class Sequence: Decodable, ObservableObject {
         let numToAdd = numPlaylists > 0 ? numPlaylists : 2
         
         // Replace current queue with an equal number of playlists
-        addPlaylists(topicId: topicId, numPlaylists: numToAdd)
+        addPlaylists(combinedTopicName: combinedTopicName, topicId: topicId, numPlaylists: numToAdd)
         dequeuePlaylists(numPlaylists: currentCount)
     }
     
@@ -119,7 +128,7 @@ class Sequence: Decodable, ObservableObject {
             // If queue is empty for whatever reason, fetch new sequence
             if playlists.isEmpty {
                 print("Playlists is empty, replacing queue")
-                replaceQueueWithTopic(topicId: topicId)
+                addPlaylists(combinedTopicName: combinedTopicName, topicId: topicId)
                 
             // If current playlist is on last video
             } else if playlists[currentIndex].onLastVideo() {
@@ -158,33 +167,22 @@ class Sequence: Decodable, ObservableObject {
         return AVPlayerItem(url: URL(string: nextVideo.getURL())!)
     }
     
-    // MARK: Private Methods
-    
-    private func addPlaylists(topicId: String? = nil, numPlaylists: Int = 1) {
-        print("Adding \(numPlaylists) playlists...")
+    func addPlaylists(combinedTopicName: String? = nil, topicId: String? = nil, numPlaylists: Int = 1) {
+        let query: PlaylistQuery = PlaylistQuery(combinedTopicName: combinedTopicName,
+                                                          topicId: topicId,
+                                                          numPlaylists: numPlaylists)
+        self.fetchSuccessful = false
 
-        if numPlaylists == 1 {
-            let playlist = VideoService.fetchTestPlaylist(topicId: topicId)
-            
-            if playlist != nil {
-                playlists.append(playlist!)
-                print("New playlist added to queue.")
-            } else {
-                print("Error adding playlist.")
-            }
-            
-            return
+        VideoService.fetchSequence(query: query) { sequence in
+            print("Successfully decoded playlists.")
+            self.playlists += sequence.playlists
+            print("Sequence loaded with \(sequence.playlists.count) playlists.")
+            self.combinedTopicName = sequence.combinedTopicName
+            self.fetchSuccessful = true
+        } failure: { error in
+            print("Couldn't fetch sequence from specified topic: \(error)")
         }
-        
-        let sequence = VideoService.fetchTestSequence(topicId: topicId, numPlaylists: numPlaylists)
-            
-        if sequence != nil {
-            self.playlists += sequence!.allPlaylists()
-            self.topicId = topicId ?? self.topicId
-            
-        } else {
-            print("Error: Couldn't fetch sequence from specified topic.")
-        }
+
     }
 
     private func dequeuePlaylists(numPlaylists: Int = 1) {

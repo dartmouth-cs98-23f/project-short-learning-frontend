@@ -29,6 +29,13 @@ enum APIError: Error {
     case unknownError
 }
 
+struct APIConfiguration {
+    static let scheme: String = "http"
+    // static let host: String = "18.215.28.176"
+    static let host: String = "localhost"
+    static let port: Int = 3000
+}
+
 extension APIError: LocalizedError {
     public var errorDescription: String? {
         switch self {
@@ -59,7 +66,6 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         completion: @escaping CompletionHandler,
         failure: @escaping FailureHandler
     ) {
-        
         if !NetworkMonitor.shared.isReachable {
             return failure(.noInternet)
         }
@@ -89,27 +95,39 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             }
             
         } else {
-            // For the mock server
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            // request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
         }
         
         if let parameters = parameters {
             request.httpBody = try? JSONEncoder().encode(parameters)
         }
         
-        if authorized, let token = Auth.shared.getToken() {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
+        request.addValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTRhODM0ZTZjNTZkMGViYmFkMDE4MDQiLCJpYXQiOjE2OTk4MDU2NDg3MDF9.w_WG6hJizl8QlLjDCsedfZ7Vyt_gNqh1vYblPUbuw80", forHTTPHeaderField: "Authorization")
         
+//        if authorized, let token = Auth.shared.getToken() {
+//            // request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+//        }
+
         // Make the request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard (response as? HTTPURLResponse)?.statusCode == 200 else { return }
+            
+            let httpResponse = response as? HTTPURLResponse
+            
+            guard httpResponse?.statusCode == 200 else {
+                print("Error: \(httpResponse?.statusCode ?? 520)")
+                print(String(describing: error))
+                return
+            }
                         
             if let data = data {
-                completion(data)
+                print("APIRequest received data, passing to a Service.")
+                
+                DispatchQueue.main.async {
+                    completion(data)
+                }
+                
             } else if error != nil {
+                print(String(describing: error))
                 failure(APIError.requestFailed)
             }
         }

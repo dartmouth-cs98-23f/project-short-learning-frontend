@@ -10,19 +10,47 @@ import SwiftUI
 
 class ExploreService {
     
-    static let shared: ExploreService = ExploreService()
+    static func fetchRecommendations(completion: @escaping (RecommendationsData) -> Void,
+                                     failure: @escaping (APIError) -> Void) {
+        
+        print("Fetching recommendations...")
+        let path = "/api/recommendations/topics"
+        let method: HTTPMethod = .get
+        
+        APIRequest<LoginRequest, AuthResponseData>.call(
+            scheme: APIConfiguration.scheme,
+            host: APIConfiguration.host,
+            path: path,
+            port: APIConfiguration.port,
+            method: method,
+            authorized: true) { data in
+                
+                do {
+                    print("Explore Service received data from APIRequest, decoding.")
+                    let decoder = CustomJSONDecoder.shared
+                    let recommendations = try decoder.decode(RecommendationsData.self, from: data)
+                    completion(recommendations)
+                    
+                } catch {
+                    print(String(describing: error))
+                }
+                
+            } failure: { error in
+                failure(error)
+            }
+        }
     
-    static func fetchTestRecommendations() -> Recommendations? {
+    static func fetchTestRecommendations() -> RecommendationsData? {
         
         print("Fetching test recommendations...")
 
         do {
-            let recommendations = try getSampleData(Recommendations.self,
+            let recommendationsData = try getSampleData(RecommendationsData.self,
                                         forResource: "samplerecommendations",
                                         withExtension: "json")
             
             print("Got sample recommendations, returning it.")
-            return recommendations
+            return recommendationsData
             
         } catch {
             print("Couldn't get sample recommendations: \(error)")
@@ -45,4 +73,5 @@ class ExploreService {
             return nil
         }
     }
+    
 }

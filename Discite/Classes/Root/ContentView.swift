@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var auth = Auth.shared
-    @StateObject var sequence = VideoService.fetchTestSequence()!
-    @StateObject var recommendations = ExploreService.fetchTestRecommendations()!
+    @StateObject var sequence = Sequence()
+    @StateObject var recommendations = Recommendations()
+    
+    init() { }
     
     var body: some View {
         if auth.loggedIn {

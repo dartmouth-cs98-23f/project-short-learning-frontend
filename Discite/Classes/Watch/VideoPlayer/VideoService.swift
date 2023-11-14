@@ -10,26 +10,56 @@
 
 import Foundation
 
-struct VideoRequest: Encodable {
-    
+struct PlaylistQuery: Encodable {
+    var combinedTopicName: String?
+    var topicId: String?
+    var numPlaylists: Int
 }
 
-struct VideoAPIConfiguration {
-    static let shared = VideoAPIConfiguration()
+class VideoService {
     
-    let scheme: String = "https"
-    let host: String = "api.pexels.com"
-    let APIkey: String = "5GNjXyXuHegB03rbiBcXjsdiMaZABuNfmAdOpzsjdFkVtMfPim9AEZ59"
-}
-
-class VideoService: ObservableObject {
-
+    static func fetchSequence(query: PlaylistQuery,
+                              completion: @escaping (SequenceData) -> Void,
+                              failure: @escaping (APIError) -> Void) {
+        
+        print("Fetching playlists...")
+        let path = "/api/recommendations/playlist"
+        let method: HTTPMethod = .get
+        
+        let combinedTopicName = URLQueryItem(name: "combinedTopicName", value: "Science7/Biology")
+        let topicId = URLQueryItem(name: "topicId", value: query.topicId)
+        let numPlaylists = URLQueryItem(name: "numPlaylists", value: String(query.numPlaylists))
+        
+        APIRequest<EmptyRequest, SequenceData>.call(
+            scheme: APIConfiguration.scheme,
+            host: APIConfiguration.host,
+            path: path,
+            port: APIConfiguration.port,
+            method: method,
+            authorized: true,
+            queryItems: [combinedTopicName, topicId, numPlaylists]) { data in
+                
+                do {
+                    print("Video Service received data from APIRequest, decoding.")
+                    let decoder = CustomJSONDecoder.shared
+                    let sequence = try decoder.decode(SequenceData.self, from: data)
+                    completion(sequence)
+                    
+                } catch {
+                    print(String(describing: error))
+                }
+                
+            } failure: { error in
+                failure(error)
+            }
+    }
+    
     // Fetches hard-coded video sequence data (multiple playlists)
-    static func fetchTestSequence(topicId: String? = nil, numPlaylists: Int = 2) -> Sequence? {
+    static func fetchTestSequence(topicId: String? = nil, numPlaylists: Int = 2) -> SequenceData? {
         print("Fetching test playlists...")
         
         do {
-            let sequence = try getSampleData(Sequence.self,
+            let sequence = try getSampleData(SequenceData.self,
                                         forResource: "sampleplaylists",
                                         withExtension: "json")
             
@@ -45,8 +75,8 @@ class VideoService: ObservableObject {
     static func fetchTestPlaylist(topicId: String?) -> Playlist? {
         print("Fetching a single playlist...")
         
-        let sequence = fetchTestSequence(topicId: topicId, numPlaylists: 1)
-        return sequence?.currentPlaylist()
+        let sequenceData = fetchTestSequence(topicId: topicId, numPlaylists: 1)
+        return sequenceData?.playlists[0]
     }
     
 }

@@ -7,8 +7,7 @@
 
 import Foundation
 
-class Recommendations: Decodable, ObservableObject {
-    
+struct RecommendationsData: Decodable {
     var topics: [Topic]
     
     enum CodingKeys: String, CodingKey {
@@ -16,23 +15,38 @@ class Recommendations: Decodable, ObservableObject {
         case topics
     }
     
-    // MARK: Initializer
-    
-    required init(from decoder: Decoder) throws {
-
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         topics = try container.decode([Topic].self, forKey: .topics)
     }
+}
+
+class Recommendations: ObservableObject {
     
-    // MARK: Public Methods
+    @Published var topics: [Topic]?
+    @Published var fetchSuccessful: Bool = false
     
-    func getTopics() -> [Topic] {
+    init() { 
+        fetchRecommendations()
+    }
+    
+    func getTopics() -> [Topic]? {
         return topics
     }
     
     // Calls endpoint for new recommendations
-    func updateRecommendations() {
-        // Placeholder for now
+    func fetchRecommendations() {
+        fetchSuccessful = false
+        
+        ExploreService.fetchRecommendations { recommendations in
+            print("Successfully decoded recommendations.")
+            self.topics = recommendations.topics
+            self.fetchSuccessful = true
+            
+        } failure: { error in
+            print("No recommendations: \(error)")
+        }
+
     }
     
 }

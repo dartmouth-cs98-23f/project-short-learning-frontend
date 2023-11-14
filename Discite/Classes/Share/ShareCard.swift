@@ -37,7 +37,7 @@ struct ShareCard: View {
 
 #Preview {
     
-    let samplePlaylists = VideoService.fetchTestSequence()!.allPlaylists()
+    let samplePlaylists = VideoService.fetchTestSequence()!.playlists
     return ShareCard(playlist: samplePlaylists[0])
     
 }

@@ -63,15 +63,14 @@ struct Navigator: View {
 
 #Preview {
     
-    let sequence = VideoService.fetchTestSequence()
-    let recommendations = ExploreService.fetchTestRecommendations()
+    let sequence = Sequence()
+    sequence.addPlaylists()
     
-    if sequence != nil && recommendations != nil {
-        return Navigator()
-            .environmentObject(sequence!)
-            .environmentObject(recommendations!)
-    } else {
-        return Text("Error fetching sequence or recommendations.")
-    }
+    let recommendations = Recommendations()
+    recommendations.fetchRecommendations()
+    
+    return Navigator()
+        .environmentObject(sequence)
+        .environmentObject(recommendations)
     
 }

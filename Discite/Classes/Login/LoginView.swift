@@ -28,7 +28,7 @@ struct LoginView: View {
                         Spacer()
                     }
                     if viewModel.error != nil {
-                        Text("Invalide Email or Password")
+                        Text("Invalid Email or Password")
                             .foregroundStyle(.red)
                             .bold()
                             .frame(alignment: .leading)

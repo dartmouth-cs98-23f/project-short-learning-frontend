@@ -57,7 +57,7 @@ struct SharedCard: View {
 }
 
 #Preview {
-    let samplePlaylists = VideoService.fetchTestSequence()!.allPlaylists()
+    let samplePlaylists = VideoService.fetchTestSequence()!.playlists
     let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
     
     let sharedPlaylist1 = SharedPlaylist(id: "1", playlist: samplePlaylists[0], sender: sampleFriend, hasWatched: true)

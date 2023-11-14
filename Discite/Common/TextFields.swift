@@ -59,15 +59,14 @@ struct PrimaryTextField: View {
 }
 
 #Preview {
-    VStack(spacing: 12) {
+    VStack(spacing: 24) {
         PrimaryTextField(label: "Username", text: .constant("johndoe")) { username in
             return username.count > 0
         }
-        .padding(12)
         
         PrimaryTextField(label: "Username", text: .constant("")) { username in
             return username.count > 0
         }
-        .padding(12)
     }
+    .padding(18)
 }

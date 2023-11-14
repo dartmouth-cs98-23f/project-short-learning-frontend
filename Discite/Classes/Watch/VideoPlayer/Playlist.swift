@@ -59,7 +59,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
-        topicId = try container.decode(String.self, forKey: .topicId)
+        // topicId = try container.decode(String.self, forKey: .topicId)
         thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
         
         videos = try container.decode([Video].self, forKey: .videos)

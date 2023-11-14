@@ -52,6 +52,6 @@ struct ShareConfirmation: View {
 }
 
 #Preview {
-    let samplePlaylists = VideoService.fetchTestSequence()!.allPlaylists()
+    let samplePlaylists = VideoService.fetchTestSequence()!.playlists
     return ShareConfirmation(isShowing: .constant(true), playlist: samplePlaylists[0])
 }

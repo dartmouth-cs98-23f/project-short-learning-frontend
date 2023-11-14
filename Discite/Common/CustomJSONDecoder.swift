@@ -9,6 +9,8 @@ import Foundation
 
 class CustomJSONDecoder: JSONDecoder {
     
+    static let shared: CustomJSONDecoder = CustomJSONDecoder()
+    
     override init() {
         super.init()
         
