@@ -20,56 +20,61 @@ struct OnboardingView: View {
         GeometryReader { geometry in
             let frameWidth: CGFloat = geometry.size.width>geometry.size.height ? (geometry.size.width/8-20) : (geometry.size.width/4-20)
             
-            ZStack {
+            ScrollView {
                 VStack {
-                    ScrollView {
+                    VStack {
                         HStack {
                             Spacer()
                             Text("Select your interests")
                                 .frame(alignment: .center)
                                 .font(.title)
+                                .padding()
                             Spacer()
                         }
-                        .padding()
-                        Spacer()
                         if viewModel.internalError != "" {
                             Text(viewModel.internalError)
                                 .foregroundStyle(.red)
                                 .bold()
-                        }
-                        
-                        LazyHGrid(rows: columns, spacing: 10) {
-                            ForEach(constants.categories, id: \.self) {category in
-                                VStack {
-                                    PreferenceButton(
-                                        topic: category,
-                                        selected: false,
-                                        frameWidth: frameWidth,
-                                        viewModel: viewModel
-                                    )
-                                }
-                            }
-                        }
-                        .onAppear {
-                            updateGridColumns(width: geometry.size.width, height: geometry.size.height, frameWidth: frameWidth)
+                                .padding()
                         }
                     }
-                }
-                VStack {
+                    
                     Spacer()
-                    Button(action: {Auth.shared.logout()}, label: { Text("logout")})
-                    Button(action: {
-                        viewModel.send()
-                    }, label: {
-                        Text("Submit")
-                            .frame(width: geometry.size.width-32, height: 50)
-                            .background(Color.primaryDarkNavy)
-                            .foregroundColor(.white)
-                            .padding()
-                    })
+                    
+                    Spacer()
+                    
+                    LazyHGrid(rows: columns, spacing: 10) {
+                        ForEach(constants.categories, id: \.self) {category in
+                            VStack {
+                                PreferenceButton(
+                                    topic: category,
+                                    selected: false,
+                                    frameWidth: frameWidth,
+                                    viewModel: viewModel
+                                )
+                            }
+                        }
+                    }
+                    .padding()
+                    .onAppear {
+                        updateGridColumns(width: geometry.size.width, height: geometry.size.height, frameWidth: frameWidth)
+                    }
                 }
             }
-            
+            VStack {
+                Spacer()
+                Button(action: {Auth.shared.logout()}, label: { Text("logout")})
+                Button(action: {
+                    viewModel.send()
+                }, label: {
+                    Text("Submit")
+                        .frame(width: geometry.size.width-32, height: 50)
+                        .background(Color.primaryDarkNavy)
+                        .foregroundColor(.white)
+                        .padding()
+                        .cornerRadius(10)
+                })
+            }
         }
     }
     
