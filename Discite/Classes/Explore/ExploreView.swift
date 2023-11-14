@@ -78,6 +78,8 @@ struct ExploreView: View {
     
     let sequence = Sequence()
     let recommendations = Recommendations()
+    
+    // let data = ExploreService.fetchTestRecommendations()
  
     return ExploreView(tabSelection: .constant(Navigator.Tab.Explore))
         .environmentObject(recommendations)

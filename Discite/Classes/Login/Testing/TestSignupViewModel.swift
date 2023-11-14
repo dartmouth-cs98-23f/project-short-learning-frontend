@@ -37,7 +37,7 @@ class TestSignupViewModel: ObservableObject {
                 
                 do {
                     try Auth.shared.setToken(token: response.token)
-                    print("Set token successfully, logging in now: \(Auth.shared.loggedIn)")
+                    print("Set token successfully, logging in now: \(Auth.shared.loggedIn).")
                 } catch {
                     print("Error: Unable to store token in keychain.")
                 }

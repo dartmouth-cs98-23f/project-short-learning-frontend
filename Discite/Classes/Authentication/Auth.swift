@@ -31,7 +31,6 @@ class Auth: ObservableObject {
     
     private init() {
         loggedIn = hasToken()
-        onboarded = hasOnboarded()
     }
     
     // Stores token in keychain
@@ -40,26 +39,14 @@ class Auth: ObservableObject {
         
         let success = keychain.set(token!, forKey: KeychainKey.token.rawValue)
         guard success else { throw AuthError.setToken }
-        DispatchQueue.main.async {
-            Auth.shared.loggedIn = true
-        }
-    }
-    
-    // Sets onboarding status to "complete" in keychain
-    func setOnboarded() throws {
-        let success = keychain.set("complete", forKey: KeychainKey.onboarded.rawValue)
-        guard success else { throw AuthError.failedOnboard }
-        DispatchQueue.main.async {
-            Auth.shared.onboarded = true
-        }
+        Auth.shared.loggedIn = true
+//        DispatchQueue.main.async {
+//            Auth.shared.loggedIn = true
+//        }
     }
     
     func hasToken() -> Bool {
         return getToken() != nil
-    }
-    
-    func hasOnboarded() -> Bool {
-        return keychain.string(forKey: KeychainKey.token.rawValue) != nil
     }
     
     func getToken() -> String? {

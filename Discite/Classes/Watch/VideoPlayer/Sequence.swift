@@ -33,7 +33,7 @@ struct SequenceData: Decodable {
     enum CodingKeys: String, CodingKey {
         case message
         case playlists
-        case combinedTopicName
+        // case combinedTopicName
         case topicId
     }
     
@@ -41,7 +41,7 @@ struct SequenceData: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         playlists = try container.decode([Playlist].self, forKey: .playlists)
         topicId = try container.decode(String.self, forKey: .topicId)
-        combinedTopicName = try container.decode(String.self, forKey: .combinedTopicName)
+        // combinedTopicName = try container.decode(String.self, forKey: .combinedTopicName)
         
         if playlists.isEmpty {
             throw SequenceError.emptySequence

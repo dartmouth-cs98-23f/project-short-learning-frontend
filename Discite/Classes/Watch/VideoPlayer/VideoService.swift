@@ -26,7 +26,7 @@ class VideoService {
         let path = "/api/recommendations/playlist"
         let method: HTTPMethod = .get
         
-        let combinedTopicName = URLQueryItem(name: "combinedTopicName", value: query.combinedTopicName)
+        // let combinedTopicName = URLQueryItem(name: "combinedTopicName", value: query.combinedTopicName)
         let topicId = URLQueryItem(name: "topicId", value: query.topicId)
         let numPlaylists = URLQueryItem(name: "numPlaylists", value: String(query.numPlaylists))
         
@@ -37,7 +37,8 @@ class VideoService {
             port: APIConfiguration.port,
             method: method,
             authorized: true,
-            queryItems: [combinedTopicName, topicId, numPlaylists]) { data in
+            // queryItems: [combinedTopicName, topicId, numPlaylists])
+            queryItems: [topicId, numPlaylists]) { data in
                 
                 do {
                     print("Video Service received data from APIRequest, decoding.")

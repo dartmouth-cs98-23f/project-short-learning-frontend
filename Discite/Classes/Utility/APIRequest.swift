@@ -105,6 +105,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         }
         
         if authorized, let token = Auth.shared.getToken() {
+            // request.addValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTUzZDE2YjIzYWUxODQxYzFhYjI5M2IiLCJpYXQiOjE2OTk5OTE5MTU2OTh9.LUONbCbcrC_KOV0IHW1ldcjuwBdwWxxpGgN7qe6XCds", forHTTPHeaderField: "Authorization")
             request.addValue("\(token)", forHTTPHeaderField: "Authorization")
         }
         
