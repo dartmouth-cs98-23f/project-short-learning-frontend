@@ -12,6 +12,9 @@ import SwiftUI
 struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
     @ObservedObject var auth = Auth.shared
+    var isFormComplete: Bool {
+        return !viewModel.usernameOrEmail.isEmpty && !viewModel.password.isEmpty
+        }
     
     var body: some View {
         GeometryReader { geometry in
@@ -62,10 +65,11 @@ struct LoginView: View {
                         Text("Login")
                             .frame(width: geometry.size.width-20, height: 50)
                     })
-                    .background(Color.primaryDarkNavy)
+                    .background(isFormComplete ? Color.primaryDarkNavy : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .frame(width: geometry.size.width-20, height: 50)
+                    .disabled(!isFormComplete)
                     
                     HStack {
                         Text("Don't have an account?")

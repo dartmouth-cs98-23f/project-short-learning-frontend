@@ -12,7 +12,9 @@ struct SignupView: View {
     
     @ObservedObject var signupModel: SignupViewModel = SignupViewModel()
     @State var orientation = UIDevice.current.orientation
-    let fileManager = FileManager.default
+    var isFormComplete: Bool {
+        return !signupModel.username.isEmpty && !signupModel.password.isEmpty && !signupModel.firstname.isEmpty && !signupModel.lastname.isEmpty && !signupModel.password.isEmpty && !signupModel.confirmPassword.isEmpty
+        }
     
     var body: some View {
         GeometryReader { geometry in
@@ -101,10 +103,11 @@ struct SignupView: View {
                         Text("Sign Up")
                             .frame(width: geometry.size.width-20, height: 50)
                     })
-                    .background(Color.primaryDarkNavy)
+                    .background(isFormComplete ? Color.primaryDarkNavy : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .frame(width: geometry.size.width-20, height: 50)
+                    .disabled(!isFormComplete)
                     
                     HStack {
                         Text("Already have an account?")
