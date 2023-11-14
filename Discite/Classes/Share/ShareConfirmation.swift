@@ -10,6 +10,7 @@ import SwiftUI
 struct ShareConfirmation: View {
     
     @Binding var isShowing: Bool
+    @Binding var isShowingShare: Bool
     @State var appeared: Bool = false
     var playlist: Playlist
     
@@ -38,10 +39,13 @@ struct ShareConfirmation: View {
             }
             
             VStack(spacing: 12) {
-                // Keep sharing
-                PrimaryActionButton(action: { isShowing = false }, label: "Keep learning")
+                // Continue learning (back to DeepDive)
+                PrimaryActionButton(action: {
+                    isShowing = false
+                    isShowingShare = false
+                }, label: "Keep learning")
                 
-                // Continue learning (back to Watch)
+                // Keep sharing
                 TextualButton(action: { isShowing = false }, label: "Share with more friends")
             }
 
@@ -53,5 +57,5 @@ struct ShareConfirmation: View {
 
 #Preview {
     let samplePlaylists = VideoService.fetchTestSequence()!.playlists
-    return ShareConfirmation(isShowing: .constant(true), playlist: samplePlaylists[0])
+    return ShareConfirmation(isShowing: .constant(true), isShowingShare: .constant(false), playlist: samplePlaylists[0])
 }

@@ -48,6 +48,20 @@ struct ShareButtonLabeled: View {
     }
 }
 
+struct ShareButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "paperplane")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 28, height: 28)
+                .foregroundColor(.primaryBlue)
+        }
+    }
+}
+
 struct SaveButtonLabeled: View {
     let action: () -> Void
     let isSaved: Bool

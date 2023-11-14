@@ -28,7 +28,7 @@ extension SequenceError: LocalizedError {
 struct SequenceData: Decodable {
     var playlists: [Playlist] = []
     var topicId: String
-    var combinedTopicName: String
+    var combinedTopicName: String?
     
     enum CodingKeys: String, CodingKey {
         case message

@@ -16,6 +16,7 @@ struct Share: View {
     @State private var isShowingConfirmation = false
     @State private var friendSearch = ""
     @State private var message = "This playlist is perfect for you. ✨ Join me on Discite to unlock more personalized, tailored content and enhance your learning experience! 📚"
+    @Binding var isShowing: Bool
     
     @State private var selection = Set<Friend>()
     
@@ -35,6 +36,10 @@ struct Share: View {
     var body: some View {
         
         VStack(alignment: .leading, spacing: 24) {
+            TextualButton(action: {
+                isShowing = false
+            }, label: "Cancel")
+            
             Text("Share")
                 .font(Font.H2)
                 .padding(.top, 18)
@@ -87,7 +92,7 @@ struct Share: View {
             
             .sheet(isPresented: self.$isShowingConfirmation,
                    onDismiss: clearProfileSelection) {
-                ShareConfirmation(isShowing: $isShowingConfirmation, playlist: playlist.playlist)
+                ShareConfirmation(isShowing: $isShowingConfirmation, isShowingShare: $isShowing, playlist: playlist.playlist)
             }
 
         }
@@ -119,6 +124,16 @@ struct Share: View {
         selection.removeAll()
     }
     
+    static func createSampleFriends() -> [Friend] {
+        var friends: [Friend] = []
+        
+        for i in (1..<5) {
+            friends.append(Friend(id: "\(i)", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle"))
+        }
+        
+        return friends
+    }
+    
 }
 
 struct ShareRepresentable: UIViewControllerRepresentable {
@@ -147,5 +162,5 @@ struct ShareRepresentable: UIViewControllerRepresentable {
     
     let sharedPlaylist = SharedPlaylist(id: "1", playlist: samplePlaylists[0], sender: sampleFriend, hasWatched: false)
     
-    return Share(playlist: sharedPlaylist, friends: friends)
+    return Share(playlist: sharedPlaylist, friends: friends, isShowing: .constant(true))
 }

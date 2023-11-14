@@ -1,6 +1,7 @@
 {
   "message": "Topics fetched successfully",
   "topicId": "6548124dbf672c659ae255c3",
+  "combinedTopicName": "Breakfast/Pancakes",
   "playlists": [
     {
       "_id": "6548124dbf672c659ae255c3",
@@ -74,6 +75,7 @@
     {
       "_id": "6548124dbf672c659ae255c2",
       "title": "Homemade Latte",
+      "combinedTopicName": "Breakfast/Coffee",
       "description": "Start your day with a cup of hot, steamy, and delicious homemade latte.",
       "uploadDate": "2023-11-05T22:08:13.621Z",
       "uploader": "313233343536373839313030",

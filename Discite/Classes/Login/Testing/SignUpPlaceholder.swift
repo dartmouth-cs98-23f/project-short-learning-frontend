@@ -9,10 +9,8 @@ import SwiftUI
 
 struct SignUpPlaceholder: View {
     
-    @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
-    
-    @State var username: String = ""
-    @State var email: String = ""
+    @ObservedObject var viewModel: TestSignupViewModel = TestSignupViewModel()
+    @Binding var isSignupShowing: Bool
     
     var body: some View {
         VStack(spacing: 24) {
@@ -30,28 +28,29 @@ struct SignUpPlaceholder: View {
             .padding(.bottom, 32)
             
             VStack(spacing: 24) {
-                PrimaryTextField(label: "Username", text: $username) {_ in
-                    return username.count > 0
+                PrimaryTextField(label: "Username", text: $viewModel.username) {_ in
+                    return viewModel.username.count > 0
                 }
             
-                PrimaryTextField(label: "Email", text: $email) {_ in
-                    return email.count > 0
+                PrimaryTextField(label: "Email", text: $viewModel.email) {_ in
+                    return viewModel.email.count > 0
+                }
+                
+                if viewModel.error != nil {
+                    Text("Invalid username or email.")
+                        .foregroundColor(.red)
                 }
             }
             .padding(.bottom, 12)
             
             PrimaryActionButton(action: {
-                viewModel.login()
-            }, label: "Sign up", disabled: username.count == 0 || email.count == 0)
+                viewModel.signup()
+            }, label: "Sign up", disabled: viewModel.username.count == 0 || viewModel.email.count == 0)
             
             HStack {
                 Text("Already have an account?")
                 
-                NavigationLink {
-                    SignUpPlaceholder()
-                } label: {
-                    TextualButton(action: { }, label: "Log in")
-                }
+                TextualButton(action: { isSignupShowing = false }, label: "Log in")
                 
             }
         }
@@ -62,5 +61,5 @@ struct SignUpPlaceholder: View {
 }
 
 #Preview {
-    SignUpPlaceholder()
+    SignUpPlaceholder(isSignupShowing: .constant(true))
 }

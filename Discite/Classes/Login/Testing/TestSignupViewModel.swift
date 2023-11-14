@@ -9,12 +9,12 @@ import Foundation
 
 class TestSignupViewModel: ObservableObject {
 
-    @Published var firstname: String = ""
-    @Published var lastname: String = ""
+    @Published var firstname: String = "Doe"
+    @Published var lastname: String = "John"
     @Published var username: String = ""
     @Published var email: String = ""
-    @Published var password: String = ""
-    @Published var birthDate: String = ""
+    @Published var password: String = "asd"
+    @Published var birthDate: String = "2000-10-10"
 
     @Published var error: APIError?
     @Published var internalError: String = ""
@@ -42,6 +42,10 @@ class TestSignupViewModel: ObservableObject {
                 
         } failure: { error in
             self.error = error
+        }
+        
+        if !Auth.shared.loggedIn {
+            self.error = APIError.requestFailed
         }
     }
 }

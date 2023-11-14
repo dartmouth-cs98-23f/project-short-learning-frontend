@@ -42,17 +42,13 @@ struct LoginPlaceholder: View {
             
             HStack {
                 Text("Need an account?")
-                
-                NavigationLink {
-                    SignUpPlaceholder()
-                } label: {
-                    TextualButton(action: { }, label: "Sign up")
-                }
+                TextualButton(action: { isSignupShowing = true }, label: "Sign up")
+
             }
         }
         .padding(24)
         .sheet(isPresented: $isSignupShowing, content: {
-            SignUpPlaceholder()
+            SignUpPlaceholder(isSignupShowing: $isSignupShowing)
         })
         
     }

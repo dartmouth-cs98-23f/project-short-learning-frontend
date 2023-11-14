@@ -10,9 +10,14 @@ import SwiftUI
 struct DeepDive: View {
     
     var playlist: Playlist
+    
     @Binding var isPresented: Bool
+    @State var isShowingShare: Bool = false
+    
+    var friends: [Friend] = Share.createSampleFriends()
     
     var body: some View {
+        
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 
@@ -40,16 +45,19 @@ struct DeepDive: View {
 
             }
             .padding(32)
+            .sheet(isPresented: $isShowingShare, content: {
+                Share(playlist: SharedPlaylist(id: playlist.id, playlist: playlist, hasWatched: true), friends: friends, isShowing: $isShowingShare)
+            })
         }
             
     }
     
     func playlistDetails(playlist: Playlist) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 18) {
+            HStack(alignment: .top, spacing: 18) {
                 Spacer()
-                ShareButtonLabeled(action: {})
-                SaveButtonLabeled(action: {}, isSaved: false)
+                ShareButton(action: { isShowingShare = true })
+                SaveButton(action: { }, isSaved: false)
             }
             
             Text(playlist.title).font(Font.H3).padding(.top, 18)

@@ -115,7 +115,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             
             guard httpResponse?.statusCode == 200 else {
                 print("Error: \(httpResponse?.statusCode ?? 520)")
-                print(String(describing: error))
+                failure(APIError.requestFailed)
                 return
             }
                         
