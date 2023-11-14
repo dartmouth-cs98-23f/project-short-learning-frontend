@@ -13,16 +13,18 @@ struct ContentView: View {
     @StateObject var recommendations = ExploreService.fetchTestRecommendations()!
     
     var body: some View {
-        if Auth.shared.loggedIn {
-            if Auth.shared.onboarded {
-                Navigator()
-                    .environmentObject(sequence)
-                    .environmentObject(recommendations)
+        NavigationView {
+            if Auth.shared.loggedIn {
+                if Auth.shared.onboarded {
+                    Navigator()
+                        .environmentObject(sequence)
+                        .environmentObject(recommendations)
+                } else {
+                    OnboardingView()
+                }
             } else {
-                OnboardingView()
+                SignupView()
             }
-        } else {
-            SignupView()
         }
     }
 }
