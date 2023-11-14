@@ -17,16 +17,16 @@ struct TopicCard: View {
     var body: some View {
         Button {
             // Update sequence on click
-            sequence.replaceQueueWithTopic(combinedTopicName: topic.topicName, topicId: topic._id)
+            sequence.replaceQueueWithTopic(topicId: topic._id, numPlaylists: 2)
             tabSelection = .Watch
-                
+            
         } label: {
             VStack(spacing: 12) {
                 Image(systemName: topic.thumbnailURL)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
-                Text(topic.topicName)
+                Text(topic.subTopicName ?? topic.topicName)
                     .font(Font.button)
             }
         }

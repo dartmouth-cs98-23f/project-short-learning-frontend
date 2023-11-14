@@ -41,6 +41,7 @@ class Recommendations: ObservableObject {
         ExploreService.fetchRecommendations { recommendations in
             print("Successfully decoded recommendations.")
             self.topics = recommendations.topics
+            print("Recommendations loaded with \(recommendations.topics.count)")
             self.fetchSuccessful = true
             
         } failure: { error in

@@ -85,6 +85,8 @@
 		C2A3FF282B0307AB001EDE9F /* TestExplore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF272B0307AB001EDE9F /* TestExplore.swift */; };
 		C2A3FF2A2B0322A2001EDE9F /* TestWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF292B0322A2001EDE9F /* TestWatch.swift */; };
 		C2A3FF2C2B033F1B001EDE9F /* TestAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */; };
+		C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF2E2B035C2C001EDE9F /* Loading.swift */; };
+		C2A3FF312B03635C001EDE9F /* SignUpPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -176,6 +178,8 @@
 		C2A3FF272B0307AB001EDE9F /* TestExplore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplore.swift; sourceTree = "<group>"; };
 		C2A3FF292B0322A2001EDE9F /* TestWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWatch.swift; sourceTree = "<group>"; };
 		C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthenticationService.swift; sourceTree = "<group>"; };
+		C2A3FF2E2B035C2C001EDE9F /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPlaceholder.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -302,6 +306,7 @@
 				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
 				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
 				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
+				C2A3FF2E2B035C2C001EDE9F /* Loading.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 			);
@@ -477,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */,
+				C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */,
 				C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */,
 			);
 			path = Testing;
@@ -669,6 +675,7 @@
 				C20EFE762AFDCC410074EC9A /* Recommendations.swift in Sources */,
 				C251C9882AF4963100922B00 /* Sequence.swift in Sources */,
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
+				C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
@@ -699,6 +706,7 @@
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */,
 				C251C9862AF4960F00922B00 /* Playlist.swift in Sources */,
+				C2A3FF312B03635C001EDE9F /* SignUpPlaceholder.swift in Sources */,
 				C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,

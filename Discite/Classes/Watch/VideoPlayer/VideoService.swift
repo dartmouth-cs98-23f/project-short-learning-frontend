@@ -26,7 +26,7 @@ class VideoService {
         let path = "/api/recommendations/playlist"
         let method: HTTPMethod = .get
         
-        let combinedTopicName = URLQueryItem(name: "combinedTopicName", value: "Science7/Biology")
+        let combinedTopicName = URLQueryItem(name: "combinedTopicName", value: query.combinedTopicName)
         let topicId = URLQueryItem(name: "topicId", value: query.topicId)
         let numPlaylists = URLQueryItem(name: "numPlaylists", value: String(query.numPlaylists))
         

@@ -10,14 +10,17 @@ import AVKit
 
 struct PlayerView: View {
     @EnvironmentObject var sequence: Sequence
-    
-    @State var player: AVPlayer = AVPlayer()
     @State private var showingDeepDive = false
     
     var body: some View {
         
-        if sequence.fetchSuccessful {
-            VideoPlayer(player: player)
+        if sequence.isLoading {
+            Loading()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.primaryBlueBlack)
+            
+        } else {
+            VideoPlayer(player: sequence.player)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
                     print("Player appear, reload.")
@@ -25,15 +28,14 @@ struct PlayerView: View {
                     if sequence.playlists.isEmpty {
                         print("Sequence is empty.")
                     }
-                    
-                    player.replaceCurrentItem(with: sequence.currentVideo())
+
                     addVideoEndedNotification()
                     
-                    player.play()
+                    sequence.player.play()
                 }
                 .onDisappear {
                     print("Player disappear.")
-                    player.pause()
+                    sequence.player.pause()
                     removeVideoEndedNotification()
                 }
                 .gesture(DragGesture(minimumDistance: 20)
@@ -45,21 +47,19 @@ struct PlayerView: View {
                             print("Swiped right for next video.")
                             // Move to the next video
                             removeVideoEndedNotification()
-                            let nextPlayerItem = sequence.nextVideo(swipeDirection: .right)
-                            player.replaceCurrentItem(with: nextPlayerItem)
+                            sequence.nextVideo(swipeDirection: .right)
                             addVideoEndedNotification()
                             
                         case .left:
                             print("Swiped left to skip current playlist.")
                             // Skip current playlist
                             removeVideoEndedNotification()
-                            let nextPlayerItem = sequence.nextVideo(swipeDirection: .left)
-                            player.replaceCurrentItem(with: nextPlayerItem)
+                            sequence.nextVideo(swipeDirection: .left)
                             addVideoEndedNotification()
                             
                         case .up:
                             // Show DeepDive
-                            player.pause()
+                            sequence.player.pause()
                             showingDeepDive = true
                             
                         default:
@@ -76,14 +76,12 @@ struct PlayerView: View {
                     }
                 })
             
-        } else {
-            Text("Something went wrong.")
         }
-        
+
     }
     
     func deepDiveDismissed() {
-        player.play()
+        sequence.player.play()
     }
     
     func removeVideoEndedNotification() {
@@ -91,18 +89,18 @@ struct PlayerView: View {
             .default
             .removeObserver(self,
                             name: .AVPlayerItemDidPlayToEndTime,
-                            object: player.currentItem)
+                            object: sequence.player.currentItem)
     }
     
     func addVideoEndedNotification() {
         NotificationCenter
             .default
             .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                         object: player.currentItem,
+                         object: sequence.player.currentItem,
                          queue: .main) { (_) in
                 
-                player.seek(to: .zero)
-                player.play()
+                sequence.player.seek(to: .zero)
+                sequence.player.play()
             }
     }
     
@@ -110,8 +108,6 @@ struct PlayerView: View {
 
 #Preview {
     let sequence = Sequence()
-    // sequence.addPlaylists(numPlaylists: 2)
-    print(sequence.playlists.count)
     
     return PlayerView()
         .environmentObject(sequence)

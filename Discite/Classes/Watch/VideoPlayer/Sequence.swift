@@ -54,13 +54,15 @@ class Sequence: ObservableObject {
     @Published var playlists: [Playlist] = []
     @Published var combinedTopicName: String?
     @Published var fetchSuccessful: Bool = false
+    @Published var isLoading: Bool = true
+    @Published var player: AVPlayer = AVPlayer()
     
     var topicId: String?
     
     var currentIndex: Int = 0 // Currently always 0, but could be useful later
 
     init() {
-        addPlaylists()
+        addPlaylists(numPlaylists: 2)
     }
     
     // MARK: Public Getters
@@ -98,7 +100,7 @@ class Sequence: ObservableObject {
         // currentIndex should still be 0
     }
     
-    public func replaceQueueWithTopic(combinedTopicName: String, topicId: String, numPlaylists: Int = 2) {
+    public func replaceQueueWithTopic(combinedTopicName: String? = nil, topicId: String, numPlaylists: Int = 2) {
         
         let currentCount = playlists.count
         
@@ -106,8 +108,8 @@ class Sequence: ObservableObject {
         let numToAdd = numPlaylists > 0 ? numPlaylists : 2
         
         // Replace current queue with an equal number of playlists
-        addPlaylists(combinedTopicName: combinedTopicName, topicId: topicId, numPlaylists: numToAdd)
         dequeuePlaylists(numPlaylists: currentCount)
+        addPlaylists(combinedTopicName: combinedTopicName, topicId: topicId, numPlaylists: numToAdd)
     }
     
     func currentVideo() -> AVPlayerItem? {
@@ -120,7 +122,7 @@ class Sequence: ObservableObject {
         return nil
     }
     
-    func nextVideo(swipeDirection: SwipeDirection) -> AVPlayerItem? {
+    func nextVideo(swipeDirection: SwipeDirection) {
 
         // If swiped right, keep playing the current sequence
         if swipeDirection == .right {
@@ -155,16 +157,17 @@ class Sequence: ObservableObject {
         // Make sure playlist is not empty
         if playlists.isEmpty {
             print("Error updating player: \(SequenceError.emptySequence.localizedDescription)")
-            return nil
+            return
         }
         
         guard let nextVideo = playlists[currentIndex].nextVideo() else {
             print(PlaylistError.noNextVideo.localizedDescription)
-            return nil
+            return
         }
         
         // Update next playerItem
-        return AVPlayerItem(url: URL(string: nextVideo.getURL())!)
+        let playerItem = AVPlayerItem(url: URL(string: nextVideo.getURL())!)
+        player.replaceCurrentItem(with: playerItem)
     }
     
     func addPlaylists(combinedTopicName: String? = nil, topicId: String? = nil, numPlaylists: Int = 1) {
@@ -172,6 +175,7 @@ class Sequence: ObservableObject {
                                                           topicId: topicId,
                                                           numPlaylists: numPlaylists)
         self.fetchSuccessful = false
+        self.isLoading = true
 
         VideoService.fetchSequence(query: query) { sequence in
             print("Successfully decoded playlists.")
@@ -179,6 +183,9 @@ class Sequence: ObservableObject {
             print("Sequence loaded with \(sequence.playlists.count) playlists.")
             self.combinedTopicName = sequence.combinedTopicName
             self.fetchSuccessful = true
+            self.player.replaceCurrentItem(with: self.currentVideo())
+            self.isLoading = false
+            
         } failure: { error in
             print("Couldn't fetch sequence from specified topic: \(error)")
         }

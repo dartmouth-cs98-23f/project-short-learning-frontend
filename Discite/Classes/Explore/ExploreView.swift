@@ -14,28 +14,27 @@ struct ExploreView: View {
     @Binding var tabSelection: Navigator.Tab
     
     var body: some View {
-        
-        if recommendations.fetchSuccessful && sequence.playlists.count > 0 {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    
-                    Text("Explore.Title")
-                        .font(Font.H2)
-                        .padding(.top, 18)
-                    
-                    // Section: My interests (topics)
+
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                
+                Text("Explore.Title")
+                    .font(Font.H2)
+                    .padding(.top, 18)
+                
+                // Section: My interests (topics)
+                if recommendations.fetchSuccessful {
                     topicScrollSection(heading: "My interests", topics: recommendations.getTopics()!)
-                    
-                    // Section: Continue learning (playlists)
-                    playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
-                    
-                    Spacer()
                 }
-                .padding(32)
+                
+                // Section: Continue learning (playlists)
+                if sequence.playlists.count > 0 {
+                    playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+                }
+                
+                Spacer()
             }
-            
-        } else {
-            Text("Something went wrong.")
+            .padding(32)
         }
 
     }

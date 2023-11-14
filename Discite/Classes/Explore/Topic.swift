@@ -12,7 +12,7 @@ struct Topic: Decodable {
     var _id: String
     var topicName: String
     var subTopicName: String?
-    var description: String
+    var description: String?
     var thumbnailURL: String
     
 }

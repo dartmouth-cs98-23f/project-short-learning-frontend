@@ -102,7 +102,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             request.httpBody = try? JSONEncoder().encode(parameters)
         }
         
-        request.addValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTRhODM0ZTZjNTZkMGViYmFkMDE4MDQiLCJpYXQiOjE2OTk4MDU2NDg3MDF9.w_WG6hJizl8QlLjDCsedfZ7Vyt_gNqh1vYblPUbuw80", forHTTPHeaderField: "Authorization")
+        request.addValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTRhODM0ZTZjNTZkMGViYmFkMDE4MDQiLCJpYXQiOjE2OTk5NDIyMTAwNjF9.DuBHeAgv2UM3eFcqbah3RtzRf3jRhrxaRm_0-lkXuYY", forHTTPHeaderField: "Authorization")
         
 //        if authorized, let token = Auth.shared.getToken() {
 //            // request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

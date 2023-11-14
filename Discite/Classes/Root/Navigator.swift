@@ -64,7 +64,7 @@ struct Navigator: View {
 #Preview {
     
     let sequence = Sequence()
-    sequence.addPlaylists()
+    sequence.addPlaylists(numPlaylists: 2)
     
     let recommendations = Recommendations()
     recommendations.fetchRecommendations()
