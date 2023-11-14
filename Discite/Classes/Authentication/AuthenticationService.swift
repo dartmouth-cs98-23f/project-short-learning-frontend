@@ -37,15 +37,6 @@ struct OnboardResponse: Decodable {
     let playlists: [Playlist]
 }
 
-struct GetRequest: Encodable {
-    
-}
-
-struct GetResponse: Decodable {
-    let onboarding: String
-}
-
-
 class AuthConfig {
     static let shared = AuthConfig()
     
@@ -141,43 +132,7 @@ struct AuthenticationService {
                         let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
                         
                         try completion(response)
-                        DispatchQueue.main.async {
-                            Auth.shared.onboarded=true
-                        }
-                    } catch {
-                        failure(.invalidJSON)
-                    }
-                    
-                } failure: { error in
-                    failure(error)
-                }
-        }
-    }
-    
-    struct GetUser {
-        let path = "/api/user"
-        let method: HTTPMethod = .get
-        
-        func call(
-            completion: @escaping (Bool) throws -> Void,
-            failure: @escaping (APIError) -> Void
-        ) {
-            APIRequest<GetRequest, GetResponse>.call(
-                scheme: AuthConfig.shared.scheme,
-                host: AuthConfig.shared.host,
-                path: path,
-                port: AuthConfig.shared.port,
-                method: method,
-                authorized: true
-                ) { data in
-                    do {
-                        let response = try JSONDecoder().decode(GetResponse.self, from: data)
-                        
-                        if response.onboarding == "onboarding" {
-                            try completion(false)
-                        } else {
-                            try completion(true)
-                        }
+                        Auth.shared.onboarded=true
                     } catch {
                         failure(.invalidJSON)
                     }
