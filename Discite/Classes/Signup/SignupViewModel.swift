@@ -39,7 +39,9 @@ class SignupViewModel: ObservableObject {
                 
                 do {
                     try Auth.shared.setToken(token: response.token)
-                    Auth.shared.onboarded = false
+                    DispatchQueue.main.async {
+                        Auth.shared.onboarded = false
+                    }
                 } catch {
                     print("Error: Unable to store token in keychain.")
                 }

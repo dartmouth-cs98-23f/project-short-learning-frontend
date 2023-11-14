@@ -63,7 +63,6 @@ struct OnboardingView: View {
             }
             VStack {
                 Spacer()
-                Button(action: {Auth.shared.logout()}, label: { Text("logout")})
                 Button(action: {
                     viewModel.send()
                 }, label: {
@@ -72,8 +71,9 @@ struct OnboardingView: View {
                         .background(Color.primaryDarkNavy)
                         .foregroundColor(.white)
                         .padding()
-                        .cornerRadius(10)
+                        
                 })
+                .cornerRadius(10)
             }
         }
     }

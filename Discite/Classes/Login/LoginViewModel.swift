@@ -27,9 +27,7 @@ class LoginViewModel: ObservableObject {
             print("starting call")
             do {
                 try Auth.shared.setToken(token: response.token)
-                if response.status == "onboarding" {
-                    Auth.shared.onboarded = false
-                } else {
+                DispatchQueue.main.async {
                     Auth.shared.onboarded = true
                 }
                 print("Login successful", Auth.shared.loggedIn)

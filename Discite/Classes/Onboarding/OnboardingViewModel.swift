@@ -30,7 +30,9 @@ class OnboardingViewModel: ObservableObject {
                 print(self.topics)
                 do {
                     self.videos = response.playlists
-                    Auth.shared.onboarded = true
+                    DispatchQueue.main.async {
+                        Auth.shared.onboarded = true
+                    }
                     
                 }
             } failure: { error in
