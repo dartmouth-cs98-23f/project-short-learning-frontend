@@ -40,6 +40,4 @@ class TestAuthenticationService {
                 failure(error)
             }
     }
-    
-    static func signup() { }
 }

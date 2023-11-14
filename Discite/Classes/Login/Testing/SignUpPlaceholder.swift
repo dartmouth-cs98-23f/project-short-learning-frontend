@@ -16,19 +16,29 @@ struct SignUpPlaceholder: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            Image(.disciteLogo)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 100)
-                .padding()
             
-            PrimaryTextField(label: "Username", text: $username) {_ in
-                return username.count > 0
+            VStack(spacing: 12) {
+                Image(.disciteLogo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 100)
+                
+                Text("Sign up")
+                    .font(Font.H2)
+                    .addGradient(gradient: LinearGradient.pinkOrangeGradient)
             }
-        
-            PrimaryTextField(label: "Email", text: $email) {_ in
-                return email.count > 0
+            .padding(.bottom, 32)
+            
+            VStack(spacing: 24) {
+                PrimaryTextField(label: "Username", text: $username) {_ in
+                    return username.count > 0
+                }
+            
+                PrimaryTextField(label: "Email", text: $email) {_ in
+                    return email.count > 0
+                }
             }
+            .padding(.bottom, 12)
             
             PrimaryActionButton(action: {
                 viewModel.login()
@@ -36,11 +46,17 @@ struct SignUpPlaceholder: View {
             
             HStack {
                 Text("Already have an account?")
-                TextualButton(action: { }, label: "Log in")
+                
+                NavigationLink {
+                    SignUpPlaceholder()
+                } label: {
+                    TextualButton(action: { }, label: "Log in")
+                }
+                
             }
         }
         .padding(24)
-        .padding(.bottom, 54)
+
     }
     
 }

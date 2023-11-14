@@ -26,7 +26,7 @@ struct TopicCard: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
-                Text(topic.subTopicName ?? topic.topicName)
+                Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
                     .font(Font.button)
             }
         }

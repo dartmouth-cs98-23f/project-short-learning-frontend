@@ -87,6 +87,7 @@
 		C2A3FF2C2B033F1B001EDE9F /* TestAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */; };
 		C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF2E2B035C2C001EDE9F /* Loading.swift */; };
 		C2A3FF312B03635C001EDE9F /* SignUpPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */; };
+		C2A3FF352B037145001EDE9F /* TestSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
@@ -180,6 +181,7 @@
 		C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthenticationService.swift; sourceTree = "<group>"; };
 		C2A3FF2E2B035C2C001EDE9F /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPlaceholder.swift; sourceTree = "<group>"; };
+		C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignupViewModel.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 			children = (
 				C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */,
 				C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */,
+				C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */,
 				C2A3FF2B2B033F1B001EDE9F /* TestAuthenticationService.swift */,
 			);
 			path = Testing;
@@ -695,6 +698,7 @@
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
 				C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */,
 				C20EFE682AFBCF4C0074EC9A /* ExploreView.swift in Sources */,
+				C2A3FF352B037145001EDE9F /* TestSignupViewModel.swift in Sources */,
 				C20EFE5C2AFBAFB90074EC9A /* SimpleTest.swift in Sources */,
 				C2A3FF242B02BEC9001EDE9F /* LoginPlaceholder.swift in Sources */,
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,

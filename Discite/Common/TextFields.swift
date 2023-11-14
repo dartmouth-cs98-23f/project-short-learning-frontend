@@ -7,6 +7,41 @@
 
 import SwiftUI
 
+struct CustomSecureTextField: View {
+    
+    let label: String
+    @Binding var text: String
+    
+    var body: some View {
+        
+        VStack(alignment: .leading) {
+            
+            if !text.isEmpty {
+                Text(label)
+                    .font(Font.small)
+                    .foregroundColor(Color.primaryDarkNavy)
+            }
+            
+            VStack {
+                
+                SecureField(label, text: $text)
+                    .foregroundColor(Color.primaryBlueBlack)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .padding([.top, .bottom], 4)
+                    .font(Font.body1)
+                
+                Rectangle()
+                    .fill(Color.primaryDarkNavy)
+                    .frame(height: 2)
+                    .edgesIgnoringSafeArea(.horizontal)
+            }
+
+        }
+    }
+    
+}
+
 struct PrimaryTextField: View {
     
     @Binding var text: String

@@ -64,10 +64,7 @@ struct Navigator: View {
 #Preview {
     
     let sequence = Sequence()
-    sequence.addPlaylists(numPlaylists: 2)
-    
     let recommendations = Recommendations()
-    recommendations.fetchRecommendations()
     
     return Navigator()
         .environmentObject(sequence)
