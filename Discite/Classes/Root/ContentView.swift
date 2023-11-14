@@ -15,13 +15,18 @@ struct ContentView: View {
     init() { }
     
     var body: some View {
-        if auth.loggedIn {
-            Navigator()
-                .environmentObject(sequence)
-                .environmentObject(recommendations)
-            
-        } else {
-            LoginView()
+        NavigationView {
+            if Auth.shared.loggedIn {
+                if Auth.shared.onboarded {
+                    Navigator()
+                        .environmentObject(sequence)
+                        .environmentObject(recommendations)
+                } else {
+                    OnboardingView()
+                }
+            } else {
+                SignupView()
+            }
         }
     }
 }

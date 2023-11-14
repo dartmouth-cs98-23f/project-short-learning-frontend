@@ -12,7 +12,7 @@ import SwiftUI
 struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
     @ObservedObject var auth = Auth.shared
-
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
