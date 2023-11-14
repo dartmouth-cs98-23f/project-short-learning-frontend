@@ -31,7 +31,7 @@ class Auth: ObservableObject {
     
     private init() {
         loggedIn = hasToken()
-        onboarded = false
+        onboarded = hasOnboarded()
     }
     
     // Stores token in keychain
@@ -56,6 +56,10 @@ class Auth: ObservableObject {
     
     func hasToken() -> Bool {
         return getToken() != nil
+    }
+    
+    func hasOnboarded() -> Bool {
+        return keychain.string(forKey: KeychainKey.token.rawValue) != nil
     }
     
     func getToken() -> String? {

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var auth = Auth.shared
-    // @StateObject var sequence = Sequence()
-    // @StateObject var recommendations = Recommendations()
     
     init() { }
     
@@ -19,8 +17,7 @@ struct ContentView: View {
             if Auth.shared.loggedIn {
                 if Auth.shared.onboarded {
                     Navigator()
-                        // .environmentObject(sequence)
-                        // .environmentObject(recommendations)
+                    
                 } else {
                     OnboardingView()
                 }

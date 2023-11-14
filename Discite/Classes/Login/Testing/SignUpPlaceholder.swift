@@ -13,48 +13,56 @@ struct SignUpPlaceholder: View {
     @Binding var isSignupShowing: Bool
     
     var body: some View {
-        VStack(spacing: 24) {
+        
+        if viewModel.isLoading {
+            Loading()
             
-            VStack(spacing: 12) {
-                Image(.disciteLogo)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 100)
-                
-                Text("Sign up")
-                    .font(Font.H2)
-                    .addGradient(gradient: LinearGradient.pinkOrangeGradient)
-            }
-            .padding(.bottom, 32)
+        } else {
             
             VStack(spacing: 24) {
-                PrimaryTextField(label: "Email", text: $viewModel.email) {_ in
-                    return viewModel.email.count > 0
-                }
-            
-                CustomSecureTextField(label: "Password", text: $viewModel.password) {_ in
-                    return viewModel.password.count > 0
-                }
                 
-                if viewModel.error != nil {
-                    Text("Error signing up.")
-                        .foregroundColor(.red)
+                VStack(spacing: 12) {
+                    Image(.disciteLogo)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 100)
+                    
+                    Text("Sign up")
+                        .font(Font.H2)
+                        .addGradient(gradient: LinearGradient.pinkOrangeGradient)
+                }
+                .padding(.bottom, 32)
+                
+                VStack(spacing: 24) {
+                    PrimaryTextField(label: "Email", text: $viewModel.email) {_ in
+                        return viewModel.email.count > 0
+                    }
+                
+                    CustomSecureTextField(label: "Password", text: $viewModel.password) {_ in
+                        return viewModel.password.count > 0
+                    }
+                    
+                    if viewModel.error != nil {
+                        Text("Error signing up.")
+                            .foregroundColor(.red)
+                    }
+                }
+                .padding(.bottom, 24)
+                
+                PrimaryActionButton(action: {
+                    viewModel.signup()
+                }, label: "Sign up", disabled: viewModel.email.count == 0 || viewModel.password.count == 0)
+                
+                HStack {
+                    Text("Already have an account?")
+                    
+                    TextualButton(action: { isSignupShowing = false }, label: "Log in")
+                    
                 }
             }
-            .padding(.bottom, 24)
+            .padding(24)
             
-            PrimaryActionButton(action: {
-                viewModel.signup()
-            }, label: "Sign up", disabled: viewModel.email.count == 0 || viewModel.password.count == 0)
-            
-            HStack {
-                Text("Already have an account?")
-                
-                TextualButton(action: { isSignupShowing = false }, label: "Log in")
-                
-            }
         }
-        .padding(24)
 
     }
     

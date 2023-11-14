@@ -28,6 +28,7 @@ class Recommendations: ObservableObject {
     
     init() {
         if Auth.shared.loggedIn {
+            print("Initializing recommendations.")
             fetchRecommendations()
         }
     }

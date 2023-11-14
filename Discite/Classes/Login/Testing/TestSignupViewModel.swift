@@ -18,9 +18,11 @@ class TestSignupViewModel: ObservableObject {
 
     @Published var error: APIError?
     @Published var internalError: String = ""
+    @Published var isLoading: Bool = false
     
     func signup() {
         print("Signing up...")
+        isLoading = true
         
         AuthenticationService.SignupService(
             parameters: SignupRequest(
@@ -40,11 +42,14 @@ class TestSignupViewModel: ObservableObject {
                     print("Error: Unable to store token in keychain.")
                 }
                 
+                self.isLoading = false
+            
         } failure: { error in
             self.error = error
+            self.isLoading = false
         }
         
-        if !Auth.shared.loggedIn {
+        if !isLoading && !Auth.shared.loggedIn {
             self.error = APIError.requestFailed
         }
     }

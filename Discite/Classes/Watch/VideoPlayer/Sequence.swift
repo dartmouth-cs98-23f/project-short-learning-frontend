@@ -63,6 +63,7 @@ class Sequence: ObservableObject {
 
     init() { 
         if Auth.shared.loggedIn {
+            print("Initializing sequence.")
             addPlaylists(numPlaylists: 2)
         }
     }
