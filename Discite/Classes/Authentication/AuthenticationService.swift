@@ -28,11 +28,19 @@ struct SignupRequest: Encodable {
     let birthDate: String
 }
 
+struct OnboardRequest: Encodable {
+    let topics: [String]
+}
+
+struct OnboardResponse: Decodable {
+    let playlists: [Playlist]
+}
+
 class AuthConfig {
     static let shared = AuthConfig()
     
     let scheme: String = "http"
-    let host: String = "localhost" // must be running backend on localhost:3000
+    let host: String = "18.215.28.176" // must be running backend on localhost:3000
     let port: Int? = 3000
 }
 
@@ -91,6 +99,39 @@ struct AuthenticationService {
                     do {
                         let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
                         completion(response)
+                    } catch {
+                        failure(.invalidJSON)
+                    }
+                    
+                } failure: { error in
+                    failure(error)
+                }
+        }
+    }
+    
+    struct OnboardService {
+        let path = "/api/user/technigala/onboard"
+        let method: HTTPMethod = .post
+        var parameters: OnboardRequest
+        
+        func call(
+            completion: @escaping (OnboardResponse) throws -> Void,
+            failure: @escaping (APIError) -> Void
+        ) {
+            APIRequest<OnboardRequest, OnboardResponse>.call(
+                scheme: AuthConfig.shared.scheme,
+                host: AuthConfig.shared.host,
+                path: path,
+                port: AuthConfig.shared.port,
+                method: method,
+                authorized: true,
+                parameters: parameters
+                ) { data in
+                    do {
+                        let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
+                        
+                        try completion(response)
+                        Auth.shared.onboarded=true
                     } catch {
                         failure(.invalidJSON)
                     }

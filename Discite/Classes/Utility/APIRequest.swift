@@ -96,12 +96,16 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         }
         
         if let parameters = parameters {
+            print(parameters)
             request.httpBody = try? JSONEncoder().encode(parameters)
         }
         
         if authorized, let token = Auth.shared.getToken() {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.addValue("\(token)", forHTTPHeaderField: "Authorization")
         }
+        
+        print("Request URL: \(url)")
+        print("Request Headers: \(request.allHTTPHeaderFields ?? [:])")
         
         // Make the request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

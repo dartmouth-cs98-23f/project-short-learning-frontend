@@ -25,9 +25,12 @@ class Auth: ObservableObject {
     private let keychain: KeychainTools = KeychainTools()
     
     @Published var loggedIn: Bool = false
+    @Published var onboarded: Bool = false
+    @Published var playlist: Playlist?
     
     private init() {
         loggedIn = hasToken()
+        onboarded = false
     }
     
     // Stores token in keychain
