@@ -29,7 +29,7 @@ struct Share: View {
                 .font(Font.body1)
         }
         .padding(8)
-        .background(Color.lightestGray)
+        .background(Color.grayLight)
         .cornerRadius(10)
     }
     
@@ -81,7 +81,7 @@ struct Share: View {
                 .padding(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.lightGray, lineWidth: 1)
+                        .stroke(Color.grayNeutral, lineWidth: 1)
                         .opacity(0.5)
                 )
             

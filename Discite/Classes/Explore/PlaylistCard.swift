@@ -43,10 +43,10 @@ struct PlaylistCard: View {
                         
                         ZStack(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 1)
-                                .fill(Color.lightGray)
+                                .fill(Color.grayNeutral)
                                 .frame(width: 250, height: 4)
                             RoundedRectangle(cornerRadius: 1)
-                                .fill(Color.primaryDarkNavy)
+                                .fill(Color.primaryBlueNavy)
                                 .frame(width: 250 * fractionComplete, height: 4)
                         }
                         
@@ -55,7 +55,7 @@ struct PlaylistCard: View {
                 }
             }.padding(24)
         }
-        .cardButtonFrame(width: 300, height: 150)
+        .cardWithShadow(width: 300, height: 150)
     }
 }
 

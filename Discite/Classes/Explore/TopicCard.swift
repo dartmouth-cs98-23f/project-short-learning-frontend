@@ -30,7 +30,7 @@ struct TopicCard: View {
                     .font(Font.button)
             }
         }
-        .cardButtonFrame(width: 140, height: 150)
+        .cardWithShadow(width: 140, height: 150)
     }
 }
 

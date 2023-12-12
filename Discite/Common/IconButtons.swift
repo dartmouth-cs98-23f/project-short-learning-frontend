@@ -37,11 +37,11 @@ struct ShareButtonLabeled: View {
                 Image(systemName: "paperplane")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryBlue)
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.primaryBlueNavy)
                 
                 Text("Share")
-                    .foregroundColor(.primaryBlue)
+                    .foregroundColor(.primaryBlueNavy)
                     .font(.button)
             }
         }
@@ -56,8 +56,8 @@ struct ShareButton: View {
             Image(systemName: "paperplane")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 28, height: 28)
-                .foregroundColor(.primaryBlue)
+                .frame(width: 24, height: 24)
+                .foregroundColor(.primaryBlueNavy)
         }
     }
 }
@@ -72,11 +72,11 @@ struct SaveButtonLabeled: View {
                 Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryBlue)
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.primaryBlueNavy)
                 
                 Text("Save")
-                    .foregroundColor(.primaryBlue)
+                    .foregroundColor(.primaryBlueNavy)
                     .font(.button)
             }
         }
@@ -92,8 +92,8 @@ struct SaveButton: View {
             Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 28, height: 28)
-                .foregroundColor(.primaryDarkNavy)
+                .frame(width: 24, height: 24)
+                .foregroundColor(.primaryBlueNavy)
         }
     }
 }
@@ -143,18 +143,18 @@ struct PreferenceButton: View {
                 Spacer()
             }
             .frame(width: frameWidth, height: 130)
-            .foregroundColor(viewModel.topics.contains(topic) == true ? .white : Color.primaryDarkNavy)
+            .foregroundColor(viewModel.topics.contains(topic) == true ? .white : Color.primaryBlueNavy)
             .cornerRadius(10)
             .font(.small)
             .accentColor(Color.blue)
             .disabled(viewModel.topics.count == 0)
         }
         .padding()
-        .background(viewModel.topics.contains(topic) == true ? LinearGradient(colors: [Color.blue, Color.primaryDarkNavy], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [.white], startPoint: .topLeading, endPoint: .bottomTrailing))
+        .background(viewModel.topics.contains(topic) == true ? LinearGradient(colors: [Color.blue, Color.primaryBlueNavy], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [.white], startPoint: .topLeading, endPoint: .bottomTrailing))
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.primaryDarkNavy, lineWidth: 2)
+                .stroke(Color.primaryBlueNavy, lineWidth: 2)
         )
     }
 }

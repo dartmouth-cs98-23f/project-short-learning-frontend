@@ -56,10 +56,10 @@ struct LoginView: View {
                             .foregroundColor(.red)
                     }
                     
-                    Button("Login.Button.Text") {
+                    PrimaryActionButton(action: {
                         viewModel.login()
-                    }
-                    .modifier(PrimaryButton())
+                        
+                    }, label: "Login.Button.Text", disabled: false)
                     .frame(width: geometry.size.width-20, height: 50)
                     
                     HStack {

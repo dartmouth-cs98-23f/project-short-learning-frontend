@@ -64,7 +64,7 @@ struct Navigator: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: 24)
-                            .foregroundColor(selection == .Watch ? .secondaryLightPeach : .primaryBlueBlack)
+                            .foregroundColor(selection == .Watch ? .secondaryPeachLight : .primaryBlueBlack)
                     }
                 }
             }

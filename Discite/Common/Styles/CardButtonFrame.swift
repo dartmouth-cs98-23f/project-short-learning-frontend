@@ -15,7 +15,7 @@ struct CardButtonFrame: View {
         } label: {
             Text("Button")
         }
-        .cardButtonFrame(width: 200, height: 200)
+        .cardWithShadow(width: 200, height: 200)
         
         Button {
             // Update sequence on click
@@ -23,76 +23,46 @@ struct CardButtonFrame: View {
         } label: {
             Text("Button")
         }
-        .cardButtonPressed(maxWidth: 200, maxHeight: 200)
+        .cardWithShadowPressed(maxWidth: 200, maxHeight: 200)
     }
-}
-
-extension Button {
-    
-    public func cardButtonFrame(width: CGFloat, height: CGFloat) -> some View {
-        self.frame(width: width, height: height)
-            .background(Color.secondaryLightestBlue)
-            .foregroundColor(Color.primaryBlueBlack)
-            .cornerRadius(10)
-            .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
-            .padding([.bottom, .top], 12)
-    }
-    
-    public func cardButtonFrame(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
-        self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
-            .background(Color.secondaryLightestBlue)
-            .foregroundColor(Color.primaryBlueBlack)
-            .cornerRadius(10)
-            .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
-    }
-    
-    public func cardButtonPressed(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
-        self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.white, lineWidth: 3)
-                    .blur(radius: 2)
-                    .opacity(0.7)
-                    .offset(x: -2, y: -4)
-                    .clipped()
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.lightGray, lineWidth: 4)
-                    .blur(radius: 1)
-                    .offset(x: 1, y: 4)
-                    .opacity(0.5)
-                    .clipped()
-            )
-            .background(Color.lightestGray)
-            .foregroundColor(Color.primaryBlueBlack)
-            .cornerRadius(10)
-        
-    }
-    
 }
 
 extension View {
     
-    public func cardPressed(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
+    public func cardFrame(width: CGFloat, height: CGFloat) -> some View {
+        self.frame(width: width, height: height)
+            .background(Color.primaryPurpleLightest)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+    }
+    
+    public func cardFramePressed(width: CGFloat, height: CGFloat) -> some View {
+        self.frame(width: width, height: height)
+            .addGradient(gradient: LinearGradient.blueBlackLinear)
+            .foregroundColor(Color.primaryPurpleLight)
+            .cornerRadius(10)
+    }
+    
+    public func cardWithShadow(width: CGFloat, height: CGFloat) -> some View {
+        self.frame(width: width, height: height)
+            .background(Color.primaryBlueLightest)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+            .cardOuterShadow()
+    }
+    
+    public func cardWithShadow(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
         self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.white, lineWidth: 3)
-                    .blur(radius: 2)
-                    .opacity(0.7)
-                    .offset(x: -2, y: -4)
-                    .clipped()
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.lightGray, lineWidth: 4)
-                    .blur(radius: 1)
-                    .offset(x: 1, y: 4)
-                    .opacity(0.5)
-                    .clipped()
-            )
-            .background(Color.lightestGray)
+            .background(Color.primaryBlueLightest)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+            .cardOuterShadow()
+    }
+    
+    public func cardWithShadowPressed(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
+        self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
+            .cardInnerShadow()
+            .background(Color.grayLight)
             .foregroundColor(Color.primaryBlueBlack)
             .cornerRadius(10)
         

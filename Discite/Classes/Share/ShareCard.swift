@@ -30,7 +30,7 @@ struct ShareCard: View {
             .padding(24)
             
         }
-        .cardPressed(maxWidth: .infinity, maxHeight: 84)
+        .cardWithShadowPressed(maxWidth: .infinity, maxHeight: 84)
 
     }
 }

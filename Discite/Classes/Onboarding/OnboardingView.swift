@@ -70,7 +70,7 @@ struct OnboardingView: View {
                     }, label: {
                         Text("Submit")
                             .frame(width: geometry.size.width-32, height: 50)
-                            .background(Color.primaryDarkNavy)
+                            .background(Color.primaryBlueNavy)
                             .foregroundColor(.white)
                             .padding()
                     })

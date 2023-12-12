@@ -19,12 +19,10 @@ struct WatchView: View {
             Spacer()
             Text("Watch View")
             
-            Button("Home.LogoutButton.Title") {
+            PrimaryActionButton(action: {
                 viewModel.logout()
-                print("Logged out")
-                print(Auth.shared.loggedIn)
-            }
-            .modifier(PrimaryButton(color: Color.red))
+                print("Logged out.")
+            }, label: "Home.LogoutButton.Title", disabled: false)
             
             Spacer()
         }

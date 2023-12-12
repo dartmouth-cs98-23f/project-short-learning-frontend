@@ -13,19 +13,30 @@ struct ContentView: View {
     init() { }
     
     var body: some View {
-        NavigationView {
-            if Auth.shared.loggedIn {
-                if Auth.shared.onboarded {
-                    Navigator()
-                    
-                } else {
-                    OnboardingView()
-                }
+        if Auth.shared.loggedIn {
+            if Auth.shared.onboarded {
+                Navigator()
+
             } else {
-                // SignupView()
-                LoginPlaceholder()
+                OnboardingView()
             }
+        } else {
+            LoginView()
         }
+        
+//        NavigationView {
+//            if Auth.shared.loggedIn {
+//                if Auth.shared.onboarded {
+//                    Navigator()
+//                    
+//                } else {
+//                    OnboardingView()
+//                }
+//            } else {
+//                // SignupView()
+//                LoginPlaceholder()
+//            }
+//        }
     }
 }
 

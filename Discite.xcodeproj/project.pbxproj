@@ -92,9 +92,11 @@
 		C2A3FF312B03635C001EDE9F /* SignUpPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */; };
 		C2A3FF352B037145001EDE9F /* TestSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
-		C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287242AE0B2C200BB263C /* ButtonStyle.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
 		C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */; };
+		C2EE4E572B23AF6300FEA5B5 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */; };
+		C2EE4E592B23B4C500FEA5B5 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */; };
+		C2EE4E5B2B24EC1300FEA5B5 /* DeepDive2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E5A2B24EC1300FEA5B5 /* DeepDive2.swift */; };
 		C2FEE2762AF70BD700DBF997 /* simpletest.json in Resources */ = {isa = PBXBuildFile; fileRef = C2FEE2752AF70BD700DBF997 /* simpletest.json */; };
 /* End PBXBuildFile section */
 
@@ -189,9 +191,11 @@
 		C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPlaceholder.swift; sourceTree = "<group>"; };
 		C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignupViewModel.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
-		C2D287242AE0B2C200BB263C /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
+		C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
+		C2EE4E5A2B24EC1300FEA5B5 /* DeepDive2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDive2.swift; sourceTree = "<group>"; };
 		C2FEE2752AF70BD700DBF997 /* simpletest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpletest.json; sourceTree = "<group>"; };
 		F468F65203DCE1AB8A18A164 /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -228,6 +232,7 @@
 		66365F7F2B0095AC009E0438 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */,
 				66365F802B0095AC009E0438 /* OnboardingView.swift */,
 				66365F812B0095AC009E0438 /* OnboardingViewModel.swift */,
 			);
@@ -381,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				C251C98D2AF4AFA000922B00 /* DeepDive.swift */,
+				C2EE4E5A2B24EC1300FEA5B5 /* DeepDive2.swift */,
 			);
 			path = DeepDive;
 			sourceTree = "<group>";
@@ -521,9 +527,9 @@
 			isa = PBXGroup;
 			children = (
 				C28ABE9E2AF33D74007181F4 /* Mulish */,
-				C2D287242AE0B2C200BB263C /* ButtonStyle.swift */,
 				C28ABE992AF33118007181F4 /* Colors.swift */,
 				C28ABE9C2AF3370B007181F4 /* Fonts.swift */,
+				C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */,
 				C20EFE6F2AFDA6D70074EC9A /* CardButtonFrame.swift */,
 			);
 			path = Styles;
@@ -686,6 +692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2128A902ADB341400E90C66 /* LoginView.swift in Sources */,
+				C2EE4E592B23B4C500FEA5B5 /* Shadows.swift in Sources */,
 				C20EFE782AFDCC9E0074EC9A /* Topic.swift in Sources */,
 				C20EFE642AFBC9C60074EC9A /* ExploreService.swift in Sources */,
 				C235C67A2AE06E8300870600 /* WatchViewModel.swift in Sources */,
@@ -696,11 +703,13 @@
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
 				C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
+				C2EE4E572B23AF6300FEA5B5 /* Welcome.swift in Sources */,
 				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
 				C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */,
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
 				C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */,
+				C2EE4E5B2B24EC1300FEA5B5 /* DeepDive2.swift in Sources */,
 				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
@@ -740,7 +749,6 @@
 				C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
 				C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */,
-				C2D287252AE0B2C200BB263C /* ButtonStyle.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,

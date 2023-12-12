@@ -28,7 +28,7 @@ struct CustomSecureTextField: View {
             if !text.isEmpty {
                 Text(label)
                     .font(Font.small)
-                    .foregroundColor(isValid(text) ? Color.secondaryPink : Color.primaryDarkNavy)
+                    .foregroundColor(isValid(text) ? Color.secondaryPink : Color.primaryBlueNavy)
             }
             
             VStack {
@@ -49,7 +49,7 @@ struct CustomSecureTextField: View {
                 }
                 
                 Rectangle()
-                    .fill(isValid(text) ? Color.secondaryPink : Color.primaryDarkNavy)
+                    .fill(isValid(text) ? Color.secondaryPink : Color.primaryBlueNavy)
                     .frame(height: 2)
                     .edgesIgnoringSafeArea(.horizontal)
             }
@@ -81,7 +81,7 @@ struct PrimaryTextField: View {
             if !text.isEmpty {
                 Text(label)
                     .font(Font.small)
-                    .foregroundColor(isValid(text) ? Color.secondaryPink : Color.primaryDarkNavy)
+                    .foregroundColor(isValid(text) ? Color.secondaryPink : Color.primaryBlueNavy)
             }
             
             VStack {
@@ -102,7 +102,7 @@ struct PrimaryTextField: View {
                 }
                 
                 Rectangle()
-                    .fill(isValid(text) ? Color.secondaryPink : Color.primaryDarkNavy)
+                    .fill(isValid(text) ? Color.secondaryPink : Color.primaryBlueNavy)
                     .frame(height: 2)
                     .edgesIgnoringSafeArea(.horizontal)
             }

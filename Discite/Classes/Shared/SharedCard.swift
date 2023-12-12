@@ -46,10 +46,10 @@ struct SharedCard: View {
         
         if sharedPlaylist.hasWatched {
             button
-                .cardButtonPressed(maxWidth: .infinity, maxHeight: 150)
+                .cardWithShadowPressed(maxWidth: .infinity, maxHeight: 150)
         } else {
             button
-                .cardButtonFrame(maxWidth: .infinity, maxHeight: 150)
+                .cardWithShadow(maxWidth: .infinity, maxHeight: 150)
         }
     
     }

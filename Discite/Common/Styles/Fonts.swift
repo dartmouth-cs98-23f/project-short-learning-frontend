@@ -14,14 +14,14 @@ extension Font {
     // Headings
     static let H1 = Font.custom("Mulish-Bold", size: 56)
     static let H2 = Font.custom("Mulish-Bold", size: 44)
-    static let H3 = Font.custom("Mulish-Bold", size: 32)
+    static let H3 = Font.custom("Mulish-Bold", size: 28)
     static let H4 = Font.custom("Mulish-SemiBold", size: 26)
-    static let H5 = Font.custom("Mulish-SemiBold", size: 20)
-    static let H6 = Font.custom("Mulish-Bold", size: 18)
+    static let H5 = Font.custom("Mulish-Bold", size: 20)
+    static let H6 = Font.custom("Mulish-SemiBold", size: 18)
     
     // Subtitles
-    static let subtitle1 = Font.custom("Mulish-SemiBold", size: 16)
-    static let subtitle2 = Font.custom("Mulish-SemiBold", size: 14)
+    static let subtitle1 = Font.custom("Mulish-SemiBold", size: 20)
+    static let subtitle2 = Font.custom("Mulish-SemiBold", size: 16)
     
     // Body
     static let body1 = Font.custom("Mulish-Regular", size: 16)

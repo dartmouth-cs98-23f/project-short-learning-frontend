@@ -6,6 +6,8 @@
   
 */
 
+"Logo.Subtitle" = "Bite-sized content for the modern learner.";
+
 "Login.UsernameOrEmailField.Title" = "Username or email";
 "Login.PasswordField.Title" = "Password";
 "Login.Button.Text" = "Log In";
