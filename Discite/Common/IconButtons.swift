@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccentPlayButton: View {
     let action: () -> Void
-    let label: String
+    let label: String?
     
     var body: some View {
         Button(action: action) {
@@ -17,12 +17,13 @@ struct AccentPlayButton: View {
                 Image(systemName: "play.circle.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 80)
                     .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                 
-                Text(label)
-                    .foregroundColor(Color.secondaryPink)
-                    .font(Font.captionBold)
+                if label != nil {
+                    Text(label!)
+                        .foregroundColor(Color.secondaryPink)
+                        .font(Font.captionBold)
+                }
             }
         }
     }
@@ -92,8 +93,7 @@ struct SaveButton: View {
             Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 24, height: 24)
-                .foregroundColor(.primaryBlueNavy)
+                .frame(width: 20, height: 20)
         }
     }
 }

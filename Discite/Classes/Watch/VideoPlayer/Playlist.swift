@@ -33,6 +33,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     var title: String
     var description: String
     var topicId: String?
+    var topic: String?
     var thumbnailURL: String
     var videos: [Video]
     
@@ -47,6 +48,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         case duration
         case thumbnailURL
         case topicId
+        case topic
         case videos = "clips"
         case views
         case likes
@@ -59,7 +61,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
-        // topicId = try container.decode(String.self, forKey: .topicId)
+        topicId = try container.decode(String.self, forKey: .topicId)
+        topic = try container.decode(String.self, forKey: .topic)
         thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
         
         videos = try container.decode([Video].self, forKey: .videos)

@@ -42,7 +42,6 @@ class Recommendations: ObservableObject {
         fetchSuccessful = false
         
         ExploreService.fetchRecommendations { recommendations in
-            print("Successfully decoded recommendations.")
             self.topics = recommendations.topics
             print("Recommendations loaded with \(recommendations.topics.count) topics.")
             self.fetchSuccessful = true

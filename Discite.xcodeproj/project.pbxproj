@@ -97,6 +97,8 @@
 		C2EE4E572B23AF6300FEA5B5 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */; };
 		C2EE4E592B23B4C500FEA5B5 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */; };
 		C2EE4E5B2B24EC1300FEA5B5 /* DeepDive2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E5A2B24EC1300FEA5B5 /* DeepDive2.swift */; };
+		C2EE4E5D2B2A148D00FEA5B5 /* ContinueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E5C2B2A148D00FEA5B5 /* ContinueCard.swift */; };
+		C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */; };
 		C2FEE2762AF70BD700DBF997 /* simpletest.json in Resources */ = {isa = PBXBuildFile; fileRef = C2FEE2752AF70BD700DBF997 /* simpletest.json */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +198,8 @@
 		C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
 		C2EE4E5A2B24EC1300FEA5B5 /* DeepDive2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDive2.swift; sourceTree = "<group>"; };
+		C2EE4E5C2B2A148D00FEA5B5 /* ContinueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueCard.swift; sourceTree = "<group>"; };
+		C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		C2FEE2752AF70BD700DBF997 /* simpletest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpletest.json; sourceTree = "<group>"; };
 		F468F65203DCE1AB8A18A164 /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -328,6 +332,7 @@
 				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
 				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
 				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
+				C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */,
 				C2A3FF2E2B035C2C001EDE9F /* Loading.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
@@ -464,6 +469,7 @@
 			children = (
 				C20EFE652AFBCC3E0074EC9A /* TopicCard.swift */,
 				C20EFE6D2AFD93C20074EC9A /* PlaylistCard.swift */,
+				C2EE4E5C2B2A148D00FEA5B5 /* ContinueCard.swift */,
 				C20EFE672AFBCF4C0074EC9A /* ExploreView.swift */,
 				C20EFE632AFBC9C60074EC9A /* ExploreService.swift */,
 				C20EFE772AFDCC9E0074EC9A /* Topic.swift */,
@@ -705,6 +711,7 @@
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C2EE4E572B23AF6300FEA5B5 /* Welcome.swift in Sources */,
 				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
+				C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
 				C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */,
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
@@ -749,6 +756,7 @@
 				C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
 				C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */,
+				C2EE4E5D2B2A148D00FEA5B5 /* ContinueCard.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,

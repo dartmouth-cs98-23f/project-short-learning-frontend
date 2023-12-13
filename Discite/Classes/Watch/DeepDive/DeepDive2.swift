@@ -26,7 +26,7 @@ struct DeepDive2: View {
                     AsyncImage(url: URL(string: playlist.thumbnailURL)) { image in
                         image
                             .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .scaledToFill()
                         
                     } placeholder: {
                         Rectangle()
@@ -34,6 +34,7 @@ struct DeepDive2: View {
                             .frame(height: 250)
                     }
                     .frame(maxWidth: .infinity, maxHeight: 250)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     
                     // Playlist details
                     playlistDetails(playlist: playlist)
@@ -73,11 +74,7 @@ struct DeepDive2: View {
                 SaveButton(action: { }, isSaved: false)
             }
             
-            HStack {
-                Text("\(playlist.length()) videos")
-                Circle().frame(width: 4, height: 4)
-                Text("\(playlist.getCurrentIndex()/playlist.length())% complete")
-            }.font(Font.body2)
+            Text("\(playlist.length()) videos • \(playlist.getCurrentIndex()/playlist.length())% complete").font(.body2)
             
             uploaderProfile()
             

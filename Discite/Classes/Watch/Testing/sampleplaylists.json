@@ -76,12 +76,12 @@
     {
       "_id": "6548124dbf672c659ae255c2",
       "title": "Homemade Latte",
-      "combinedTopicName": "Breakfast/Coffee",
+      "topic": "Breakfast/Coffee",
       "description": "Start your day with a cup of hot, steamy, and delicious homemade latte.",
       "uploadDate": "2023-11-05T22:08:13.621Z",
       "uploader": "313233343536373839313030",
       "duration": 60,
-      "thumbnailURL": "https://hlsstack-hlsbucketf901f2c8-1wlixklj3wkgx.s3.us-east-1.amazonaws.com/video1sample.png",
+      "thumbnailURL": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
       "topicId": "6548124dbf672c659ae255c3",
       "clips": [
         {

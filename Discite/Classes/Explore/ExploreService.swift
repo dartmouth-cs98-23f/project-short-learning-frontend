@@ -40,7 +40,7 @@ class ExploreService {
             }
         }
     
-    static func fetchTestRecommendations() -> RecommendationsData? {
+    static func fetchTestRecommendations() -> Recommendations? {
         
         print("Fetching test recommendations...")
 
@@ -49,8 +49,10 @@ class ExploreService {
                                         forResource: "samplerecommendations",
                                         withExtension: "json")
             
-            print("Got sample recommendations, returning it.")
-            return recommendationsData
+            let recommendations = Recommendations()
+            recommendations.fetchSuccessful = true
+            recommendations.topics = recommendationsData.topics
+            return recommendations
             
         } catch {
             print("Couldn't get sample recommendations: \(error)")
@@ -64,8 +66,6 @@ class ExploreService {
         
         do {
             let topic = try getSampleData(Topic.self, forResource: "sampletopic", withExtension: "json")
-            
-            print("Got sample topic, returning it.")
             return topic
             
         } catch {

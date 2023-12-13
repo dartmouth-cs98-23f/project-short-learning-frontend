@@ -11,7 +11,7 @@
 import Foundation
 
 struct PlaylistQuery: Encodable {
-    var combinedTopicName: String?
+    var topic: String?
     var topicId: String?
     var numPlaylists: Int
 }
@@ -26,7 +26,7 @@ class VideoService {
         let path = "/api/recommendations/playlist"
         let method: HTTPMethod = .get
         
-        // let combinedTopicName = URLQueryItem(name: "combinedTopicName", value: query.combinedTopicName)
+        // let topic = URLQueryItem(name: "topic", value: query.topic)
         let topicId = URLQueryItem(name: "topicId", value: query.topicId)
         let numPlaylists = URLQueryItem(name: "numPlaylists", value: String(query.numPlaylists))
         
@@ -37,7 +37,7 @@ class VideoService {
             port: APIConfiguration.port,
             method: method,
             authorized: true,
-            // queryItems: [combinedTopicName, topicId, numPlaylists])
+            // queryItems: [topic, topicId, numPlaylists])
             queryItems: [topicId, numPlaylists]) { data in
                 
                 do {
@@ -56,15 +56,17 @@ class VideoService {
     }
     
     // Fetches hard-coded video sequence data (multiple playlists)
-    static func fetchTestSequence(topicId: String? = nil, numPlaylists: Int = 2) -> SequenceData? {
-        print("Fetching test playlists...")
+    static func fetchTestSequence() -> Sequence? {
+        print("Fetching test sequence...")
         
         do {
-            let sequence = try getSampleData(SequenceData.self,
-                                        forResource: "sampleplaylists",
-                                        withExtension: "json")
+            let sequenceData = try getSampleData(SequenceData.self,
+                                                forResource: "sampleplaylists",
+                                                 withExtension: "json")
             
-            print("Got sample playlists, returning it as a sequence.")
+            let sequence = Sequence()
+            sequence.topic = sequenceData.topic
+            sequence.playlists = sequenceData.playlists
             return sequence
             
         } catch {
@@ -76,7 +78,7 @@ class VideoService {
     static func fetchTestPlaylist(topicId: String?) -> Playlist? {
         print("Fetching a single playlist...")
         
-        let sequenceData = fetchTestSequence(topicId: topicId, numPlaylists: 1)
+        let sequenceData = fetchTestSequence()
         return sequenceData?.playlists[0]
     }
     

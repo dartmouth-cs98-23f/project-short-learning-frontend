@@ -28,20 +28,19 @@ extension SequenceError: LocalizedError {
 struct SequenceData: Decodable {
     var playlists: [Playlist] = []
     var topicId: String?
-    var combinedTopicName: String?
+    var topic: String?
     
     enum CodingKeys: String, CodingKey {
-        case message
         case playlists
-        // case combinedTopicName
         case topicId
+        case topic
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         playlists = try container.decode([Playlist].self, forKey: .playlists)
         topicId = try container.decode(String.self, forKey: .topicId)
-        // combinedTopicName = try container.decode(String.self, forKey: .combinedTopicName)
+        topic = try container.decode(String.self, forKey: .topic)
         
         if playlists.isEmpty {
             throw SequenceError.emptySequence
@@ -52,7 +51,7 @@ struct SequenceData: Decodable {
 class Sequence: ObservableObject {
     
     @Published var playlists: [Playlist] = []
-    @Published var combinedTopicName: String?
+    @Published var topic: String?
     @Published var fetchSuccessful: Bool = false
     @Published var isLoading: Bool = true
     @Published var player: AVPlayer = AVPlayer()
@@ -103,7 +102,7 @@ class Sequence: ObservableObject {
         // currentIndex should still be 0
     }
     
-    public func replaceQueueWithTopic(combinedTopicName: String? = nil, topicId: String, numPlaylists: Int = 2) {
+    public func replaceQueueWithTopic(topic: String? = nil, topicId: String, numPlaylists: Int = 2) {
         
         let currentCount = playlists.count
         
@@ -112,7 +111,7 @@ class Sequence: ObservableObject {
         
         // Replace current queue with an equal number of playlists
         dequeuePlaylists(numPlaylists: currentCount)
-        addPlaylists(combinedTopicName: combinedTopicName, topicId: topicId, numPlaylists: numToAdd)
+        addPlaylists(topic: topic, topicId: topicId, numPlaylists: numToAdd)
     }
     
     func currentVideo() -> AVPlayerItem? {
@@ -133,7 +132,7 @@ class Sequence: ObservableObject {
             // If queue is empty for whatever reason, fetch new sequence
             if playlists.isEmpty {
                 print("Playlists is empty, replacing queue")
-                addPlaylists(combinedTopicName: combinedTopicName, topicId: topicId)
+                addPlaylists(topic: topic, topicId: topicId)
                 
             // If current playlist is on last video
             } else if playlists[currentIndex].onLastVideo() {
@@ -173,18 +172,17 @@ class Sequence: ObservableObject {
         player.replaceCurrentItem(with: playerItem)
     }
     
-    func addPlaylists(combinedTopicName: String? = nil, topicId: String? = nil, numPlaylists: Int = 1) {
-        let query: PlaylistQuery = PlaylistQuery(combinedTopicName: combinedTopicName,
-                                                          topicId: topicId,
-                                                          numPlaylists: numPlaylists)
+    func addPlaylists(topic: String? = nil, topicId: String? = nil, numPlaylists: Int = 1) {
+        let query: PlaylistQuery = PlaylistQuery(topic: topic,
+                                                 topicId: topicId,
+                                                 numPlaylists: numPlaylists)
         self.fetchSuccessful = false
         self.isLoading = true
 
         VideoService.fetchSequence(query: query) { sequence in
-            print("Successfully decoded playlists.")
             self.playlists += sequence.playlists
             print("Sequence loaded with \(sequence.playlists.count) playlists.")
-            self.combinedTopicName = sequence.combinedTopicName
+            self.topic = sequence.topic
             self.fetchSuccessful = true
             self.player.replaceCurrentItem(with: self.currentVideo())
             self.isLoading = false
