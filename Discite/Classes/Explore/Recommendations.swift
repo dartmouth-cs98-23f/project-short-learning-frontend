@@ -26,15 +26,23 @@ class Recommendations: ObservableObject {
     @Published var topics: [Topic]?
     @Published var fetchSuccessful: Bool = false
     
-    init() {
-        if Auth.shared.loggedIn {
-            print("Initializing recommendations.")
-            fetchRecommendations()
-        }
+    enum CodingKeys: String, CodingKey {
+        case message
+        case topics
     }
     
     func getTopics() -> [Topic]? {
         return topics
+    }
+    
+    func load() async -> [Topic] {
+        do {
+            let topics = try await ExploreService.mockFetchTopics()
+            return topics
+        } catch {
+            print("Failed to load topics: \(error)")
+            return []
+        }
     }
     
     // Calls endpoint for new recommendations

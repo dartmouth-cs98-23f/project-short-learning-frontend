@@ -13,6 +13,7 @@ struct ContentView: View {
     init() { }
     
     var body: some View {
+        
         if Auth.shared.loggedIn {
             if Auth.shared.onboarded {
                 Navigator()

@@ -12,18 +12,11 @@ struct Navigator: View {
     @State private var selection: Tab = .Watch
     @StateObject var sequence: Sequence = Sequence()
     @StateObject var recommendations: Recommendations = Recommendations()
-    // @EnvironmentObject var sequence: Sequence
-    // @EnvironmentObject var recommendations: Recommendations
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
                 TabItem(systemImage: "person.2.fill", tag: .Shared),
                 TabItem(systemImage: "person.crop.circle", tag: .Account)]
-    
-    init() {
-        // sequence.addPlaylists(numPlaylists: 2)
-        // recommendations.fetchRecommendations()
-    }
     
     enum Tab {
         case Watch
@@ -71,16 +64,17 @@ struct Navigator: View {
             .padding(.top, 18)
             .background(selection == .Watch ? .black : .white)
         }
+        .task {
+            print("Preloading...")
+            async let playlists = sequence.load(topicId: nil, numPlaylists: 3)
+            async let topics = recommendations.load()
+            
+            sequence.playlists = await playlists
+            recommendations.topics = await topics
+        }
     }
 }
 
 #Preview {
-    
-    // let sequence = Sequence()
-    // let recommendations = Recommendations()
-    
     return Navigator()
-        // .environmentObject(sequence)
-        // .environmentObject(recommendations)
-    
 }

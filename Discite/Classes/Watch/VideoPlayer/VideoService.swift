@@ -18,6 +18,33 @@ struct PlaylistQuery: Encodable {
 
 class VideoService {
     
+    static func fetchPlaylist(topicId: String? = nil) async throws -> Playlist {
+        print("Fetching playlist...")
+        
+        let topicId = URLQueryItem(name: "topicId", value: topicId)
+        let playlist = try await APIRequest<EmptyRequest, Playlist>
+            .apiRequest(method: .get,
+                        authorized: true,
+                        path: "/api/recommendations/playlist",
+                        queryItems: [topicId])
+        
+        return playlist
+    }
+    
+    static func mockFetchPlaylist(topicId: String? = nil) async throws -> Playlist {
+        print("TEST: Fetching playlist...")
+        
+        let topicId = URLQueryItem(name: "topicId", value: topicId)
+        let playlist = try await APIRequest<EmptyRequest, Playlist>
+            .mockAPIRequest(Playlist.self,
+                            forResource: "sampleplaylist",
+                            withExtension: "json")
+        
+        return playlist
+    }
+    
+    // MARK: Drafts
+    
     static func fetchSequence(query: PlaylistQuery,
                               completion: @escaping (SequenceData) -> Void,
                               failure: @escaping (APIError) -> Void) {

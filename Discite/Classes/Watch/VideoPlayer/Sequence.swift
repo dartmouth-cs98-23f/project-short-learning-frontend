@@ -60,11 +60,8 @@ class Sequence: ObservableObject {
     
     var currentIndex: Int = 0 // Currently always 0, but could be useful later
 
-    init() { 
-        if Auth.shared.loggedIn {
-            print("Initializing sequence.")
-            addPlaylists(numPlaylists: 2)
-        }
+    init() {
+        
     }
     
     // MARK: Public Getters
@@ -102,18 +99,78 @@ class Sequence: ObservableObject {
         // currentIndex should still be 0
     }
     
-    public func replaceQueueWithTopic(topic: String? = nil, topicId: String, numPlaylists: Int = 2) {
+    public func load(topicId: String?, numPlaylists: Int) async -> [Playlist] {
         
-        let currentCount = playlists.count
+        let newPlaylists = await withTaskGroup(of: Playlist?.self) { group in
+            for _ in 1...numPlaylists {
+                group.addTask {
+                    do {
+                        // let playlist = try await VideoService.fetchPlaylist(topicId: topicId)
+                        let playlist = try await VideoService.mockFetchPlaylist(topicId: topicId)
+                        return playlist
+                    } catch {
+                        print("Failed to load sequence: \(error)")
+                        return nil
+                    }
+                }
+            }
+            
+            var newPlaylists: [Playlist] = []
+            for await playlist in group {
+                if let playlist { newPlaylists.append(playlist) }
+            }
+            return newPlaylists
+        }
         
-        // Fetches 2 by default if numPlaylists is not a positive integer
-        let numToAdd = numPlaylists > 0 ? numPlaylists : 2
-        
-        // Replace current queue with an equal number of playlists
-        dequeuePlaylists(numPlaylists: currentCount)
-        addPlaylists(topic: topic, topicId: topicId, numPlaylists: numToAdd)
+        return newPlaylists
     }
     
+    func next(swipeDirection: SwipeDirection) {
+        
+        if playlists.isEmpty {
+            print("Playlists is empty, replacing queue")
+            self.isLoading = true
+            
+            Task {
+                self.playlists = await load(topicId: topicId, numPlaylists: 2)
+                self.isLoading = false
+            }
+        }
+        
+        // If swiped right, keep playing the current sequence
+        else if swipeDirection == .right && playlists[currentIndex].onLastVideo() {
+            // Dequeue current playlist
+            dequeuePlaylists()
+            
+            // Add playlist to end of sequence
+            Task {
+                await addPlaylist(topicId: topicId)
+            }
+        }
+        
+        // Skip current playlist
+        else if swipeDirection == .left {
+            Task {
+                self.playlists = await load(topicId: nil, numPlaylists: 2)
+            }
+        }
+        
+        // Make sure playlist is not empty
+        if playlists.isEmpty {
+            print("Error updating player: \(SequenceError.emptySequence.localizedDescription)")
+            return
+        }
+        
+        guard let nextVideo = playlists[currentIndex].nextVideo() else {
+            print(PlaylistError.noNextVideo.localizedDescription)
+            return
+        }
+        
+        // Update next playerItem
+        let playerItem = AVPlayerItem(url: URL(string: nextVideo.getURL())!)
+        player.replaceCurrentItem(with: playerItem)
+    }
+
     func currentVideo() -> AVPlayerItem? {
         if !playlists.isEmpty {
             let video = playlists[currentIndex].currentVideo()
@@ -142,7 +199,6 @@ class Sequence: ObservableObject {
                 
                 // Add playlist to end of sequence
                 addPlaylists()
-                
             }
         }
         
@@ -170,6 +226,15 @@ class Sequence: ObservableObject {
         // Update next playerItem
         let playerItem = AVPlayerItem(url: URL(string: nextVideo.getURL())!)
         player.replaceCurrentItem(with: playerItem)
+    }
+    
+    func addPlaylist(topicId: String? = nil) async {
+        do {
+            let playlist = try await VideoService.fetchPlaylist(topicId: topicId)
+            self.playlists.append(playlist)
+        } catch {
+            print("Failed to add playlist: \(error)")
+        }
     }
     
     func addPlaylists(topic: String? = nil, topicId: String? = nil, numPlaylists: Int = 1) {

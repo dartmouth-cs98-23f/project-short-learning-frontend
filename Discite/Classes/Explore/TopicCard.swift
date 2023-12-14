@@ -17,7 +17,10 @@ struct TopicCard: View {
     var body: some View {
         Button {
             // Update sequence on click
-            sequence.replaceQueueWithTopic(topicId: topic._id, numPlaylists: 2)
+            Task {
+                sequence.playlists = await sequence.load(topicId: topic._id, numPlaylists: 2)
+            }
+            
             tabSelection = .Watch
             
         } label: {

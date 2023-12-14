@@ -22,6 +22,7 @@
 
 "Shared.Title" = "Shared With Me";
 
+"Error.APIError.InvalidURL" = "Could not construct request URL.";
 "Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
 "Error.APIError.RequestFailed" = "API request failed.";
 "Error.APIError.NoInternet" = "No internet.";

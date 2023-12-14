@@ -14,7 +14,7 @@ struct PlayerView: View {
     
     var body: some View {
         
-        if sequence.isLoading {
+        if sequence.isLoading || sequence.player.currentItem == nil {
             Loading()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.primaryBlueBlack)
@@ -23,22 +23,16 @@ struct PlayerView: View {
             VideoPlayer(player: sequence.player)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
-                    print("Player appear, reload.")
-                    
-                    if sequence.playlists.isEmpty {
-                        print("Sequence is empty.")
-                    }
-
+                    print("Player appeared.")
                     addVideoEndedNotification()
-                    
                     sequence.player.play()
                 }
                 .onDisappear {
-                    print("Player disappear.")
+                    print("Player disappeared.")
                     sequence.player.pause()
                     removeVideoEndedNotification()
                 }
-                .gesture(DragGesture(minimumDistance: 20)
+                .gesture(DragGesture(minimumDistance: 10)
                     .onEnded({ value in
                         let swipeDirection = swipeDirection(value: value)
                         
@@ -47,14 +41,14 @@ struct PlayerView: View {
                             print("Swiped right for next video.")
                             // Move to the next video
                             removeVideoEndedNotification()
-                            sequence.nextVideo(swipeDirection: .right)
+                            sequence.next(swipeDirection: .right)
                             addVideoEndedNotification()
                             
                         case .left:
                             print("Swiped left to skip current playlist.")
                             // Skip current playlist
                             removeVideoEndedNotification()
-                            sequence.nextVideo(swipeDirection: .left)
+                            sequence.next(swipeDirection: .left)
                             addVideoEndedNotification()
                             
                         case .up:
@@ -104,11 +98,4 @@ struct PlayerView: View {
             }
     }
     
-}
-
-#Preview {
-    let sequence = Sequence()
-
-    return PlayerView()
-        .environmentObject(sequence)
 }

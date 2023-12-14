@@ -10,6 +10,19 @@ import SwiftUI
 
 class ExploreService {
     
+    static func mockFetchTopics() async throws -> [Topic] {
+        print("TEST: Fetching topics...")
+        
+        let recommendationsData = try await APIRequest<EmptyRequest, RecommendationsData>
+            .mockAPIRequest(RecommendationsData.self,
+                            forResource: "samplerecommendations",
+                            withExtension: "json")
+        
+        return recommendationsData.topics
+    }
+    
+    // MARK: Drafts
+    
     static func fetchRecommendations(completion: @escaping (RecommendationsData) -> Void,
                                      failure: @escaping (APIError) -> Void) {
         
