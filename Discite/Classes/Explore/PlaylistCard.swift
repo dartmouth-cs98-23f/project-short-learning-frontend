@@ -19,8 +19,7 @@ struct PlaylistCard: View {
     
     var body: some View {
         Button {
-                // Update sequence on click
-                sequence.skipToPlaylist(index: index)
+                // TODO: Update sequence on click
                 tabSelection = .Watch
                 
         } label: {
@@ -62,13 +61,15 @@ struct PlaylistCard: View {
     }
 }
 
-#Preview {
-    let playlist = VideoService.fetchTestPlaylist(topicId: nil)
-    
-    if playlist != nil {
-        return PlaylistCard(tabSelection: .constant(Navigator.Tab.Explore), playlist: playlist!, index: 0, width: 200, height: 150)
-    } else {
-        return Text("Failed to fetch playlist.")
-    }
-    
-}
+//#Preview {
+//    do {
+//        Task {
+//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
+//            return PlaylistCard(tabSelection: .constant(Navigator.Tab.Explore), playlist: playlist, index: 0, width: 200, height: 150)
+//        }
+//        
+//    } catch {
+//        return Text("Error fetching playlist.")
+//    }
+//    
+//}

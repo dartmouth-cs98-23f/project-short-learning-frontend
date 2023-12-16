@@ -12,24 +12,6 @@ struct Shared: View {
     var sampleShared: [SharedPlaylist] = []
     
     init() {
-        let samplePlaylists = VideoService.fetchTestSequence()!.playlists
-        let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
-        
-        for samplePlaylist in samplePlaylists {
-            sampleShared.append(SharedPlaylist(id: samplePlaylist.id, 
-                                               playlist: samplePlaylist,
-                                               sender: sampleFriend,
-                                               hasWatched: false))
-            
-        }
-        
-        for samplePlaylist in samplePlaylists {
-            sampleShared.append(SharedPlaylist(id: samplePlaylist.id + "a",
-                                               playlist: samplePlaylist,
-                                               sender: sampleFriend,
-                                               hasWatched: true))
-            
-        }
     }
     
     var body: some View {

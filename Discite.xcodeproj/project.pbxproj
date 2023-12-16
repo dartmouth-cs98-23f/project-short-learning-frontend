@@ -39,6 +39,7 @@
 		C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A932ADB454500E90C66 /* AuthenticationService.swift */; };
 		C2128A962ADB45AE00E90C66 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */; };
 		C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2237F422AE5E4A600C9396E /* AccountView.swift */; };
+		C22ACEB82B2D2C0D00210D9F /* MyContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22ACEB72B2D2C0D00210D9F /* MyContext.swift */; };
 		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
 		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
 		C235C6782AE06E4700870600 /* WatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6772AE06E4700870600 /* WatchView.swift */; };
@@ -87,7 +88,6 @@
 		C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF212B02B185001EDE9F /* IconButtons.swift */; };
 		C2A3FF242B02BEC9001EDE9F /* LoginPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */; };
 		C2A3FF282B0307AB001EDE9F /* TestExplore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF272B0307AB001EDE9F /* TestExplore.swift */; };
-		C2A3FF2A2B0322A2001EDE9F /* TestWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF292B0322A2001EDE9F /* TestWatch.swift */; };
 		C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF2E2B035C2C001EDE9F /* Loading.swift */; };
 		C2A3FF312B03635C001EDE9F /* SignUpPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */; };
 		C2A3FF352B037145001EDE9F /* TestSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */; };
@@ -139,6 +139,7 @@
 		C2128A932ADB454500E90C66 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C2237F422AE5E4A600C9396E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		C22ACEB72B2D2C0D00210D9F /* MyContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContext.swift; sourceTree = "<group>"; };
 		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
 		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		C235C6772AE06E4700870600 /* WatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchView.swift; sourceTree = "<group>"; };
@@ -190,7 +191,6 @@
 		C2A3FF212B02B185001EDE9F /* IconButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtons.swift; sourceTree = "<group>"; };
 		C2A3FF232B02BEC9001EDE9F /* LoginPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPlaceholder.swift; sourceTree = "<group>"; };
 		C2A3FF272B0307AB001EDE9F /* TestExplore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplore.swift; sourceTree = "<group>"; };
-		C2A3FF292B0322A2001EDE9F /* TestWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWatch.swift; sourceTree = "<group>"; };
 		C2A3FF2E2B035C2C001EDE9F /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		C2A3FF302B03635C001EDE9F /* SignUpPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPlaceholder.swift; sourceTree = "<group>"; };
 		C2A3FF342B037145001EDE9F /* TestSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignupViewModel.swift; sourceTree = "<group>"; };
@@ -529,6 +529,7 @@
 			children = (
 				C2128A772ADB270B00E90C66 /* ContentView.swift */,
 				C20EFE812AFFA9A30074EC9A /* Navigator.swift */,
+				C22ACEB72B2D2C0D00210D9F /* MyContext.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -554,7 +555,6 @@
 				C235C6772AE06E4700870600 /* WatchView.swift */,
 				C235C6792AE06E8300870600 /* WatchViewModel.swift */,
 				C29DB0812AEC565B0081C354 /* TestSimplePlayerView.swift */,
-				C2A3FF292B0322A2001EDE9F /* TestWatch.swift */,
 				C2EE4E622B2B7B7D00FEA5B5 /* Test.swift */,
 			);
 			path = Testing;
@@ -725,6 +725,7 @@
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
 				C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */,
 				C2EE4E5B2B24EC1300FEA5B5 /* DeepDive.swift in Sources */,
+				C22ACEB82B2D2C0D00210D9F /* MyContext.swift in Sources */,
 				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
@@ -744,7 +745,6 @@
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
-				C2A3FF2A2B0322A2001EDE9F /* TestWatch.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDiveOld.swift in Sources */,
 				66365F822B0095AC009E0438 /* OnboardingView.swift in Sources */,
 				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,

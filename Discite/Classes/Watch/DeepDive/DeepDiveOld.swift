@@ -117,12 +117,14 @@ struct DeepDiveOld: View {
     
 }
 
-#Preview {
-    let playlist = VideoService.fetchTestPlaylist(topicId: nil)
-    
-    if playlist != nil {
-        return DeepDive(playlist: playlist!, isPresented: .constant(true))
-    } else {
-        return Text("No DeepDive preview available.")
-    }
-}
+//#Preview {
+//    do {
+//        Task {
+//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
+//            return ContinueCard(playlist: playlist)
+//        }
+//        
+//    } catch {
+//        return Text("Error fetching playlist.")
+//    }
+//}

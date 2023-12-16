@@ -6,39 +6,64 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     @ObservedObject var auth = Auth.shared
-    
-    init() { }
-    
+    var context = MyContext()
+
     var body: some View {
         
-        if Auth.shared.loggedIn {
-            if Auth.shared.onboarded {
-                Navigator()
-
-            } else {
-                OnboardingView()
+        Navigator()
+            .environmentObject(context)
+            .task {
+                await context.loadContext()
             }
-        } else {
-            LoginView()
-        }
-        
-//        NavigationView {
-//            if Auth.shared.loggedIn {
-//                if Auth.shared.onboarded {
-//                    Navigator()
+    
+//        Navigator()
+//            .environmentObject(context)
+//            .task {
+//                do {
+//                    async let sequence = VideoService.loadPlaylists()
+//                    async let topics = ExploreService.loadTopics()
 //                    
-//                } else {
-//                    OnboardingView()
+//                    context.sequence = try await sequence
+//                    context.topics = await topics
+//                    
+//                    let playerItem = AVPlayerItem(url: URL(string: (context.sequence?.nextVideo()?.getURL())!)!)
+//                    context.player.replaceCurrentItem(with: playerItem)
+//
+//                } catch {
+//                    print("Failed to load context.")
 //                }
-//            } else {
-//                // SignupView()
-//                LoginPlaceholder()
 //            }
-//        }
     }
+        
+//        if Auth.shared.loggedIn {
+//            if Auth.shared.onboarded {
+//                
+//                Navigator()
+//                    .environmentObject(context)
+//                    .task {
+//                        do {
+//                            async let sequence = VideoService.loadSequence()
+//                            async let topics = ExploreService.loadTopics()
+//                            
+//                            context.sequence = try await sequence
+//                            context.topics = await topics
+//                        } catch {
+//                            print("Failed to load context.")
+//                        }
+//                    }
+//
+//            } else {
+//                OnboardingView()
+//            }
+//            
+//        } else {
+//            LoginView()
+//        }
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {

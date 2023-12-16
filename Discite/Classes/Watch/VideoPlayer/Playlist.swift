@@ -32,8 +32,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     var id: String
     var title: String
     var description: String
-    var topicId: String?
-    var topic: String?
+    var topicId: String
+    var topic: String
     var thumbnailURL: String
     var videos: [Video]
     
@@ -71,13 +71,13 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             throw PlaylistError.emptyPlaylist
         }
         
-        currentIndex = 0
+        currentIndex = -1
     }
     
     // MARK: Getters
     
     func onLastVideo() -> Bool {
-        return currentIndex >= videos.count - 1
+        return currentIndex == videos.count - 1
     }
     
     func nextVideo() -> Video? {
@@ -93,8 +93,16 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         return videos
     }
     
-    func currentVideo() -> Video {
-        return videos[currentIndex]
+    func currentVideo() -> Video? {
+        if currentIndex >= 0 && currentIndex < videos.count {
+            return videos[currentIndex]
+        }
+        
+        return nil
+    }
+    
+    func nextPlayerItem() -> AVPlayerItem? {
+        return nextVideo()?.getPlayerItem()
     }
     
     func getCurrentIndex() -> Int {

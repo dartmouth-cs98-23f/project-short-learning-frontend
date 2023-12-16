@@ -11,6 +11,11 @@ class TestVM: ObservableObject {
     @Published var tasks: [Int] = []
     @Published var count: Int = 0
     
+    func asyncPrint() async {
+        async let i = 1
+        print("async print \(await i)")
+    }
+    
     // like load
     func doTasks() async {
         
@@ -96,8 +101,8 @@ struct Test: View {
         
         Button {
             Task {
-                await vm.addTaskAsync()
-                // print("final count: \(vm.count)")
+                await vm.asyncPrint()
+                print("regular print")
             }
         } label: {
             Text("Count")

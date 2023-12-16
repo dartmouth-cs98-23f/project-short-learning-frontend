@@ -29,12 +29,8 @@ struct ContinueCard: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    if playlist.topic != nil {
-                        Text(playlist.topic!).font(.body2)
-                    }
-                    
+                    Text(playlist.topic).font(.body2)
                     Text(playlist.title).font(.H4)
-                    
                     Text("\(playlist.length()) videos • \(playlist.getCurrentIndex()/playlist.length())% complete").font(.body2)
                 }
                 
@@ -80,12 +76,13 @@ struct ProgressArc: Shape {
     }
 }
 
-#Preview {
-    let playlist = VideoService.fetchTestPlaylist(topicId: nil)
-
-    if playlist != nil {
-        return ContinueCard(playlist: playlist!)
-    } else {
-        return Text("No DeepDive preview available.")
-    }
-}
+//#Preview {
+//    Task {
+//        do {
+//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
+//            return ContinueCard(playlist: playlist)
+//        } catch {
+//            // return Text("Error fetching playlist.")
+//        }
+//    }
+//}

@@ -16,10 +16,7 @@ struct TopicCard: View {
     
     var body: some View {
         Button {
-            // Update sequence on click
-            Task {
-                sequence.playlists = await sequence.load(topicId: topic._id, numPlaylists: 2)
-            }
+            // TODO: Update sequence on click
             
             tabSelection = .Watch
             

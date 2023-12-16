@@ -10,8 +10,7 @@ import SwiftUI
 struct Navigator: View {
     
     @State private var selection: Tab = .Watch
-    @StateObject var sequence: Sequence = Sequence()
-    @StateObject var recommendations: Recommendations = Recommendations()
+    @EnvironmentObject var context: MyContext
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
@@ -34,14 +33,18 @@ struct Navigator: View {
         
         VStack(spacing: 0) {
             switch selection {
+            
             case .Watch:
-                PlayerView()
-                    .environmentObject(sequence)
-                    .environmentObject(recommendations)
+                if context.player.currentItem != nil {
+                    PlayerView()
+                } else {
+                    Loading()
+                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                         .background(Color.primaryBlueBlack)
+                }
+
             case .Explore:
                 ExploreView(tabSelection: $selection)
-                    .environmentObject(sequence)
-                    .environmentObject(recommendations)
             case .Shared:
                 Shared()
             case .Account:
@@ -64,17 +67,32 @@ struct Navigator: View {
             .padding(.top, 18)
             .background(selection == .Watch ? .black : .white)
         }
-        .task {
-            print("Preloading...")
-            async let playlists = sequence.load(topicId: nil, numPlaylists: 3)
-            async let topics = recommendations.load()
-            
-            sequence.playlists = await playlists
-            recommendations.topics = await topics
+        .onAppear {
+            print("Navigator appeared.")
         }
     }
 }
 
-#Preview {
-    return Navigator()
-}
+//#Preview {
+//    
+//    let context = MyContext()
+//    var view: any View = Text("Loading...")
+//    
+//    Task {
+//        do {
+//            async let sequence = VideoService.loadSequence()
+//            async let topics = ExploreService.loadTopics()
+//            
+//            context.sequence = try await sequence
+//            context.topics = await topics
+//            
+//            view = Navigator()
+//                .environmentObject(context)
+//            
+//        } catch {
+//            view = Text("Error loading content.")
+//        }
+//    }
+//    
+//    return view
+//}

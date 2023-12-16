@@ -56,17 +56,18 @@ struct SharedCard: View {
 
 }
 
-#Preview {
-    let samplePlaylists = VideoService.fetchTestSequence()!.playlists
-    let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
-    
-    let sharedPlaylist1 = SharedPlaylist(id: "1", playlist: samplePlaylists[0], sender: sampleFriend, hasWatched: true)
-    
-    let sharedPlaylist2 = SharedPlaylist(id: "2", playlist: samplePlaylists[1], sender: sampleFriend, hasWatched: false)
-    
-    return VStack(spacing: 24) {
-        SharedCard(sharedPlaylist: sharedPlaylist1).padding([.leading, .trailing], 24)
-        SharedCard(sharedPlaylist: sharedPlaylist2).padding([.leading, .trailing], 24)
-    }
-    
-}
+//#Preview {
+//    let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
+//    
+//    do {
+//        Task {
+//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
+//            let sharedPlaylist1 = SharedPlaylist(id: "1", playlist: playlist, sender: sampleFriend, hasWatched: true)
+//            
+//            return SharedCard(sharedPlaylist: sharedPlaylist1).padding([.leading, .trailing], 24)
+//        }
+//        
+//    } catch {
+//        return Text("Error fetching playlist.")
+//    }
+//}

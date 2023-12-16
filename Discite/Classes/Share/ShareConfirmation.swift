@@ -55,7 +55,15 @@ struct ShareConfirmation: View {
     }
 }
 
-#Preview {
-    let samplePlaylists = VideoService.fetchTestSequence()!.playlists
-    return ShareConfirmation(isShowing: .constant(true), isShowingShare: .constant(false), playlist: samplePlaylists[0])
-}
+//
+//#Preview {
+//    do {
+//        Task {
+//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
+//            return ShareConfirmation(isShowing: .constant(true), isShowingShare: .constant(false), playlist: playlist)
+//        }
+//        
+//    } catch {
+//        return Text("Error fetching playlist.")
+//    }
+//}

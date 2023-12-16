@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ExploreView: View {
 
-    @EnvironmentObject var sequence: Sequence
-    @EnvironmentObject var recommendations: Recommendations
+    @EnvironmentObject var context: MyContext
     @Binding var tabSelection: Navigator.Tab
     @State var searchText: String = ""
     
@@ -28,21 +27,20 @@ struct ExploreView: View {
                 .foregroundColor(.primaryBlueNavy)
                 
                 // Section: Continue learning (current playlist)
-                if sequence.length() != 0 {
+                if !context.playlists.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Continue learning").font(.H5)
-                        ContinueCard(playlist: sequence.currentPlaylist()!)
+                        ContinueCard(playlist: context.playlists[context.currentIndex])
                     }
                 }
                 
                 // Section: My interests (topics)
-                if recommendations.fetchSuccessful {
-                    topicScrollSection(heading: "Recommended topics", topics: recommendations.getTopics()!)
-                }
+                topicScrollSection(heading: "Recommended topics", topics: context.topics)
                 
                 // Section: Continue learning (rest of playlists)
-                if sequence.playlists.count > 0 {
-                    playlistScrollSection(heading: sequence.topic != nil ? "More in \(sequence.topic!)" : "More like this", playlists: sequence.allPlaylists())
+                if context.playlists.count > 0 {
+                    playlistScrollSection(heading: "More in \(context.playlists[0].topic)",
+                                          playlists: context.playlists)
                 }
                 
                 Spacer()
@@ -82,18 +80,4 @@ struct ExploreView: View {
         }
     }
     
-}
-
-#Preview {
-    
-    let sequence = VideoService.fetchTestSequence()
-    let recommendations = ExploreService.fetchTestRecommendations()
-    
-    if sequence == nil || recommendations == nil {
-        return Text("No sequence or recommendations.")
-    }
-    
-    return ExploreView(tabSelection: .constant(Navigator.Tab.Explore))
-        .environmentObject(recommendations!)
-        .environmentObject(sequence!)
 }

@@ -4,11 +4,9 @@
 //
 //  Created by Jessie Li on 10/25/23.
 //
-//  Source:
-//      Pexels API: https://www.pexels.com/api/documentation/#videos-show
-//      Example of fetching from Pexels: https://github.com/stephdiep/VideoPlayerApp/blob/main/VideoFinder/VideoManager.swift
 
 import Foundation
+import AVFoundation
 
 struct PlaylistQuery: Encodable {
     var topic: String?
@@ -18,9 +16,35 @@ struct PlaylistQuery: Encodable {
 
 class VideoService {
     
+    static func loadPlaylists(topicId: String? = nil, numPlaylists: Int = 2) async throws -> [Playlist] {
+        await withTaskGroup(of: Optional<Playlist>.self) { group in
+
+            // Fetch playlists asynchronously
+            for _ in 1...numPlaylists {
+                group.addTask {
+                    do {
+                        // let playlist = try await VideoService.fetchPlaylist(topicId: topicId)
+                        let playlist = try await VideoService.mockFetchPlaylist(topicId: topicId)
+                        return playlist
+                    } catch {
+                        print("Failed to load a playlist for sequence: \(error)")
+                        return nil
+                    }
+                }
+            }
+            
+            // Collect playlists into a list
+            var playlists: [Playlist] = []
+            for await playlist in group {
+                if let playlist { playlists.append(playlist) }
+            }
+            
+            return playlists
+        }
+    }
+    
     static func fetchPlaylist(topicId: String? = nil) async throws -> Playlist {
         print("Fetching playlist...")
-        
         let topicId = URLQueryItem(name: "topicId", value: topicId)
         let playlist = try await APIRequest<EmptyRequest, Playlist>
             .apiRequest(method: .get,
@@ -33,13 +57,12 @@ class VideoService {
     
     static func mockFetchPlaylist(topicId: String? = nil) async throws -> Playlist {
         print("TEST: Fetching playlist...")
-        
-        let topicId = URLQueryItem(name: "topicId", value: topicId)
         let playlist = try await APIRequest<EmptyRequest, Playlist>
             .mockAPIRequest(Playlist.self,
                             forResource: "sampleplaylist",
                             withExtension: "json")
         
+        playlist.id = UUID().uuidString
         return playlist
     }
     
@@ -81,32 +104,4 @@ class VideoService {
                 failure(error)
             }
     }
-    
-    // Fetches hard-coded video sequence data (multiple playlists)
-    static func fetchTestSequence() -> Sequence? {
-        print("Fetching test sequence...")
-        
-        do {
-            let sequenceData = try getSampleData(SequenceData.self,
-                                                forResource: "sampleplaylists",
-                                                 withExtension: "json")
-            
-            let sequence = Sequence()
-            sequence.topic = sequenceData.topic
-            sequence.playlists = sequenceData.playlists
-            return sequence
-            
-        } catch {
-            print("Couldn't get sample playlists: \(error)")
-            return nil
-        }
-    }
-    
-    static func fetchTestPlaylist(topicId: String?) -> Playlist? {
-        print("Fetching a single playlist...")
-        
-        let sequenceData = fetchTestSequence()
-        return sequenceData?.playlists[0]
-    }
-    
 }

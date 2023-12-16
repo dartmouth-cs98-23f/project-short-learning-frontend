@@ -10,6 +10,16 @@ import SwiftUI
 
 class ExploreService {
     
+    static func loadTopics() async -> [Topic] {
+        do {
+            let topics = try await ExploreService.mockFetchTopics()
+            return topics
+        } catch {
+            print("Failed to load topics: \(error)")
+            return []
+        }
+    }
+    
     static func mockFetchTopics() async throws -> [Topic] {
         print("TEST: Fetching topics...")
         
