@@ -9,18 +9,18 @@ import SwiftUI
 import AVKit
 
 struct PlayerView: View {
-    @EnvironmentObject var context: MyContext
+    @ObservedObject var sequence: Sequence
     @State private var showingDeepDive = false
     
     var body: some View {
-        
-        if context.player.currentItem == nil {
+
+        if sequence.playerItem == nil {
             Loading()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.primaryBlueBlack)
             
         } else {
-            VideoPlayer(player: context.player)
+            VideoPlayer(player: sequence.player)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
                     print("Player appeared.")
@@ -41,7 +41,7 @@ struct PlayerView: View {
                             removeVideoEndedNotification()
 
                             Task {
-                                await context.reloadPlaylists()
+                                await sequence.load()
                                 print("Replaced context's player.")
                                 play()
                             }
@@ -128,12 +128,12 @@ struct PlayerView: View {
     
     func play() {
         addVideoEndedNotification()
-        context.player.play()
+        sequence.player.play()
     }
     
     func pause() {
         removeVideoEndedNotification()
-        context.player.pause()
+        sequence.player.pause()
     }
     
     func removeVideoEndedNotification() {
@@ -141,18 +141,18 @@ struct PlayerView: View {
             .default
             .removeObserver(self,
                             name: .AVPlayerItemDidPlayToEndTime,
-                            object: context.player.currentItem)
+                            object: sequence.player.currentItem)
     }
     
     func addVideoEndedNotification() {
         NotificationCenter
             .default
             .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                         object: context.player.currentItem,
+                         object: sequence.player.currentItem,
                          queue: .main) { (_) in
                 
-                context.player.seek(to: .zero)
-                context.player.play()
+                sequence.player.seek(to: .zero)
+                sequence.player.play()
             }
     }
     

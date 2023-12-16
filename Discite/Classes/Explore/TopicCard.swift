@@ -34,13 +34,13 @@ struct TopicCard: View {
     }
 }
 
-#Preview {
-    let topic = ExploreService.fetchTestTopic()
-    
-    if topic != nil {
-        return TopicCard(tabSelection: .constant(Navigator.Tab.Explore), topic: topic!)
-    } else {
-        return Text("Failed to fetch topic.")
-    }
-    
-}
+//#Preview {
+//    let topic = ExploreService.fetchTestTopic()
+//    
+//    if topic != nil {
+//        return TopicCard(tabSelection: .constant(Navigator.Tab.Explore), topic: topic!)
+//    } else {
+//        return Text("Failed to fetch topic.")
+//    }
+//    
+//}

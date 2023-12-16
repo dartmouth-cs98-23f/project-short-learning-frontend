@@ -16,7 +16,7 @@ struct PlaylistQuery: Encodable {
 
 class VideoService {
     
-    static func loadPlaylists(topicId: String? = nil, numPlaylists: Int = 2) async throws -> [Playlist] {
+    static func loadPlaylists(topicId: String? = nil, numPlaylists: Int = 2) async -> [Playlist] {
         await withTaskGroup(of: Optional<Playlist>.self) { group in
 
             // Fetch playlists asynchronously
@@ -65,43 +65,5 @@ class VideoService {
         playlist.id = UUID().uuidString
         return playlist
     }
-    
-    // MARK: Drafts
-    
-    static func fetchSequence(query: PlaylistQuery,
-                              completion: @escaping (SequenceData) -> Void,
-                              failure: @escaping (APIError) -> Void) {
-        
-        print("Fetching playlists...")
-        let path = "/api/recommendations/playlist"
-        let method: HTTPMethod = .get
-        
-        // let topic = URLQueryItem(name: "topic", value: query.topic)
-        let topicId = URLQueryItem(name: "topicId", value: query.topicId)
-        let numPlaylists = URLQueryItem(name: "numPlaylists", value: String(query.numPlaylists))
-        
-        APIRequest<EmptyRequest, SequenceData>.call(
-            scheme: APIConfiguration.scheme,
-            host: APIConfiguration.host,
-            path: path,
-            port: APIConfiguration.port,
-            method: method,
-            authorized: true,
-            // queryItems: [topic, topicId, numPlaylists])
-            queryItems: [topicId, numPlaylists]) { data in
-                
-                do {
-                    print("Video Service received data from APIRequest, decoding.")
-                    let decoder = CustomJSONDecoder.shared
-                    let sequence = try decoder.decode(SequenceData.self, from: data)
-                    completion(sequence)
-                    
-                } catch {
-                    print(String(describing: error))
-                }
-                
-            } failure: { error in
-                failure(error)
-            }
-    }
+
 }

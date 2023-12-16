@@ -10,7 +10,7 @@ import SwiftUI
 struct Navigator: View {
     
     @State private var selection: Tab = .Watch
-    @EnvironmentObject var context: MyContext
+    @StateObject var sequence = Sequence()
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
@@ -35,8 +35,8 @@ struct Navigator: View {
             switch selection {
             
             case .Watch:
-                if context.player.currentItem != nil {
-                    PlayerView()
+                if sequence.playerItem != nil {
+                    PlayerView(sequence: sequence)
                 } else {
                     Loading()
                          .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -44,7 +44,7 @@ struct Navigator: View {
                 }
 
             case .Explore:
-                ExploreView(tabSelection: $selection)
+                ExploreView(sequence: sequence, tabSelection: $selection)
             case .Shared:
                 Shared()
             case .Account:
@@ -67,32 +67,8 @@ struct Navigator: View {
             .padding(.top, 18)
             .background(selection == .Watch ? .black : .white)
         }
-        .onAppear {
-            print("Navigator appeared.")
+        .task {
+            await sequence.load()
         }
     }
 }
-
-//#Preview {
-//    
-//    let context = MyContext()
-//    var view: any View = Text("Loading...")
-//    
-//    Task {
-//        do {
-//            async let sequence = VideoService.loadSequence()
-//            async let topics = ExploreService.loadTopics()
-//            
-//            context.sequence = try await sequence
-//            context.topics = await topics
-//            
-//            view = Navigator()
-//                .environmentObject(context)
-//            
-//        } catch {
-//            view = Text("Error loading content.")
-//        }
-//    }
-//    
-//    return view
-//}

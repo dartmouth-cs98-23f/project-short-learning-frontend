@@ -30,12 +30,12 @@ extension PlaylistError: LocalizedError {
 class Playlist: Decodable, Identifiable, ObservableObject {
     
     var id: String
-    var title: String
-    var description: String
-    var topicId: String
-    var topic: String
-    var thumbnailURL: String
-    var videos: [Video]
+    private(set) var title: String
+    private(set) var description: String
+    private(set) var topicId: String
+    private(set) var topic: String
+    private(set) var thumbnailURL: String
+    private(set) var videos: [Video]
     
     var currentIndex: Int
     

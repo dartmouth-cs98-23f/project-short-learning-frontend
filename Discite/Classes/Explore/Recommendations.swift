@@ -23,41 +23,9 @@ struct RecommendationsData: Decodable {
 
 class Recommendations: ObservableObject {
     
-    @Published var topics: [Topic]?
-    @Published var fetchSuccessful: Bool = false
+    @Published private(set) var topics: [Topic] = []
     
-    enum CodingKeys: String, CodingKey {
-        case message
-        case topics
+    func load() async {
+        topics = await ExploreService.loadTopics()
     }
-    
-    func getTopics() -> [Topic]? {
-        return topics
-    }
-    
-    func load() async -> [Topic] {
-        do {
-            let topics = try await ExploreService.mockFetchTopics()
-            return topics
-        } catch {
-            print("Failed to load topics: \(error)")
-            return []
-        }
-    }
-    
-    // Calls endpoint for new recommendations
-    func fetchRecommendations() {
-        fetchSuccessful = false
-        
-        ExploreService.fetchRecommendations { recommendations in
-            self.topics = recommendations.topics
-            print("Recommendations loaded with \(recommendations.topics.count) topics.")
-            self.fetchSuccessful = true
-            
-        } failure: { error in
-            print("No recommendations: \(error)")
-        }
-
-    }
-    
 }

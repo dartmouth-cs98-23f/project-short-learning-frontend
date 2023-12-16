@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ExploreView: View {
-
-    @EnvironmentObject var context: MyContext
+    
+    @ObservedObject var sequence: Sequence
+    @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab
     @State var searchText: String = ""
     
@@ -27,25 +28,28 @@ struct ExploreView: View {
                 .foregroundColor(.primaryBlueNavy)
                 
                 // Section: Continue learning (current playlist)
-                if !context.playlists.isEmpty {
+                if let playlist = sequence.currentPlaylist() {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Continue learning").font(.H5)
-                        ContinueCard(playlist: context.playlists[context.currentIndex])
+                        ContinueCard(playlist: playlist)
                     }
                 }
                 
                 // Section: My interests (topics)
-                topicScrollSection(heading: "Recommended topics", topics: context.topics)
+                topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
                 
                 // Section: Continue learning (rest of playlists)
-                if context.playlists.count > 0 {
-                    playlistScrollSection(heading: "More in \(context.playlists[0].topic)",
-                                          playlists: context.playlists)
+                if let topic = sequence.topic {
+                    playlistScrollSection(heading: "More in \(topic)",
+                                          playlists: sequence.playlists)
                 }
                 
                 Spacer()
             }
             .padding(18)
+        }
+        .task {
+            await recommendations.load()
         }
 
     }

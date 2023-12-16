@@ -4,66 +4,42 @@
 //
 //  Created by Jessie Li on 11/2/23.
 //
+//  ViewModel for PlayerView, but owned by Navigator, because Sequence
+//  stores information that Explore also needs.
 
 import Foundation
 import AVKit
 import SwiftUI
 
-enum SequenceError: Error {
-    case emptySequence
-    case indexOutOfRange
-}
-
-extension SequenceError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .emptySequence:
-            return NSLocalizedString("Error.SequenceError.EmptySequence", comment: "Sequence error")
-        case .indexOutOfRange:
-            return NSLocalizedString("Error.SequenceError.IndexOutOfRange", comment: "Sequence error")
-        }
-    }
-}
-
-struct SequenceData: Decodable {
-    var playlists: [Playlist] = []
-    var topicId: String?
-    var topic: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case playlists
-        case topicId
-        case topic
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        playlists = try container.decode([Playlist].self, forKey: .playlists)
-        topicId = try container.decode(String.self, forKey: .topicId)
-        topic = try container.decode(String.self, forKey: .topic)
-        
-        if playlists.isEmpty {
-            throw SequenceError.emptySequence
-        }
-    }
-}
-
 class Sequence: ObservableObject {
     
-    @Published var player: AVPlayer = AVPlayer()
-    var playlists: [Playlist] = []
-    var topic: String?
-    var topicId: String?
-    var currentIndex: Int = 0 // Currently always 0, but could be useful later
+    @Published private(set) var playerItem: AVPlayerItem?
+    private(set) var player: AVPlayer = AVPlayer()
     
-    // MARK: Public Getters
+    private(set) var playlists: [Playlist] = []
+    private(set) var topic: String?
+    private(set) var topicId: String?
+    private(set) var currentIndex: Int = 0 // Currently always 0, but could be useful later
+    
+    public func load(topicId: String? = nil, numPlaylists: Int = 2) async {
+        playlists = await VideoService.loadPlaylists()
+        print("Sequence loaded.")
+            
+        if playlists.isEmpty {
+            print("Error: Empty sequence")
+            return
+        }
+        
+        playerItem = playlists[0].nextPlayerItem()
+        player.replaceCurrentItem(with: playerItem)
+        
+        self.topicId = playlists[0].topicId
+        self.topic = playlists[0].topic
+        
+    }
     
     public func length() -> Int {
         return playlists.count
-    }
-    
-    public func allPlaylists() -> [Playlist] {
-        return playlists
     }
     
     public func currentPlaylist() -> Playlist? {
@@ -74,29 +50,6 @@ class Sequence: ObservableObject {
         return currentPlaylist()?.currentVideo()
     }
     
-//    public func nextVideo() -> Video? {
-//        
-//        if playlists.isEmpty {
-//            print("Playlists is empty, replacing queue")
-//            // self.isLoading = true
-//            
-//            Task {
-//                // self.playlists = await load(topicId: topicId, numPlaylists: 2)
-//                // self.isLoading = false
-//            }
-//        }
-//        
-//        else if playlists[currentIndex].onLastVideo() {
-//            // Dequeue current playlist
-//            dequeuePlaylists()
-//            
-//            // Add playlist to end of sequence
-//            Task {
-//                await addPlaylist(topicId: topicId)
-//            }
-//        }
-//        
-//    }
 //    public func skipToPlaylist(index: Int) {
 //        
 //        if index > playlists.count - 1 {
@@ -172,53 +125,6 @@ class Sequence: ObservableObject {
         return nil
     }
     
-//    func nextVideo(swipeDirection: SwipeDirection) {
-//
-//        // If swiped right, keep playing the current sequence
-//        if swipeDirection == .right {
-//            
-//            // If queue is empty for whatever reason, fetch new sequence
-//            if playlists.isEmpty {
-//                print("Playlists is empty, replacing queue")
-//                addPlaylists(topic: topic, topicId: topicId)
-//
-//            // If current playlist is on last video
-//            } else if playlists[currentIndex].onLastVideo() {
-//                
-//                // Dequeue current playlist
-//                dequeuePlaylists()
-//                
-//                // Add playlist to end of sequence
-//                addPlaylists()
-//            }
-//        }
-//        
-//        // Skip current playlist
-//        else if swipeDirection == .left && !playlists.isEmpty {
-//                
-//            // Dequeue current video
-//            dequeuePlaylists()
-//                
-//            // Add playlist, but call with different parameters (TBD)
-//            addPlaylists()
-//        }
-//    
-//        // Make sure playlist is not empty
-//        if playlists.isEmpty {
-//            print("Error updating player: \(SequenceError.emptySequence.localizedDescription)")
-//            return
-//        }
-//        
-//        guard let nextVideo = playlists[currentIndex].nextVideo() else {
-//            print(PlaylistError.noNextVideo.localizedDescription)
-//            return
-//        }
-//        
-//        // Update next playerItem
-//        let playerItem = AVPlayerItem(url: URL(string: nextVideo.getURL())!)
-//        player.replaceCurrentItem(with: playerItem)
-//    }
-//    
     func addPlaylist(topicId: String? = nil) async {
         do {
             let playlist = try await VideoService.fetchPlaylist(topicId: topicId)
@@ -260,4 +166,20 @@ class Sequence: ObservableObject {
         playlists.removeFirst(numPlaylists)
     }
 
+}
+
+enum SequenceError: Error {
+    case emptySequence
+    case indexOutOfRange
+}
+
+extension SequenceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .emptySequence:
+            return NSLocalizedString("Error.SequenceError.EmptySequence", comment: "Sequence error")
+        case .indexOutOfRange:
+            return NSLocalizedString("Error.SequenceError.IndexOutOfRange", comment: "Sequence error")
+        }
+    }
 }
