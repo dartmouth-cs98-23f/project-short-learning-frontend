@@ -60,16 +60,3 @@ struct PlaylistCard: View {
         }
     }
 }
-
-//#Preview {
-//    do {
-//        Task {
-//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
-//            return PlaylistCard(tabSelection: .constant(Navigator.Tab.Explore), playlist: playlist, index: 0, width: 200, height: 150)
-//        }
-//        
-//    } catch {
-//        return Text("Error fetching playlist.")
-//    }
-//    
-//}

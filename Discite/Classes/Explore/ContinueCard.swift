@@ -75,14 +75,3 @@ struct ProgressArc: Shape {
         }
     }
 }
-
-//#Preview {
-//    Task {
-//        do {
-//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
-//            return ContinueCard(playlist: playlist)
-//        } catch {
-//            // return Text("Error fetching playlist.")
-//        }
-//    }
-//}

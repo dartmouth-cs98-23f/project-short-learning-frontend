@@ -116,15 +116,3 @@ struct DeepDiveOld: View {
     }
     
 }
-
-//#Preview {
-//    do {
-//        Task {
-//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
-//            return ContinueCard(playlist: playlist)
-//        }
-//        
-//    } catch {
-//        return Text("Error fetching playlist.")
-//    }
-//}

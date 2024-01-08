@@ -33,14 +33,3 @@ struct TopicCard: View {
         .cardWithShadow(width: 140, height: 150)
     }
 }
-
-//#Preview {
-//    let topic = ExploreService.fetchTestTopic()
-//    
-//    if topic != nil {
-//        return TopicCard(tabSelection: .constant(Navigator.Tab.Explore), topic: topic!)
-//    } else {
-//        return Text("Failed to fetch topic.")
-//    }
-//    
-//}

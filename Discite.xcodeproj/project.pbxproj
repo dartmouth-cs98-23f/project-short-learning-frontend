@@ -346,9 +346,9 @@
 		C2128A8D2ADB32A600E90C66 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				C2A3FF2D2B033F2D001EDE9F /* Testing */,
 				C2128A8F2ADB341400E90C66 /* LoginView.swift */,
 				C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */,
+				C2A3FF2D2B033F2D001EDE9F /* Testing */,
 			);
 			path = Login;
 			sourceTree = "<group>";

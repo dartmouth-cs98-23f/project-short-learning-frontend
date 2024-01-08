@@ -34,15 +34,3 @@ struct ShareCard: View {
 
     }
 }
-
-//#Preview {
-//    do {
-//        Task {
-//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
-//            return ShareCard(playlist: playlist)
-//        }
-//        
-//    } catch {
-//        return Text("Error fetching playlist.")
-//    }
-//}

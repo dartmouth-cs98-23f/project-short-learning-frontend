@@ -168,13 +168,3 @@ struct DeepDive: View {
     }
     
 }
-
-//#Preview {
-//    let playlist = VideoService.mockFetchPlaylist(topicId: nil)
-//    
-//    if playlist != nil {
-//        return DeepDive(playlist: playlist, isPresented: .constant(true))
-//    } else {
-//        return Text("No DeepDive preview available.")
-//    }
-//}

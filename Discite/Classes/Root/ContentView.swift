@@ -17,21 +17,7 @@ struct ContentView: View {
         
 //        if Auth.shared.loggedIn {
 //            if Auth.shared.onboarded {
-//                
 //                Navigator()
-//                    .environmentObject(context)
-//                    .task {
-//                        do {
-//                            async let sequence = VideoService.loadSequence()
-//                            async let topics = ExploreService.loadTopics()
-//                            
-//                            context.sequence = try await sequence
-//                            context.topics = await topics
-//                        } catch {
-//                            print("Failed to load context.")
-//                        }
-//                    }
-//
 //            } else {
 //                OnboardingView()
 //            }

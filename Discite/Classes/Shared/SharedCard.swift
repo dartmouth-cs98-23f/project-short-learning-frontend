@@ -55,19 +55,3 @@ struct SharedCard: View {
     }
 
 }
-
-//#Preview {
-//    let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
-//    
-//    do {
-//        Task {
-//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
-//            let sharedPlaylist1 = SharedPlaylist(id: "1", playlist: playlist, sender: sampleFriend, hasWatched: true)
-//            
-//            return SharedCard(sharedPlaylist: sharedPlaylist1).padding([.leading, .trailing], 24)
-//        }
-//        
-//    } catch {
-//        return Text("Error fetching playlist.")
-//    }
-//}

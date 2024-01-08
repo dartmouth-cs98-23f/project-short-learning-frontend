@@ -49,37 +49,14 @@ class Sequence: ObservableObject {
     public func currentVideo() -> Video? {
         return currentPlaylist()?.currentVideo()
     }
-    
-//    public func skipToPlaylist(index: Int) {
-//        
-//        if index > playlists.count - 1 {
-//            print(SequenceError.indexOutOfRange)
-//            return
-//        }
-//        
-//        if index <= 0 {
-//            return
-//        }
-//        
-//        // Fill in the back of the queue
-//        let numSkipped = index - currentIndex
-//        addPlaylists(numPlaylists: numSkipped)
-//        
-//        // Dequeue skipped playlists
-//        dequeuePlaylists(numPlaylists: index)
-//    
-//        // currentIndex should still be 0
-//    }
 
     func next(swipeDirection: SwipeDirection) {
         
         if playlists.isEmpty {
             print("Playlists is empty, replacing queue")
-            // self.isLoading = true
             
             Task {
-                // self.playlists = await load(topicId: topicId, numPlaylists: 2)
-                // self.isLoading = false
+                await addPlaylist(topicId: topicId)
             }
         }
         
@@ -97,7 +74,7 @@ class Sequence: ObservableObject {
         // Skip current playlist
         else if swipeDirection == .left {
             Task {
-                // self.playlists = await load(topicId: nil, numPlaylists: 2)
+                await addPlaylist()
             }
         }
         
@@ -114,7 +91,7 @@ class Sequence: ObservableObject {
         
         // Update next playerItem
         let playerItem = AVPlayerItem(url: URL(string: nextVideo.getURL())!)
-        // player.replaceCurrentItem(with: playerItem)
+        player.replaceCurrentItem(with: playerItem)
     }
 
     func currentVideo() -> AVPlayerItem? {
@@ -133,27 +110,6 @@ class Sequence: ObservableObject {
             print("Failed to add playlist: \(error)")
         }
     }
-//    
-//    func addPlaylists(topic: String? = nil, topicId: String? = nil, numPlaylists: Int = 1) {
-//        let query: PlaylistQuery = PlaylistQuery(topic: topic,
-//                                                 topicId: topicId,
-//                                                 numPlaylists: numPlaylists)
-//        self.fetchSuccessful = false
-//        self.isLoading = true
-//
-//        VideoService.fetchSequence(query: query) { sequence in
-//            self.playlists += sequence.playlists
-//            print("Sequence loaded with \(sequence.playlists.count) playlists.")
-//            self.topic = sequence.topic
-//            self.fetchSuccessful = true
-//            self.player.replaceCurrentItem(with: self.currentVideo())
-//            self.isLoading = false
-//            
-//        } failure: { error in
-//            print("Couldn't fetch sequence from specified topic: \(error)")
-//        }
-//
-//    }
 
     private func dequeuePlaylists(numPlaylists: Int = 1) {
         print("Dequeuing \(numPlaylists) playlists...")

@@ -36,6 +36,9 @@ struct PlayerView: View {
                         let swipeDirection = swipeDirection(value: value)
                         
                         switch swipeDirection {
+                        case .right:
+                            print("Swiped right, next video.")
+                        
                         case .left:
                             print("Swiped left to skip current playlist.")
                             removeVideoEndedNotification()
@@ -53,78 +56,7 @@ struct PlayerView: View {
                 )
         }
         
-//        if let sequence = context.sequence {
-//            VideoPlayer(player: sequence.player)
-//                .edgesIgnoringSafeArea(.all)
-//                .onAppear {
-//                    print("Player appeared.")
-//                    addVideoEndedNotification()
-//                    sequence.player.play()
-//                }
-//                .onDisappear {
-//                    print("Player disappeared.")
-//                    sequence.player.pause()
-//                    removeVideoEndedNotification()
-//                }
-//                .gesture(DragGesture(minimumDistance: 10)
-//                    .onEnded({ value in
-//                        let swipeDirection = swipeDirection(value: value)
-//                        
-//                        switch swipeDirection {
-//                        case .right:
-//                            print("Swiped right for next video.")
-//                            // Move to the next video
-//                            removeVideoEndedNotification()
-//                            sequence.next(swipeDirection: .right)
-//                            addVideoEndedNotification()
-//                            
-//                        case .left:
-//                            print("Swiped left to skip current playlist.")
-//                            // Skip current playlist
-//                            removeVideoEndedNotification()
-//                            // sequence.next(swipeDirection: .left)
-//                            
-//                            Task {
-//                                do {
-//                                    context.sequence = try await VideoService.loadSequence()
-//                                    addVideoEndedNotification()
-//                                    context.sequence.player.play()
-//                                    
-//                                } catch {
-//                                    print("Failed to load a new sequence.")
-//                                }
-//                            }
-//                            
-//                        case .up:
-//                            // Show DeepDive
-//                            sequence.player.pause()
-//                            showingDeepDive = true
-//                            
-//                        default:
-//                            print("No action required.")
-//                        }
-//                    })
-//                )
-//                .sheet(isPresented: $showingDeepDive, onDismiss: deepDiveDismissed, content: {
-//                    let currentPlaylist = sequence.currentPlaylist()
-//                    if currentPlaylist != nil {
-//                        DeepDive(playlist: currentPlaylist!, isPresented: $showingDeepDive)
-//                    } else {
-//                        Text("No DeepDive to show.")
-//                    }
-//                })
-//            
-//        } else {
-//            Loading()
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .background(Color.primaryBlueBlack)
-//        }
-
     }
-    
-//    func deepDiveDismissed() {
-//        sequence.player.play()
-//    }
     
     func play() {
         addVideoEndedNotification()
