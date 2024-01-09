@@ -150,24 +150,3 @@ struct ShareRepresentable: UIViewControllerRepresentable {
     }
 }
 
-// #Preview {
-//    var friends: [Friend] = []
-//    
-//    for i in (1..<5) {
-//        friends.append(Friend(id: "\(i)", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle"))
-//    }
-//    
-//    let sampleFriend = Friend(id: "1", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle")
-//    
-//    do {
-//        Task {
-//            let playlist = try await VideoService.mockFetchPlaylist(topicId: nil)
-//            let sharedPlaylist = SharedPlaylist(id: "1", playlist: playlist, sender: sampleFriend, hasWatched: false)
-//            return Share(playlist: sharedPlaylist, friends: friends, isShowing: .constant(true))
-//        }
-//        
-//    } catch {
-//        return Text("Error fetching playlist.")
-//    }
-//    
-// }
