@@ -14,58 +14,49 @@ struct PlaylistCard: View {
     
     var playlist: Playlist
     var index: Int
+    var width: CGFloat
+    var height: CGFloat
     
     var body: some View {
         Button {
-                // Update sequence on click
-                sequence.skipToPlaylist(index: index)
+                // TODO: Update sequence on click
                 tabSelection = .Watch
                 
         } label: {
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(playlist.title)
-                        .font(Font.H5)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+            ZStack {
+                AsyncImage(url: URL(string: playlist.thumbnailURL)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
                     
-                    SaveButton(action: { }, isSaved: false)
+                } placeholder: {
+                    Rectangle()
+                        .fill(Color.grayNeutral)
+                        .frame(maxHeight: .infinity)
                 }
+      
+                Color.black.opacity(0.6)
                 
-                Spacer()
-                
-                VStack(alignment: .leading) {
-                    Text("\(playlist.length()) videos")
-                        .font(Font.small)
-                    
-                    HStack {
-                        let fractionComplete = Double((playlist.getCurrentIndex())/playlist.length())
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack(alignment: .top) {
+                        Text(playlist.title)
+                            .font(Font.H5)
+                            .multilineTextAlignment(.leading)
                         
-                        ZStack(alignment: .leading) {
-                            RoundedRectangle(cornerRadius: 1)
-                                .fill(Color.lightGray)
-                                .frame(width: 250, height: 4)
-                            RoundedRectangle(cornerRadius: 1)
-                                .fill(Color.primaryDarkNavy)
-                                .frame(width: 250 * fractionComplete, height: 4)
-                        }
-                        
+                        SaveButton(action: { }, isSaved: false)
+                            .padding(.top, 4)
                     }
                     
+                    Text("\(playlist.length()) videos")
+                        .font(Font.small)
                 }
-            }.padding(24)
+                .padding([.top, .bottom], 32)
+                .padding([.leading, .trailing], 12)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .foregroundColor(.secondaryPeachLight)
+            }
+            .frame(width: 230, height: 150)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .cardButtonFrame(width: 300, height: 150)
     }
-}
-
-#Preview {
-    let playlist = VideoService.fetchTestPlaylist(topicId: nil)
-    
-    if playlist != nil {
-        return PlaylistCard(tabSelection: .constant(Navigator.Tab.Explore), playlist: playlist!, index: 0)
-    } else {
-        return Text("Failed to fetch playlist.")
-    }
-    
 }

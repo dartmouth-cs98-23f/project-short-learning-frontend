@@ -23,15 +23,25 @@ enum HTTPMethod: String {
 }
 
 enum APIError: Error {
+    case invalidURL
     case invalidJSON
     case requestFailed
     case noInternet
     case unknownError
 }
 
+struct APIConfiguration {
+    static let scheme: String = "http"
+    static let host: String = "18.215.28.176"
+    // static let host: String = "localhost"
+    static let port: Int? = 3000
+}
+
 extension APIError: LocalizedError {
     public var errorDescription: String? {
         switch self {
+        case .invalidURL:
+            return NSLocalizedString("Error.APIError.InvalidURL", comment: "API error")
         case .invalidJSON:
             return NSLocalizedString("Error.APIError.InvalidJSON", comment: "API error")
         case .requestFailed:
@@ -46,6 +56,96 @@ extension APIError: LocalizedError {
 
 class APIRequest<Parameters: Encodable, Model: Decodable> {
     
+    static func apiRequest(
+        method: HTTPMethod,
+        scheme: String = APIConfiguration.scheme,
+        host: String = APIConfiguration.host,
+        authorized: Bool,
+        port: Int? = APIConfiguration.port,
+        path: String,
+        parameters: Parameters? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String]? = nil) async throws -> Model {
+        
+            if !NetworkMonitor.shared.isReachable {
+                throw APIError.noInternet
+            }
+            
+            // Construct URL
+            var components = URLComponents()
+            components.host = host
+            components.path = path
+            components.port = port
+            
+            if queryItems != nil {
+                components.queryItems = queryItems
+            }
+            
+            guard let url = components.url else {
+                throw APIError.invalidURL
+            }
+            
+            // Construct the request: method, body, and headers
+            var request = URLRequest(url: url)
+            request.httpMethod = method.rawValue
+            
+            if headers != nil {
+                for header in headers! {
+                    request.addValue(header.value, forHTTPHeaderField: header.key)
+                }
+            } else {
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            }
+            
+            if parameters != nil {
+                request.httpBody = try? JSONEncoder().encode(parameters)
+            }
+            
+            if authorized, let token = Auth.shared.getToken() {
+                request.addValue("\(token)", forHTTPHeaderField: "Authorization")
+            }
+            
+            // Make request
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            let httpResponse = response as? HTTPURLResponse
+            guard (200..<300).contains(httpResponse?.statusCode ?? 520) else {
+                throw APIError.requestFailed
+            }
+            
+            let decoded = try CustomJSONDecoder.shared.decode(Model.self, from: data)
+            return decoded
+    }
+    
+    static func mockAPIRequest(_ type: Model.Type,
+                               forResource: String,
+                               withExtension: String) async throws -> Model {
+        
+        let decoder = CustomJSONDecoder()
+        
+        // Find path to resource
+        guard let path = Bundle.main.url(forResource: forResource, withExtension: withExtension) else {
+            print("Couldn't locate local resource.")
+            throw APIError.unknownError
+        }
+        
+        do {
+            guard let data = try? Data(contentsOf: path) else {
+                print("Failed to load data from path URL.")
+                throw APIError.unknownError
+            }
+            
+            let result = try decoder.decode(type.self, from: data)
+            return result
+
+        } catch {
+            print(String(describing: error))
+            throw APIError.invalidJSON
+        }
+    }
+    
+    // MARK: Drafts
+    
     static func call(
         scheme: String,
         host: String,
@@ -53,13 +153,12 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         port: Int? = nil,
         method: HTTPMethod,
         authorized: Bool,
-        queryItems: [URLQueryItem]? = nil,
         parameters: Encodable? = nil,
+        queryItems: [URLQueryItem]? = nil,
         headerFields: [String: String]? = nil,
         completion: @escaping CompletionHandler,
         failure: @escaping FailureHandler
     ) {
-        
         if !NetworkMonitor.shared.isReachable {
             return failure(.noInternet)
         }
@@ -89,18 +188,16 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             }
             
         } else {
-            // For the mock server
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            // request.addValue("true", forHTTPHeaderField: "x-mock-match-request-body")
+            // request.addValue("application/json", forHTTPHeaderField: "Accept")
         }
         
         if let parameters = parameters {
-            print(parameters)
             request.httpBody = try? JSONEncoder().encode(parameters)
         }
         
         if authorized, let token = Auth.shared.getToken() {
+            // request.addValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTUzZDE2YjIzYWUxODQxYzFhYjI5M2IiLCJpYXQiOjE2OTk5OTE5MTU2OTh9.LUONbCbcrC_KOV0IHW1ldcjuwBdwWxxpGgN7qe6XCds", forHTTPHeaderField: "Authorization")
             request.addValue("\(token)", forHTTPHeaderField: "Authorization")
         }
         
@@ -109,11 +206,24 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         
         // Make the request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard (response as? HTTPURLResponse)?.statusCode == 200 else { return }
+            
+            let httpResponse = response as? HTTPURLResponse
+            
+            guard httpResponse?.statusCode == 200 else {
+                print("Error: \(httpResponse?.statusCode ?? 520)")
+                failure(APIError.requestFailed)
+                return
+            }
                         
             if let data = data {
-                completion(data)
+                print("APIRequest received data, passing to a Service.")
+                
+                DispatchQueue.main.async {
+                    completion(data)
+                }
+                
             } else if error != nil {
+                print(String(describing: error))
                 failure(APIError.requestFailed)
             }
         }

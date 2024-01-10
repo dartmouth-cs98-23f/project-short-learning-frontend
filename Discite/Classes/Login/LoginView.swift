@@ -28,7 +28,7 @@ struct LoginView: View {
                         Spacer()
                     }
                     if viewModel.error != nil {
-                        Text("Invalide Email or Password")
+                        Text("Invalid Email or Password")
                             .foregroundStyle(.red)
                             .bold()
                             .frame(alignment: .leading)
@@ -56,10 +56,10 @@ struct LoginView: View {
                             .foregroundColor(.red)
                     }
                     
-                    Button("Login.Button.Text") {
+                    PrimaryActionButton(action: {
                         viewModel.login()
-                    }
-                    .modifier(PrimaryButton())
+                        
+                    }, label: "Login.Button.Text", disabled: false)
                     .frame(width: geometry.size.width-20, height: 50)
                     
                     HStack {

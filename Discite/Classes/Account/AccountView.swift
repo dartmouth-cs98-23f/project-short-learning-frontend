@@ -26,12 +26,12 @@ struct AccountView: View {
         .onDisappear {
             print("Account disappear")
         }
-        Button("Home.LogoutButton.Title") {
-                        viewModel.logout()
-                        print("Logged out")
-                        print(Auth.shared.loggedIn)
-                    }
-                    .modifier(PrimaryButton(color: Color.red))
+        
+        PrimaryActionButton(action: {
+            viewModel.logout()
+            print("Logged out.")
+        }, label: "Home.LogoutButton.Title", disabled: false)
+        
     }
     
 }

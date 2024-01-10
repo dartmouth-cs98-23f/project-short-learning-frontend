@@ -96,11 +96,12 @@ struct SignupView: View {
                     .frame(width: geometry.size.width-20, height: 50)
                     .background(Color.black.opacity(0.05))
                     
-                    Button("Sign up") {
+                    PrimaryActionButton(action: {
                         signupModel.signup()
-                    }
-                    .modifier(PrimaryButton())
-                    .frame(width: geometry.size.width - 20, height: 50)
+                        
+                    }, label: "Sign up", disabled: false)
+                    .frame(width: geometry.size.width-20, height: 50)
+                    
                     HStack {
                         Text("Already have an account?")
                         NavigationLink(destination: LoginView()) {

@@ -7,8 +7,7 @@
 
 import Foundation
 
-class Recommendations: Decodable, ObservableObject {
-    
+struct RecommendationsData: Decodable {
     var topics: [Topic]
     
     enum CodingKeys: String, CodingKey {
@@ -16,23 +15,17 @@ class Recommendations: Decodable, ObservableObject {
         case topics
     }
     
-    // MARK: Initializer
-    
-    required init(from decoder: Decoder) throws {
-
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         topics = try container.decode([Topic].self, forKey: .topics)
     }
+}
+
+class Recommendations: ObservableObject {
     
-    // MARK: Public Methods
+    @Published private(set) var topics: [Topic] = []
     
-    func getTopics() -> [Topic] {
-        return topics
+    func load() async {
+        topics = await ExploreService.loadTopics()
     }
-    
-    // Calls endpoint for new recommendations
-    func updateRecommendations() {
-        // Placeholder for now
-    }
-    
 }

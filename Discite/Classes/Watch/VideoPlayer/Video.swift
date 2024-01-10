@@ -45,4 +45,8 @@ struct Video: Decodable, Identifiable {
         return videoURL
     }
     
+    public func getPlayerItem() -> AVPlayerItem {
+        return AVPlayerItem(url: URL(string: videoURL)!)
+    }
+    
 }

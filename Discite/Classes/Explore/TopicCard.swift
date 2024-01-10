@@ -16,31 +16,20 @@ struct TopicCard: View {
     
     var body: some View {
         Button {
-            // Update sequence on click
-            sequence.replaceQueueWithTopic(topicId: topic.topicName)
+            // TODO: Update sequence on click
+            
             tabSelection = .Watch
-                
+            
         } label: {
             VStack(spacing: 12) {
                 Image(systemName: topic.thumbnailURL)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
-                Text(topic.topicName)
+                Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
                     .font(Font.button)
             }
         }
-        .cardButtonFrame(width: 140, height: 150)
+        .cardWithShadow(width: 140, height: 150)
     }
-}
-
-#Preview {
-    let topic = ExploreService.fetchTestTopic()
-    
-    if topic != nil {
-        return TopicCard(tabSelection: .constant(Navigator.Tab.Explore), topic: topic!)
-    } else {
-        return Text("Failed to fetch topic.")
-    }
-    
 }

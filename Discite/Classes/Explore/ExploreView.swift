@@ -8,37 +8,56 @@
 import SwiftUI
 
 struct ExploreView: View {
-
-    @EnvironmentObject var sequence: Sequence
-    @EnvironmentObject var recommendations: Recommendations
+    
+    @ObservedObject var sequence: Sequence
+    @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab
+    @State var searchText: String = ""
     
     var body: some View {
-        
+
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 24) {
                 
                 Text("Explore.Title")
                     .font(Font.H2)
                     .padding(.top, 18)
                 
-                // Section: My interests (topics)
-                topicScrollSection(heading: "My interests", topics: recommendations.getTopics())
+                SearchBar(placeholder: "Search for topics and playlists",
+                          text: $searchText)
+                .foregroundColor(.primaryBlueNavy)
                 
-                // Section: Continue learning (playlists)
-                playlistScrollSection(heading: "Continue learning", playlists: sequence.allPlaylists())
+                // Section: Continue learning (current playlist)
+                if let playlist = sequence.currentPlaylist() {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Continue learning").font(.H5)
+                        ContinueCard(playlist: playlist)
+                    }
+                }
+                
+                // Section: My interests (topics)
+                topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
+                
+                // Section: Continue learning (rest of playlists)
+                if let topic = sequence.topic {
+                    playlistScrollSection(heading: "More in \(topic)",
+                                          playlists: sequence.playlists)
+                }
                 
                 Spacer()
             }
-            .padding(32)
+            .padding(18)
+        }
+        .task {
+            await recommendations.load()
         }
 
     }
     
     // Horizontally scrolling list of topics
     func topicScrollSection(heading: String, topics: [Topic]) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(heading).font(Font.H4)
+        VStack(alignment: .leading, spacing: 12) {
+            Text(heading).font(Font.H5)
 
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
@@ -46,40 +65,23 @@ struct ExploreView: View {
                         TopicCard(tabSelection: $tabSelection, topic: topic)
                     }
                 }
-                .padding([.bottom, .top], 18)
             }
             
         }
     }
     
     func playlistScrollSection(heading: String, playlists: [Playlist]) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(heading).font(Font.H4)
+        VStack(alignment: .leading, spacing: 12) {
+            Text(heading).font(Font.H5)
 
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
                     ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
-                        PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index)
+                        PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index, width: 200, height: 150)
                     }
                 }
-                .padding([.bottom, .top], 18)
             }
-            
         }
     }
     
-}
-
-#Preview {
-    
-    let recommendations = ExploreService.fetchTestRecommendations()
-    let sequence = VideoService.fetchTestSequence()
-    
-    if recommendations != nil && sequence != nil {
-        return ExploreView(tabSelection: .constant(Navigator.Tab.Explore))
-            .environmentObject(recommendations!)
-            .environmentObject(sequence!)
-    } else {
-        return Text("No topics to show.")
-    }
 }

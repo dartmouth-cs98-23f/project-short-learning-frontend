@@ -10,39 +10,25 @@ import SwiftUI
 
 class ExploreService {
     
-    static let shared: ExploreService = ExploreService()
-    
-    static func fetchTestRecommendations() -> Recommendations? {
-        
-        print("Fetching test recommendations...")
-
+    static func loadTopics() async -> [Topic] {
         do {
-            let recommendations = try getSampleData(Recommendations.self,
-                                        forResource: "samplerecommendations",
-                                        withExtension: "json")
-            
-            print("Got sample recommendations, returning it.")
-            return recommendations
-            
+            let topics = try await ExploreService.mockFetchTopics()
+            return topics
         } catch {
-            print("Couldn't get sample recommendations: \(error)")
-            return nil
+            print("Failed to load topics: \(error)")
+            return []
         }
     }
     
-    static func fetchTestTopic() -> Topic? {
+    static func mockFetchTopics() async throws -> [Topic] {
+        print("TEST: Fetching topics...")
         
-        print("Fetching test topic...")
+        let recommendationsData = try await APIRequest<EmptyRequest, RecommendationsData>
+            .mockAPIRequest(RecommendationsData.self,
+                            forResource: "samplerecommendations",
+                            withExtension: "json")
         
-        do {
-            let topic = try getSampleData(Topic.self, forResource: "sampletopic", withExtension: "json")
-            
-            print("Got sample topic, returning it.")
-            return topic
-            
-        } catch {
-            print("Couldn't get sample topic: \(error)")
-            return nil
-        }
+        return recommendationsData.topics
     }
+    
 }

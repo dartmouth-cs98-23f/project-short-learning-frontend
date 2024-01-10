@@ -14,11 +14,12 @@ class Auth: ObservableObject {
     enum AuthError: Error {
         case noToken
         case setToken
+        case failedOnboard
     }
     
     enum KeychainKey: String {
         case token
-        case userId
+        case onboarded
     }
     
     static let shared: Auth = Auth()
@@ -30,7 +31,6 @@ class Auth: ObservableObject {
     
     private init() {
         loggedIn = hasToken()
-        onboarded = false
     }
     
     // Stores token in keychain
@@ -39,9 +39,10 @@ class Auth: ObservableObject {
         
         let success = keychain.set(token!, forKey: KeychainKey.token.rawValue)
         guard success else { throw AuthError.setToken }
-        DispatchQueue.main.async {
-            Auth.shared.loggedIn = true
-        }
+        Auth.shared.loggedIn = true
+//        DispatchQueue.main.async {
+//            Auth.shared.loggedIn = true
+//        }
     }
     
     func hasToken() -> Bool {
@@ -55,5 +56,6 @@ class Auth: ObservableObject {
     func logout() {
         keychain.removeObject(forKey: KeychainKey.token.rawValue)
         loggedIn = false
+        onboarded = false
     }
 }

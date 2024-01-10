@@ -15,18 +15,57 @@ struct CardButtonFrame: View {
         } label: {
             Text("Button")
         }
-        .cardButtonFrame(width: 200, height: 200)
+        .cardWithShadow(width: 200, height: 200)
+        
+        Button {
+            // Update sequence on click
+            
+        } label: {
+            Text("Button")
+        }
+        .cardWithShadowPressed(maxWidth: 200, maxHeight: 200)
     }
 }
 
-extension Button {
-    public func cardButtonFrame(width: CGFloat, height: CGFloat) -> some View {
+extension View {
+    
+    public func cardFrame(width: CGFloat, height: CGFloat) -> some View {
         self.frame(width: width, height: height)
-            .background(Color.secondaryLightestBlue)
+            .background(Color.primaryPurpleLightest)
             .foregroundColor(Color.primaryBlueBlack)
             .cornerRadius(10)
-            .shadow(color: Color.lightGray, radius: 2, x: 1, y: 4)
-            .padding([.bottom, .top], 12)
+    }
+    
+    public func cardFramePressed(width: CGFloat, height: CGFloat) -> some View {
+        self.frame(width: width, height: height)
+            .addGradient(gradient: LinearGradient.blueBlackLinear)
+            .foregroundColor(Color.primaryPurpleLight)
+            .cornerRadius(10)
+    }
+    
+    public func cardWithShadow(width: CGFloat, height: CGFloat) -> some View {
+        self.frame(width: width, height: height)
+            .background(Color.primaryBlueLightest)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+            .cardOuterShadow()
+    }
+    
+    public func cardWithShadow(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
+        self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
+            .background(Color.primaryBlueLightest)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+            .cardOuterShadow()
+    }
+    
+    public func cardWithShadowPressed(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
+        self.frame(maxWidth: maxWidth, maxHeight: maxHeight)
+            .cardInnerShadow()
+            .background(Color.grayLight)
+            .foregroundColor(Color.primaryBlueBlack)
+            .cornerRadius(10)
+        
     }
 }
 

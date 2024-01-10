@@ -36,14 +36,6 @@ struct OnboardResponse: Decodable {
     let playlists: [Playlist]
 }
 
-class AuthConfig {
-    static let shared = AuthConfig()
-    
-    let scheme: String = "http"
-    let host: String = "18.215.28.176" // must be running backend on localhost:3000
-    let port: Int? = 3000
-}
-
 struct AuthenticationService {
     struct LoginService {
         
@@ -56,10 +48,10 @@ struct AuthenticationService {
             failure: @escaping (APIError) -> Void
         ) {
             APIRequest<LoginRequest, AuthResponseData>.call(
-                scheme: AuthConfig.shared.scheme,
-                host: AuthConfig.shared.host,
+                scheme: APIConfiguration.scheme,
+                host: APIConfiguration.host,
                 path: path,
-                port: AuthConfig.shared.port,
+                port: APIConfiguration.port,
                 method: method,
                 authorized: false,
                 parameters: parameters) { data in
@@ -88,10 +80,10 @@ struct AuthenticationService {
             failure: @escaping (APIError) -> Void
         ) {
             APIRequest<SignupRequest, AuthResponseData>.call(
-                scheme: AuthConfig.shared.scheme,
-                host: AuthConfig.shared.host,
+                scheme: APIConfiguration.scheme,
+                host: APIConfiguration.host,
                 path: path,
-                port: AuthConfig.shared.port,
+                port: APIConfiguration.port,
                 method: method,
                 authorized: false,
                 parameters: parameters) { data in
@@ -119,10 +111,10 @@ struct AuthenticationService {
             failure: @escaping (APIError) -> Void
         ) {
             APIRequest<OnboardRequest, OnboardResponse>.call(
-                scheme: AuthConfig.shared.scheme,
-                host: AuthConfig.shared.host,
+                scheme: APIConfiguration.scheme,
+                host: APIConfiguration.host,
                 path: path,
-                port: AuthConfig.shared.port,
+                port: APIConfiguration.port,
                 method: method,
                 authorized: true,
                 parameters: parameters
@@ -131,7 +123,7 @@ struct AuthenticationService {
                         let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
                         
                         try completion(response)
-                        Auth.shared.onboarded=true
+                        // Auth.shared.onboarded = true
                     } catch {
                         failure(.invalidJSON)
                     }

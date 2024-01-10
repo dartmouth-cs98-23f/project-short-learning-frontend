@@ -10,6 +10,7 @@ import SwiftUI
 struct Navigator: View {
     
     @State private var selection: Tab = .Watch
+    @StateObject var sequence = Sequence()
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
@@ -32,12 +33,20 @@ struct Navigator: View {
         
         VStack(spacing: 0) {
             switch selection {
+            
             case .Watch:
-                PlayerView()
+                if sequence.playerItem != nil {
+                    PlayerView(sequence: sequence)
+                } else {
+                    Loading()
+                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                         .background(Color.primaryBlueBlack)
+                }
+
             case .Explore:
-                ExploreView(tabSelection: $selection)
+                ExploreView(sequence: sequence, tabSelection: $selection)
             case .Shared:
-                SharedView()
+                Shared()
             case .Account:
                 AccountView()
             }
@@ -51,27 +60,15 @@ struct Navigator: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: 24)
-                            .foregroundColor(selection == .Watch ? .secondaryLightPeach : .primaryBlueBlack)
+                            .foregroundColor(selection == .Watch ? .secondaryPeachLight : .primaryBlueBlack)
                     }
                 }
             }
             .padding(.top, 18)
             .background(selection == .Watch ? .black : .white)
         }
+        .task {
+            await sequence.load()
+        }
     }
-}
-
-#Preview {
-    
-    let sequence = VideoService.fetchTestSequence()
-    let recommendations = ExploreService.fetchTestRecommendations()
-    
-    if sequence != nil && recommendations != nil {
-        return Navigator()
-            .environmentObject(sequence!)
-            .environmentObject(recommendations!)
-    } else {
-        return Text("Error fetching sequence or recommendations.")
-    }
-    
 }

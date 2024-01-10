@@ -11,6 +11,10 @@ import SwiftUI
 struct OnboardingView: View {
     @ObservedObject var viewModel: OnboardingViewModel = OnboardingViewModel()
     @ObservedObject var auth = Auth.shared
+    
+    // @Binding var isShowing: Bool
+    // @Binding var isSigningUp: Bool
+    
     @State private var columns: [GridItem] = [
         GridItem(.flexible(minimum: 100, maximum: 200), spacing: 50)
     ]
@@ -57,10 +61,16 @@ struct OnboardingView: View {
                     Button(action: {Auth.shared.logout()}, label: { Text("logout")})
                     Button(action: {
                         viewModel.send()
+                        
+                        if viewModel.error == nil {
+                            // isShowing = false
+                            // isSigningUp = false
+                        }
+                        
                     }, label: {
                         Text("Submit")
                             .frame(width: geometry.size.width-32, height: 50)
-                            .background(Color.primaryDarkNavy)
+                            .background(Color.primaryBlueNavy)
                             .foregroundColor(.white)
                             .padding()
                     })
@@ -84,6 +94,7 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
+        // OnboardingView(isShowing: .constant(false), isSigningUp: .constant(true))
         OnboardingView()
     }
 }

@@ -6,6 +6,8 @@
   
 */
 
+"Logo.Subtitle" = "Bite-sized content for the modern learner.";
+
 "Login.UsernameOrEmailField.Title" = "Username or email";
 "Login.PasswordField.Title" = "Password";
 "Login.Button.Text" = "Log In";
@@ -18,6 +20,9 @@
 "Explore.Title" = "Explore";
 "Explore.Topics.Title" = "My interests";
 
+"Shared.Title" = "Shared With Me";
+
+"Error.APIError.InvalidURL" = "Could not construct request URL.";
 "Error.APIError.InvalidJSON" = "Unable to decode response JSON.";
 "Error.APIError.RequestFailed" = "API request failed.";
 "Error.APIError.NoInternet" = "No internet.";

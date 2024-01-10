@@ -1,21 +1,15 @@
 //
-//  Buttons.swift
+//  IconButtons.swift
 //  Discite
 //
-//  Created by Jessie Li on 11/1/23.
+//  Created by Jessie Li on 11/13/23.
 //
 
 import SwiftUI
 
-struct Buttons: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
 struct AccentPlayButton: View {
     let action: () -> Void
-    let label: String
+    let label: String?
     
     var body: some View {
         Button(action: action) {
@@ -23,12 +17,13 @@ struct AccentPlayButton: View {
                 Image(systemName: "play.circle.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 80)
                     .addGradient(gradient: LinearGradient.pinkOrangeGradient)
                 
-                Text(label)
-                    .foregroundColor(Color.secondaryPink)
-                    .font(Font.captionBold)
+                if label != nil {
+                    Text(label!)
+                        .foregroundColor(Color.secondaryPink)
+                        .font(Font.captionBold)
+                }
             }
         }
     }
@@ -43,13 +38,27 @@ struct ShareButtonLabeled: View {
                 Image(systemName: "paperplane")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryBlue)
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.primaryBlueNavy)
                 
                 Text("Share")
-                    .foregroundColor(.primaryBlue)
+                    .foregroundColor(.primaryBlueNavy)
                     .font(.button)
             }
+        }
+    }
+}
+
+struct ShareButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "paperplane")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .foregroundColor(.primaryBlueNavy)
         }
     }
 }
@@ -64,11 +73,11 @@ struct SaveButtonLabeled: View {
                 Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.primaryBlue)
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.primaryBlueNavy)
                 
                 Text("Save")
-                    .foregroundColor(.primaryBlue)
+                    .foregroundColor(.primaryBlueNavy)
                     .font(.button)
             }
         }
@@ -84,13 +93,12 @@ struct SaveButton: View {
             Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 28, height: 28)
-                .foregroundColor(.primaryDarkNavy)
+                .frame(width: 20, height: 20)
         }
     }
 }
 
-struct Buttons_Previews: PreviewProvider {
+struct IconButtons_Previews: PreviewProvider {
     static var previews: some View {
         AccentPlayButton(action: { }, label: "PLAY")
             .previewDisplayName("Accent Play")
@@ -135,18 +143,18 @@ struct PreferenceButton: View {
                 Spacer()
             }
             .frame(width: frameWidth, height: 130)
-            .foregroundColor(viewModel.topics.contains(topic) == true ? .white : Color.primaryDarkNavy)
+            .foregroundColor(viewModel.topics.contains(topic) == true ? .white : Color.primaryBlueNavy)
             .cornerRadius(10)
             .font(.small)
             .accentColor(Color.blue)
             .disabled(viewModel.topics.count == 0)
         }
         .padding()
-        .background(viewModel.topics.contains(topic) == true ? LinearGradient(colors: [Color.blue, Color.primaryDarkNavy], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [.white], startPoint: .topLeading, endPoint: .bottomTrailing))
+        .background(viewModel.topics.contains(topic) == true ? LinearGradient(colors: [Color.blue, Color.primaryBlueNavy], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [.white], startPoint: .topLeading, endPoint: .bottomTrailing))
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.primaryDarkNavy, lineWidth: 2)
+                .stroke(Color.primaryBlueNavy, lineWidth: 2)
         )
     }
 }
