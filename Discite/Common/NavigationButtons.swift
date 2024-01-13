@@ -25,8 +25,9 @@ struct PrimaryNavigationButton<Content: View>: View {
         NavigationLink(destination: destination) {
             Text(label)
                 .font(Font.H6)
-                .frame(maxWidth: .infinity, maxHeight: 48)
+                .frame(maxWidth: .infinity)
                 .foregroundColor(.white)
+                .padding([.top, .bottom], 12)
         }
         .background(disabled ? Color.grayNeutral : Color.primaryBlueBlack)
         .disabled(disabled)
@@ -52,16 +53,17 @@ struct SecondaryNavigationButton<Content: View>: View {
         NavigationLink(destination: destination) {
             Text(label)
                 .font(Font.H6)
-                .frame(maxWidth: .infinity, maxHeight: 48)
+                .frame(maxWidth: .infinity)
                 .foregroundColor(disabled ? .grayNeutral : .primaryBlueBlack)
+                .padding([.top, .bottom], 12)
+                .cornerRadius(5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .strokeBorder(disabled ? Color.grayNeutral : Color.primaryBlueBlack,
+                                lineWidth: 3)
+                )
         }
         .disabled(disabled)
-        .cornerRadius(5)
-        .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(disabled ? Color.grayNeutral : Color.primaryBlueBlack,
-                        lineWidth: 3)
-        )
     }
 }
 
@@ -94,4 +96,5 @@ struct TextualNavigationButton<Content: View>: View {
         SecondaryNavigationButton(destination: { Welcome() }, label: "Secondary")
         TextualNavigationButton(destination: { Welcome() }, label: "Textual")
     }
+    .padding([.leading, .trailing], 12)
 }
