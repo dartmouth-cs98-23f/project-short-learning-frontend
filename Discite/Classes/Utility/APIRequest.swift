@@ -71,6 +71,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             
             // Construct URL
             var components = URLComponents()
+            components.scheme = scheme
             components.host = host
             components.path = path
             components.port = port
@@ -160,15 +161,16 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
                 ]
             }
             
-            let response = try await apiRequest(method: method,
-                   scheme: APIConfiguration.scheme,
-                   host: "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io",
-                   authorized: authorized,
-                   port: nil,
-                   path: path,
-                   parameters: parameters,
-                   queryItems: queryItems,
-                   headers: mockHeaders)
+            let response = try await apiRequest(
+                method: method,
+                scheme: "https",
+                host: "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io",
+                authorized: authorized,
+                port: nil,
+                path: path,
+                parameters: parameters,
+                queryItems: queryItems,
+                headers: mockHeaders)
         
             return response
     }

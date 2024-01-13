@@ -44,7 +44,7 @@ struct Signup: View {
                                     await viewModel.signup()
                                 }
                             },
-                            label: "Log in",
+                            label: "Sign up",
                             disabled: viewModel.email.count == 0 || viewModel.password.count == 0)
                         
                         HStack {

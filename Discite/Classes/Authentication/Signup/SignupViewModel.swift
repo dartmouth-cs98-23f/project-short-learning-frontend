@@ -31,8 +31,8 @@ class SignupViewModel: ObservableObject {
                 parameters: SignupRequest(
                     username: username.lowercased(),
                     email: email,
-                    firstName: firstname.lowercased(),
-                    lastName: lastname.lowercased(),
+                    firstName: firstname,
+                    lastName: lastname,
                     password: password,
                     birthDate: birthDate))
             
