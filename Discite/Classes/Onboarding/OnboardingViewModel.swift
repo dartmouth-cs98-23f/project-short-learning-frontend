@@ -21,21 +21,21 @@ class OnboardingViewModel: ObservableObject {
         if topics.count > 2 {
             let modifiedArray = topics.map { $0.lowercased().replacingOccurrences(of: " ", with: "") }
         print(modifiedArray)
-            AuthenticationService.OnboardService(
-                parameters: OnboardRequest(
-                    topics: modifiedArray
-               )
-            ).call { response in
-                self.error = nil
-                print(self.topics)
-                do {
-                    self.videos = response.playlists
-                    Auth.shared.onboarded = true
-                    
-                }
-            } failure: { error in
-                self.error = error
-            }
+//            AuthenticationService.OnboardService(
+//                parameters: OnboardRequest(
+//                    topics: modifiedArray
+//               )
+//            ).call { response in
+//                self.error = nil
+//                print(self.topics)
+//                do {
+//                    self.videos = response.playlists
+//                    Auth.shared.onboarded = true
+//                    
+//                }
+//            } failure: { error in
+//                self.error = error
+//            }
         } else {
             self.internalError = "Please select at least 3 topics"
         }

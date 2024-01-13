@@ -34,7 +34,7 @@ struct LoginPlaceholder: View {
             .padding(.bottom, 12)
             
             PrimaryActionButton(action: {
-                viewModel.login()
+                // viewModel.login()
             }, label: "Log in", disabled: viewModel.usernameOrEmail.count == 0)
             
             HStack {

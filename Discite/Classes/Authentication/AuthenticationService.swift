@@ -37,100 +37,132 @@ struct OnboardResponse: Decodable {
 }
 
 struct AuthenticationService {
-    struct LoginService {
+    
+    static func login(parameters: LoginRequest) async throws -> AuthResponseData {
+        let response = try await APIRequest<LoginRequest, AuthResponseData>
+            .apiRequest(method: .post,
+                        authorized: true,
+                        path: "/api/auth/signin",
+                        parameters: parameters)
         
-        let path = "/api/auth/signin"
-        let method: HTTPMethod = .post
-        var parameters: LoginRequest
-        
-        func call(
-            completion: @escaping (AuthResponseData) -> Void,
-            failure: @escaping (APIError) -> Void
-        ) {
-            APIRequest<LoginRequest, AuthResponseData>.call(
-                scheme: APIConfiguration.scheme,
-                host: APIConfiguration.host,
-                path: path,
-                port: APIConfiguration.port,
-                method: method,
-                authorized: false,
-                parameters: parameters) { data in
-                    
-                    do {
-                        let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
-                        completion(response)
-                    } catch {
-                        failure(.invalidJSON)
-                    }
-                    
-                } failure: { error in
-                    failure(error)
-                }
-        }
+        return response
     }
     
-    struct SignupService {
+    static func signup(parameters: SignupRequest) async throws -> AuthResponseData {
+        let response = try await APIRequest<SignupRequest, AuthResponseData>
+            .apiRequest(method: .post,
+                        authorized: false,
+                        path: "/api/auth/signup",
+                        parameters: parameters)
         
-        let path = "/api/auth/signup"
-        let method: HTTPMethod = .post
-        var parameters: SignupRequest
-        
-        func call(
-            completion: @escaping (AuthResponseData) -> Void,
-            failure: @escaping (APIError) -> Void
-        ) {
-            APIRequest<SignupRequest, AuthResponseData>.call(
-                scheme: APIConfiguration.scheme,
-                host: APIConfiguration.host,
-                path: path,
-                port: APIConfiguration.port,
-                method: method,
-                authorized: false,
-                parameters: parameters) { data in
-                    
-                    do {
-                        let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
-                        completion(response)
-                    } catch {
-                        failure(.invalidJSON)
-                    }
-                    
-                } failure: { error in
-                    failure(error)
-                }
-        }
+        return response
     }
     
-    struct OnboardService {
-        let path = "/api/user/technigala/onboard"
-        let method: HTTPMethod = .post
-        var parameters: OnboardRequest
+    static func mockLogin(parameters: LoginRequest) async throws -> AuthResponseData {
+        let response = try await APIRequest<LoginRequest, AuthResponseData>
+            .mockRequest(method: .post,
+                        authorized: true,
+                        path: "/api/auth/signin",
+                        parameters: parameters)
         
-        func call(
-            completion: @escaping (OnboardResponse) throws -> Void,
-            failure: @escaping (APIError) -> Void
-        ) {
-            APIRequest<OnboardRequest, OnboardResponse>.call(
-                scheme: APIConfiguration.scheme,
-                host: APIConfiguration.host,
-                path: path,
-                port: APIConfiguration.port,
-                method: method,
-                authorized: true,
-                parameters: parameters
-                ) { data in
-                    do {
-                        let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
-                        
-                        try completion(response)
-                        // Auth.shared.onboarded = true
-                    } catch {
-                        failure(.invalidJSON)
-                    }
-                    
-                } failure: { error in
-                    failure(error)
-                }
-        }
+        return response
     }
+    
+    
+//    struct LoginService {
+//        
+//        let path = "/api/auth/signin"
+//        let method: HTTPMethod = .post
+//        var parameters: LoginRequest
+//        
+//        func call(
+//            completion: @escaping (AuthResponseData) -> Void,
+//            failure: @escaping (APIError) -> Void
+//        ) {
+//            APIRequest<LoginRequest, AuthResponseData>.call(
+//                scheme: APIConfiguration.scheme,
+//                host: APIConfiguration.host,
+//                path: path,
+//                port: APIConfiguration.port,
+//                method: method,
+//                authorized: false,
+//                parameters: parameters) { data in
+//                    
+//                    do {
+//                        let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
+//                        completion(response)
+//                    } catch {
+//                        failure(.invalidJSON)
+//                    }
+//                    
+//                } failure: { error in
+//                    failure(error)
+//                }
+//        }
+//    }
+    
+//    struct SignupService {
+//        
+//        let path = "/api/auth/signup"
+//        let method: HTTPMethod = .post
+//        var parameters: SignupRequest
+//        
+//        func call(
+//            completion: @escaping (AuthResponseData) -> Void,
+//            failure: @escaping (APIError) -> Void
+//        ) {
+//            APIRequest<SignupRequest, AuthResponseData>.call(
+//                scheme: APIConfiguration.scheme,
+//                host: APIConfiguration.host,
+//                path: path,
+//                port: APIConfiguration.port,
+//                method: method,
+//                authorized: false,
+//                parameters: parameters) { data in
+//                    
+//                    do {
+//                        let response = try JSONDecoder().decode(AuthResponseData.self, from: data)
+//                        completion(response)
+//                    } catch {
+//                        failure(.invalidJSON)
+//                    }
+//                    
+//                } failure: { error in
+//                    failure(error)
+//                }
+//        }
+//    }
+    
+//    struct OnboardService {
+//        let path = "/api/user/technigala/onboard"
+//        let method: HTTPMethod = .post
+//        var parameters: OnboardRequest
+//        
+//        func call(
+//            completion: @escaping (OnboardResponse) throws -> Void,
+//            failure: @escaping (APIError) -> Void
+//        ) {
+//            APIRequest<OnboardRequest, OnboardResponse>.call(
+//                scheme: APIConfiguration.scheme,
+//                host: APIConfiguration.host,
+//                path: path,
+//                port: APIConfiguration.port,
+//                method: method,
+//                authorized: true,
+//                parameters: parameters
+//                ) { data in
+//                    do {
+//                        let response = try JSONDecoder().decode(OnboardResponse.self, from: data)
+//                        
+//                        try completion(response)
+//                        // Auth.shared.onboarded = true
+//                    } catch {
+//                        failure(.invalidJSON)
+//                    }
+//                    
+//                } failure: { error in
+//                    failure(error)
+//                }
+//        }
+//    }
 }

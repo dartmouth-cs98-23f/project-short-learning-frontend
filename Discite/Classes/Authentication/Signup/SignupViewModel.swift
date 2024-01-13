@@ -25,27 +25,27 @@ class SignupViewModel: ObservableObject {
         self.internalError = ""
         if password == confirmPassword {
             self.birthDate = Date.toStr(date: self.date)
-            AuthenticationService.SignupService(
-                parameters: SignupRequest(
-                    username: username.lowercased(),
-                    email: email,
-                    firstName: firstname.lowercased(),
-                    lastName: lastname.lowercased(),
-                    password: password,
-                    birthDate: birthDate
-                )
-            ).call { response in
-                self.error = nil
-                
-                do {
-                    try Auth.shared.setToken(token: response.token)
-                } catch {
-                    print("Error: Unable to store token in keychain.")
-                }
-                
-            } failure: { error in
-                self.error = error
-            }
+//            AuthenticationService.SignupService(
+//                parameters: SignupRequest(
+//                    username: username.lowercased(),
+//                    email: email,
+//                    firstName: firstname.lowercased(),
+//                    lastName: lastname.lowercased(),
+//                    password: password,
+//                    birthDate: birthDate
+//                )
+//            ).call { response in
+//                self.error = nil
+//                
+//                do {
+//                    try Auth.shared.setToken(token: response.token)
+//                } catch {
+//                    print("Error: Unable to store token in keychain.")
+//                }
+//                
+//            } failure: { error in
+//                self.error = error
+//            }
         } else {
             self.internalError = "Passwords do not match"
             print("Passwords do not match")
