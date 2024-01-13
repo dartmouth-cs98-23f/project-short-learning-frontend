@@ -1,5 +1,5 @@
 //
-//  Welcome.swift
+//  AuthView.swift
 //  Discite
 //
 //  Created by Jessie Li on 1/13/24.
