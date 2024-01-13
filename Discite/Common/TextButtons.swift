@@ -22,12 +22,13 @@ struct PrimaryActionButton: View {
         Button(action: action) {
             Text(label)
                 .font(Font.H6)
-                .frame(maxWidth: .infinity, maxHeight: 48)
+                .frame(maxWidth: .infinity)
                 .foregroundColor(.white)
+                .padding([.top, .bottom], 12)
         }
         .background(disabled ? Color.grayNeutral : Color.primaryBlueNavy)
         .disabled(disabled)
-        .cornerRadius(10)
+        .cornerRadius(5)
     }
 }
 
@@ -46,13 +47,14 @@ struct PrimaryActionButtonBlue: View {
         Button(action: action) {
             Text(label)
                 .font(Font.H6)
-                .frame(maxWidth: .infinity, maxHeight: 48)
+                .frame(maxWidth: .infinity)
                 .foregroundColor(.white)
+                .padding([.top, .bottom], 12)
         }
         .background(Color.grayNeutral)
         .addGradient(gradient: !self.disabled ? LinearGradient.blueBlackLinear : nil)
         .disabled(disabled)
-        .cornerRadius(10)
+        .cornerRadius(5)
     }
 }
 
@@ -94,10 +96,6 @@ struct TextualButton: View {
     }
 }
 
-struct TextButtons_Previews: PreviewProvider {
-    static var previews: some View {
-        PrimaryActionButtonPurple(action: { }, label: "Share", disabled: false)
-            .previewDisplayName("Primary Action Button")
-        
-    }
+#Preview {
+    PrimaryActionButton(action: {}, label: "Primary")
 }

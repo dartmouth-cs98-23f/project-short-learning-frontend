@@ -97,7 +97,7 @@ struct SignupView: View {
                     .background(Color.black.opacity(0.05))
                     
                     PrimaryActionButton(action: {
-                        signupModel.signup()
+                        // signupModel.signup()
                         
                     }, label: "Sign up", disabled: false)
                     .frame(width: geometry.size.width-20, height: 50)

@@ -152,7 +152,15 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String]? = nil) async throws -> Model {
             
-        let response = try await apiRequest(method: method,
+            var mockHeaders = headers
+            if parameters != nil && headers == nil {
+                mockHeaders = [
+                    "Content-Type": "application/json",
+                    "x-mock-match-request-body": "true"
+                ]
+            }
+            
+            let response = try await apiRequest(method: method,
                    scheme: APIConfiguration.scheme,
                    host: "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io",
                    authorized: authorized,
@@ -160,9 +168,9 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
                    path: path,
                    parameters: parameters,
                    queryItems: queryItems,
-                   headers: headers)
+                   headers: mockHeaders)
         
-        return response
+            return response
     }
     
     // MARK: Drafts

@@ -102,6 +102,8 @@
 		C2EE4E652B2BA79300FEA5B5 /* sampleplaylist.json in Resources */ = {isa = PBXBuildFile; fileRef = C2EE4E642B2BA79300FEA5B5 /* sampleplaylist.json */; };
 		C2EF0AFE2B52D6D10000DCE8 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF0AFD2B52D6D10000DCE8 /* Login.swift */; };
 		C2EF0B002B52E9020000DCE8 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF0AFF2B52E9020000DCE8 /* AuthView.swift */; };
+		C2EF0B022B5300AA0000DCE8 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF0B012B5300AA0000DCE8 /* Signup.swift */; };
+		C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */; };
 		C2FEE2762AF70BD700DBF997 /* simpletest.json in Resources */ = {isa = PBXBuildFile; fileRef = C2FEE2752AF70BD700DBF997 /* simpletest.json */; };
 /* End PBXBuildFile section */
 
@@ -206,6 +208,8 @@
 		C2EE4E642B2BA79300FEA5B5 /* sampleplaylist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleplaylist.json; sourceTree = "<group>"; };
 		C2EF0AFD2B52D6D10000DCE8 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		C2EF0AFF2B52E9020000DCE8 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		C2EF0B012B5300AA0000DCE8 /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
+		C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtons.swift; sourceTree = "<group>"; };
 		C2FEE2752AF70BD700DBF997 /* simpletest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simpletest.json; sourceTree = "<group>"; };
 		F468F65203DCE1AB8A18A164 /* Pods_Discite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -242,7 +246,6 @@
 		66365F7F2B0095AC009E0438 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */,
 				66365F802B0095AC009E0438 /* OnboardingView.swift */,
 				66365F812B0095AC009E0438 /* OnboardingViewModel.swift */,
 			);
@@ -252,6 +255,7 @@
 		66EE0EB32AF4D4A500F65F38 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				C2EF0B012B5300AA0000DCE8 /* Signup.swift */,
 				66EE0EB52AF4D4A500F65F38 /* SignupView.swift */,
 				66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */,
 			);
@@ -335,6 +339,7 @@
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
 				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
+				C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */,
 				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
 				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
 				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
@@ -376,8 +381,9 @@
 		C2128A972ADB4F3A00E90C66 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				66EE0EB32AF4D4A500F65F38 /* Signup */,
 				C2128A8D2ADB32A600E90C66 /* Login */,
+				66EE0EB32AF4D4A500F65F38 /* Signup */,
+				C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */,
 				C2EF0AFF2B52E9020000DCE8 /* AuthView.swift */,
 				C235C6742ADF842500870600 /* Auth.swift */,
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
@@ -748,6 +754,7 @@
 				C2A3FF242B02BEC9001EDE9F /* LoginPlaceholder.swift in Sources */,
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
+				C2EF0B022B5300AA0000DCE8 /* Signup.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDiveOld.swift in Sources */,
 				66365F822B0095AC009E0438 /* OnboardingView.swift in Sources */,
@@ -760,6 +767,7 @@
 				C29DB0822AEC565B0081C354 /* TestSimplePlayerView.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
+				C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				66365F832B0095AC009E0438 /* OnboardingViewModel.swift in Sources */,
 				C291450A2AE60DBA000BEB88 /* TopicsView.swift in Sources */,

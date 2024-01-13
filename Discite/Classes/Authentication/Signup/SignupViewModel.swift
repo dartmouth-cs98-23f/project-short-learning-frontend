@@ -9,22 +9,47 @@ import Foundation
 
 class SignupViewModel: ObservableObject {
 
-    @Published var firstname: String = ""
-    @Published var lastname: String = ""
-    @Published var username: String = ""
-    @Published var email: String = ""
-    @Published var password: String = ""
+    @Published var firstname: String = "John"
+    @Published var lastname: String = "Doe"
+    @Published var username: String = "johndoe"
+    @Published var email: String = "johndoe@email.com"
+    @Published var password: String = "abc123"
     @Published var confirmPassword: String = ""
     @Published var date: Date = Date.now
-    @Published var birthDate: String = ""
+    @Published var birthDate: String =  "2000-10-10"
 
-    @Published var error: APIError?
+    @Published var error: Error?
     @Published var internalError: String = ""
+    @Published var isLoading = false
     
-    func signup() {
-        self.internalError = ""
-        if password == confirmPassword {
-            self.birthDate = Date.toStr(date: self.date)
+    func signup() async {
+        
+        isLoading = true
+        
+        do {
+            let response = try await AuthenticationService.mockSignup(
+                parameters: SignupRequest(
+                    username: username.lowercased(),
+                    email: email,
+                    firstName: firstname.lowercased(),
+                    lastName: lastname.lowercased(),
+                    password: password,
+                    birthDate: birthDate))
+            
+            try Auth.shared.setToken(token: response.token)
+            
+        } catch {
+            print("Signup failed: \(error)")
+            self.error = error
+        }
+        
+        isLoading = false
+    }
+    
+//    func signup() {
+//        self.internalError = ""
+//        if password == confirmPassword {
+//            self.birthDate = Date.toStr(date: self.date)
 //            AuthenticationService.SignupService(
 //                parameters: SignupRequest(
 //                    username: username.lowercased(),
@@ -46,11 +71,11 @@ class SignupViewModel: ObservableObject {
 //            } failure: { error in
 //                self.error = error
 //            }
-        } else {
-            self.internalError = "Passwords do not match"
-            print("Passwords do not match")
-        }
-    }
+//        } else {
+//            self.internalError = "Passwords do not match"
+//            print("Passwords do not match")
+//        }
+//    }
 }
 
 extension Date {

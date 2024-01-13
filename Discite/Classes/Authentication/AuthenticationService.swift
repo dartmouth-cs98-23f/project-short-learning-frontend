@@ -68,6 +68,15 @@ struct AuthenticationService {
         return response
     }
     
+    static func mockSignup(parameters: SignupRequest) async throws -> AuthResponseData {
+        let response = try await APIRequest<SignupRequest, AuthResponseData>
+            .mockRequest(method: .post,
+                        authorized: true,
+                        path: "/api/auth/signin",
+                        parameters: parameters)
+        
+        return response
+    }
     
 //    struct LoginService {
 //        
