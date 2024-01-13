@@ -16,14 +16,10 @@ struct ContentView: View {
     }
         
 //        if Auth.shared.loggedIn {
-//            if Auth.shared.onboarded {
-//                Navigator()
-//            } else {
-//                OnboardingView()
-//            }
-//            
+//            AuthView()
+//
 //        } else {
-//            LoginView()
+//            Navigator()
 //        }
 //    }
 }

@@ -32,25 +32,6 @@ class LoginViewModel: ObservableObject {
         }
         
         isLoading = false
-        
-        //        AuthenticationService.LoginService(
-        //            parameters: LoginRequest(
-        //                email: usernameOrEmail,
-        //                password: password
-        //            )
-        //        ).call { response in
-        //            self.error = nil
-        //            print("starting call")
-        //            do {
-        //                try Auth.shared.setToken(token: response.token)
-        //                Auth.shared.onboarded = true
-        //                print("Login successful, user already onboarded: \(Auth.shared.loggedIn)")
-        //            } catch {
-        //                print("Error: Unable to store token in keychain.")
-        //            }
-        //        } failure: { error in
-        //            self.error = error
-        //        }
-        //    }
+    
     }
 }
