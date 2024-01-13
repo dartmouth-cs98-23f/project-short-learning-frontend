@@ -66,6 +66,7 @@ struct Signup: View {
                     .frame(minHeight: geometry.size.height)
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

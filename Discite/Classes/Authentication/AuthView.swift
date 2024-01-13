@@ -27,12 +27,10 @@ struct AuthView: View {
             NavigationStack {
                 PrimaryNavigationButton(destination: {
                     Login()
-                        .navigationBarBackButtonHidden(true)
                 }, label: "Log in")
                 
                 SecondaryNavigationButton(destination: {
                     Signup()
-                        .navigationBarBackButtonHidden(true)
                 }, label: "Sign up")
             }
             .padding(.bottom, 84)

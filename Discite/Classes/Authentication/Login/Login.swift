@@ -62,6 +62,7 @@ struct Login: View {
                     .frame(minHeight: geometry.size.height)
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
