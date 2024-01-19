@@ -85,7 +85,6 @@ struct PrimaryTextField: View {
             }
             
             VStack {
-                
                 HStack {
                     TextField(label, text: $text)
                         .foregroundColor(Color.primaryBlueBlack)
@@ -108,7 +107,6 @@ struct PrimaryTextField: View {
             }
 
         }
-        .frame(height: 48)
     }
 }
 

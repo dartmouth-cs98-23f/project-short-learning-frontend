@@ -60,7 +60,9 @@ struct OnboardingView: View {
                     Spacer()
                     Button(action: {Auth.shared.logout()}, label: { Text("logout")})
                     Button(action: {
-                        viewModel.send()
+                        Task {
+                            await viewModel.send()
+                        }
                         
                         if viewModel.error == nil {
                             // isShowing = false

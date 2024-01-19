@@ -4,8 +4,6 @@
 //
 //  Created by Jessie Li on 10/18/23.
 //
-//  Source:
-//      https://medium.com/mop-developers/build-your-first-swiftui-app-part-6-creating-the-api-helper-class-d73d589fc4b5
 
 import Foundation
 
@@ -73,6 +71,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             
             // Construct URL
             var components = URLComponents()
+            components.scheme = scheme
             components.host = host
             components.path = path
             components.port = port
@@ -117,6 +116,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             return decoded
     }
     
+    // Fetches a local resource. 
     static func mockAPIRequest(_ type: Model.Type,
                                forResource: String,
                                withExtension: String) async throws -> Model {
@@ -142,6 +142,37 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             print(String(describing: error))
             throw APIError.invalidJSON
         }
+    }
+    
+    // Calls mock Postman server.
+    static func mockRequest(
+        method: HTTPMethod,
+        authorized: Bool,
+        path: String,
+        parameters: Parameters? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String]? = nil) async throws -> Model {
+            
+            var mockHeaders = headers
+            if parameters != nil && headers == nil {
+                mockHeaders = [
+                    "Content-Type": "application/json",
+                    "x-mock-match-request-body": "true"
+                ]
+            }
+            
+            let response = try await apiRequest(
+                method: method,
+                scheme: "https",
+                host: "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io",
+                authorized: authorized,
+                port: nil,
+                path: path,
+                parameters: parameters,
+                queryItems: queryItems,
+                headers: mockHeaders)
+        
+            return response
     }
     
     // MARK: Drafts

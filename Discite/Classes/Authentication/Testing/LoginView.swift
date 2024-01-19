@@ -57,7 +57,7 @@ struct LoginView: View {
                     }
                     
                     PrimaryActionButton(action: {
-                        viewModel.login()
+                        // viewModel.login()
                         
                     }, label: "Login.Button.Text", disabled: false)
                     .frame(width: geometry.size.width-20, height: 50)
