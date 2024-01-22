@@ -11,30 +11,59 @@ import Foundation
 import AVKit
 import SwiftUI
 
+// For API response
+struct SequenceData: Decodable {
+    var playlists: [Playlist]
+}
+
 class Sequence: ObservableObject {
-    
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var error: Error?
     @Published private(set) var playerItem: AVPlayerItem?
     private(set) var player: AVPlayer = AVPlayer()
     
-    private(set) var playlists: [Playlist] = []
+    @Published private(set) var playlists: [Playlist] = []
     private(set) var topic: String?
     private(set) var topicId: String?
     private(set) var currentIndex: Int = 0 // Currently always 0, but could be useful later
     
+    init() {
+        
+    }
+    
     public func load(topicId: String? = nil, numPlaylists: Int = 2) async {
-        playlists = await VideoService.loadPlaylists()
-        print("Sequence loaded.")
+        
+        isLoading = true
+        
+        do {
+            // (1) Ask for more playlists
+            let newItems = try await VideoService.mockFetchSequence()
             
-        if playlists.isEmpty {
-            print("Error: Empty sequence")
-            return
+            if newItems.isEmpty {
+                throw SequenceError.emptySequence
+            }
+            
+            let allItems = playlists + newItems
+            
+            // (4) Publish our changes to SwiftUI by setting our items and state
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.playlists = allItems
+                isLoading = false
+                print("OK: Loaded. Sequence length: \(playlists.count)")
+            }
+            
+        } catch {
+            print("Error: Sequence 'load' failed. [\(error)]")
+            isLoading = false
+            self.error = error
         }
         
-        playerItem = playlists[0].nextPlayerItem()
-        player.replaceCurrentItem(with: playerItem)
-        
-        self.topicId = playlists[0].topicId
-        self.topic = playlists[0].topic
+        // playerItem = playlists[0].nextPlayerItem()
+        // player.replaceCurrentItem(with: playerItem)
+
+//        self.topicId = playlists[0].topicId
+//        self.topic = playlists[0].topic
         
     }
     

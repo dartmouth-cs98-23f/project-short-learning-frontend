@@ -1,131 +1,143 @@
 {
-  "message": "Topics fetched successfully",
-  "topicId": "6548124dbf672c659ae255c3",
-  "topic": "Breakfast",
-  "playlists": [
-    {
-      "_id": "6548124dbf672c659ae255c3",
-      "title": "Fluffy Buttermilk Pancakes",
-      "description": "Impossibly light, fluffy, and moist. These homemade buttermilk pancakes make an easy and satisfying breakfast for the whole family.",
-      "uploadDate": "2023-11-05T22:08:13.621Z",
-      "uploader": "313233343536373839313030",
-      "duration": 1800,
-      "thumbnailURL": "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=pexels-ash-376464.jpg&fm=jpg",
-      "topicId": "6548124dbf672c659ae255c3",
-      "topic": "Breakfast",
-      "clips": [
-        {
-          "_id": "6998421",
-          "videoId": "6548124dbf672c659ae255c3",
-          "title": "Sift dry ingredients",
-          "description": "Sift flour, baking powder, sugar, and salt together in a large bowl.",
-          "uploadDate": "2023-11-05T22:08:13.718Z",
-          "uploader": "313233343536373839313030",
-          "duration": 60,
-          "thumbnailURL": "https://hlsstack-hlsbucketf901f2c8-1wlixklj3wkgx.s3.us-east-1.amazonaws.com/clip1sample.png",
-          "clipURL": "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761",
-          "views": [],
-          "likes": [],
-          "dislikes": [],
-          "createdAt": "2023-11-05T22:08:13.721Z",
-          "updatedAt": "2023-11-05T22:08:13.721Z",
-          "__v": 0
-        },
-        {
-          "_id": "6998428",
-          "videoId": "6548124dbf672c659ae255c3",
-          "title": "Mix until smooth",
-          "description": "Combine with milk, butter, and egg. Mix until smooth.",
-          "uploadDate": "2023-11-05T22:08:13.749Z",
-          "uploader": "313233343536373839313030",
-          "duration": 60,
-          "thumbnailURL": "https://hlsstack-hlsbucketf901f2c8-1wlixklj3wkgx.s3.us-east-1.amazonaws.com/clip2sample.png",
-          "clipURL": "https://player.vimeo.com/external/518111071.hd.mp4?s=39ad49273b0169602ef4b8521c98f5617229bb40&profile_id=170&oauth2_token_id=57447761",
-          "views": [],
-          "likes": [],
-          "dislikes": [],
-          "createdAt": "2023-11-05T22:08:13.750Z",
-          "updatedAt": "2023-11-05T22:08:13.750Z",
-          "__v": 0
-        },
-        {
-          "_id": "7010637",
-          "videoId": "6548124dbf672c659ae255c3",
-          "title": "Cook pancakes on medium-high heat",
-          "description": "Heat a lightly oiled griddle over medium-high heat. Pour about 1/4 cup of batter for each pancake.",
-          "uploadDate": "2023-11-05T22:08:13.749Z",
-          "uploader": "313233343536373839313030",
-          "duration": 60,
-          "thumbnailURL": "https://hlsstack-hlsbucketf901f2c8-1wlixklj3wkgx.s3.us-east-1.amazonaws.com/clip2sample.png",
-          "clipURL": "https://player.vimeo.com/external/518111059.hd.mp4?s=7d71fd2315b6150c3e0f402daf2012b2fede9b8a&profile_id=174&oauth2_token_id=57447761",
-          "views": [],
-          "likes": [],
-          "dislikes": [],
-          "createdAt": "2023-11-05T22:08:13.750Z",
-          "updatedAt": "2023-11-05T22:08:13.750Z",
-          "__v": 0
-        }
-      ],
-      "views": [],
-      "likes": [],
-      "dislikes": [],
-      "createdAt": "2023-11-05T22:08:13.637Z",
-      "updatedAt": "2023-11-05T22:08:13.777Z",
-      "__v": 0
-    },
-    {
-      "_id": "6548124dbf672c659ae255c2",
-      "title": "Homemade Latte",
-      "topic": "Breakfast/Coffee",
-      "description": "Start your day with a cup of hot, steamy, and delicious homemade latte.",
-      "uploadDate": "2023-11-05T22:08:13.621Z",
-      "uploader": "313233343536373839313030",
-      "duration": 60,
-      "thumbnailURL": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      "topicId": "6548124dbf672c659ae255c3",
-      "clips": [
-        {
-          "_id": "2853788",
-          "videoId": "6548124dbf672c659ae255c3",
-          "title": "Make the espresso",
-          "description": "Use an espresso machine to make two shots of espresso and pour it into the mug.",
-          "uploadDate": "2023-11-05T22:08:13.718Z",
-          "uploader": "313233343536373839313030",
-          "duration": 60,
-          "thumbnailURL": "https://hlsstack-hlsbucketf901f2c8-1wlixklj3wkgx.s3.us-east-1.amazonaws.com/clip1sample.png",
-          "clipURL": "https://player.vimeo.com/external/356200097.sd.mp4?s=f5906c30696841eae9a3c01ce7c4603ae960f96e&profile_id=139&oauth2_token_id=57447761",
-          "views": [],
-          "likes": [],
-          "dislikes": [],
-          "createdAt": "2023-11-05T22:08:13.721Z",
-          "updatedAt": "2023-11-05T22:08:13.721Z",
-          "__v": 0
-        },
-        {
-          "_id": "4378109",
-          "videoId": "6548124dbf672c659ae255c3",
-          "title": "Pour the milk",
-          "description": "Tilt the cup and hold the pitcher high. Pour the milk into the center of the espresso until the cup is nearly half full, then lower the pour to end with light foam.",
-          "uploadDate": "2023-11-05T22:08:13.749Z",
-          "uploader": "313233343536373839313030",
-          "duration": 60,
-          "thumbnailURL": "https://hlsstack-hlsbucketf901f2c8-1wlixklj3wkgx.s3.us-east-1.amazonaws.com/clip2sample.png",
-          "clipURL": "https://player.vimeo.com/external/417279070.hd.mp4?s=cbe8e6778b52716d5b472f11aba548ca23b1dc85&profile_id=172&oauth2_token_id=57447761",
-          "views": [],
-          "likes": [],
-          "dislikes": [],
-          "createdAt": "2023-11-05T22:08:13.750Z",
-          "updatedAt": "2023-11-05T22:08:13.750Z",
-          "__v": 0
-        }
-      ],
-      "views": [],
-      "likes": [],
-      "dislikes": [],
-      "createdAt": "2023-11-05T22:08:13.637Z",
-      "updatedAt": "2023-11-05T22:08:13.777Z",
-      "__v": 0
-    }
-  ]
+   "message": "Topics fetched successfully",
+   "playlists": [
+       {
+           "_id": "6548124dbf672c659ae255c3",
+           "title": "Fluffy Buttermilk Pancakes",
+           "description": "Impossibly light, fluffy, and moist. These homemade buttermilk pancakes make an easy and satisfying breakfast for the whole family.",
+           "uploadDate": "2023-11-05T22:08:13.621Z",
+           "uploader": "313233343536373839313030",
+           "duration": 1800,
+           "thumbnailURL": "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=pexels-ash-376464.jpg&fm=jpg",
+           "topics": [
+               {
+                   "topicId": "6548124dbf672c659ae255c3",
+                   "topicName": "Breakfast"
+               },
+               {
+                   "topicId": "abcdefg",
+                   "topicName": "Easy Recipes"
+               }
+           ],
+           "clips": [
+               {
+                   "_id": "6998421",
+                   "videoId": "6548124dbf672c659ae255c3",
+                   "title": "Sift dry ingredients",
+                   "description": "Sift flour, baking powder, sugar, and salt together in a large bowl.",
+                   "uploadDate": "2023-11-05T22:08:13.718Z",
+                   "uploader": "313233343536373839313030",
+                   "duration": 60,
+                   "clipURL": "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761",
+                   "views": [],
+                   "likes": [],
+                   "dislikes": [],
+                   "createdAt": "2023-11-05T22:08:13.721Z",
+                   "updatedAt": "2023-11-05T22:08:13.721Z",
+                   "__v": 0
+               },
+               {
+                   "_id": "6998428",
+                   "videoId": "6548124dbf672c659ae255c3",
+                   "title": "Mix until smooth",
+                   "description": "Combine with milk, butter, and egg. Mix until smooth.",
+                   "uploadDate": "2023-11-05T22:08:13.749Z",
+                   "uploader": "313233343536373839313030",
+                   "duration": 60,
+                   "clipURL": "https://player.vimeo.com/external/518111071.hd.mp4?s=39ad49273b0169602ef4b8521c98f5617229bb40&profile_id=170&oauth2_token_id=57447761",
+                   "views": [],
+                   "likes": [],
+                   "dislikes": [],
+                   "createdAt": "2023-11-05T22:08:13.750Z",
+                   "updatedAt": "2023-11-05T22:08:13.750Z",
+                   "__v": 0
+               },
+               {
+                   "_id": "7010637",
+                   "videoId": "6548124dbf672c659ae255c3",
+                   "title": "Cook pancakes on medium-high heat",
+                   "description": "Heat a lightly oiled griddle over medium-high heat. Pour about 1/4 cup of batter for each pancake.",
+                   "uploadDate": "2023-11-05T22:08:13.749Z",
+                   "uploader": "313233343536373839313030",
+                   "duration": 60,
+                   "clipURL": "https://player.vimeo.com/external/518111059.hd.mp4?s=7d71fd2315b6150c3e0f402daf2012b2fede9b8a&profile_id=174&oauth2_token_id=57447761",
+                   "views": [],
+                   "likes": [],
+                   "dislikes": [],
+                   "createdAt": "2023-11-05T22:08:13.750Z",
+                   "updatedAt": "2023-11-05T22:08:13.750Z",
+                   "__v": 0
+               }
+           ]
+       },
+       {
+           "_id": "6548124dbf672c659ae255c3",
+           "title": "Fluffy Buttermilk Pancakes",
+           "description": "Impossibly light, fluffy, and moist. These homemade buttermilk pancakes make an easy and satisfying breakfast for the whole family.",
+           "uploadDate": "2023-11-05T22:08:13.621Z",
+           "uploader": "313233343536373839313030",
+           "duration": 1800,
+           "thumbnailURL": "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=pexels-ash-376464.jpg&fm=jpg",
+           "topics": [
+               {
+                   "topicId": "6548124dbf672c659ae255c3",
+                   "topicName": "Breakfast"
+               },
+               {
+                   "topicId": "abcdefg",
+                   "topicName": "Easy Recipes"
+               }
+           ],
+           "clips": [
+               {
+                   "_id": "6998421",
+                   "videoId": "6548124dbf672c659ae255c3",
+                   "title": "Sift dry ingredients",
+                   "description": "Sift flour, baking powder, sugar, and salt together in a large bowl.",
+                   "uploadDate": "2023-11-05T22:08:13.718Z",
+                   "uploader": "313233343536373839313030",
+                   "duration": 60,
+                   "clipURL": "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761",
+                   "views": [],
+                   "likes": [],
+                   "dislikes": [],
+                   "createdAt": "2023-11-05T22:08:13.721Z",
+                   "updatedAt": "2023-11-05T22:08:13.721Z",
+                   "__v": 0
+               },
+               {
+                   "_id": "6998428",
+                   "videoId": "6548124dbf672c659ae255c3",
+                   "title": "Mix until smooth",
+                   "description": "Combine with milk, butter, and egg. Mix until smooth.",
+                   "uploadDate": "2023-11-05T22:08:13.749Z",
+                   "uploader": "313233343536373839313030",
+                   "duration": 60,
+                   "clipURL": "https://player.vimeo.com/external/518111071.hd.mp4?s=39ad49273b0169602ef4b8521c98f5617229bb40&profile_id=170&oauth2_token_id=57447761",
+                   "views": [],
+                   "likes": [],
+                   "dislikes": [],
+                   "createdAt": "2023-11-05T22:08:13.750Z",
+                   "updatedAt": "2023-11-05T22:08:13.750Z",
+                   "__v": 0
+               },
+               {
+                   "_id": "7010637",
+                   "videoId": "6548124dbf672c659ae255c3",
+                   "title": "Cook pancakes on medium-high heat",
+                   "description": "Heat a lightly oiled griddle over medium-high heat. Pour about 1/4 cup of batter for each pancake.",
+                   "uploadDate": "2023-11-05T22:08:13.749Z",
+                   "uploader": "313233343536373839313030",
+                   "duration": 60,
+                   "clipURL": "https://player.vimeo.com/external/518111059.hd.mp4?s=7d71fd2315b6150c3e0f402daf2012b2fede9b8a&profile_id=174&oauth2_token_id=57447761",
+                   "views": [],
+                   "likes": [],
+                   "dislikes": [],
+                   "createdAt": "2023-11-05T22:08:13.750Z",
+                   "updatedAt": "2023-11-05T22:08:13.750Z",
+                   "__v": 0
+               }
+           ]
+       }
+   ]
 }
-

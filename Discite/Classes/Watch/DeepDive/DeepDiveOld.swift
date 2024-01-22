@@ -32,14 +32,14 @@ struct DeepDiveOld: View {
                     // Continue button should close DeepDive
                     AccentPlayButton(action: {
                         isPresented = false
-                    }, label: playlist.getCurrentIndex() >= 0 ? "CONTINUE" : "PLAY")
+                    }, label: playlist.currentIndex >= 0 ? "CONTINUE" : "PLAY")
                 }
                 .padding([.bottom, .top], 12)
                     
                 ForEach(Array(playlist.allVideos().enumerated()), id: \.offset) { index, video in
                     videoRow(title: video.title,
                              description: video.description,
-                             currentIndex: playlist.getCurrentIndex(),
+                             currentIndex: playlist.currentIndex,
                              videoIndex: index)
                 }
 

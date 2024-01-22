@@ -56,7 +56,7 @@ struct DeepDive: View {
                 // Continue button should close DeepDive
                 PrimaryActionButtonPurple(action: {
                     isPresented = false
-                }, label: playlist.getCurrentIndex() > 0 ? "Continue" : "Play")
+                }, label: playlist.currentIndex > 0 ? "Continue" : "Play")
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
             .padding(.bottom, 18)
@@ -74,7 +74,7 @@ struct DeepDive: View {
                 SaveButton(action: { }, isSaved: false)
             }
             
-            Text("\(playlist.length()) videos • \(playlist.getCurrentIndex()/playlist.length())% complete").font(.body2)
+            Text("\(playlist.length()) videos • \(playlist.currentIndex/playlist.length())% complete").font(.body2)
             
             uploaderProfile()
             
@@ -110,7 +110,7 @@ struct DeepDive: View {
             ForEach(Array(playlist.allVideos().enumerated()), id: \.offset) { index, video in
                 videoRow(title: video.title,
                          description: video.description,
-                         currentIndex: playlist.getCurrentIndex(),
+                         currentIndex: playlist.currentIndex,
                          videoIndex: index)
             }
             
