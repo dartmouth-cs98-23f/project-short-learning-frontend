@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ExploreView: View {
-    
+    @State private var columns: [GridItem] = [
+        GridItem(.flexible()), GridItem(.flexible())
+    ]
+//        GridItem(.flexible(minimum: 100, maximum: 100), spacing: 1)
+//    ]
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab
@@ -27,22 +31,11 @@ struct ExploreView: View {
                           text: $searchText)
                 .foregroundColor(.primaryBlueNavy)
                 
-                // Section: Continue learning (current playlist)
-                if let playlist = sequence.currentPlaylist() {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Continue learning").font(.H5)
-                        ContinueCard(playlist: playlist)
-                    }
-                }
-                
-                // Section: My interests (topics)
+                // Section: Recommended topics
                 topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
                 
-                // Section: Continue learning (rest of playlists)
-                if let topic = sequence.topic {
-                    playlistScrollSection(heading: "More in \(topic)",
-                                          playlists: sequence.playlists)
-                }
+                // Section: Recommended playlists
+                playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
                 
                 Spacer()
             }
@@ -56,29 +49,39 @@ struct ExploreView: View {
     
     // Horizontally scrolling list of topics
     func topicScrollSection(heading: String, topics: [Topic]) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(heading).font(Font.H5)
-
-            ScrollView(.horizontal) {
-                HStack(spacing: 20) {
-                    ForEach(topics, id: \._id) { topic in
-                        TopicCard(tabSelection: $tabSelection, topic: topic)
-                    }
+        VStack(alignment: .leading, spacing: 2) {
+            
+            HStack(alignment: .center) {
+                Text(heading).font(Font.H5)
+                Button {
+                    tabSelection = .Explore
+                } label: {
+                    Text("See all topics")
+                        .font(.system(size: 12))
+                        .padding([.leading], 40)
+                        .foregroundColor(Color.primaryPurpleDark)
                 }
             }
             
+            ScrollView(.horizontal) {
+                HStack(spacing: 20) {
+                    ForEach(topics, id: \._id) { topic in
+                        TopicCard(tabSelection: $tabSelection, topic: topic, width: 100, height: 30)
+                    }
+                }
+            }
+            .padding([.top], 5)
         }
     }
     
+    // Vertically scrolling 2 column grid of playlists
     func playlistScrollSection(heading: String, playlists: [Playlist]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(heading).font(Font.H5)
-
-            ScrollView(.horizontal) {
-                HStack(spacing: 20) {
-                    ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
-                        PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index, width: 200, height: 150)
-                    }
+            
+            LazyVGrid(columns: columns, spacing: 1) {
+                ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
+                    PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index, width: 165, height: 200)
                 }
             }
         }
