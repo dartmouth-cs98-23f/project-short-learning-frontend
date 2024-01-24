@@ -30,6 +30,8 @@ extension PlaylistError: LocalizedError {
 class Playlist: Decodable, Identifiable, ObservableObject {
     
     var id: String
+    var sequenceIndex: Int
+    
     private(set) var title: String
     private(set) var description: String
     private(set) var topics: [TopicTag]
@@ -37,9 +39,9 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     private(set) var videos: [Video]
     
     @Published private(set) var currentIndex: Int
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool
+    
     private(set) var playerItem: AVPlayerItem?
-    private(set) var player: AVPlayer = AVPlayer()
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -57,6 +59,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     }
     
     required init(from decoder: Decoder) throws {
+        isLoading = true
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
@@ -71,7 +75,12 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             throw PlaylistError.emptyPlaylist
         }
         
+        sequenceIndex = -1
+        
+        // Initialize player with first item
         currentIndex = 0
+        playerItem = videos[0].getPlayerItem()
+        isLoading = false
     }
     
     // MARK: Getters

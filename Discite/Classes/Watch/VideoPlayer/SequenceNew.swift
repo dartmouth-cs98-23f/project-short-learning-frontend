@@ -1,19 +1,19 @@
 //
-//  SequenceViewModel.swift
+//  SequenceNew.swift
 //  Discite
 //
-//  Created by Jessie Li on 1/21/24.
-//
+//  Created by Jessie Li on 1/23/24.
 //  Source: https://medium.com/whatnot-engineering/the-next-page-8950875d927a
 //
 
 import Foundation
 
-class SequenceViewModel: ObservableObject {
+class SequenceNew: ObservableObject {
     @Published private(set) var items: [Playlist] = []
     
     var state: PagingState
     let threshold: Int
+    private var index: Int = 0
     
     private var currentTask: Task<Void, Never>? {
         willSet {
@@ -34,7 +34,7 @@ class SequenceViewModel: ObservableObject {
             await load()
         }
     }
-
+    
     public func onItemAppear(playlist: Playlist) {
         
         // (2) appeared: Already loading
@@ -75,6 +75,11 @@ class SequenceViewModel: ObservableObject {
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence
+            }
+            
+            for playlist in newItems {
+                playlist.sequenceIndex = index
+                index += 1
             }
             
             // (2) Task has been cancelled
