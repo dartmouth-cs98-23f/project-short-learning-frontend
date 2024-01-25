@@ -16,7 +16,6 @@ struct Post: View {
         if playlist.isLoading {
             ProgressView("Loading playlist...")
                 .containerRelativeFrame([.horizontal, .vertical])
-                .border(.pink)
             
         } else {
             ZStack(alignment: .top) {
@@ -35,7 +34,6 @@ struct Post: View {
 
             }
             .onAppear {
-                print("DEBUG: Post appeared: \(playlist.id)")
                 addObserver()
             }
             .onDisappear {
