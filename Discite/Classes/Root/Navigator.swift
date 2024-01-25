@@ -22,6 +22,7 @@ struct Navigator: View {
         case Explore
         case Shared
         case Account
+        case Topics
     }
     
     struct TabItem {
@@ -49,6 +50,8 @@ struct Navigator: View {
                 Shared()
             case .Account:
                 AccountView()
+            case .Topics:
+                TopicsView()
             }
             
             HStack {

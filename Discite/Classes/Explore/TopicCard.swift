@@ -19,7 +19,7 @@ struct TopicCard: View {
     var body: some View {
         Button {
             // TODO: Update sequence on click
-            tabSelection = .Watch
+            tabSelection = .Topics
             
         } label: {
             Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)

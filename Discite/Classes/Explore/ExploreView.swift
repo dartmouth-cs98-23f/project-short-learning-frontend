@@ -54,7 +54,7 @@ struct ExploreView: View {
             HStack(alignment: .center) {
                 Text(heading).font(Font.H5)
                 Button {
-                    tabSelection = .Explore
+                    tabSelection = .Topics
                 } label: {
                     Text("See all topics")
                         .font(.system(size: 12))
