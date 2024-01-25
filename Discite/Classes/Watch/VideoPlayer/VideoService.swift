@@ -65,5 +65,21 @@ class VideoService {
         playlist.id = UUID().uuidString
         return playlist
     }
+    
+    static func mockFetchSequence() async throws -> [Playlist] {
+        print("TEST: Fetching sequence...")
+        
+        let data = try await APIRequest<EmptyRequest, SequenceData>
+            .mockRequest(method: .get,
+                         authorized: false,
+                         path: "/api/sequence")
+        
+        for playlist in data.playlists {
+            // Prevent collisions in Feed
+            playlist.id = UUID().uuidString
+        }
+        
+        return data.playlists
+    }
 
 }

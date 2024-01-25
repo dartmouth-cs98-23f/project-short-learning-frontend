@@ -30,14 +30,18 @@ extension PlaylistError: LocalizedError {
 class Playlist: Decodable, Identifiable, ObservableObject {
     
     var id: String
+    var sequenceIndex: Int
+    
     private(set) var title: String
     private(set) var description: String
-    private(set) var topicId: String
-    private(set) var topic: String
+    private(set) var topics: [TopicTag]
     private(set) var thumbnailURL: String
     private(set) var videos: [Video]
     
-    var currentIndex: Int
+    @Published private(set) var currentIndex: Int
+    @Published var isLoading: Bool
+    
+    private(set) var playerItem: AVPlayerItem?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -47,8 +51,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         case uploader
         case duration
         case thumbnailURL
-        case topicId
-        case topic
+        case topics
         case videos = "clips"
         case views
         case likes
@@ -56,13 +59,14 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     }
     
     required init(from decoder: Decoder) throws {
+        isLoading = true
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
-        topicId = try container.decode(String.self, forKey: .topicId)
-        topic = try container.decode(String.self, forKey: .topic)
+        topics = try container.decode([TopicTag].self, forKey: .topics)
         thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
         
         videos = try container.decode([Video].self, forKey: .videos)
@@ -71,7 +75,12 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             throw PlaylistError.emptyPlaylist
         }
         
-        currentIndex = -1
+        sequenceIndex = -1
+        
+        // Initialize player with first item
+        currentIndex = 0
+        playerItem = videos[0].getPlayerItem()
+        isLoading = false
     }
     
     // MARK: Getters
@@ -103,10 +112,6 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     
     func nextPlayerItem() -> AVPlayerItem? {
         return nextVideo()?.getPlayerItem()
-    }
-    
-    func getCurrentIndex() -> Int {
-        return currentIndex
     }
     
     func length() -> Int {
