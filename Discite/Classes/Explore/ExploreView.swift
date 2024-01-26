@@ -11,8 +11,7 @@ struct ExploreView: View {
     @State private var columns: [GridItem] = [
         GridItem(.flexible()), GridItem(.flexible())
     ]
-//        GridItem(.flexible(minimum: 100, maximum: 100), spacing: 1)
-//    ]
+
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab

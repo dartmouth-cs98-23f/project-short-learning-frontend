@@ -20,7 +20,6 @@ struct TopicCard: View {
         Button {
             // TODO: Update sequence on click
             tabSelection = .Topics
-            
         } label: {
             Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
                 .font(Font.button)
