@@ -13,23 +13,18 @@ struct TopicCard: View {
     @Binding var tabSelection: Navigator.Tab
     
     var topic: Topic
+    var width: CGFloat
+    var height: CGFloat
     
     var body: some View {
         Button {
             // TODO: Update sequence on click
-            
-            tabSelection = .Watch
-            
+            tabSelection = .Topics
         } label: {
-            VStack(spacing: 12) {
-                Image(systemName: topic.thumbnailURL)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
-                Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
-                    .font(Font.button)
-            }
+            Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
+                .font(Font.button)
+                .clipShape(RoundedRectangle(cornerRadius: 2))
         }
-        .cardWithShadow(width: 140, height: 150)
+        .purpleTopicCard(width: width, height: height)
     }
 }
