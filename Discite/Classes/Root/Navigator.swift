@@ -54,7 +54,7 @@ struct Navigator: View {
             case .Topics:
                 TopicsView()
             case .Topic:
-                TopicPageView(tabSelection: $selection)
+                TopicPageView(sequence: sequence, tabSelection: $selection)
             }
             
             HStack {
