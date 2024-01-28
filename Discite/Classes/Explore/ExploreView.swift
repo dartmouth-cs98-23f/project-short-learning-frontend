@@ -18,10 +18,9 @@ struct ExploreView: View {
     @State var searchText: String = ""
     
     var body: some View {
-
         ScrollView {
+
             VStack(alignment: .leading, spacing: 24) {
-                
                 Text("Explore.Title")
                     .font(Font.H2)
                     .padding(.top, 18)
@@ -85,5 +84,4 @@ struct ExploreView: View {
             }
         }
     }
-    
 }
