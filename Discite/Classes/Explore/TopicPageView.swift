@@ -7,37 +7,6 @@
 
 import SwiftUI
 
-struct ToggleRoles: View {
-    @State private var rolesVisible = false
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            if rolesVisible {
-                Button(action: {
-                    withAnimation {
-                        self.rolesVisible.toggle()
-                    }
-                }) {
-                    Text("Hide Roles")
-                        .padding(.horizontal, 0)
-                }
-            } else {
-                Button(action: {
-                    withAnimation {
-                        self.rolesVisible.toggle()
-                    }
-                }) {
-                    Text("See Roles")
-                }
-            }
-            
-            if rolesVisible {
-                Text("Place spider-graph here")
-            }
-        }
-    }
-}
-
 struct TopicPageView: View {
     @ObservedObject var sequence: Sequence
     @Binding var tabSelection: Navigator.Tab
@@ -54,19 +23,27 @@ struct TopicPageView: View {
             Button {
                 tabSelection = .Explore
             } label: {
-                Text("< Explore")
-                    .font(.system(size: smallTextSize))
-                    .foregroundColor(Color.primaryPurpleDark)
+                HStack{
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(Color.primaryPurpleDark)
+                    Text("Explore")
+                        .font(.system(size: smallTextSize))
+                        .foregroundColor(Color.primaryPurpleDark)
+                }
             }
             
             Spacer()
             Button {
                 // bookmark/save this topic
             } label: {
-                Text("Bookmark")
-                    .font(.system(size: smallTextSize))
+                Image(systemName: "bookmark.fill")
                     .foregroundColor(Color.primaryPurpleDark)
             }
+//            } label: {
+//                Text("Bookmark")
+//                    .font(.system(size: smallTextSize))
+//                    .foregroundColor(Color.primaryPurpleDark)
+//            }
         }
         .padding([.top], topBottom)
         .padding([.leading, .trailing], leadTrail)
@@ -107,6 +84,37 @@ struct TopicPageView: View {
             }
             .padding([.bottom], topBottom)
             .padding([.leading, .trailing], leadTrail)
+        }
+    }
+}
+
+struct ToggleRoles: View {
+    @State private var rolesVisible = false
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            if rolesVisible {
+                Button(action: {
+                    withAnimation {
+                        self.rolesVisible.toggle()
+                    }
+                }) {
+                    Text("Hide Roles")
+                        .padding(.horizontal, 0)
+                }
+            } else {
+                Button(action: {
+                    withAnimation {
+                        self.rolesVisible.toggle()
+                    }
+                }) {
+                    Text("See Roles")
+                }
+            }
+            
+            if rolesVisible {
+                Text("Place spider-graph here")
+            }
         }
     }
 }
