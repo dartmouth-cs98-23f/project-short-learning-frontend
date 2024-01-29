@@ -16,7 +16,7 @@ struct TopicPageView: View {
     var topic: Topic
     
     var body: some View {
-        let topBottom = CGFloat(32)
+        let topBottom = CGFloat(24)
         let leadTrail = CGFloat(24)
         
         LazyVStack(alignment: .center, spacing: 10) {
