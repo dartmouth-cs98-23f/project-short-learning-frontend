@@ -19,6 +19,7 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationStack {
+<<<<<<< HEAD
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     Text("Explore.Title")
@@ -31,6 +32,39 @@ struct ExploreView: View {
         
                     // Section: Recommended topics
                     topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
+=======
+            VStack(alignment: .leading, spacing: 24) {
+                Text("Explore.Title")
+                .font(Font.H2)
+                .padding(.top, 18)
+                
+                SearchBar(placeholder: "Search for topics and playlists",
+                          text: $searchText)
+                .foregroundColor(.primaryBlueNavy)
+            }
+            .padding([.top, .leading, .trailing], 18)
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    // Section: Recommended topics
+                    topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
+    
+                    // Section: Recommended playlists
+                    playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
+                }
+                .padding(18)
+            }
+            .task {
+                await recommendations.load()
+            }
+            .padding(18)
+        }
+        .task {
+            await recommendations.load()
+        }
+
+    }
+>>>>>>> 7f080ed (merge)
     
                     // Section: Recommended playlists
                     playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
