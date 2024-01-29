@@ -9,54 +9,38 @@ import SwiftUI
 
 struct TopicPageView: View {
     @ObservedObject var sequence: Sequence
-    @Binding var tabSelection: Navigator.Tab
     @State private var columns: [GridItem] = [
         GridItem(.flexible()), GridItem(.flexible())
     ]
+    @Binding var tabSelection: Navigator.Tab
+    var topic: Topic
     
     var body: some View {
-        let smallTextSize = CGFloat(16)
         let topBottom = CGFloat(32)
         let leadTrail = CGFloat(24)
         
-        HStack(alignment: .center) {
-            Button {
-                tabSelection = .Explore
-            } label: {
-                HStack{
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(Color.primaryPurpleDark)
-                    Text("Explore")
-                        .font(.system(size: smallTextSize))
+        LazyVStack(alignment: .center, spacing: 10) {
+            HStack(alignment: .center) {
+                Spacer()
+                
+                Text("Topic")
+                    .font(Font.H5)
+                    .foregroundColor(Color.primaryPurpleDark)
+                
+                Spacer()
+                Button {
+                    // bookmark/save this topic
+                } label: {
+                    Image(systemName: "bookmark.fill")
                         .foregroundColor(Color.primaryPurpleDark)
                 }
             }
-            
-            Spacer()
-            Button {
-                // bookmark/save this topic
-            } label: {
-                Image(systemName: "bookmark.fill")
-                    .foregroundColor(Color.primaryPurpleDark)
-            }
-//            } label: {
-//                Text("Bookmark")
-//                    .font(.system(size: smallTextSize))
-//                    .foregroundColor(Color.primaryPurpleDark)
-//            }
-        }
-        .padding([.top], topBottom)
-        .padding([.leading, .trailing], leadTrail)
         
-        LazyVStack(alignment: .center, spacing: 10) {
-            Text("Topic")
-                .font(Font.H5)
-                .foregroundColor(Color.primaryPurpleDark)
-        
-            Text("Basic Auth")
+            Text(topic.topicName)
                 .font(Font.H3)
         }
-        .padding([.top, .bottom], topBottom)
+        .padding(.top, 0)
+        .padding([.bottom], topBottom)
         .padding([.leading, .trailing], leadTrail)
         
         ScrollView {
@@ -65,7 +49,7 @@ struct TopicPageView: View {
                 Text("Description")
                     .font(Font.H5)
                 
-                Text("The Internet is a global network of computers connected to each other which communicate through a standardized set of protocols.")
+                Text(topic.description ?? "")
                 
                 // "See roles" button
                 ToggleRoles()

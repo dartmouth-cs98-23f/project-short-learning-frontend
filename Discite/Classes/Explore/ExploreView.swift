@@ -9,73 +9,83 @@ import SwiftUI
 
 struct ExploreView: View {
     @State private var columns: [GridItem] = [
-        GridItem(.flexible()), GridItem(.flexible())
-    ]
-
+            GridItem(.flexible()), GridItem(.flexible())
+        ]
+    
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab
     @State var searchText: String = ""
     
     var body: some View {
-        ScrollView {
-
-            VStack(alignment: .leading, spacing: 24) {
-                Text("Explore.Title")
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    Text("Explore.Title")
                     .font(Font.H2)
                     .padding(.top, 18)
-                
-                SearchBar(placeholder: "Search for topics and playlists",
-                          text: $searchText)
-                .foregroundColor(.primaryBlueNavy)
-                
-                // Section: Recommended topics
-                topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
-                
-                // Section: Recommended playlists
-                playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
-                
-                Spacer()
-            }
-            .padding(18)
-        }
-        .task {
-            await recommendations.load()
-        }
-
-    }
+                    
+                    SearchBar(placeholder: "Search for topics and playlists",
+                              text: $searchText)
+                    .foregroundColor(.primaryBlueNavy)
+        
+                    // Section: Recommended topics
+                    topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
     
+                    // Section: Recommended playlists
+                    playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
+                }
+                .padding(18)
+            }
+            .task {
+                await recommendations.load()
+                
+            }
+        }
+    }
+
+    struct TopicPageScreen: View {
+        let value: String
+        
+        init(value: String) {
+            self.value = value
+            print("INIT SCREEN: \(value)")
+        }
+        
+        var body: some View {
+            Text("Screen \(value)")
+        }
+    }
+ 
     // Horizontally scrolling list of topics
     func topicScrollSection(heading: String, topics: [Topic]) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             
             HStack(alignment: .center) {
                 Text(heading).font(Font.H5)
+                
+                Spacer()
                 Button {
                     tabSelection = .Topics
                 } label: {
                     Text("See all topics")
                         .font(.system(size: 12))
-                        .padding([.leading], 40)
                         .foregroundColor(Color.primaryPurpleDark)
                 }
             }
             
-            NavigationStack {
-                ScrollView(.horizontal) {
-                    HStack(spacing: 20) {
-                        ForEach(topics, id: \._id) { topic in
+            ScrollView(.horizontal) {
+                HStack(spacing: 20) {
+                    ForEach(topics, id: \._id) { topic in
+                        NavigationLink(destination: {
+                            TopicPageView(sequence: sequence, tabSelection: $tabSelection, topic: topic)
+                        }, label: {
                             TopicCard(tabSelection: $tabSelection, topic: topic, width: 100, height: 30)
-                        }
+                        })
                     }
                 }
-                .padding([.top], 5)
             }
-            .navigationTitle("Explore.Title")
-            .navigationDestination(for: String.self) { topicId in
-                
-            }
-            
+            .padding([.top], 5)
         }
     }
     

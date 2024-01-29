@@ -22,8 +22,7 @@ struct Navigator: View {
         case Explore
         case Shared
         case Account
-        case Topics     // all topics
-        case Topic      // single topic page
+        case Topics
     }
     
     struct TabItem {
@@ -53,8 +52,6 @@ struct Navigator: View {
                 AccountView()
             case .Topics:
                 TopicsView()
-            case .Topic:
-                TopicPageView(sequence: sequence, tabSelection: $selection)
             }
             
             HStack {
