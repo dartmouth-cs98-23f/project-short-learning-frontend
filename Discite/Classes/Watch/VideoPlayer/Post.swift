@@ -7,10 +7,29 @@
 
 import SwiftUI
 import AVKit
+import Combine
+
+class ScrollPositionObserver: ObservableObject {
+    @Published var debouncedPosition: Int?
+    @Published var actualPosition: Int?
+    
+    private var cancellables = Set<AnyCancellable>()
+        
+    init() {
+        $actualPosition
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .sink { [weak self] newPosition in
+                self?.debouncedPosition = newPosition
+            }
+            .store(in: &cancellables)
+    }
+    
+}
 
 struct Post: View {
     @ObservedObject var playlist: Playlist
     @State private var scrollPosition: Int?
+    @StateObject var scrollObserver = ScrollPositionObserver()
     
     var player: AVPlayer
     
@@ -35,7 +54,13 @@ struct Post: View {
                     .scrollTargetBehavior(.paging)
                     .scrollPosition(id: $scrollPosition)
                     .ignoresSafeArea()
-                    .onChange(of: scrollPosition) {
+                    // Real-time update
+                    .onChange(of: scrollPosition) { _, newScrollPosition in
+                        scrollObserver.debouncedPosition = newScrollPosition
+                    }
+                    // Debounced update
+                    .onChange(of: scrollObserver.debouncedPosition) { _, newDebouncePosition in
+                        guard newDebouncePosition != scrollPosition else { return }
                         
                         // Update current index
                         let newIndex = (scrollPosition ?? 1) - 1
