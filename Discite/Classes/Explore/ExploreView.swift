@@ -61,14 +61,21 @@ struct ExploreView: View {
                 }
             }
             
-            ScrollView(.horizontal) {
-                HStack(spacing: 20) {
-                    ForEach(topics, id: \._id) { topic in
-                        TopicCard(tabSelection: $tabSelection, topic: topic, width: 100, height: 30)
+            NavigationStack {
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        ForEach(topics, id: \._id) { topic in
+                            TopicCard(tabSelection: $tabSelection, topic: topic, width: 100, height: 30)
+                        }
                     }
                 }
+                .padding([.top], 5)
             }
-            .padding([.top], 5)
+            .navigationTitle("Explore.Title")
+            .navigationDestination(for: String.self) { topicId in
+                
+            }
+            
         }
     }
     
