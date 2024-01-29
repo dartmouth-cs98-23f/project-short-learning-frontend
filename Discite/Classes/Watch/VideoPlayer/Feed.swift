@@ -17,7 +17,10 @@ struct Feed: View {
     
     var body: some View {
         
-        if viewModel.items.count == 0 {
+        if viewModel.items.count == 0, case .error = viewModel.state {
+            Text("Error loading content.")
+            
+        } else if viewModel.items.count == 0 {
             ProgressView()
             
         } else {
@@ -28,7 +31,7 @@ struct Feed: View {
                             .id(item.id)
                             .onAppear {
                                 viewModel.onItemAppear(playlist: item)
-                                initialPlay()
+                                // initialPlay()
                             }
                     }
                 }
@@ -37,9 +40,9 @@ struct Feed: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: $scrollPosition)
             .ignoresSafeArea()
-            .onAppear {
-                player.play()
-            }
+//            .onAppear {
+//                player.play()
+//            }
             .onChange(of: scrollPosition) { _, new in
                 updatePlayer(id: new)
                 if self.player.rate == 0 && self.player.error == nil {
@@ -60,13 +63,18 @@ struct Feed: View {
         player.replaceCurrentItem(with: playerItem)
     }
     
+    // Update player on vertical scroll
     func updatePlayer(id: String?) {
+        print("FEED: update player")
         guard let currentPost = viewModel.items.first(where: { $0.id == id }) else {
             return
         }
         
         player.replaceCurrentItem(with: nil)
-        let playerItem = currentPost.playerItem
+        guard let playerItem = currentPost.currentVideo()?.getPlayerItem() else {
+            return
+        }
+
         player.replaceCurrentItem(with: playerItem)
     }
 }
