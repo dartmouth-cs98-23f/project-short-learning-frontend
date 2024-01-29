@@ -42,6 +42,7 @@ struct TopicPageView: View {
         .padding(.top, 0)
         .padding([.bottom], topBottom)
         .padding([.leading, .trailing], leadTrail)
+        .navigationBarTitleDisplayMode(.inline)
         
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 10) {

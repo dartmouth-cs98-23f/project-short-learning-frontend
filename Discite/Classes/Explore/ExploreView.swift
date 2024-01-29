@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+struct BarBtn: View {
+    var body: some View {
+        Text("Explore.Title").font(Font.H2)
+    }
+}
+
 struct ExploreView: View {
     @State private var columns: [GridItem] = [
             GridItem(.flexible()), GridItem(.flexible())
@@ -21,9 +27,9 @@ struct ExploreView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    Text("Explore.Title")
-                    .font(Font.H2)
-                    .padding(.top, 18)
+//                    Text("Explore.Title")
+//                    .font(Font.H2)
+//                    .padding(.top, 18)
                     
                     SearchBar(placeholder: "Search for topics and playlists",
                               text: $searchText)
@@ -35,11 +41,11 @@ struct ExploreView: View {
                     // Section: Recommended playlists
                     playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
                 }
+                .navigationTitle("Explore.Title")
                 .padding(18)
             }
             .task {
                 await recommendations.load()
-                
             }
         }
     }
@@ -52,13 +58,21 @@ struct ExploreView: View {
                 Text(heading).font(Font.H5)
                 
                 Spacer()
-                Button {
-                    tabSelection = .Topics
-                } label: {
+                
+                NavigationLink(destination: {
+                    AllTopics()
+                }, label: {
                     Text("See all topics")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color.primaryPurpleDark)
-                }
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.primaryPurpleDark)
+                })
+//                Button {
+//                    tabSelection = .Topics
+//                } label: {
+//                    Text("See all topics")
+//                    .font(.system(size: 12))
+//                    .foregroundColor(Color.primaryPurpleDark)
+//                }
             }
             
             ScrollView(.horizontal) {
