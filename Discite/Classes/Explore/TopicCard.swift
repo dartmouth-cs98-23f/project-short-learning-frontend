@@ -17,14 +17,9 @@ struct TopicCard: View {
     var height: CGFloat
     
     var body: some View {
-        Button {
-            // TODO: Update sequence on click
-            tabSelection = .Topics
-        } label: {
-            Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
-                .font(Font.button)
-                .clipShape(RoundedRectangle(cornerRadius: 2))
-        }
-        .purpleTopicCard(width: width, height: height)
+        Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
+            .font(Font.button)
+            .clipShape(RoundedRectangle(cornerRadius: 2))
+            .purpleTopicCard(width: width, height: height)
     }
 }
