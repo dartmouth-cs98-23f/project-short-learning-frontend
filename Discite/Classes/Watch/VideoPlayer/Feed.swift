@@ -27,8 +27,7 @@ struct Feed: View {
             ScrollView {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.items) { item in
-                         // Post(playlist: item, scrollPosition: item.currentIndex, player: player)
-                        Post2(playlist: item, player: player)
+                        Post(playlist: item, player: player)
                             .id(item.id)
                             .onAppear {
                                 viewModel.onItemAppear(playlist: item)

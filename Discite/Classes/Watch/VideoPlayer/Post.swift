@@ -23,6 +23,8 @@ struct Post: View {
             
         } else {
             ZStack(alignment: .top) {
+                
+                // Background
                 ZStack {
                     Rectangle()
                         .fill(.black)
@@ -32,29 +34,39 @@ struct Post: View {
                         .foregroundColor(.white)
                 }
                 
-                imageCarousel(videos: playlist.videos)
-                    .scrollTargetBehavior(.paging)
-                    .defaultScrollAnchor(.leading)
-                    .scrollPosition(id: $scrollPosition)
-                    .ignoresSafeArea()
-                    .onChange(of: scrollPosition) { _, new in
-                        
-                        // Check that this video is not already playing
-                        guard new != playlist.currentIndex
-                                && player.currentItem != nil else { return }
-                        
-                        // Update current index
-                        let newIndex = new ?? 0
-                        _ = playlist.setCurrentIndex(index: newIndex)
-                        
-                        // Update player
-                        updatePlayer(video: playlist.currentVideo())
-                        if self.player.rate == 0 && self.player.error == nil {
-                            player.play()
+                // Horizontal carousel
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: 0) {
+                        ForEach(0..<playlist.videos.count, id: \.self) { index in
+                            VideoView(player: player)
+                                .id(index)
+                                .onAppear {
+                                    initialPlay()
+                                }
                         }
-                
                     }
+                    .scrollTargetLayout()
+                }
+                .scrollTargetBehavior(.paging)
+
+                .scrollPosition(id: $scrollPosition)
+                .ignoresSafeArea()
+                .onAppear {
+                   player.play()
+               }
+                .onChange(of: scrollPosition) { _, new in
+                    // Update current index
+                    _ = playlist.setCurrentIndex(index: new ?? 0)
+                    
+                    // Update player
+                    updatePlayer()
+                    if self.player.rate == 0 && self.player.error == nil {
+                        player.play()
+                    }
+            
+                }
                 
+                // Navigation
                 VStack {
                     dotNavigation(position: playlist.currentIndex, length: playlist.videos.count)
                         .padding(.top, 24)
@@ -70,47 +82,27 @@ struct Post: View {
                 .padding([.leading, .trailing], 24)
 
             }
-            .onTapGesture {
-                switch player.timeControlStatus {
-                case .paused:
-                    player.play()
-                case .waitingToPlayAtSpecifiedRate:
-                    break
-                case .playing:
-                    player.pause()
-                @unknown default:
-                    break
-                }
-            }
         }
     }
     
-    func addObserver() {
-        NotificationCenter
-            .default
-            .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                         object: player.currentItem,
-                         queue: .main) { (_) in
-                
-                player.seek(to: .zero)
-                player.play()
-            }
-    }
-    
-    func removeObserver() {
-        NotificationCenter
-            .default
-            .removeObserver(self,
-                            name: .AVPlayerItemDidPlayToEndTime,
-                            object: player.currentItem)
-    }
-    
-    // Update player on horizontal scroll
-    func updatePlayer(video: Video?) {
-        guard let video else { return }
-        
-        player.replaceCurrentItem(with: nil)
+    // When Watch first launches, manually play first video
+    func initialPlay() {
+        guard
+            scrollPosition == nil,
+            let video = playlist.currentVideo(),
+            player.currentItem == nil else { return }
+
         let playerItem = video.getPlayerItem()
+        player.replaceCurrentItem(with: playerItem)
+    }
+    
+    func updatePlayer() {
+        guard let currentVideo = playlist.currentVideo() else {
+            return
+        }
+
+        player.replaceCurrentItem(with: nil)
+        let playerItem = currentVideo.getPlayerItem()
         player.replaceCurrentItem(with: playerItem)
     }
    
@@ -134,41 +126,11 @@ struct Post: View {
     func imageCarousel(videos: [Video]) -> some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 0) {
-                ForEach(Array(videos.enumerated()), id: \.element.id) { index, video in
-                    
-                    if index == scrollPosition {
-                        CustomVideoPlayer(player: player)
-                            .containerRelativeFrame([.horizontal, .vertical])
-                            .onAppear {
-                                player.play()
-                                addObserver()
-                            }
-                            .onDisappear {
-                                player.pause()
-                                removeObserver()
-                            }
-
-                    } else {
-                        AsyncImage(url: URL(string: video.image)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                            
-                        } placeholder: {
-                            ProgressView()
-
-                        }
-                        .id(index)
-                        .containerRelativeFrame([.horizontal, .vertical])
-                    }
-                
+                ForEach(videos) { _ in
+                    VideoView(player: player)
                 }
-
             }
             .scrollTargetLayout()
-            .onAppear {
-                updatePlayer(video: playlist.currentVideo())
-            }
         }
     }
     
