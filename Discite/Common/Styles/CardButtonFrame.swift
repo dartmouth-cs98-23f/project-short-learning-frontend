@@ -67,6 +67,17 @@ extension View {
             .cornerRadius(10)
         
     }
+    
+    public func purpleTopicCard(width: CGFloat, height: CGFloat) -> some View {
+        self.frame(width: width, height: height)
+            .background(Color.primaryPurpleLightest)
+            .foregroundColor(.black)
+            .cornerRadius(5)
+//            .overlay(
+//                    RoundedRectangle(cornerRadius: 5)
+//                    .stroke(Color.primaryPurpleLight, lineWidth: 3)
+//            )
+    }
 }
 
 #Preview {

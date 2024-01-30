@@ -28,7 +28,7 @@ struct PlaylistCard: View {
                     image
                         .resizable()
                         .scaledToFill()
-                    
+
                 } placeholder: {
                     Rectangle()
                         .fill(Color.grayNeutral)
@@ -37,26 +37,23 @@ struct PlaylistCard: View {
       
                 Color.black.opacity(0.6)
                 
-                VStack(alignment: .leading, spacing: 5) {
-                    HStack(alignment: .top) {
+                VStack(spacing: 15) {
+                    HStack(alignment: .bottom) {
                         Text(playlist.title)
-                            .font(Font.H5)
+                            .font(Font.H6)
                             .multilineTextAlignment(.leading)
-                        
-                        SaveButton(action: { }, isSaved: false)
-                            .padding(.top, 4)
+                            .padding([.leading], 60)
+                            .padding([.trailing], 60)
+                            .padding([.bottom], 0)
                     }
-                    
-                    Text("\(playlist.length()) videos")
-                        .font(Font.small)
                 }
                 .padding([.top, .bottom], 32)
                 .padding([.leading, .trailing], 12)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .foregroundColor(.secondaryPeachLight)
             }
-            .frame(width: 230, height: 150)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .frame(width: width, height: height)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
         }
     }
 }
