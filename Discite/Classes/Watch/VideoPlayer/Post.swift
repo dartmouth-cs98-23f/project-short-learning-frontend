@@ -9,28 +9,10 @@ import SwiftUI
 import AVKit
 import Combine
 
-class ScrollPositionObserver: ObservableObject {
-    @Published var debouncedPosition: Int?
-    @Published var actualPosition: Int?
-    
-    private var cancellables = Set<AnyCancellable>()
-        
-    init() {
-        $actualPosition
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
-            .sink { [weak self] newPosition in
-                self?.debouncedPosition = newPosition
-            }
-            .store(in: &cancellables)
-    }
-    
-}
-
 struct Post: View {
     @ObservedObject var playlist: Playlist
-    @State private var scrollPosition: Int?
-    @StateObject var scrollObserver = ScrollPositionObserver()
-    
+    @State var scrollPosition: Int?
+
     var player: AVPlayer
     
     var body: some View {
@@ -43,7 +25,7 @@ struct Post: View {
             ZStack(alignment: .top) {
                 ZStack {
                     Rectangle()
-                        .fill(.pink)
+                        .fill(.black)
                         .containerRelativeFrame([.horizontal, .vertical])
                     
                     Text("Post: \(playlist.id)")
@@ -52,18 +34,17 @@ struct Post: View {
                 
                 imageCarousel(videos: playlist.videos)
                     .scrollTargetBehavior(.paging)
+                    .defaultScrollAnchor(.leading)
                     .scrollPosition(id: $scrollPosition)
                     .ignoresSafeArea()
-                    // Real-time update
-                    .onChange(of: scrollPosition) { _, newScrollPosition in
-                        scrollObserver.debouncedPosition = newScrollPosition
-                    }
-                    // Debounced update
-                    .onChange(of: scrollObserver.debouncedPosition) { _, newDebouncePosition in
-                        guard newDebouncePosition != scrollPosition else { return }
+                    .onChange(of: scrollPosition) { _, new in
+                        
+                        // Check that this video is not already playing
+                        guard new != playlist.currentIndex
+                                && player.currentItem != nil else { return }
                         
                         // Update current index
-                        let newIndex = (scrollPosition ?? 1) - 1
+                        let newIndex = new ?? 0
                         _ = playlist.setCurrentIndex(index: newIndex)
                         
                         // Update player
@@ -71,10 +52,8 @@ struct Post: View {
                         if self.player.rate == 0 && self.player.error == nil {
                             player.play()
                         }
-                    }
                 
-//                CustomVideoPlayer(player: player)
-//                    .containerRelativeFrame([.horizontal, .vertical])
+                    }
                 
                 VStack {
                     dotNavigation(position: playlist.currentIndex, length: playlist.videos.count)
@@ -92,13 +71,7 @@ struct Post: View {
 
             }
             .onAppear {
-                // Should we move the player play here?
-                initialPlay() 
-                addObserver()
-                // initialPlay()
-            }
-            .onDisappear {
-                removeObserver()
+                initialPlay()
             }
             .onTapGesture {
                 switch player.timeControlStatus {
@@ -138,18 +111,17 @@ struct Post: View {
     // When Watch first launches, manually play first video
     func initialPlay() {
         guard
-            scrollPosition == nil,
             player.currentItem == nil,
             let video = playlist.currentVideo()
         else { return }
         
+        scrollPosition = playlist.currentIndex
         let playerItem = video.getPlayerItem()
         player.replaceCurrentItem(with: playerItem)
     }
     
     // Update player on horizontal scroll
     func updatePlayer(video: Video?) {
-        print("POST: update player")
         guard let video else { return }
         player.replaceCurrentItem(with: nil)
         let playerItem = video.getPlayerItem()
@@ -157,11 +129,17 @@ struct Post: View {
     }
    
     func dotNavigation(position: Int, length: Int) -> some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 10) {
             ForEach(0..<playlist.videos.count, id: \.self) { index in
-                Circle()
-                    .fill(Color.primaryPurple.opacity(playlist.currentIndex == index ? 1 : 0.33))
-                    .frame(width: 8, height: 8)
+                if playlist.currentIndex == index {
+                    Circle()
+                        .fill(Color.primaryPurpleLightest.opacity(1))
+                        .frame(width: 12, height: 12)
+                } else {
+                    Circle()
+                        .fill(Color.primaryPurpleLight.opacity(0.5))
+                        .frame(width: 8, height: 8)
+                }
             }
         }
     }
@@ -169,18 +147,35 @@ struct Post: View {
     // Horizontal scroll section for video thumbnails
     func imageCarousel(videos: [Video]) -> some View {
         ScrollView(.horizontal) {
-            LazyHStack {
+            LazyHStack(spacing: 0) {
                 ForEach(Array(videos.enumerated()), id: \.element.id) { index, video in
-                    AsyncImage(url: URL(string: video.image)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                    
+                    if index == scrollPosition {
+                        CustomVideoPlayer(player: player)
                             .containerRelativeFrame([.horizontal, .vertical])
-                        
-                    } placeholder: {
-                        ProgressView()
+                            .onAppear {
+                                player.play()
+                                addObserver()
+                            }
+                            .onDisappear {
+                                player.pause()
+                                removeObserver()
+                            }
+
+                    } else {
+                        AsyncImage(url: URL(string: video.image)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            
+                        } placeholder: {
+                            ProgressView()
+
+                        }
+                        .id(index)
+                        .containerRelativeFrame([.horizontal, .vertical])
                     }
-                    .id(index)
+                
                 }
             }
             .scrollTargetLayout()

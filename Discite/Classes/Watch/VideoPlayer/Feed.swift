@@ -25,57 +25,21 @@ struct Feed: View {
             
         } else {
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 0) {
                     ForEach(viewModel.items) { item in
-                        Post(playlist: item, player: player)
+                        Post(playlist: item, scrollPosition: item.currentIndex, player: player)
                             .id(item.id)
                             .onAppear {
                                 viewModel.onItemAppear(playlist: item)
-                                // initialPlay()
                             }
                     }
                 }
                 .scrollTargetLayout()
             }
-            .scrollTargetBehavior(.viewAligned)
+            .scrollTargetBehavior(.paging)
             .scrollPosition(id: $scrollPosition)
             .ignoresSafeArea()
-//            .onAppear {
-//                player.play()
-//            }
-            .onChange(of: scrollPosition) { _, new in
-                updatePlayer(id: new)
-                if self.player.rate == 0 && self.player.error == nil {
-                    player.play()
-                }
-            }
         }
-    }
-    
-    // When Watch first launches, manually play first video
-    func initialPlay() {
-        guard 
-            scrollPosition == nil,
-            let item = viewModel.items.first,
-            player.currentItem == nil else { return }
-        
-        let playerItem = item.playerItem
-        player.replaceCurrentItem(with: playerItem)
-    }
-    
-    // Update player on vertical scroll
-    func updatePlayer(id: String?) {
-        print("FEED: update player")
-        guard let currentPost = viewModel.items.first(where: { $0.id == id }) else {
-            return
-        }
-        
-        player.replaceCurrentItem(with: nil)
-        guard let playerItem = currentPost.currentVideo()?.getPlayerItem() else {
-            return
-        }
-
-        player.replaceCurrentItem(with: playerItem)
     }
 }
 
