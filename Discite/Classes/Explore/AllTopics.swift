@@ -18,13 +18,25 @@ struct AllTopics: View {
     @State private var selectedSortOption = 0
     let sortOptions = ["Relevance", "Recommendations", "Name"]
 
+    private var sortedTopics: [Topic] {
+        switch selectedSortOption {
+        case 0: // Relevance
+            return recommendations.topics
+        case 1: // Recommendations
+            return recommendations.topics
+        case 2: // Name
+            return recommendations.topics.sorted { $0.topicName < $1.topicName }
+        default:
+            return recommendations.topics
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
-                        Text("Sort by:") // Label for the Picker
-                        .padding(0)
+                        Text("Sort by:")
                         
                         Picker("", selection: $selectedSortOption) {
                             ForEach(0..<sortOptions.count) { index in
@@ -37,7 +49,7 @@ struct AllTopics: View {
                         Spacer()
                         Text("Filters")
                     }
-                    topicScrollSection(topics: recommendations.topics)
+                    topicScrollSection(topics: sortedTopics)
                 }
                 .navigationTitle("Topics")
                 .padding(18)
