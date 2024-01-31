@@ -7,17 +7,10 @@
 
 import SwiftUI
 
-struct BarBtn: View {
-    var body: some View {
-        Text("Explore.Title").font(Font.H2)
-    }
-}
-
 struct ExploreView: View {
     @State private var columns: [GridItem] = [
             GridItem(.flexible()), GridItem(.flexible())
-        ]
-    
+    ]
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab
@@ -27,10 +20,6 @@ struct ExploreView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-//                    Text("Explore.Title")
-//                    .font(Font.H2)
-//                    .padding(.top, 18)
-                    
                     SearchBar(placeholder: "Search for topics and playlists",
                               text: $searchText)
                     .foregroundColor(.primaryBlueNavy)
@@ -60,19 +49,12 @@ struct ExploreView: View {
                 Spacer()
                 
                 NavigationLink(destination: {
-                    AllTopics()
+                    AllTopics(sequence: sequence, tabSelection: $tabSelection)
                 }, label: {
                     Text("See all topics")
                     .font(.system(size: 12))
                     .foregroundColor(Color.primaryPurpleDark)
                 })
-//                Button {
-//                    tabSelection = .Topics
-//                } label: {
-//                    Text("See all topics")
-//                    .font(.system(size: 12))
-//                    .foregroundColor(Color.primaryPurpleDark)
-//                }
             }
             
             ScrollView(.horizontal) {
