@@ -45,9 +45,6 @@ struct AllTopics: View {
                         }
                         .pickerStyle(MenuPickerStyle())
                         .padding(0)
-
-                        Spacer()
-                        Text("Filters")
                     }
                     topicScrollSection(topics: sortedTopics)
                 }
