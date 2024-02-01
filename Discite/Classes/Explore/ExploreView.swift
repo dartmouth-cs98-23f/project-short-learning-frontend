@@ -10,8 +10,7 @@ import SwiftUI
 struct ExploreView: View {
     @State private var columns: [GridItem] = [
             GridItem(.flexible()), GridItem(.flexible())
-        ]
-    
+    ]
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
     @Binding var tabSelection: Navigator.Tab
@@ -21,10 +20,6 @@ struct ExploreView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    Text("Explore.Title")
-                    .font(Font.H2)
-                    .padding(.top, 18)
-                    
                     SearchBar(placeholder: "Search for topics and playlists",
                               text: $searchText)
                     .foregroundColor(.primaryBlueNavy)
@@ -35,25 +30,12 @@ struct ExploreView: View {
                     // Section: Recommended playlists
                     playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
                 }
+                .navigationTitle("Explore.Title")
                 .padding(18)
             }
             .task {
                 await recommendations.load()
-                
             }
-        }
-    }
-
-    struct TopicPageScreen: View {
-        let value: String
-        
-        init(value: String) {
-            self.value = value
-            print("INIT SCREEN: \(value)")
-        }
-        
-        var body: some View {
-            Text("Screen \(value)")
         }
     }
  
@@ -65,13 +47,14 @@ struct ExploreView: View {
                 Text(heading).font(Font.H5)
                 
                 Spacer()
-                Button {
-                    tabSelection = .Topics
-                } label: {
+                
+                NavigationLink(destination: {
+                    AllTopics(sequence: sequence, tabSelection: $tabSelection)
+                }, label: {
                     Text("See all topics")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color.primaryPurpleDark)
-                }
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.primaryPurpleDark)
+                })
             }
             
             ScrollView(.horizontal) {
