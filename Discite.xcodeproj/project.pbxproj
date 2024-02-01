@@ -15,6 +15,8 @@
 		66CE484F2B00AAC10038FF75 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE484E2B00AAC10038FF75 /* AccountViewModel.swift */; };
 		66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */; };
 		66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EE0EB52AF4D4A500F65F38 /* SignupView.swift */; };
+		C2082F912B6C06B200EEED6B /* SampleSpiderGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2082F902B6C06B200EEED6B /* SampleSpiderGraph.swift */; };
+		C2082F932B6C098A00EEED6B /* SpiderGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2082F922B6C098A00EEED6B /* SpiderGraph.swift */; };
 		C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20DB8DF2AF1A8A5006FC33A /* User.swift */; };
 		C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE562AFBABDD0074EC9A /* DisciteApp.swift */; };
 		C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE592AFBAF870074EC9A /* SampleData.swift */; };
@@ -115,6 +117,8 @@
 		66EE0EB42AF4D4A500F65F38 /* SignupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		66EE0EB52AF4D4A500F65F38 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.debug.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.debug.xcconfig"; sourceTree = "<group>"; };
+		C2082F902B6C06B200EEED6B /* SampleSpiderGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleSpiderGraph.swift; sourceTree = "<group>"; };
+		C2082F922B6C098A00EEED6B /* SpiderGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderGraph.swift; sourceTree = "<group>"; };
 		C20DB8DF2AF1A8A5006FC33A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C20EFE562AFBABDD0074EC9A /* DisciteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteApp.swift; sourceTree = "<group>"; };
 		C20EFE592AFBAF870074EC9A /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -264,6 +268,15 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
+		C2082F832B6BD45200EEED6B /* SpiderGraph */ = {
+			isa = PBXGroup;
+			children = (
+				C2082F902B6C06B200EEED6B /* SampleSpiderGraph.swift */,
+				C2082F922B6C098A00EEED6B /* SpiderGraph.swift */,
+			);
+			path = SpiderGraph;
+			sourceTree = "<group>";
+		};
 		C20EFE582AFBAF690074EC9A /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,7 +350,7 @@
 		C2128A8B2ADB2B9100E90C66 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
+				C2082F832B6BD45200EEED6B /* SpiderGraph */,
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
 				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
@@ -347,6 +360,7 @@
 				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
 				C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */,
 				C2A3FF2E2B035C2C001EDE9F /* Loading.swift */,
+				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 				665D4CCF2AFED43D00F1C05C /* Constants.swift */,
@@ -711,6 +725,7 @@
 				C20EFE822AFFA9A30074EC9A /* Navigator.swift in Sources */,
 				C251C98A2AF4AD1200922B00 /* Video.swift in Sources */,
 				C20EFE762AFDCC410074EC9A /* Recommendations.swift in Sources */,
+				C2082F912B6C06B200EEED6B /* SampleSpiderGraph.swift in Sources */,
 				C251C9882AF4963100922B00 /* Sequence.swift in Sources */,
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
 				C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */,
@@ -747,6 +762,7 @@
 				2CBE27162B6436D600DF585B /* TopicPageView.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDiveOld.swift in Sources */,
+				C2082F932B6C098A00EEED6B /* SpiderGraph.swift in Sources */,
 				66365F822B0095AC009E0438 /* OnboardingView.swift in Sources */,
 				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,

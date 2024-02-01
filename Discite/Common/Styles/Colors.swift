@@ -30,7 +30,7 @@ extension Color {
     
     static let grayBlue = Color("BlueGray")
     static let grayNeutral = Color("Gray")
-    static let grayLight = Color("GrayLight")
+    static let grayLight = Color("GrayLightest")
     static let grayDark = Color("GrayDark")
     
     static let error = Color("Error")
