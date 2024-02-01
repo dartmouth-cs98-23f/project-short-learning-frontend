@@ -35,36 +35,23 @@ struct Post: View {
                 }
                 
                 // Horizontal carousel
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 0) {
-                        ForEach(0..<playlist.videos.count, id: \.self) { index in
-                            VideoView(player: player)
-                                .id(index)
-                                .onAppear {
-                                    initialPlay()
-                                }
+                videoCarousel()
+                    .scrollTargetBehavior(.paging)
+                    .scrollPosition(id: $scrollPosition)
+                    .ignoresSafeArea()
+                    .onAppear {
+                       player.play()
+                   }
+                    .onChange(of: scrollPosition) { _, new in
+                        // Update current index
+                        _ = playlist.setCurrentIndex(index: new ?? 0)
+                        
+                        // Update player
+                        updatePlayer()
+                        if self.player.rate == 0 && self.player.error == nil {
+                            player.play()
                         }
                     }
-                    .scrollTargetLayout()
-                }
-                .scrollTargetBehavior(.paging)
-
-                .scrollPosition(id: $scrollPosition)
-                .ignoresSafeArea()
-                .onAppear {
-                   player.play()
-               }
-                .onChange(of: scrollPosition) { _, new in
-                    // Update current index
-                    _ = playlist.setCurrentIndex(index: new ?? 0)
-                    
-                    // Update player
-                    updatePlayer()
-                    if self.player.rate == 0 && self.player.error == nil {
-                        player.play()
-                    }
-            
-                }
                 
                 // Navigation
                 VStack {
@@ -82,6 +69,21 @@ struct Post: View {
                 .padding([.leading, .trailing], 24)
 
             }
+        }
+    }
+    
+    func videoCarousel() -> some View {
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 0) {
+                ForEach(0..<playlist.videos.count, id: \.self) { index in
+                    VideoView(player: player)
+                        .id(index)
+                        .onAppear {
+                            initialPlay()
+                        }
+                }
+            }
+            .scrollTargetLayout()
         }
     }
     
@@ -121,19 +123,7 @@ struct Post: View {
             }
         }
     }
-    
-    // Horizontal scroll section for video thumbnails
-    func imageCarousel(videos: [Video]) -> some View {
-        ScrollView(.horizontal) {
-            LazyHStack(spacing: 0) {
-                ForEach(videos) { _ in
-                    VideoView(player: player)
-                }
-            }
-            .scrollTargetLayout()
-        }
-    }
-    
+
     func actionButtons() -> some View {
         VStack(spacing: 24) {
             Button {

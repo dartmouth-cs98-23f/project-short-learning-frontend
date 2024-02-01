@@ -39,7 +39,25 @@ struct Feed: View {
             .scrollTargetBehavior(.paging)
             .scrollPosition(id: $scrollPosition)
             .ignoresSafeArea()
+            .onChange(of: scrollPosition) { _, new in
+                updatePlayer(id: new)
+                if self.player.rate == 0 && self.player.error == nil {
+                    player.play()
+                }
+            }
         }
+    }
+    
+    func updatePlayer(id: String?) {
+        guard
+            let currentPost = viewModel.items.first(where: { $0.id == id }),
+            let playerItem = currentPost.currentVideo()?.getPlayerItem()
+        else {
+            return
+        }
+                
+        player.replaceCurrentItem(with: nil)
+        player.replaceCurrentItem(with: playerItem)
     }
 }
 
