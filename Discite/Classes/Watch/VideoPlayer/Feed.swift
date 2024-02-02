@@ -17,29 +17,28 @@ struct Feed: View {
     
     var body: some View {
         
-        if viewModel.items.count == 0 {
+        if viewModel.items.count == 0, case .error = viewModel.state {
+            Text("Error loading content.")
+            
+        } else if viewModel.items.count == 0 {
             ProgressView()
             
         } else {
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 0) {
                     ForEach(viewModel.items) { item in
                         Post(playlist: item, player: player)
                             .id(item.id)
                             .onAppear {
                                 viewModel.onItemAppear(playlist: item)
-                                initialPlay()
                             }
                     }
                 }
                 .scrollTargetLayout()
             }
-            .scrollTargetBehavior(.viewAligned)
+            .scrollTargetBehavior(.paging)
             .scrollPosition(id: $scrollPosition)
             .ignoresSafeArea()
-            .onAppear {
-                player.play()
-            }
             .onChange(of: scrollPosition) { _, new in
                 updatePlayer(id: new)
                 if self.player.rate == 0 && self.player.error == nil {
@@ -49,24 +48,15 @@ struct Feed: View {
         }
     }
     
-    // When Watch first launches, manually play first video
-    func initialPlay() {
-        guard 
-            scrollPosition == nil,
-            let item = viewModel.items.first,
-            player.currentItem == nil else { return }
-        
-        let playerItem = item.playerItem
-        player.replaceCurrentItem(with: playerItem)
-    }
-    
     func updatePlayer(id: String?) {
-        guard let currentPost = viewModel.items.first(where: { $0.id == id }) else {
+        guard
+            let currentPost = viewModel.items.first(where: { $0.id == id }),
+            let playerItem = currentPost.currentVideo()?.getPlayerItem()
+        else {
             return
         }
-        
+                
         player.replaceCurrentItem(with: nil)
-        let playerItem = currentPost.playerItem
         player.replaceCurrentItem(with: playerItem)
     }
 }

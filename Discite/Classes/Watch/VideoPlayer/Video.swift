@@ -14,6 +14,7 @@ struct Video: Decodable, Identifiable {
     var playlistId: String
     var title: String
     var description: String
+    var image: String
     var videoURL: String
     
     enum CodingKeys: String, CodingKey {
@@ -21,6 +22,7 @@ struct Video: Decodable, Identifiable {
         case playlistId = "videoId"
         case title
         case description
+        case image
         case uploadDate
         case uploader
         case duration
@@ -38,6 +40,7 @@ struct Video: Decodable, Identifiable {
         playlistId = try container.decode(String.self, forKey: .playlistId)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
+        image = try container.decode(String.self, forKey: .image)
         videoURL = try container.decode(String.self, forKey: .videoURL)
     }
     
