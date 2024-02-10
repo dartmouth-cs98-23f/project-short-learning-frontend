@@ -96,6 +96,30 @@ struct TextualButton: View {
     }
 }
 
+func primaryActionButton(label: String, disabled: Bool = false) -> some View {
+    Text(label)
+        .font(Font.button)
+        .foregroundColor(.white)
+        .padding(12)
+        .cornerRadius(5)
+        .background {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(disabled ? Color.grayNeutral : Color.primaryBlueNavy)
+                .addGradient(gradient: !disabled ? LinearGradient.blueBlackLinear : nil)
+        }
+}
+
+func secondaryActionButton(label: String, disabled: Bool = false) -> some View {
+    Text(label)
+        .font(Font.button)
+        .foregroundColor(disabled ? .grayNeutral : .primaryBlueBlack)
+        .padding(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(disabled ? Color.grayNeutral : Color.primaryBlueBlack, lineWidth: 2)
+        )
+}
+
 #Preview {
-    PrimaryActionButton(action: {}, label: "Primary")
+    return secondaryActionButton(label: "Secondary")
 }

@@ -48,7 +48,7 @@ struct Navigator: View {
             case .Shared:
                 Shared()
             case .Account:
-                AccountView()
+                AccountView(user: User.anonymousUser, tabSelection: $selection)
             }
             
             HStack {
