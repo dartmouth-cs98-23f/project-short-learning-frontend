@@ -81,6 +81,7 @@ struct FriendsPage: View {
                 Text(friend.firstName + " " + friend.lastName)
                     .font(.body2)
             }
+            .foregroundColor(Color.primaryBlueBlack)
         }
         .padding([.top, .bottom], 4)
         .frame(maxWidth: .infinity, alignment: .leading)
