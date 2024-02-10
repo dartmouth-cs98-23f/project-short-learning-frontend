@@ -156,7 +156,7 @@ struct Share: View {
             }
             
         }
-    
+        
     }
     
     // Internal share button
@@ -211,7 +211,7 @@ struct Share: View {
                             .frame(width: 54, height: 54)
                     }
                 }
-    
+                
                 Text(friend.username).font(Font.small)
             }
             .animation(.easeInOut(duration: 0.3), value: selection.contains(friend))
@@ -222,17 +222,6 @@ struct Share: View {
     func clearProfileSelection() {
         selection.removeAll()
     }
-    
-    static func createSampleFriends() -> [Friend] {
-        var friends: [Friend] = []
-        
-        for i in (1..<5) {
-            friends.append(Friend(id: "\(i)", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle"))
-        }
-        
-        return friends
-    }
-    
 }
 
 struct ShareRepresentable: UIViewControllerRepresentable {
