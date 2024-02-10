@@ -34,7 +34,6 @@ struct AccountMenu: View {
             
         }
         .padding([.leading, .trailing], 18)
-        .border(.blue)
     }
     
     func textualMenuButton(label: String) -> some View {

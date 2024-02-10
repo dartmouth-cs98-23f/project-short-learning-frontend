@@ -3,9 +3,8 @@
 //  Discite
 //
 //  Created by Jessie Li on 10/22/23.
+//  Modified by Jessie Li on 2/9/24.
 //
-//  Source:
-//      https://medium.com/geekculture/side-menu-in-ios-swiftui-9fe1b69fc487
 
 import SwiftUI
 
@@ -26,22 +25,18 @@ struct AccountView: View {
                     basicInformation()
                     
                     progressSummary()
-                        // task: load stats
                         .task {
                             statistics = await viewModel.getProgressSummary()
                             
                         }
                     
                     recentTopics()
-                        // task: load topics
                         .task {
                             topics = await viewModel.getRecentTopics()
                         }
-
                     
                     spiderGraph()
                         .frame(minHeight: 350)
-                        // task: load spider graph
                         .task {
                             spiderGraphData = await viewModel.getSpiderGraphData()
                         }
@@ -177,7 +172,7 @@ struct AccountView: View {
                     )
                 }
             } else {
-                placeholderRectangle(minHeight: 400)
+                placeholderRectangle(minHeight: 350)
             }
         }
     }
