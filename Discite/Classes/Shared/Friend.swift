@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Friend: Decodable, Identifiable, Hashable {
+struct Friend: Codable, Identifiable, Hashable {
     var id: String
     var username: String
     var firstName: String
     var lastName: String
-    var profileImage: String
+    var profileImage: String?
 }

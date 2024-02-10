@@ -98,6 +98,8 @@
 		C2A44AAE2B76CEE3009FEEAB /* FriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AAD2B76CEE3009FEEAB /* FriendsPage.swift */; };
 		C2A44AB02B76D14D009FEEAB /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */; };
 		C2A44AB22B76D612009FEEAB /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB12B76D612009FEEAB /* Placeholder.swift */; };
+		C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */; };
+		C2A44AB62B772415009FEEAB /* FriendProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
 		C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */; };
@@ -211,6 +213,8 @@
 		C2A44AAD2B76CEE3009FEEAB /* FriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPage.swift; sourceTree = "<group>"; };
 		C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		C2A44AB12B76D612009FEEAB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
+		C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfilePage.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -430,6 +434,8 @@
 				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
 				C2A44AAB2B76CE5E009FEEAB /* SavedPage.swift */,
 				C2A44AAD2B76CEE3009FEEAB /* FriendsPage.swift */,
+				C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */,
+				C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */,
 				C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */,
 				C2A44AB12B76D612009FEEAB /* Placeholder.swift */,
 			);
@@ -767,6 +773,7 @@
 				C2EE4E5B2B24EC1300FEA5B5 /* DeepDive.swift in Sources */,
 				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
+				C2A44AB62B772415009FEEAB /* FriendProfilePage.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
 				C28ABE982AF31D9E007181F4 /* TextButtons.swift in Sources */,
 				C20EFE702AFDA6D70074EC9A /* CardButtonFrame.swift in Sources */,
@@ -788,6 +795,7 @@
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C269CD1E2B68A05000A5126C /* Post.swift in Sources */,
 				C251C98E2AF4AFA000922B00 /* DeepDiveOld.swift in Sources */,
+				C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */,
 				C2082F932B6C098A00EEED6B /* SpiderGraph.swift in Sources */,
 				66365F822B0095AC009E0438 /* OnboardingView.swift in Sources */,
 				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,

@@ -110,7 +110,7 @@ struct Share: View {
             
         } label: {
             VStack {
-                Image(systemName: selection.contains(friend) ? "checkmark.circle.fill" : friend.profileImage)
+                Image(systemName: selection.contains(friend) ? "checkmark.circle.fill" : friend.profileImage ?? "person.circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 56, height: 56)

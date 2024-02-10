@@ -13,7 +13,7 @@ extension Font {
     
     // Headings
     static let H1 = Font.custom("Mulish-Bold", size: 56)
-    static let H2 = Font.custom("Mulish-Bold", size: 44)
+    static let H2 = Font.custom("Mulish-Bold", size: 40)
     static let H3 = Font.custom("Mulish-Bold", size: 28)
     static let H4 = Font.custom("Mulish-SemiBold", size: 26)
     static let H5 = Font.custom("Mulish-Bold", size: 20)
