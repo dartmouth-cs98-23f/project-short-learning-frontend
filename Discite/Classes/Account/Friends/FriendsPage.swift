@@ -13,7 +13,7 @@ struct FriendsPage: View {
     @State var friends: [Friend]?
     
     var body: some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 8) {
             Text("Friends")
                 .font(.H2)
                 .frame(maxWidth: .infinity, alignment: .leading)
