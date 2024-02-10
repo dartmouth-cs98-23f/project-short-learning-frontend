@@ -428,15 +428,8 @@
 		C2237F412AE5E41500C9396E /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				C2A44AA92B76AD62009FEEAB /* AccountMenu.swift */,
-				C2237F422AE5E4A600C9396E /* AccountView.swift */,
-				66CE484E2B00AAC10038FF75 /* AccountViewModel.swift */,
-				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
-				C2A44AAB2B76CE5E009FEEAB /* SavedPage.swift */,
-				C2A44AAD2B76CEE3009FEEAB /* FriendsPage.swift */,
-				C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */,
-				C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */,
-				C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */,
+				C2A44AB82B772579009FEEAB /* Friends */,
+				C2A44AB72B772551009FEEAB /* Personal */,
 				C2A44AB12B76D612009FEEAB /* Placeholder.swift */,
 			);
 			path = Account;
@@ -569,6 +562,29 @@
 				C2128A8F2ADB341400E90C66 /* LoginView.swift */,
 			);
 			path = Testing;
+			sourceTree = "<group>";
+		};
+		C2A44AB72B772551009FEEAB /* Personal */ = {
+			isa = PBXGroup;
+			children = (
+				C2A44AA92B76AD62009FEEAB /* AccountMenu.swift */,
+				C2237F422AE5E4A600C9396E /* AccountView.swift */,
+				66CE484E2B00AAC10038FF75 /* AccountViewModel.swift */,
+				C2A44AAB2B76CE5E009FEEAB /* SavedPage.swift */,
+				C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */,
+				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
+			);
+			path = Personal;
+			sourceTree = "<group>";
+		};
+		C2A44AB82B772579009FEEAB /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				C2A44AAD2B76CEE3009FEEAB /* FriendsPage.swift */,
+				C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */,
+				C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */,
+			);
+			path = Friends;
 			sourceTree = "<group>";
 		};
 		C2D287202AE0B03B00BB263C /* Root */ = {
