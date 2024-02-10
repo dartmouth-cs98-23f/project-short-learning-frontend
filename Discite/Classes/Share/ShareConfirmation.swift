@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ShareConfirmation: View {
     
-    @Binding var isShowing: Bool
     @Binding var isShowingShare: Bool
     @State var appeared: Bool = false
     var playlist: Playlist
@@ -41,12 +40,11 @@ struct ShareConfirmation: View {
             VStack(spacing: 12) {
                 // Continue learning (back to DeepDive)
                 PrimaryActionButton(action: {
-                    isShowing = false
                     isShowingShare = false
                 }, label: "Keep learning")
                 
                 // Keep sharing
-                TextualButton(action: { isShowing = false }, label: "Share with more friends")
+                TextualButton(action: { }, label: "Share with more friends")
             }
 
         }

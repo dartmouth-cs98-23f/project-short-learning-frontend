@@ -12,6 +12,7 @@ import Combine
 struct Post: View {
     @ObservedObject var playlist: Playlist
     @State var scrollPosition: Int?
+    @State var isShareShowing: Bool = false
 
     var player: AVPlayer
     
@@ -68,6 +69,9 @@ struct Post: View {
                 .padding([.top, .bottom], 36)
                 .padding([.leading, .trailing], 24)
 
+            }
+            .sheet(isPresented: $isShareShowing) {
+                Share(isShowing: $isShareShowing, playlist: playlist)
             }
         }
     }
@@ -137,6 +141,7 @@ struct Post: View {
             }
             
             Button {
+                isShareShowing.toggle()
                 
             } label: {
                 Image(systemName: "paperplane")
