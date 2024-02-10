@@ -109,6 +109,20 @@ func primaryActionButton(label: String, disabled: Bool = false) -> some View {
         }
 }
 
+func primaryActionButton(label: String, disabled: Bool = false, maxWidth: CGFloat) -> some View {
+    Text(label)
+        .font(Font.button)
+        .foregroundColor(.white)
+        .padding(12)
+        .cornerRadius(5)
+        .frame(maxWidth: maxWidth)
+        .background {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(disabled ? Color.grayNeutral : Color.primaryBlueNavy)
+                .addGradient(gradient: !disabled ? LinearGradient.blueBlackLinear : nil)
+        }
+}
+
 func secondaryActionButton(label: String, disabled: Bool = false) -> some View {
     Text(label)
         .font(Font.button)
@@ -116,7 +130,19 @@ func secondaryActionButton(label: String, disabled: Bool = false) -> some View {
         .padding(12)
         .overlay(
             RoundedRectangle(cornerRadius: 5)
-                .stroke(disabled ? Color.grayNeutral : Color.primaryBlueBlack, lineWidth: 2)
+                .strokeBorder(disabled ? Color.grayNeutral : Color.primaryBlueBlack, lineWidth: 2)
+        )
+}
+
+func secondaryActionButton(label: String, disabled: Bool = false, maxWidth: CGFloat) -> some View {
+    Text(label)
+        .font(Font.button)
+        .foregroundColor(disabled ? .grayNeutral : .primaryBlueBlack)
+        .padding(12)
+        .frame(maxWidth: maxWidth)
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .strokeBorder(disabled ? Color.grayNeutral : Color.primaryBlueBlack, lineWidth: 2)
         )
 }
 

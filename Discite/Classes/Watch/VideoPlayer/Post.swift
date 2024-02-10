@@ -71,7 +71,7 @@ struct Post: View {
 
             }
             .sheet(isPresented: $isShareShowing) {
-                Share(isShowing: $isShareShowing, playlist: playlist)
+                Share(playlist: playlist, isShowing: $isShareShowing)
             }
         }
     }
