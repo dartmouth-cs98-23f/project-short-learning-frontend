@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct AccountView: View {
-    var user: User
     @Binding var tabSelection: Navigator.Tab
     
+    @State var user: User?
     @State var statistics: [Statistic]?
     @State var topics: [TopicTag]?
     @State var spiderGraphData: SpiderGraphData?
@@ -23,6 +23,11 @@ struct AccountView: View {
             ScrollView(.vertical) {
                 VStack(spacing: 32) {
                     basicInformation()
+                        .task {
+                            if user == nil {
+                                user = await viewModel.getUser()
+                            }
+                        }
                     
                     progressSummary()
                         .task {
@@ -75,10 +80,10 @@ struct AccountView: View {
                 .scaledToFit()
                 .frame(width: 120, height: 120)
             
-            Text("John Doe")
+            Text(user?.getFullName() ?? "")
                 .font(.H3)
             
-            Text("johndoe")
+            Text(user?.username ?? "")
                 .font(.body1)
         }
     }
@@ -209,5 +214,5 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView(user: User.anonymousUser, tabSelection: .constant(.Account))
+    AccountView(tabSelection: .constant(.Account), user: User.anonymousUser)
 }

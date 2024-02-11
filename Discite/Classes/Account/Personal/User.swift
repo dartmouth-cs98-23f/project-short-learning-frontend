@@ -7,23 +7,22 @@
 
 import Foundation
 
-struct User: Codable {
-    var userId: Int
+struct User: Codable, Identifiable {
+    var id: Int
     var firstName: String
     var lastName: String
-    var userName: String
-    var email: String
-    var passwordHash: String?
-    var dateOfBirth: Date?
-    var RegistrationDate: Date?
-    var lastLogin: Date?
+    var username: String
+    var email: String?
+    var password: String?
+    var birthDate: Date?
+    var lastLoginDate: Date?
     var profilePicture: String?
     var onBoardingStatus: String?
     
-    static let anonymousUser = User(userId: 0,
+    static let anonymousUser = User(id: 0,
                                     firstName: "John",
                                     lastName: "Doe",
-                                    userName: "johndoe",
+                                    username: "johndoe",
                                     email: "johndoe@email.com")
     
     func getFullName() -> String {
@@ -31,7 +30,7 @@ struct User: Codable {
     }
     
     func getUserName() -> String {
-        return self.userName
+        return self.username
     }
 }
 
