@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ShareConfirmation: View {
     
-    @Binding var isShowing: Bool
+    @Environment(\.dismiss) var dismiss
     @Binding var isShowingShare: Bool
     @State var appeared: Bool = false
     var playlist: Playlist
@@ -21,7 +21,7 @@ struct ShareConfirmation: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80, height: 80)
-                .addGradient(gradient: LinearGradient.pinkOrangeGradient)
+                .foregroundColor(.primaryPurpleLight)
                 .scaleEffect(appeared ? 1 : 0.5)
                 .animation(Animation.smooth(duration: 2), value: appeared)
                 .onAppear {
@@ -35,22 +35,33 @@ struct ShareConfirmation: View {
                 Text("\"\(playlist.title)\"")
                     .font(Font.H3)
                     .multilineTextAlignment(.center)
-                    .addGradient(gradient: LinearGradient.pinkOrangeGradient)
+                    .foregroundColor(.primaryPurpleLight)
             }
             
             VStack(spacing: 12) {
-                // Continue learning (back to DeepDive)
-                PrimaryActionButton(action: {
-                    isShowing = false
-                    isShowingShare = false
-                }, label: "Keep learning")
+                Button {
+                    isShowingShare.toggle()
+                } label: {
+                    primaryActionButton(label: "Keep learning", maxWidth: .infinity)
+                }
                 
-                // Keep sharing
-                TextualButton(action: { isShowing = false }, label: "Share with more friends")
+                Button {
+                    dismiss()
+                } label: {
+                    secondaryActionButton(label: "Share with more friends", maxWidth: .infinity)
+                }
             }
 
         }
+        .navigationBarBackButtonHidden(true)
         .padding([.leading, .trailing], 18)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                TextualButton(action: {
+                    isShowingShare.toggle()
+                }, label: "Done")
+            }
+        }
         
     }
 }

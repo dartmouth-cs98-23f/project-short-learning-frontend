@@ -23,3 +23,33 @@ struct TopicCard: View {
             .purpleTopicCard(width: width, height: height)
     }
 }
+
+struct TopicTagWithNavigation: View {
+    var topic: TopicTag
+    
+    var body: some View {
+        
+        NavigationLink(destination: {
+            // TopicPageView()
+            
+        }, label: {
+            HStack(spacing: 4) {
+                Image(systemName: "tag")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16, height: 16)
+                
+                Text(topic.topicName)
+                    .font(Font.button)
+            }
+            .padding(8)
+            .foregroundColor(.primaryBlueBlack)
+            .background {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(Color.primaryPurpleLightest)
+                    .strokeBorder(Color.primaryPurpleLight, lineWidth: 2)
+            }
+
+        })
+    }
+}

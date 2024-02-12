@@ -12,5 +12,5 @@ struct SharedPlaylist: Decodable, Identifiable {
     var playlist: Playlist
     var sender: Friend?
     var receiver: Friend?
-    var hasWatched: Bool
+    var hasWatched: Bool?
 }

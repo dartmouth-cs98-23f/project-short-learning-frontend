@@ -14,7 +14,7 @@ struct SearchBar: View {
     @State private var isEditing = false
  
     var body: some View {
-        TextField(placeholder ?? "Search...", text: $text)
+        TextField(placeholder ?? "Search", text: $text)
             .font(Font.body1)
             .padding(8)
             .padding(.horizontal, 24)

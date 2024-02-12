@@ -35,20 +35,13 @@ struct Navigator: View {
             switch selection {
             
             case .Watch:
-                if sequence.playerItem != nil {
-                    PlayerView(sequence: sequence)
-                } else {
-                    Loading()
-                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                         .background(Color.primaryBlueBlack)
-                }
-
+                Feed()
             case .Explore:
                 ExploreView(sequence: sequence, tabSelection: $selection)
             case .Shared:
                 Shared()
             case .Account:
-                AccountView()
+                AccountView(tabSelection: $selection)
             }
             
             HStack {

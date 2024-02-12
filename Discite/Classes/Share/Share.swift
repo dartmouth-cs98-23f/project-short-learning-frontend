@@ -9,97 +9,168 @@ import SwiftUI
 
 struct Share: View {
     
-    var playlist: SharedPlaylist
-    var friends: [Friend]
-    
-    @State private var isShowingActivities = false
-    @State private var isShowingConfirmation = false
-    @State private var friendSearch = ""
-    @State private var message = "This playlist is perfect for you. ✨ Join me on Discite to unlock more personalized, tailored content and enhance your learning experience! 📚"
+    var playlist: Playlist
     @Binding var isShowing: Bool
     
-    @State private var selection = Set<Friend>()
+    @State private var isShowingActivities = false
+    @State private var friendSearch = ""
+    @State private var message = "This playlist is perfect for you. ✨ Join me on Discite to unlock more personalized, tailored content and enhance your learning experience! 📚"
     
-    var searchBar: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-            
-            TextField("Search", text: $friendSearch)
-                .font(Font.body1)
-        }
-        .padding(8)
-        .background(Color.grayLight)
-        .cornerRadius(10)
-    }
+    @ObservedObject var viewModel = FriendsViewModel()
+    @State private var friends: [Friend]?
+    @State private var selection = Set<Friend>()
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 24) {
-            TextualButton(action: {
-                isShowing = false
-            }, label: "Cancel")
-            
-            Text("Share")
-                .font(Font.H2)
-                .padding(.top, 18)
-            
-            searchBar
-            
-            // Section: Horizontally scrolling list of friends
-            ScrollView(.horizontal) {
-                HStack(spacing: 18) {
-                    Button {
-                        self.isShowingActivities = true
-                        
-                    } label: {
-                        Image(systemName: "message.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 56, height: 56)
-                            .addGradient(gradient: LinearGradient.pinkOrangeGradient)
-                    }
-                    .sheet(isPresented: self.$isShowingActivities) {
-                        ShareRepresentable(message: message)
-                            .ignoresSafeArea()
-                    }
-                    
-                    ForEach(friends) { friend in
-                        profileSelectButton(friend: friend)
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Share")
+                    .font(Font.H2)
+                    .padding(.top, 18)
+                
+                SearchBar(text: $friendSearch)
+                
+                // Horizontally scrolling list of friends
+                if let friends {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 18) {
+                            ForEach(friends) { friend in
+                                profileSelectButton(friend: friend)
+                                    .frame(minWidth: 56)
+                            }
+                        }
                     }
                 }
+                
+                // Add friend or Export
+                moreSharingOptions()
+                
+                // Message box
+                messageBox()
+                
+                // Share button
+                shareButton()
+                
+                Spacer()
+                
             }
-
-            // Section: Video to be shared
-            ShareCard(playlist: playlist.playlist)
+            .navigationBarBackButtonHidden(true)
+            .padding([.leading, .trailing], 18)
+            .task {
+                if friends == nil && viewModel.error == nil {
+                    friends = await viewModel.getFriends()
+                }
+            }
+            .sheet(isPresented: self.$isShowingActivities) {
+                ShareRepresentable(message: message)
+                    .ignoresSafeArea()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    TextualButton(action: {
+                        isShowing.toggle()
+                    }, label: "Cancel")
+                }
+            }
+        }
+    }
+    
+    func moreSharingOptions() -> some View {
+        VStack(spacing: 4) {
+            Text("Can't find who you're looking for?")
+                .font(.body2)
             
-            // Message box
+            HStack {
+                Button("Add friend") { }
+                    .foregroundColor(.secondaryPurplePink)
+                
+                Text("or")
+                    .foregroundColor(.primaryBlueBlack)
+                
+                Button("Export") {
+                    self.isShowingActivities.toggle()
+                }
+                .foregroundColor(.secondaryPurplePink)
+            }
+            .font(.button)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity)
+        .background {
+            RoundedRectangle(cornerRadius: 5)
+                .strokeBorder(Color.secondaryPurplePink, lineWidth: 2)
+        }
+    }
+    
+    func messageBox() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            playlistPreview()
+                .padding(.horizontal, 8)
+            
+            Divider()
+            
+            // Text area
             TextField("Message", text: $message, axis: .vertical)
                 .font(Font.body1)
                 .lineSpacing(5)
                 .frame(maxWidth: .infinity, maxHeight: 180, alignment: .top)
-                .padding(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.grayNeutral, lineWidth: 1)
-                        .opacity(0.5)
-                )
-            
-            // Share button
-            PrimaryActionButton(action: { isShowingConfirmation = true }, 
-                                label: "Share",
-                                disabled: selection.count == 0)
-            
-            .sheet(isPresented: self.$isShowingConfirmation,
-                   onDismiss: clearProfileSelection) {
-                ShareConfirmation(isShowing: $isShowingConfirmation, isShowingShare: $isShowing, playlist: playlist.playlist)
-            }
-
+                .padding(.horizontal, 12)
         }
-        .padding([.top, .bottom], 32)
-        .padding([.leading, .trailing], 24)
+        .padding(.vertical, 8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.grayNeutral, lineWidth: 1)
+                .opacity(0.5)
+        )
     }
     
+    // Preview of playlist being shared
+    func playlistPreview() -> some View {
+        HStack {
+            ZStack {
+                // Placeholder
+                Rectangle()
+                    .fill(Color.grayNeutral)
+                    .frame(width: 54, height: 54)
+                
+                // Check thumbnail URL
+                if let url = URL(string: playlist.thumbnailURL) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 54, height: 54)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                    } placeholder: {
+                        Rectangle()
+                            .fill(Color.grayNeutral)
+                            .frame(width: 54, height: 54)
+                    }
+                }
+                
+            }
+            
+            VStack(alignment: .leading) {
+                Text("PLAYLIST").font(.small)
+                Text(playlist.title).font(.H6)
+            }
+            
+        }
+        
+    }
+    
+    // Internal share button
+    func shareButton() -> some View {
+        NavigationLink {
+            ShareConfirmation(isShowingShare: $isShowing, playlist: playlist)
+        } label: {
+            primaryActionButton(label: "Share", disabled: selection.count == 0, maxWidth: .infinity)
+        }
+        .disabled(selection.count == 0)
+        .disabled(selection.count == 0)
+    }
+    
+    // Profile icons for each friend
     func profileSelectButton(friend: Friend) -> some View {
         Button {
             if selection.contains(friend) {
@@ -110,12 +181,40 @@ struct Share: View {
             
         } label: {
             VStack {
-                Image(systemName: selection.contains(friend) ? "checkmark.circle.fill" : friend.profileImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 56, height: 56)
+                if selection.contains(friend) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 52, height: 52)
+                    
+                } else {
+                    if let imageStringURL = friend.profileImage,
+                       let imageURL = URL(string: imageStringURL) {
+                        AsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                            
+                        } placeholder: {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                            
+                        }
+                        .frame(width: 54, height: 54)
+                        .clipShape(Circle())
+                        
+                    } else {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 54, height: 54)
+                    }
+                }
+                
                 Text(friend.username).font(Font.small)
             }
+            .animation(.easeInOut(duration: 0.3), value: selection.contains(friend))
         }
         .foregroundColor(Color.primaryBlueBlack)
     }
@@ -123,17 +222,6 @@ struct Share: View {
     func clearProfileSelection() {
         selection.removeAll()
     }
-    
-    static func createSampleFriends() -> [Friend] {
-        var friends: [Friend] = []
-        
-        for i in (1..<5) {
-            friends.append(Friend(id: "\(i)", username: "janedoe", firstName: "Jane", lastName: "Doe", profileImage: "person.circle"))
-        }
-        
-        return friends
-    }
-    
 }
 
 struct ShareRepresentable: UIViewControllerRepresentable {

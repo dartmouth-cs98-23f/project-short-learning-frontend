@@ -24,7 +24,7 @@ struct SharedCard: View {
                     }
                     
                     HStack {
-                        Image(systemName: sharedPlaylist.sender!.profileImage)
+                        Image(systemName: sharedPlaylist.sender!.profileImage ?? "person.circle")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
@@ -34,22 +34,8 @@ struct SharedCard: View {
                 
                 Spacer()
                 
-                if !sharedPlaylist.hasWatched {
-                    Image(systemName: "play.fill")
-                    
-                } else {
-                    Image(systemName: "arrow.counterclockwise")
-                }
             }
             .padding(18)
-        }
-        
-        if sharedPlaylist.hasWatched {
-            button
-                .cardWithShadowPressed(maxWidth: .infinity, maxHeight: 150)
-        } else {
-            button
-                .cardWithShadow(maxWidth: .infinity, maxHeight: 150)
         }
     
     }
