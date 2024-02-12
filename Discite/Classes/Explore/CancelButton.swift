@@ -15,7 +15,8 @@ struct CancelButton: View {
         Button("Cancel") {
             endEditing()
         }
-        .padding(.trailing, 10)
+        .padding(.leading, 0)
+        .padding(.trailing, 18)
         .offset(x: cancelButtonOffset)
         .onAppear {
             // cancel button slides in from right

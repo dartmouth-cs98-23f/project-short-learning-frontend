@@ -19,5 +19,6 @@ class SearchViewModel: ObservableObject {
     // perform search
     func performSearch() {
         // search logic here
+        Spacer()
     }
 }
