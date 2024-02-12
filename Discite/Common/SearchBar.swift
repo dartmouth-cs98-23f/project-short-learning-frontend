@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct SearchBar: View {
-    
     var placeholder: String?
-    @Binding var text: String
+    @ObservedObject var viewModel: SearchViewModel
     @State private var isEditing = false
- 
+    
     var body: some View {
-        TextField(placeholder ?? "Search", text: $text)
-            .font(Font.body1)
+        VStack {
+            TextField(placeholder ?? "Search", text: $viewModel.searchText, onEditingChanged: { editing in
+                self.isEditing = editing
+            })
+            .font(Font.body)
             .padding(8)
             .padding(.horizontal, 24)
             .background(Color.primaryBlueLightest)
@@ -24,28 +26,12 @@ struct SearchBar: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-
-                    if isEditing {
-                        Button {
-                            self.text = ""
-                        } label: {
-                            Image(systemName: "multiply.circle.fill")
-                                .foregroundColor(.grayDark)
-                        }
-                    }
                 }
-                    .padding([.leading, .trailing], 8)
-                
+                .padding([.leading, .trailing], 8)
             )
             .onTapGesture {
                 self.isEditing = true
             }
-            .animation(.smooth(duration: 0.5), value: isEditing)
+        }
     }
-}
-
-#Preview {
-    SearchBar(text: .constant(""))
-        .foregroundColor(.primaryBlueNavy)
-        .padding(.horizontal, 12)
 }

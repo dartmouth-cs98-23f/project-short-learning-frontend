@@ -13,28 +13,72 @@ struct ExploreView: View {
     ]
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
+    @StateObject var searchViewModel = SearchViewModel()
     @Binding var tabSelection: Navigator.Tab
     @State var searchText: String = ""
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    SearchBar(placeholder: "Search for topics and playlists",
-                              text: $searchText)
-                    .foregroundColor(.primaryBlueNavy)
-        
-                    // Section: Recommended topics
-                    topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
-    
-                    // Section: Recommended playlists
-                    playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
+            HStack {
+                SearchBar(placeholder: "Search", viewModel: searchViewModel)
+                .padding()
+                .foregroundColor(.primaryBlueNavy)
+
+                if !searchViewModel.searchText.isEmpty {
+                    CancelButton(viewModel: searchViewModel, cancelButtonOffset: 100)
                 }
-                .navigationTitle("Explore.Title")
-                .padding(18)
             }
-            .task {
-                await recommendations.load()
+            .navigationTitle("Explore.Title")
+               
+
+            /////// on focus, no inpiut -> search history
+            // if isEditing && searchViewModel.searchText.isEmpty {
+            //     // search history section
+            //     VStack(alignment: .leading, spacing: 8) {
+            //         Text("Recent Searches")
+            //             .font(Font.caption)
+            //             .foregroundColor(.gray)
+            //             .padding(.leading, 16)
+                    
+            //         ForEach(searchViewModel.searchHistory, id: \.self) { searchItem in
+            //             Text(searchItem)
+            //                 .font(Font.body)
+            //                 .padding(.horizontal, 16)
+            //         }
+            //     }
+            // } else 
+            if searchViewModel.searchText.isEmpty {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        // Section: Recommended topics
+                        topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
+        
+                        // Section: Recommended playlists
+                        playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
+                    }
+                    .padding(18)
+                }
+                .task {
+                    await recommendations.load()
+                }
+            } else if !searchViewModel.searchText.isEmpty {
+                // Display search suggestions
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Search Suggestions")
+                        .font(Font.caption)
+                        .foregroundColor(.gray)
+                        .padding(.leading, 16)
+                        .frame(alignment: .leading)
+                    
+                    ForEach(searchViewModel.getSuggestions(for: searchViewModel.searchText), id: \.self) { suggestion in
+                        Text(suggestion)
+                            .font(Font.body)
+                            .padding(.horizontal, 16)
+                            .frame(alignment: .leading)
+                    }
+
+                    Spacer()
+                }
             }
         }
     }
