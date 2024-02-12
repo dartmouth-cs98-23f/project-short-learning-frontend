@@ -15,7 +15,6 @@ struct ExploreView: View {
     @StateObject var recommendations = Recommendations()
     @StateObject var searchViewModel = SearchViewModel()
     @Binding var tabSelection: Navigator.Tab
-    @State var searchText: String = ""
     
     var body: some View {
         NavigationStack {
@@ -24,30 +23,15 @@ struct ExploreView: View {
                 .padding()
                 .foregroundColor(.primaryBlueNavy)
 
-                if !searchViewModel.searchText.isEmpty {
+                if searchViewModel.isFocused {
                     CancelButton(viewModel: searchViewModel, cancelButtonOffset: 100)
                 }
             }
             .navigationTitle("Explore.Title")
                
 
-            /////// on focus, no inpiut -> search history
-            // if isEditing && searchViewModel.searchText.isEmpty {
-            //     // search history section
-            //     VStack(alignment: .leading, spacing: 8) {
-            //         Text("Recent Searches")
-            //             .font(Font.caption)
-            //             .foregroundColor(.gray)
-            //             .padding(.leading, 16)
-                    
-            //         ForEach(searchViewModel.searchHistory, id: \.self) { searchItem in
-            //             Text(searchItem)
-            //                 .font(Font.body)
-            //                 .padding(.horizontal, 16)
-            //         }
-            //     }
-            // } else 
-            if searchViewModel.searchText.isEmpty {
+            ///// focus, but text -> search history
+            if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {  // no focus + no text
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         // Section: Recommended topics
@@ -61,7 +45,23 @@ struct ExploreView: View {
                 .task {
                     await recommendations.load()
                 }
-            } else if !searchViewModel.searchText.isEmpty {
+            } else if searchViewModel.isFocused && searchViewModel.searchText.isEmpty { // focus + no text
+                // search history section
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Recent Searches")
+                        .font(Font.caption)
+                        .foregroundColor(.gray)
+                        .padding(.leading, 16)
+                    
+                    ForEach(searchViewModel.searchHistory, id: \.self) { searchItem in
+                        Text(searchItem)
+                            .font(Font.body)
+                            .padding(.horizontal, 16)
+                    }
+
+                    Spacer()
+                }
+            } else if !searchViewModel.searchText.isEmpty { // focus + text
                 // Display search suggestions
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Search Suggestions")

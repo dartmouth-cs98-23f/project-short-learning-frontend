@@ -28,5 +28,6 @@ struct CancelButton: View {
     
     private func endEditing() {
         viewModel.searchText = ""
+        viewModel.isFocused = false
     }
 }

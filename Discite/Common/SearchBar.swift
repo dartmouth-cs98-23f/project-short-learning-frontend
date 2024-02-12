@@ -10,12 +10,11 @@ import SwiftUI
 struct SearchBar: View {
     var placeholder: String?
     @ObservedObject var viewModel: SearchViewModel
-    @State private var isFocus = false
     
     var body: some View {
         VStack {
             TextField(placeholder ?? "Search", text: $viewModel.searchText, onEditingChanged: { editing in
-                self.isFocus = editing
+                self.viewModel.isFocused = editing
             }, onCommit: {
                 // hitting enter: search action
                 self.viewModel.performSearch()
@@ -33,7 +32,7 @@ struct SearchBar: View {
                 .padding([.leading, .trailing], 8)
             )
             .onTapGesture {
-                self.isFocus = true
+                self.viewModel.isFocused = true
             }
         }
     }

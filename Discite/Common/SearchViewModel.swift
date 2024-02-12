@@ -9,7 +9,8 @@ import SwiftUI
 
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
-    @Published var searchHistory: [String] = []
+    @Published var isFocused = false
+    @Published var searchHistory: [String] = ["clowns", "buffalos"]
     
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [String] {
