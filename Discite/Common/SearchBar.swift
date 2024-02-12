@@ -34,6 +34,11 @@ struct SearchBar: View {
             .onTapGesture {
                 self.viewModel.isFocused = true
             }
+            .onReceive(viewModel.$isFocused) { isFocused in
+                if !isFocused {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+            }
         }
     }
 }
