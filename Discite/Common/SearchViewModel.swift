@@ -14,7 +14,7 @@ class SearchViewModel: ObservableObject {
     
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [String] {
-        return ["Suggestion 1", "Suggestion 2", "Suggestion 3"]
+        return ["sugg 1", "sugg 2", "sugg 3"]
     }
     
     // perform search
@@ -23,13 +23,16 @@ class SearchViewModel: ObservableObject {
         Spacer()
     }
     
+    //*** displaying search-related stuff below***
     func showSearchHistory() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Recent Searches")
+            Text("Search History")
                 .font(Font.caption)
                 .foregroundColor(.gray)
                 .padding(.leading, 16)
             
+            Divider()
+
             ForEach(searchHistory, id: \.self) { searchItem in
                 Text(searchItem)
                     .font(Font.body)
@@ -42,12 +45,14 @@ class SearchViewModel: ObservableObject {
     
     func showSuggestions() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Search Suggestions")
+            Text("Suggestions")
                 .font(Font.caption)
                 .foregroundColor(.gray)
                 .padding(.leading, 16)
                 .frame(alignment: .leading)
             
+            Divider()
+
             ForEach(self.getSuggestions(for: searchText), id: \.self) { suggestion in
                 Text(suggestion)
                     .font(Font.body)

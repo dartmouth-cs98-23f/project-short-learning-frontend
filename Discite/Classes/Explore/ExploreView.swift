@@ -18,20 +18,25 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                SearchBar(placeholder: "Search", viewModel: searchViewModel)
-                .padding()
-                .foregroundColor(.primaryBlueNavy)
+            LazyVStack(alignment: .leading) {
+                Text("Explore.Title")
+                .font(Font.H2)
+                .padding(.top, 18)
+                .padding([.leading, .trailing], 12)
 
-                if searchViewModel.isFocused {
-                    CancelButton(viewModel: searchViewModel, cancelButtonOffset: 100)
+                HStack {
+                    SearchBar(placeholder: "Search", viewModel: searchViewModel)
+                    .padding(.bottom, 10)
+                    .foregroundColor(.primaryBlueNavy)
+
+                    if searchViewModel.isFocused {
+                        CancelButton(viewModel: searchViewModel, cancelButtonOffset: 100)
+                    }
                 }
             }
-            .navigationTitle("Explore.Title")
                
-
-            ///// focus, but text -> search history
-            if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {  // no focus + no text
+            // no focus + no text, display regular page
+            if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         // Section: Recommended topics
@@ -40,7 +45,6 @@ struct ExploreView: View {
                         // Section: Recommended playlists
                         playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
                     }
-                    .padding(18)
                 }
                 .task {
                     await recommendations.load()
@@ -53,6 +57,7 @@ struct ExploreView: View {
                 searchViewModel.showSuggestions()
             }
         }
+        .padding(18)
     }
  
     // Horizontally scrolling list of topics
