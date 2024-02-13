@@ -47,38 +47,10 @@ struct ExploreView: View {
                 }
             } else if searchViewModel.isFocused && searchViewModel.searchText.isEmpty { // focus + no text
                 // search history section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Recent Searches")
-                        .font(Font.caption)
-                        .foregroundColor(.gray)
-                        .padding(.leading, 16)
-                    
-                    ForEach(searchViewModel.searchHistory, id: \.self) { searchItem in
-                        Text(searchItem)
-                            .font(Font.body)
-                            .padding(.horizontal, 16)
-                    }
-
-                    Spacer()
-                }
+                searchViewModel.showSearchHistory()
             } else if !searchViewModel.searchText.isEmpty { // focus + text
-                // Display search suggestions
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Search Suggestions")
-                        .font(Font.caption)
-                        .foregroundColor(.gray)
-                        .padding(.leading, 16)
-                        .frame(alignment: .leading)
-                    
-                    ForEach(searchViewModel.getSuggestions(for: searchViewModel.searchText), id: \.self) { suggestion in
-                        Text(suggestion)
-                            .font(Font.body)
-                            .padding(.horizontal, 16)
-                            .frame(alignment: .leading)
-                    }
-
-                    Spacer()
-                }
+                // search suggestions section
+                searchViewModel.showSuggestions()
             }
         }
     }

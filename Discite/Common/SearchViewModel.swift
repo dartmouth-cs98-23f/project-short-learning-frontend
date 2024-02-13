@@ -22,4 +22,40 @@ class SearchViewModel: ObservableObject {
         // search logic here
         Spacer()
     }
+    
+    func showSearchHistory() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Recent Searches")
+                .font(Font.caption)
+                .foregroundColor(.gray)
+                .padding(.leading, 16)
+            
+            ForEach(searchHistory, id: \.self) { searchItem in
+                Text(searchItem)
+                    .font(Font.body)
+                    .padding(.horizontal, 16)
+            }
+
+            Spacer()
+        }
+    }
+    
+    func showSuggestions() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Search Suggestions")
+                .font(Font.caption)
+                .foregroundColor(.gray)
+                .padding(.leading, 16)
+                .frame(alignment: .leading)
+            
+            ForEach(self.getSuggestions(for: searchText), id: \.self) { suggestion in
+                Text(suggestion)
+                    .font(Font.body)
+                    .padding(.horizontal, 16)
+                    .frame(alignment: .leading)
+            }
+
+            Spacer()
+        }
+    }
 }
