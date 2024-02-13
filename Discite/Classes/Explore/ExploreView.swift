@@ -28,12 +28,16 @@ struct ExploreView: View {
                     SearchBar(placeholder: "Search", viewModel: searchViewModel)
                     .padding(.bottom, 10)
                     .foregroundColor(.primaryBlueNavy)
-
-                    if searchViewModel.isFocused {
-                        CancelButton(viewModel: searchViewModel, cancelButtonOffset: 100)
-                    }
                 }
             }
+            .background(
+                NavigationLink(
+                    destination: SearchDestinationView(viewModel: searchViewModel),
+                    isActive: $searchViewModel.shouldNavigate,
+                    label: EmptyView.init
+                )
+                .opacity(0)
+            )
                
             // no focus + no text, display regular page
             if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {
@@ -49,13 +53,9 @@ struct ExploreView: View {
                 .task {
                     await recommendations.load()
                 }
-            } else if searchViewModel.isFocused && searchViewModel.searchText.isEmpty { // focus + no text
-                // search history section
-                searchViewModel.showSearchHistory()
-            } else if !searchViewModel.searchText.isEmpty { // focus + text
-                // search suggestions section
-                searchViewModel.showSuggestions()
             }
+
+            Spacer()
         }
         .padding(18)
     }

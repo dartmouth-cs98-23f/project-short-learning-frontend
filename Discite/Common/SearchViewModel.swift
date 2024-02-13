@@ -11,6 +11,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isFocused = false
     @Published var searchHistory: [String] = ["clowns", "buffalos"]
+    @Published var shouldNavigate = false
     
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [String] {
@@ -19,10 +20,14 @@ class SearchViewModel: ObservableObject {
     
     // perform search
     func performSearch() {
-        // search logic here
-        Spacer()
+        // Set shouldNavigate to true to trigger navigation
+        shouldNavigate = true
     }
     
+    func DestinationView() -> some View {
+        Text("Search Text: \(searchText)")
+    }
+
     //*** displaying search-related stuff below***
     func showSearchHistory() -> some View {
         VStack(alignment: .leading, spacing: 8) {
