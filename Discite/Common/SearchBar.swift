@@ -28,6 +28,15 @@ struct SearchBar: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+
+                    if self.viewModel.isFocused {
+                        Button {
+                            self.viewModel.searchText = ""
+                        } label: {
+                            Image(systemName: "multiply.circle.fill")
+                                .foregroundColor(.grayDark)
+                        }
+                    }
                 }
                 .padding([.leading, .trailing], 8)
             )
