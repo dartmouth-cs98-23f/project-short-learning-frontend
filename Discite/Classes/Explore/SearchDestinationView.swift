@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct SearchDestinationView: View {
-    @StateObject var viewModel = SearchViewModel()
+    var searchText: String
     
     var body: some View {
-        // searchbar 
-        SearchBar(placeholder: viewModel.searchText, viewModel: viewModel)
-            .padding(.bottom, 10)
-            .foregroundColor(.primaryBlueNavy)
-
+        VStack(alignment: .leading) {
+            Text("Results for ").fontWeight(.semibold).font(.H3)
+            +
+            Text(searchText).font(.H3)
+        }
+        
         Spacer()
     }
 }

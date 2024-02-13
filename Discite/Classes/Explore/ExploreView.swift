@@ -32,7 +32,7 @@ struct ExploreView: View {
             }
             .background(
                 NavigationLink(
-                    destination: SearchDestinationView(viewModel: searchViewModel),
+                    destination: SearchDestinationView(searchText: searchViewModel.searchText),
                     isActive: $searchViewModel.shouldNavigate,
                     label: EmptyView.init
                 )
