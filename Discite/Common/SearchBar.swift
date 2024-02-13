@@ -19,6 +19,7 @@ struct SearchBar: View {
                 }, onCommit: {
                     // hitting enter: search action
                     self.viewModel.performSearch()
+                    self.viewModel.searchHistory.append(self.viewModel.searchText)
                 })
                 .font(Font.body)
                 .padding(8)

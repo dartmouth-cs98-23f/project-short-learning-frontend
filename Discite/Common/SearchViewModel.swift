@@ -15,7 +15,10 @@ class SearchViewModel: ObservableObject {
     
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [String] {
-        return ["sugg 1", "sugg 2", "sugg 3"]
+        let predefinedSuggestions = ["Apple Pie", "Apple Juice", "Banana Bread", "Banana Smoothie", "Orange Juice", "Orange Chicken"]
+        let filteredSuggestions = predefinedSuggestions.filter { $0.lowercased().contains(text.lowercased()) }
+
+        return filteredSuggestions
     }
     
     // perform search
@@ -38,7 +41,7 @@ class SearchViewModel: ObservableObject {
             
             Divider()
 
-            ForEach(searchHistory, id: \.self) { searchItem in
+            ForEach(searchHistory.reversed(), id: \.self) { searchItem in
                 Text(searchItem)
                     .font(Font.body)
                     .padding(.horizontal, 16)
