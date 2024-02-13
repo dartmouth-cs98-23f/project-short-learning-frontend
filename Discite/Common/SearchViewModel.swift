@@ -42,9 +42,13 @@ class SearchViewModel: ObservableObject {
             Divider()
 
             ForEach(searchHistory.reversed(), id: \.self) { searchItem in
-                Text(searchItem)
+                NavigationLink(destination: {
+                    SearchDestinationView(searchText: searchItem)
+                }, label: {
+                    Text(searchItem)
                     .font(Font.body)
                     .padding(.horizontal, 16)
+                })
             }
 
             Spacer()
@@ -62,10 +66,14 @@ class SearchViewModel: ObservableObject {
             Divider()
 
             ForEach(self.getSuggestions(for: searchText), id: \.self) { suggestion in
-                Text(suggestion)
+                NavigationLink(destination: {
+                    SearchDestinationView(searchText: suggestion)
+                }, label: {
+                    Text(suggestion)
                     .font(Font.body)
                     .padding(.horizontal, 16)
                     .frame(alignment: .leading)
+                })
             }
 
             Spacer()
