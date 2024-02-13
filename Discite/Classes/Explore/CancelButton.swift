@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CancelButton: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: SearchViewModel
     @State var cancelButtonOffset: CGFloat
     
@@ -29,5 +30,6 @@ struct CancelButton: View {
     private func endEditing() {
         viewModel.searchText = ""
         viewModel.isFocused = false
+        presentationMode.wrappedValue.dismiss()
     }
 }
