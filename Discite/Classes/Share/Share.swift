@@ -60,8 +60,6 @@ struct Share: View {
                     
                 }
             }
-            .padding([.top, .bottom], 24)
-            // .navigationBarBackButtonHidden(true)
             .task {
                 if friends == nil && viewModel.error == nil {
                     friends = await viewModel.getFriends()
@@ -71,13 +69,6 @@ struct Share: View {
                 ShareRepresentable(message: message)
                     .ignoresSafeArea()
             }
-//            .toolbar {
-//                ToolbarItem(placement: .topBarLeading) {
-//                    TextualButton(action: {
-//                        isShowing.toggle()
-//                    }, label: "Cancel")
-//                }
-//            }
         }
         .padding(18)
         .foregroundColor(.primaryBlueBlack)
