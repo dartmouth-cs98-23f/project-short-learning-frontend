@@ -39,7 +39,7 @@ struct PostViewVertical: View {
                     playPause(value)
                 })
                 // liking the video
-                .onTapGesture(count: 2, perform: { position in
+                .onTapGesture(count: 2, perform: { _ in
                     let id = UUID()
                     likedCounter.append(.init(id: id, isAnimated: false))
                     

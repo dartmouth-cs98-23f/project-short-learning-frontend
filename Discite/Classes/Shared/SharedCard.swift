@@ -12,7 +12,7 @@ struct SharedCard: View {
     var sharedPlaylist: SharedPlaylist
     
     var body: some View {
-        let button: Button = Button {
+        Button {
             // Open details view
                 
         } label: {
