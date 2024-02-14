@@ -18,7 +18,7 @@ struct FriendsPage: View {
                 .font(.H2)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            SearchBar(text: $viewModel.searchText)
+            //SearchBar(text: $viewModel.searchText)
             
             if viewModel.error != nil {
                 Text("Error loading friends.")
