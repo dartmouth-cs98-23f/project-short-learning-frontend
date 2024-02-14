@@ -1,5 +1,5 @@
 //
-//  PostView.swift
+//  PostViewVertical.swift
 //  Discite
 //
 //  Created by Jessie Li on 2/13/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct PostView: View {
+struct PostViewVertical: View {
     @Binding var playlist: Playlist
     @Binding var likedCounter: [Like]
     
@@ -23,7 +23,7 @@ struct PostView: View {
         GeometryReader {
             let rect = $0.frame(in: .scrollView(axis: .vertical))
             
-            CustomVideoPlayer2(player: $player)
+            CustomVideoPlayer(player: $player)
                 // details and controls, show only if paused
                 .overlay(alignment: .bottom) {
                     if !isPlaying {
@@ -41,7 +41,7 @@ struct PostView: View {
                 // liking the video
                 .onTapGesture(count: 2, perform: { position in
                     let id = UUID()
-                    likedCounter.append(.init(id: id, tappedRect: position, isAnimated: false))
+                    likedCounter.append(.init(id: id, isAnimated: false))
                     
                     withAnimation(.snappy(duration: 2), completionCriteria: .logicallyComplete) {
                         if let index = likedCounter.firstIndex(where: { $0.id == id }) {

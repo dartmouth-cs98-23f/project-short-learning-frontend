@@ -1,5 +1,5 @@
 //
-//  CustomVideoPlayer2.swift
+//  CustomVideoPlayer.swift
 //  Discite
 //
 //  Created by Jessie Li on 2/13/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct CustomVideoPlayer2: UIViewControllerRepresentable {
+struct CustomVideoPlayer: UIViewControllerRepresentable {
     @Binding var player: AVPlayer?
     
     func makeUIViewController(context: Context) -> AVPlayerViewController {

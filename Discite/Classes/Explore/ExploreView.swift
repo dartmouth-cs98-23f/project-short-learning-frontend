@@ -13,7 +13,6 @@ struct ExploreView: View {
     ]
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
-    @Binding var tabSelection: Navigator.Tab
     @State var searchText: String = ""
     
     var body: some View {
@@ -37,6 +36,8 @@ struct ExploreView: View {
                 await recommendations.load()
             }
         }
+        
+        NavigationBar()
     }
  
     // Horizontally scrolling list of topics
@@ -49,7 +50,7 @@ struct ExploreView: View {
                 Spacer()
                 
                 NavigationLink(destination: {
-                    AllTopics(sequence: sequence, tabSelection: $tabSelection)
+                    AllTopics(sequence: sequence)
                 }, label: {
                     Text("See all topics")
                     .font(.system(size: 12))
@@ -61,9 +62,9 @@ struct ExploreView: View {
                 HStack(spacing: 20) {
                     ForEach(topics, id: \._id) { topic in
                         NavigationLink(destination: {
-                            TopicPageView(sequence: sequence, tabSelection: $tabSelection, topic: topic)
+                            TopicPageView(sequence: sequence, topic: topic)
                         }, label: {
-                            TopicCard(tabSelection: $tabSelection, topic: topic, width: 100, height: 30)
+                            TopicCard(topic: topic, width: 100, height: 30)
                         })
                     }
                 }
@@ -79,7 +80,7 @@ struct ExploreView: View {
             
             LazyVGrid(columns: columns, spacing: 1) {
                 ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
-                    PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index, width: 165, height: 200)
+                    PlaylistCard(playlist: playlist, index: index, width: 165, height: 200)
                 }
             }
         }

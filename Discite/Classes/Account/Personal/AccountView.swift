@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AccountView: View {
-    @Binding var tabSelection: Navigator.Tab
+    @Environment(TabSelectionManager.self) private var tabSelection
     
     @State var user: User?
     @State var statistics: [Statistic]?
@@ -20,41 +20,36 @@ struct AccountView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical) {
-                VStack(spacing: 32) {
-                    basicInformation()
-                        .task {
-                            if user == nil {
-                                user = await viewModel.getUser()
-                            }
-                        }
-                    
-                    progressSummary()
-                        .task {
-                            statistics = await viewModel.getProgressSummary()
-                            
-                        }
-                    
-                    recentTopics()
-                        .task {
-                            topics = await viewModel.getRecentTopics()
-                        }
-                    
-                    spiderGraph()
-                        .frame(minHeight: 350)
-                        .task {
-                            spiderGraphData = await viewModel.getSpiderGraphData()
-                        }
-                    
-                    exploreFooter()
+            ZStack(alignment: .bottom) {
+                ScrollView(.vertical) {
+                    VStack(spacing: 32) {
+                        basicInformation()
+                        
+                        progressSummary()
+                        
+                        recentTopics()
+                        
+                        spiderGraph()
+                            .frame(minHeight: 350)
+                        
+                        exploreFooter()
+                    }
+                    .padding([.leading, .trailing], 18)
+                    .task {
+                        self.statistics = await viewModel.getProgressSummary()
+                        self.topics = await viewModel.getRecentTopics()
+                        self.spiderGraphData = await viewModel.getSpiderGraphData()
+                        if user == nil { user = await viewModel.getUser() }
+                    }
                 }
-                .padding([.leading, .trailing], 18)
-            }
-            .frame(maxWidth: .infinity)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    menuButton()
+                .frame(maxWidth: .infinity)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        menuButton()
+                    }
                 }
+                
+                NavigationBar()
             }
 
         }
@@ -86,6 +81,7 @@ struct AccountView: View {
             Text(user?.username ?? "")
                 .font(.body1)
         }
+        .animation(.easeIn(duration: 0.5), value: user == nil)
     }
     
     func progressSummary() -> some View {
@@ -94,8 +90,8 @@ struct AccountView: View {
                 .font(.H5)
             
             HStack(spacing: 8) {
-                if statistics != nil {
-                    ForEach(statistics!) { stat in
+                if let statistics {
+                    ForEach(statistics) { stat in
                         summaryCard(statistic: stat)
                     }
                 
@@ -105,6 +101,7 @@ struct AccountView: View {
     
             }
         }
+        .animation(.easeIn(duration: 0.5), value: statistics == nil)
     }
     
     func summaryCard(statistic: Statistic) -> some View {
@@ -135,8 +132,8 @@ struct AccountView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    if topics != nil {
-                        ForEach(topics!) { topic in
+                    if let topics {
+                        ForEach(topics) { topic in
                             TopicTagWithNavigation(topic: topic)
                         }
 
@@ -147,6 +144,7 @@ struct AccountView: View {
             }
 
         }
+        .animation(.easeIn(duration: 0.5), value: topics == nil)
     }
     
     func allTopicsButton() -> some View {
@@ -190,7 +188,7 @@ struct AccountView: View {
             
             HStack {
                 Button {
-                    tabSelection = .Explore
+                    tabSelection.selection = .Explore
                 } label: {
                     primaryActionButton(label: "Explore")
                 }
@@ -214,5 +212,6 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView(tabSelection: .constant(.Account), user: User.anonymousUser)
+    AccountView(user: User.anonymousUser)
+        .environment(TabSelectionManager(selection: .Account))
 }

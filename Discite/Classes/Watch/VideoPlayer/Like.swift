@@ -9,6 +9,5 @@ import Foundation
 
 struct Like: Identifiable {
     var id: UUID = UUID()
-    var tappedRect: CGPoint = .zero
     var isAnimated: Bool = false
 }

@@ -12,15 +12,15 @@ struct ContentView: View {
     @ObservedObject var auth = Auth.shared
 
     var body: some View {
-        // Navigator()
+        Navigator()
         
-        GeometryReader {
-            let size = $0.size
-            let safeArea = $0.safeAreaInsets
-            
-            Home(size: size, safeArea: safeArea)
-                .ignoresSafeArea(.container, edges: .all)
-        }
+//        GeometryReader {
+//            let size = $0.size
+//            let safeArea = $0.safeAreaInsets
+//            
+//            WatchPage(size: size, safeArea: safeArea)
+//                .ignoresSafeArea(.container, edges: .all)
+//        }
     }
         
 //        if Auth.shared.loggedIn {
