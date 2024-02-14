@@ -10,7 +10,7 @@ import SwiftUI
 struct PlaylistCard: View {
     
     @EnvironmentObject var sequence: Sequence
-    @Binding var tabSelection: Navigator.Tab
+    @Environment(TabSelectionManager.self) private var tabSelection
     
     var playlist: Playlist
     var index: Int
@@ -20,7 +20,7 @@ struct PlaylistCard: View {
     var body: some View {
         Button {
                 // TODO: Update sequence on click
-                tabSelection = .Watch
+            tabSelection.selection = .Watch
                 
         } label: {
             ZStack {

@@ -12,7 +12,6 @@ struct TopicPageView: View {
     @State private var columns: [GridItem] = [
         GridItem(.flexible()), GridItem(.flexible())
     ]
-    @Binding var tabSelection: Navigator.Tab
     var topic: Topic
     
     var body: some View {
@@ -61,7 +60,7 @@ struct TopicPageView: View {
                     
                     LazyVGrid(columns: columns, spacing: 1) {
                         ForEach(Array(sequence.playlists.enumerated()), id: \.offset) { index, playlist in
-                            PlaylistCard(tabSelection: $tabSelection, playlist: playlist, index: index, width: 165, height: 200)
+                            PlaylistCard(playlist: playlist, index: index, width: 165, height: 200)
                         }
                     }
                 }

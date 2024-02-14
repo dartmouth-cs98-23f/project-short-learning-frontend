@@ -31,7 +31,7 @@ class SearchViewModel: ObservableObject {
         Text("Search Text: \(searchText)")
     }
 
-    //*** displaying search-related stuff below***
+    // *** displaying search-related stuff below***
     func showSearchHistory() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Search History")

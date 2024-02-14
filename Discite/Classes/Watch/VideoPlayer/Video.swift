@@ -8,7 +8,7 @@
 import Foundation
 import AVKit
 
-struct Video: Decodable, Identifiable {
+class Video: Decodable, Identifiable, ObservableObject {
 
     var id: String
     var playlistId: String
@@ -16,6 +16,8 @@ struct Video: Decodable, Identifiable {
     var description: String
     var image: String
     var videoURL: String
+    
+    var isLiked: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -33,7 +35,7 @@ struct Video: Decodable, Identifiable {
         case dislikes
     }
 
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)

@@ -9,7 +9,7 @@
 import Foundation
 
 class SequenceViewModel: ObservableObject {
-    @Published private(set) var items: [Playlist] = []
+    @Published var items: [Playlist] = []
     @Published var state: PagingState
     
     let threshold: Int
@@ -67,7 +67,6 @@ class SequenceViewModel: ObservableObject {
     }
     
     public func load() async {
-        
         do {
             // (1) Ask for more playlists
             let newItems = try await VideoService.mockFetchSequence()

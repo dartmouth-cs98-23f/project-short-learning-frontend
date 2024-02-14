@@ -12,7 +12,6 @@ struct AllTopics: View {
             GridItem(.flexible()), GridItem(.flexible())
     ]
     @ObservedObject var sequence: Sequence
-    @Binding var tabSelection: Navigator.Tab
     @StateObject var recommendations = Recommendations()
     
     @State private var selectedSortOption = 0
@@ -62,9 +61,9 @@ struct AllTopics: View {
         LazyVGrid(columns: columns, spacing: 10) {
             ForEach(topics, id: \._id) { topic in
                 NavigationLink(destination: {
-                    TopicPageView(sequence: sequence, tabSelection: $tabSelection, topic: topic)
+                    TopicPageView(sequence: sequence, topic: topic)
                 }, label: {
-                    TopicCard(tabSelection: $tabSelection, topic: topic, width: 170, height: 100)
+                    TopicCard(topic: topic, width: 170, height: 100)
                 })
             }
         }

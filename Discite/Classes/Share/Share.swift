@@ -23,39 +23,43 @@ struct Share: View {
     var body: some View {
         
         NavigationStack {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Share")
-                    .font(Font.H2)
-                    .padding(.top, 18)
-                
-                    //SearchBar(text: $friendSearch)
-                
-                // Horizontally scrolling list of friends
-                if let friends {
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Share")
+                        .font(Font.H2)
+                        .padding(.top, 18)
+                    
+                    // SearchBar(text: $friendSearch)
+                    
+                    // Horizontally scrolling list of friends
                     ScrollView(.horizontal) {
-                        HStack(spacing: 18) {
-                            ForEach(friends) { friend in
-                                profileSelectButton(friend: friend)
-                                    .frame(minWidth: 56)
+                        if let friends {
+                            HStack(spacing: 18) {
+                                ForEach(friends) { friend in
+                                    profileSelectButton(friend: friend)
+                                        .frame(minWidth: 56)
+                                }
                             }
+                        } else {
+                            
                         }
                     }
+                    .frame(minHeight: 84)
+                    .animation(.spring(duration: 1), value: friends == nil)
+                    
+                    // Add friend or Export
+                    moreSharingOptions()
+                    
+                    // Message box
+                    messageBox()
+                    
+                    // Share button
+                    shareButton()
+                    
+                    Spacer()
+                        
                 }
-                
-                // Add friend or Export
-                moreSharingOptions()
-                
-                // Message box
-                messageBox()
-                
-                // Share button
-                shareButton()
-                
-                Spacer()
-                
             }
-            .navigationBarBackButtonHidden(true)
-            .padding([.leading, .trailing], 18)
             .task {
                 if friends == nil && viewModel.error == nil {
                     friends = await viewModel.getFriends()
@@ -65,14 +69,10 @@ struct Share: View {
                 ShareRepresentable(message: message)
                     .ignoresSafeArea()
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    TextualButton(action: {
-                        isShowing.toggle()
-                    }, label: "Cancel")
-                }
-            }
         }
+        .padding(18)
+        .foregroundColor(.primaryBlueBlack)
+        .background(.white)
     }
     
     func moreSharingOptions() -> some View {

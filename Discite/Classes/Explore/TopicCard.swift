@@ -10,7 +10,6 @@ import SwiftUI
 struct TopicCard: View {
     
     @EnvironmentObject var sequence: Sequence
-    @Binding var tabSelection: Navigator.Tab
     
     var topic: Topic
     var width: CGFloat
