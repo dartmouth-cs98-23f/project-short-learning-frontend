@@ -36,10 +36,12 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     private(set) var description: String
     private(set) var topics: [TopicTag]
     private(set) var thumbnailURL: String
-    private(set) var videos: [Video]
+    var videos: [Video]
+    private(set) var authorUsername: String = "johndoe"
     
     @Published private(set) var currentIndex: Int
     @Published var isLoading: Bool
+    @Published var isLiked: Bool = false
     
     private(set) var playerItem: AVPlayerItem?
     

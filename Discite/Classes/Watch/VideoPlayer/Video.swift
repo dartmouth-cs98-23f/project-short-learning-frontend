@@ -17,6 +17,8 @@ struct Video: Decodable, Identifiable {
     var image: String
     var videoURL: String
     
+    var isLiked: Bool = false
+    
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case playlistId = "videoId"

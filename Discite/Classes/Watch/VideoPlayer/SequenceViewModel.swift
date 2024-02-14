@@ -9,7 +9,7 @@
 import Foundation
 
 class SequenceViewModel: ObservableObject {
-    @Published private(set) var items: [Playlist] = []
+    @Published var items: [Playlist] = []
     @Published var state: PagingState
     
     let threshold: Int
