@@ -130,17 +130,18 @@ struct AccountView: View {
                 allTopicsButton()
             }
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    if let topics {
+            if let topics {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
                         ForEach(topics) { topic in
                             TopicTagWithNavigation(topic: topic)
                         }
-
-                    } else {
-                        placeholderRectangle(minHeight: 30)
                     }
                 }
+                .frame(minHeight: 40)
+                
+            } else {
+                placeholderRectangle(minHeight: 40)
             }
 
         }
@@ -175,9 +176,10 @@ struct AccountView: View {
                     )
                 }
             } else {
-                placeholderRectangle(minHeight: 350)
+                placeholderRectangle(minHeight: 400)
             }
         }
+        .animation(.easeIn(duration: 0.5), value: spiderGraphData == nil)
     }
     
     func exploreFooter() -> some View {
