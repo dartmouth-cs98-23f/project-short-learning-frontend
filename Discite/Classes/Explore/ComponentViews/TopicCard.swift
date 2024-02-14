@@ -29,7 +29,7 @@ struct TopicTagWithNavigation: View {
     var body: some View {
         
         NavigationLink(destination: {
-            // TopicPageView()
+            // TopicPageView(topic: topic)
             
         }, label: {
             HStack(spacing: 4) {

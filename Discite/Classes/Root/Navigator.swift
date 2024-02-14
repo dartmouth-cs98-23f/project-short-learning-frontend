@@ -25,7 +25,7 @@ struct Navigator: View {
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView(sequence: sequence)
+                    ExploreView()
                 case .Shared:
                     Shared()
                 case .Account:
@@ -81,6 +81,8 @@ struct TabItem {
 
 @Observable class TabSelectionManager {
     var selection: Tab
+    var topicSeed: TopicTag?
+    var playlistSeed: PlaylistPreview?
     
     init(selection: Tab = Tab.Watch) {
         self.selection = selection

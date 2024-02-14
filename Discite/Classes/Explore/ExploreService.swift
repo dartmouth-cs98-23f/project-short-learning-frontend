@@ -3,32 +3,40 @@
 //  Discite
 //
 //  Created by Jessie Li on 11/8/23.
+//  Updated by Jessie Li on 2/14/24.
 //
 
 import Foundation
 import SwiftUI
 
-class ExploreService {
-    
-    static func loadTopics() async -> [Topic] {
-        do {
-            let topics = try await ExploreService.mockFetchTopics()
-            return topics
-        } catch {
-            print("Failed to load topics: \(error)")
-            return []
-        }
+struct ExploreService {
+    static func mockGetTopicRecommendations() async throws -> [TopicTag] {
+        print("TEST: Getting topic recommendations...")
+        
+        let data = try await APIRequest<EmptyRequest, TopicRecommendations>
+            .mockRequest(method: .get,
+                         authorized: false,
+                         path: "/api/recommendedTopics")
+        
+        return data.recommendedTopics
     }
     
-    static func mockFetchTopics() async throws -> [Topic] {
-        print("TEST: Fetching topics...")
+    static func mockGetPlaylistRecommendations() async throws -> [PlaylistPreview] {
+        print("TEST: Getting playlist recommendations...")
         
-        let recommendationsData = try await APIRequest<EmptyRequest, RecommendationsData>
-            .mockAPIRequest(RecommendationsData.self,
-                            forResource: "samplerecommendations",
-                            withExtension: "json")
+        let data = try await APIRequest<EmptyRequest, PlaylistRecommendations>
+            .mockRequest(method: .get,
+                         authorized: false,
+                         path: "/api/recommendedPlaylists")
         
-        return recommendationsData.topics
+        return data.recommendedPlaylists
     }
-    
+}
+
+struct TopicRecommendations: Codable {
+    var recommendedTopics: [TopicTag]
+}
+
+struct PlaylistRecommendations: Codable {
+    var recommendedPlaylists: [PlaylistPreview]
 }

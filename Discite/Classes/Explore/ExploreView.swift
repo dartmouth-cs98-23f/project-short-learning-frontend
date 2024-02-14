@@ -5,19 +5,21 @@
 //  Created by Jessie Li on 11/8/23.
 //
 
+// Explore View --> Click Topic Tag --> Topic Tag is a nav link, brings you to TopicPageView seeded by topicTag
 import SwiftUI
 
 struct ExploreView: View {
-    @State private var columns: [GridItem] = [
-            GridItem(.flexible()), GridItem(.flexible())
-    ]
-    @ObservedObject var sequence: Sequence
-    @StateObject var recommendations = Recommendations()
+
     @StateObject var searchViewModel = SearchViewModel()
+    @StateObject var viewModel = ExploreViewModel()
+    
+    private var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 0)
+    ]
     
     var body: some View {
         NavigationStack {
-            LazyVStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text("Explore.Title")
                 .font(Font.H2)
                 .padding(.top, 18)
@@ -37,73 +39,122 @@ struct ExploreView: View {
                 )
                 .opacity(0)
             )
-               
+            .padding(.horizontal, 18)
+            
             // no focus + no text, display regular page
             if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {
-                ScrollView {
+                ScrollView(.vertical) {
                     VStack(alignment: .leading, spacing: 24) {
+                        
                         // Section: Recommended topics
-                        topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
-        
+                        topicRecommendationsHeader()
+                            .padding(.horizontal, 18)
+                        
+                        if let topicRecs = viewModel.topicRecommendations {
+                            topicScrollSection(topics: topicRecs)
+                            
+                        } else {
+                            placeholderRectangle(minHeight: 40)
+                                .task {
+                                    await viewModel.getTopicRecommendations()
+                                }
+                        }
+                        
                         // Section: Recommended playlists
-                        playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
+                        Text("Recommended playlists")
+                            .font(Font.H5)
+                            .padding(.horizontal, 18)
+                        
+                        if let playlistRecs = viewModel.playlistRecommendations {
+                            playlistScrollSection(playlists: playlistRecs)
+                            
+                        } else {
+                            placeholderGrid()
+                                .task {
+                                    await viewModel.getPlaylistRecommendations()
+                                }
+                        }
+                        
                     }
                 }
-                .task {
-                    await recommendations.load()
-                }
+                .animation(.easeIn(duration: 0.5), value: viewModel.topicRecommendations == nil)
+                .animation(.easeIn(duration: 0.5), value: viewModel.playlistRecommendations == nil)
             }
-
+            
             Spacer()
             
             NavigationBar()
         }
-        .padding(18)
+        .ignoresSafeArea(edges: [.bottom, .leading, .trailing])
     }
- 
+    
     // Horizontally scrolling list of topics
-    func topicScrollSection(heading: String, topics: [Topic]) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            
-            HStack(alignment: .center) {
-                Text(heading).font(Font.H5)
-                
-                Spacer()
-                
-                NavigationLink(destination: {
-                    AllTopics(sequence: sequence)
-                }, label: {
-                    Text("See all topics")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.primaryPurpleDark)
-                })
-            }
-            
-            ScrollView(.horizontal) {
-                HStack(spacing: 20) {
-                    ForEach(topics, id: \._id) { topic in
-                        NavigationLink(destination: {
-                            TopicPageView(sequence: sequence, topic: topic)
-                        }, label: {
-                            TopicCard(topic: topic, width: 100, height: 30)
-                        })
+    @ViewBuilder
+    func topicScrollSection(topics: [TopicTag]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // Topic tags
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(topics) { topic in
+                        TopicTagWithNavigation(topic: topic)
                     }
                 }
             }
-            .padding([.top], 5)
+            .frame(minHeight: 40)
+        }
+        .padding(.horizontal, 18)
+    }
+    
+    @ViewBuilder
+    func topicRecommendationsHeader() -> some View {
+        HStack(alignment: .center) {
+            Text("Recommended topics").font(Font.H5)
+            
+            Spacer()
+            
+            NavigationLink(destination: {
+                // AllTopics(sequence: sequence)
+            }, label: {
+                Text("See all topics")
+                    .font(.small)
+                    .foregroundColor(.primaryPurple)
+            })
         }
     }
     
     // Vertically scrolling 2 column grid of playlists
-    func playlistScrollSection(heading: String, playlists: [Playlist]) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(heading).font(Font.H5)
-            
-            LazyVGrid(columns: columns, spacing: 1) {
+    @ViewBuilder
+    func playlistScrollSection(playlists: [PlaylistPreview]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            LazyVGrid(columns: columns, spacing: 2) {
                 ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
-                    PlaylistCard(playlist: playlist, index: index, width: 165, height: 200)
+                    PlaylistPreviewCard(playlist: playlist)
                 }
             }
         }
     }
+    
+    @ViewBuilder
+    func placeholderRectangle(minHeight: CGFloat) -> some View {
+        Rectangle()
+            .frame(maxWidth: .infinity, minHeight: minHeight)
+            .foregroundColor(.grayLight)
+    }
+    
+    @ViewBuilder
+    func placeholderGrid() -> some View {
+        LazyVGrid(columns: columns, spacing: 1) {
+            ForEach(0..<10, id: \.self) { _ in
+                placeholderRectangle(minHeight: 10)
+                    .aspectRatio(1.0, contentMode: .fit)
+                    
+            }
+        }
+    }
+    
+}
+
+#Preview {
+    ExploreView()
+        .environment(TabSelectionManager(selection: .Explore))
 }

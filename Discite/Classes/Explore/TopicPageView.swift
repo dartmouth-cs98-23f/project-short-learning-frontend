@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct TopicPageView: View {
-    @ObservedObject var sequence: Sequence
-    @State private var columns: [GridItem] = [
+    var topicSeed: TopicTag
+    var topic: Topic
+    
+    @StateObject var viewModel = TopicViewModel()
+    
+    private var columns: [GridItem] = [
         GridItem(.flexible()), GridItem(.flexible())
     ]
-    var topic: Topic
     
     var body: some View {
         let topBottom = CGFloat(24)
@@ -58,11 +61,6 @@ struct TopicPageView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Playlists").font(Font.H5)
                     
-                    LazyVGrid(columns: columns, spacing: 1) {
-                        ForEach(Array(sequence.playlists.enumerated()), id: \.offset) { index, playlist in
-                            PlaylistCard(playlist: playlist, index: index, width: 165, height: 200)
-                        }
-                    }
                 }
             
             }
