@@ -67,17 +67,12 @@ struct VideoView: View {
                 
                 // playing/pausing on tap
                 .onTapGesture {
-                    
-                    print("tapped")
-                    
                     switch player?.timeControlStatus {
                     case .paused:
-                        print("was paused, now playing")
                         play()
                     case .waitingToPlayAtSpecifiedRate:
                         break
                     case .playing:
-                        print("was playing, now paused")
                         pause()
                     case .none:
                         break

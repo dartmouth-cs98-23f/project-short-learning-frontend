@@ -27,7 +27,6 @@ class SequenceViewModel: ObservableObject {
     }
     
     init() {
-        print("new init.")
         state = .loadingFirstPage
         threshold = 1
         
@@ -68,7 +67,6 @@ class SequenceViewModel: ObservableObject {
     }
     
     public func load() async {
-        print("loading now.")
         do {
             // (1) Ask for more playlists
             let newItems = try await VideoService.mockFetchSequence()
