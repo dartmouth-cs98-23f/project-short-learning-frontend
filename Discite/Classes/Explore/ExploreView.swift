@@ -53,10 +53,10 @@ struct ExploreView: View {
                     await recommendations.load()
                 }
             }
-        
-        NavigationBar()
 
             Spacer()
+
+            NavigationBar()
         }
         .padding(18)
     }
