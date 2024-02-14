@@ -35,6 +35,7 @@ struct AccountView: View {
                         exploreFooter()
                     }
                     .padding([.leading, .trailing], 18)
+                    .padding(.bottom, 64)
                     .task {
                         self.statistics = await viewModel.getProgressSummary()
                         self.topics = await viewModel.getRecentTopics()
