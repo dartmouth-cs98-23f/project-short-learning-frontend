@@ -28,7 +28,7 @@ struct Share: View {
                     .font(Font.H2)
                     .padding(.top, 18)
                 
-                SearchBar(text: $friendSearch)
+                    //SearchBar(text: $friendSearch)
                 
                 // Horizontally scrolling list of friends
                 if let friends {

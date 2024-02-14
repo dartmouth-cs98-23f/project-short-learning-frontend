@@ -13,30 +13,51 @@ struct ExploreView: View {
     ]
     @ObservedObject var sequence: Sequence
     @StateObject var recommendations = Recommendations()
+    @StateObject var searchViewModel = SearchViewModel()
     @Binding var tabSelection: Navigator.Tab
-    @State var searchText: String = ""
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    SearchBar(placeholder: "Search for topics and playlists",
-                              text: $searchText)
+            LazyVStack(alignment: .leading) {
+                Text("Explore.Title")
+                .font(Font.H2)
+                .padding(.top, 18)
+                .padding([.leading, .trailing], 12)
+
+                HStack {
+                    SearchBar(placeholder: "Search", viewModel: searchViewModel)
+                    .padding(.bottom, 10)
                     .foregroundColor(.primaryBlueNavy)
-        
-                    // Section: Recommended topics
-                    topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
-    
-                    // Section: Recommended playlists
-                    playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
                 }
-                .navigationTitle("Explore.Title")
-                .padding(18)
             }
-            .task {
-                await recommendations.load()
+            .background(
+                NavigationLink(
+                    destination: SearchDestinationView(searchText: searchViewModel.searchText),
+                    isActive: $searchViewModel.shouldNavigate,
+                    label: EmptyView.init
+                )
+                .opacity(0)
+            )
+               
+            // no focus + no text, display regular page
+            if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        // Section: Recommended topics
+                        topicScrollSection(heading: "Recommended topics", topics: recommendations.topics)
+        
+                        // Section: Recommended playlists
+                        playlistScrollSection(heading: "Recommended playlists", playlists: sequence.playlists)
+                    }
+                }
+                .task {
+                    await recommendations.load()
+                }
             }
+
+            Spacer()
         }
+        .padding(18)
     }
  
     // Horizontally scrolling list of topics
