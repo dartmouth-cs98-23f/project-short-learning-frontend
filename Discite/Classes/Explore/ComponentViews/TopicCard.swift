@@ -16,7 +16,7 @@ struct TopicCard: View {
     var height: CGFloat
     
     var body: some View {
-        Text(topic.displaySubtopicName ?? topic.displayTopicName ?? topic.topicName)
+        Text(topic.topicName)
             .font(Font.button)
             .clipShape(RoundedRectangle(cornerRadius: 2))
             .purpleTopicCard(width: width, height: height)
@@ -29,7 +29,7 @@ struct TopicTagWithNavigation: View {
     var body: some View {
         
         NavigationLink(destination: {
-            // TopicPageView(topic: topic)
+            TopicPageView(topicSeed: topic)
             
         }, label: {
             HStack(spacing: 4) {

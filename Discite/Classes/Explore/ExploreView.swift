@@ -3,9 +3,11 @@
 //  Discite
 //
 //  Created by Jessie Li on 11/8/23.
+//  Updated by Bansharee Ireen.
+//  Updated by Jessie Li on 2/14/24.
 //
 
-// Explore View --> Click Topic Tag --> Topic Tag is a nav link, brings you to TopicPageView seeded by topicTag
+//  Click Topic Tag --> Topic Tag is a nav link, brings you to TopicPageView seeded by topicTag
 import SwiftUI
 
 struct ExploreView: View {
@@ -77,8 +79,10 @@ struct ExploreView: View {
                         
                     }
                 }
-                .animation(.easeIn(duration: 0.5), value: viewModel.topicRecommendations == nil)
-                .animation(.easeIn(duration: 0.5), value: viewModel.playlistRecommendations == nil)
+                .animation(.easeIn(duration: 0.5), 
+                           value: viewModel.topicRecommendations == nil)
+                .animation(.easeIn(duration: 0.5), 
+                           value: viewModel.playlistRecommendations == nil)
             }
             
             Spacer()
@@ -127,7 +131,7 @@ struct ExploreView: View {
     func playlistScrollSection(playlists: [PlaylistPreview]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             LazyVGrid(columns: columns, spacing: 2) {
-                ForEach(Array(playlists.enumerated()), id: \.offset) { index, playlist in
+                ForEach(playlists) { playlist in
                     PlaylistPreviewCard(playlist: playlist)
                 }
             }
