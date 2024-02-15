@@ -14,6 +14,10 @@ struct PlaylistQuery: Encodable {
     var numPlaylists: Int
 }
 
+struct SequenceData: Decodable {
+    var playlists: [Playlist]
+}
+
 class VideoService {
     
     static func loadPlaylists(topicId: String? = nil, numPlaylists: Int = 2) async -> [Playlist] {

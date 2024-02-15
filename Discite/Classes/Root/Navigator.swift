@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Navigator: View {
     @State private var tabSelectionManager = TabSelectionManager()
-    @StateObject var sequence = Sequence()
     
     var body: some View {
         
@@ -31,9 +30,6 @@ struct Navigator: View {
                 case .Account:
                     AccountView()
                 }
-            }
-            .task {
-                await sequence.load()
             }
         }
         .environment(tabSelectionManager)

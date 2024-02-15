@@ -107,3 +107,19 @@ class SequenceViewModel: ObservableObject {
     }
     
 }
+
+enum SequenceError: Error {
+    case emptySequence
+    case indexOutOfRange
+}
+
+extension SequenceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .emptySequence:
+            return NSLocalizedString("Error.SequenceError.EmptySequence", comment: "Sequence error")
+        case .indexOutOfRange:
+            return NSLocalizedString("Error.SequenceError.IndexOutOfRange", comment: "Sequence error")
+        }
+    }
+}
