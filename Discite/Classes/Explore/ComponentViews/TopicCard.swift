@@ -7,19 +7,43 @@
 
 import SwiftUI
 
-struct TopicCard: View {
-    
-    @EnvironmentObject var sequence: Sequence
-    
-    var topic: Topic
-    var width: CGFloat
-    var height: CGFloat
+struct LargeTopicTagWithNavigation: View {
+    var topic: TopicTag
+    var maxHeight: CGFloat
     
     var body: some View {
-        Text(topic.topicName)
-            .font(Font.button)
-            .clipShape(RoundedRectangle(cornerRadius: 2))
-            .purpleTopicCard(width: width, height: height)
+        
+        NavigationLink(destination: {
+            TopicPageView(topicSeed: topic)
+            
+        }, label: {
+            VStack(alignment: .leading) {
+                HStack(spacing: 4) {
+                    Image(systemName: "tag")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    
+                    Text("TOPIC")
+                        .font(Font.body1)
+                }
+                
+                Text(topic.topicName)
+                    .font(Font.H6)
+                    .lineLimit(2)
+                    .frame(width: .infinity)
+                
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 18)
+            .frame(maxHeight: maxHeight)
+            .foregroundColor(.primaryBlueBlack)
+            .background {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(Color.primaryPurpleLightest)
+                    .strokeBorder(Color.primaryPurpleLight, lineWidth: 2)
+            }
+        })
     }
 }
 

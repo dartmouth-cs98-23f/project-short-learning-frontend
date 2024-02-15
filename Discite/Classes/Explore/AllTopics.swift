@@ -1,71 +1,79 @@
-////
-////  AllTopics.swift
-////  Discite
-////
-////  Created by Bansharee Ireen on 1/29/24.
-////
 //
-//import SwiftUI
+//  AllTopics.swift
+//  Discite
 //
-//struct AllTopics: View {
-//    @State private var columns: [GridItem] = [
-//            GridItem(.flexible()), GridItem(.flexible())
-//    ]
-//    @ObservedObject var sequence: Sequence
-//    @StateObject var recommendations = Recommendations()
-//    
-//    @State private var selectedSortOption = 0
-//    let sortOptions = ["Relevance", "Recommendations", "Name"]
+//  Created by Bansharee Ireen on 1/29/24.
+//  Updated by Jessie Li on 2/14/24.
 //
-//    private var sortedTopics: [Topic] {
-//        switch selectedSortOption {
-//        case 0: // Relevance
-//            return recommendations.topics
-//        case 1: // Recommendations
-//            return recommendations.topics
-//        case 2: // Name
-//            return recommendations.topics.sorted { $0.topicName < $1.topicName }
-//        default:
-//            return recommendations.topics
-//        }
-//    }
-//
-//    var body: some View {
-//        NavigationStack {
-//            ScrollView {
-//                VStack(alignment: .leading, spacing: 24) {
-//                    HStack {
-//                        Text("Sort by:")
-//                        
-//                        Picker("", selection: $selectedSortOption) {
-//                            ForEach(0..<sortOptions.count) { index in
-//                                Text(self.sortOptions[index]).tag(index)
-//                            }
-//                        }
-//                        .pickerStyle(MenuPickerStyle())
-//                        .padding(0)
-//                    }
-//                    topicScrollSection(topics: sortedTopics)
-//                }
-//                .navigationTitle("Topics")
-//                .padding(18)
-//            }
-//            .task {
-//                await recommendations.load()
-//            }
-//        }
-//    }
-//    
-//    // Vertically scrolling 2 column grid of topics
-//    func topicScrollSection(topics: [Topic]) -> some View {
-//        LazyVGrid(columns: columns, spacing: 10) {
-//            ForEach(topics, id: \._id) { topic in
-//                NavigationLink(destination: {
-//                    TopicPageView(sequence: sequence, topic: topic)
-//                }, label: {
-//                    TopicCard(topic: topic, width: 170, height: 100)
-//                })
-//            }
-//        }
-//    }
-//}
+
+import SwiftUI
+
+struct AllTopics: View {
+    
+    private var columns: [GridItem] = [
+            GridItem(.flexible()), GridItem(.flexible())
+    ]
+    
+    @State var topics: [TopicTag] = []
+    @State private var selectedSortOption: SortOption = .Relevance
+    
+    enum SortOption: String, CaseIterable {
+        case Relevance
+        case Recommendations
+        case Name
+    }
+
+    private var sortedTopics: [TopicTag]? {
+        switch selectedSortOption {
+        case .Relevance: // Relevance
+            return topics
+        case .Recommendations: // Recommendations
+            return topics
+        case .Name: // Name
+            return topics.sorted { $0.topicName < $1.topicName }
+        }
+    }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    HStack {
+                        Text("Sort by:")
+                        
+                        Picker("", selection: $selectedSortOption) {
+                            ForEach(SortOption.allCases, id: \.self) { option in
+                                Text("\(option.rawValue)")
+                                    .tag(option)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .padding(0)
+                    }
+                    
+                    topicScrollSection()
+                    
+                }
+                .navigationTitle("Topics")
+                .padding(18)
+            }
+            .task {
+                if topics.isEmpty {
+                    do { topics = try await ExploreService.mockGetAllTopics() }
+                    catch { print("Error fetching topics: \(error)") }
+    
+                }
+
+            }
+        }
+    }
+    
+    // Vertically scrolling 2 column grid of topics
+    func topicScrollSection() -> some View {
+        LazyVGrid(columns: columns, spacing: 18) {
+            ForEach(topics) { topic in
+                LargeTopicTagWithNavigation(topic: topic, maxHeight: 100)
+            }
+        }
+    }
+}

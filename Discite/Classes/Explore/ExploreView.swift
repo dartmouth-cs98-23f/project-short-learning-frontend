@@ -117,7 +117,7 @@ struct ExploreView: View {
             Spacer()
             
             NavigationLink(destination: {
-                // AllTopics(sequence: sequence)
+                AllTopics()
             }, label: {
                 Text("See all topics")
                     .font(.small)
