@@ -52,6 +52,7 @@ struct AllTopics: View {
                     }
                     
                     topicScrollSection()
+                        .animation(.easeIn(duration: 0.3), value: topics.isEmpty)
                     
                 }
                 .navigationTitle("Topics")

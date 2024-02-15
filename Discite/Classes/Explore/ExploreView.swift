@@ -33,14 +33,15 @@ struct ExploreView: View {
                     .foregroundColor(.primaryBlueNavy)
                 }
             }
-            .background(
-                NavigationLink(
-                    destination: SearchDestinationView(searchText: searchViewModel.searchText),
-                    isActive: $searchViewModel.shouldNavigate,
-                    label: EmptyView.init
-                )
-                .opacity(0)
-            )
+            .background {
+                NavigationLink(value: "Search", label: {
+                    EmptyView()
+                })
+                .animation(.smooth(duration: 0.3), value: searchViewModel.shouldNavigate)
+                .navigationDestination(isPresented: $searchViewModel.shouldNavigate, destination: {
+                    SearchDestinationView(searchText: searchViewModel.searchText)
+                })
+            }
             .padding(.horizontal, 18)
             
             // no focus + no text, display regular page
@@ -79,9 +80,9 @@ struct ExploreView: View {
                         
                     }
                 }
-                .animation(.easeIn(duration: 0.5), 
+                .animation(.easeIn(duration: 0.3),
                            value: viewModel.topicRecommendations == nil)
-                .animation(.easeIn(duration: 0.5), 
+                .animation(.easeIn(duration: 0.3),
                            value: viewModel.playlistRecommendations == nil)
             }
             
