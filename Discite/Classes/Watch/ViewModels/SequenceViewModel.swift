@@ -29,10 +29,6 @@ class SequenceViewModel: ObservableObject {
     init() {
         state = .loadingFirstPage
         threshold = 1
-        
-        currentTask = Task {
-            await load()
-        }
     }
     
     public func onItemAppear(playlist: Playlist) {
