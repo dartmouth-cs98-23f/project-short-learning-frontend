@@ -10,8 +10,8 @@ import SwiftUI
 struct WatchPage: View {
     var size: CGSize
     var safeArea: EdgeInsets
-    var seedPlaylist: PlaylistPreview? 
 
+    @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel = SequenceViewModel()
     @State var likedCounter: [Like] = []
     
@@ -26,7 +26,11 @@ struct WatchPage: View {
                 .background(.black)
                 .animation(.easeOut(duration: 0.1), value: viewModel.items.isEmpty)
                 .task {
-                   await viewModel.load()
+                    if let seed = tabSelection.playlistSeed {
+                        viewModel.setSeed(seed: seed)
+                    }
+
+                    await viewModel.load()
                 }
             
         } else {

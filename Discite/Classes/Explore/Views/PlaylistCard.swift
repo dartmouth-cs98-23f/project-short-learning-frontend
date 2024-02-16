@@ -14,8 +14,8 @@ struct PlaylistPreviewCard: View {
     
     var body: some View {
         Button {
-            // TODO: Update sequence on click
-            // tabSelection.selection = .Watch
+            tabSelection.playlistSeed = playlist
+            tabSelection.selection = .Watch
                 
         } label: {
             ZStack {

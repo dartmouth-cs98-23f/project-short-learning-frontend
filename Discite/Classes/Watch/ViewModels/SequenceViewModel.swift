@@ -12,6 +12,7 @@ class SequenceViewModel: ObservableObject {
     @Published var items: [Playlist] = []
     @Published var state: PagingState
     
+    var seedPlaylist: PlaylistPreview?
     let threshold: Int
     private var index: Int = 0
     
@@ -26,9 +27,14 @@ class SequenceViewModel: ObservableObject {
         }
     }
     
-    init() {
+    init(seed: PlaylistPreview? = nil) {
         state = .loadingFirstPage
         threshold = 1
+        seedPlaylist = seed
+    }
+    
+    public func setSeed(seed: PlaylistPreview?) {
+        seedPlaylist = seed
     }
     
     public func onItemAppear(playlist: Playlist) {
@@ -65,7 +71,7 @@ class SequenceViewModel: ObservableObject {
     public func load() async {
         do {
             // (1) Ask for more playlists
-            let newItems = try await VideoService.mockFetchSequence()
+            let newItems = try await VideoService.mockFetchSequence(playlistId: seedPlaylist?.playlistId)
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Navigator: View {
     @State private var tabSelectionManager = TabSelectionManager()
+    @State var seedPlaylist: PlaylistPreview?
     
     var body: some View {
         

@@ -66,24 +66,30 @@ class VideoService {
                             forResource: "sampleplaylist",
                             withExtension: "json")
         
-        playlist.id = UUID().uuidString
         return playlist
     }
     
-    static func mockFetchSequence() async throws -> [Playlist] {
-        print("TEST: Fetching sequence...")
-        
-        let data = try await APIRequest<EmptyRequest, SequenceData>
-            .mockRequest(method: .get,
-                         authorized: false,
-                         path: "/api/sequence")
-        
-        for playlist in data.playlists {
-            // Prevent collisions in Feed
-            playlist.id = UUID().uuidString
-        }
-        
-        return data.playlists
-    }
+    static func mockFetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
+        if let playlistId {
+            print("TEST: GET sequence with playlistId \(playlistId)")
+            let query = URLQueryItem(name: "playlistId", value: playlistId)
+            
+            let data = try await APIRequest<EmptyRequest, SequenceData>
+                .mockRequest(method: .get,
+                        authorized: false,
+                        path: "/api/sequence",
+                        queryItems: [query])
+            
+            return data.playlists
+            
+        } else {
+            print("TEST: GET sequence")
+            let data = try await APIRequest<EmptyRequest, SequenceData>
+                .mockRequest(method: .get,
+                             authorized: false,
+                             path: "/api/sequence")
 
+            return data.playlists
+        }
+    }
 }
