@@ -3,6 +3,7 @@
 //  Discite
 //
 //  Created by Jessie Li on 11/12/23.
+//  Updated by Bansharee Ireen on 02/16/24.
 //
 
 import SwiftUI
@@ -23,25 +24,15 @@ struct Share: View {
     var body: some View {
         
         NavigationStack {
-            ScrollView(.vertical) {
+            VStack {
                 VStack(alignment: .leading, spacing: 16) {
-                    // Text("Share")
-                    //     .font(Font.H2)
-                    //     .padding(.top, 18)
-                    
-                    // SearchBar(text: $friendSearch)
-                    
                     // Horizontally scrolling list of friends
                     ScrollView(.horizontal) {
-                        if let friends {
-                            HStack(spacing: 18) {
-                                ForEach(filteredFriends(searchText: friendSearch)) { friend in
-                                    profileSelectButton(friend: friend)
-                                        .frame(minWidth: 56)
-                                }
+                        HStack(spacing: 18) {
+                            ForEach(filteredFriends(searchText: friendSearch)) { friend in
+                                profileSelectButton(friend: friend)
+                                    .frame(minWidth: 56)
                             }
-                        } else {
-                            
                         }
                     }
                     .frame(minHeight: 84)
@@ -53,11 +44,10 @@ struct Share: View {
                     // Message box
                     messageBox()
                     
-                    // Share button
-                    shareButton()
-                    
                     Spacer()
-                        
+                    
+                    // Share button
+                    shareButton()                        
                 }
             }
             .task {
@@ -70,11 +60,11 @@ struct Share: View {
                     .ignoresSafeArea()
             }
             .navigationTitle("Share")
-            .searchable(text: $friendSearch)
+            .padding(18)
         }
-        .padding(18)
         .foregroundColor(.primaryBlueBlack)
         .background(.white)
+        .searchable(text: $friendSearch, prompt: "Share with")
     }
     
     func filteredFriends(searchText: String) -> [Friend] {
