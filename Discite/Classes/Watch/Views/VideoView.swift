@@ -24,14 +24,15 @@ struct VideoView: View {
     
     var body: some View {
         GeometryReader {
-            let rect = $0.frame(in: .scrollView(axis: .vertical))
+            let rect = $0.frame(in: .scrollView(axis: .horizontal))
+            let shouldPlay = isMainView(rect)
             
             CustomVideoPlayer(player: $player)
                 // share sheet
                 .sheet(isPresented: $isShareShowing) {
                     Share(playlist: playlist, isShowing: $isShareShowing)
                 }
-                
+            
                 // details and controls, only show on pause
                 .overlay(alignment: .bottom) {
                     if !isPlaying {
@@ -41,16 +42,15 @@ struct VideoView: View {
                     }
                 }
                 .animation(.easeIn(duration: 0.3), value: isPlaying)
-                
+            
                 // offset updates
-                .preference(key: OffsetKey.self, value: rect)
-                .onPreferenceChange(OffsetKey.self, perform: { value in
-                    playPause(value)
+                .preference(key: VisibleKey.self, value: shouldPlay)
+                .onPreferenceChange(VisibleKey.self, perform: { value in
+                    playPause(shouldPlay: value)
                 })
-                
+            
                 // liking the video
                 .onTapGesture(count: 2, perform: { _ in
-                    print("double tap")
                     let id = UUID()
                     likedCounter.append(.init(id: id, isAnimated: false))
                     
@@ -91,6 +91,9 @@ struct VideoView: View {
                     let queue = AVQueuePlayer(playerItem: playerItem)
                     looper = AVPlayerLooper(player: queue, templateItem: playerItem)
                     player = queue
+                    
+                    player?.play()
+                    isPlaying = true
                 }
                 
                 // clearing the player
@@ -100,29 +103,35 @@ struct VideoView: View {
         }
     }
     
+    func isMainView(_ rect: CGRect) -> Bool {
+        let mainVertical = -rect.minY < (rect.height * 0.5) && rect.minY < (rect.height * 0.5)
+        let mainHorizontal = -rect.minX < (rect.width * 0.5) && rect.minX < (rect.width * 0.5)
+        
+        return mainVertical && mainHorizontal
+    }
+    
     func play() {
-        if (!isPlaying) {
+        if !isPlaying {
+            print("play \(video.id)")
             player?.play()
             isPlaying = true
         }
     }
     
     func pause() {
-        if (isPlaying) {
+        if isPlaying {
+            print("pause \(video.id)")
             player?.pause()
             isPlaying = false
         }
     }
     
-    func playPause(_ rect: CGRect) {
-        if -rect.minY < (rect.height * 0.5) && rect.minY < (rect.height * 0.5) {
+    func playPause(shouldPlay: Bool) {
+        if shouldPlay {
             play()
 
         } else {
-           pause()
-        }
-        
-        if rect.minY >= size.height || -rect.minY >= size.height {
+            pause()
             player?.seek(to: .zero)
         }
     }
@@ -169,13 +178,6 @@ struct VideoView: View {
             } label: {
                 Image(systemName: "paperplane")
             }
-            
-            Button {
-                openYouTube()
-            } label: {
-                Image(systemName: "play.rectangle.fill")
-            }
-
         }
         .font(.title2)
         .foregroundColor(.white)
@@ -188,6 +190,16 @@ struct VideoView: View {
             Spacer()
             HStack(alignment: .bottom, spacing: 10) {
                 VStack(alignment: .leading, spacing: 10) {
+                    Button {
+                        openYouTube()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("Open in YouTube")
+                            Image(systemName: "arrow.right")
+                        }
+                    }
+                    .font(.small)
+                    .foregroundStyle(Color.secondaryPurplePinkLight)
                     
                     Text(playlist.title)
                         .font(.H4)
@@ -232,10 +244,12 @@ struct VideoView: View {
         if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
             UIApplication.shared.canOpenURL(youtubeURL) {
             // Open in YouTube app if installed
+            print("Opening YouTube App.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
             
         } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
             // Open in Safari if YouTube app is not installed
+            print("Opening YouTube in Safari.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
         }
 
