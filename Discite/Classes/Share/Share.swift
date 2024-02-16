@@ -3,6 +3,7 @@
 //  Discite
 //
 //  Created by Jessie Li on 11/12/23.
+//  Updated by Bansharee Ireen on 02/16/24.
 //
 
 import SwiftUI
@@ -21,60 +22,50 @@ struct Share: View {
     @State private var selection = Set<Friend>()
     
     var body: some View {
-        
-        NavigationStack {
-            ScrollView(.vertical) {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Share")
-                        .font(Font.H2)
-                        .padding(.top, 18)
-                    
-                    // SearchBar(text: $friendSearch)
-                    
-                    // Horizontally scrolling list of friends
-                    ScrollView(.horizontal) {
-                        if let friends {
+            NavigationStack {
+                VStack {
+                    VStack(alignment: .leading, spacing: 16) {
+                        // Horizontally scrolling list of friends
+                        ScrollView(.horizontal) {
                             HStack(spacing: 18) {
-                                ForEach(friends) { friend in
+                                ForEach(filteredFriends(friendsList: friends, searchText: friendSearch)) { friend in
                                     profileSelectButton(friend: friend)
                                         .frame(minWidth: 56)
                                 }
                             }
-                        } else {
-                            
                         }
-                    }
-                    .frame(minHeight: 84)
-                    .animation(.spring(duration: 1), value: friends == nil)
-                    
-                    // Add friend or Export
-                    moreSharingOptions()
-                    
-                    // Message box
-                    messageBox()
-                    
-                    // Share button
-                    shareButton()
-                    
-                    Spacer()
+                        .frame(minHeight: 84)
+                        .animation(.spring(duration: 1), value: friends == nil)
                         
+                        // Add friend or Export
+                        moreSharingOptions()
+                        
+                        // Message box
+                        messageBox()
+                        
+                        Spacer()
+                        
+                        // Share button
+                        shareButton()                        
+                    }
                 }
-            }
-            .task {
-                if friends == nil && viewModel.error == nil {
-                    friends = await viewModel.getFriends()
+                .task {
+                    if friends == nil && viewModel.error == nil {
+                        friends = await viewModel.getFriends()
+                    }
                 }
+                .sheet(isPresented: self.$isShowingActivities) {
+                    ShareRepresentable(message: message)
+                        .ignoresSafeArea()
+                }
+                .navigationTitle("Share")
+                .padding(18)
             }
-            .sheet(isPresented: self.$isShowingActivities) {
-                ShareRepresentable(message: message)
-                    .ignoresSafeArea()
-            }
-        }
-        .padding(18)
-        .foregroundColor(.primaryBlueBlack)
-        .background(.white)
+            .foregroundColor(.primaryBlueBlack)
+            .background(.white)
+            .searchable(text: $friendSearch, prompt: "Share with")
     }
-    
+
     func moreSharingOptions() -> some View {
         VStack(spacing: 4) {
             Text("Can't find who you're looking for?")

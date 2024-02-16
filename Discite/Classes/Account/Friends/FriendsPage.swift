@@ -3,6 +3,7 @@
 //  Discite
 //
 //  Created by Jessie Li on 2/9/24.
+//  Updated by Bansharee Ireen on 2/16/24.
 //
 
 import SwiftUI
@@ -14,12 +15,6 @@ struct FriendsPage: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            Text("Friends")
-                .font(.H2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // SearchBar(text: $viewModel.searchText)
-            
             if viewModel.error != nil {
                 Text("Error loading friends.")
                     .foregroundColor(Color.red)
@@ -34,24 +29,22 @@ struct FriendsPage: View {
             } else {
                 ScrollView(.vertical) {
                     LazyVStack(alignment: .leading) {
-                        ForEach(friends!) { friend in
-                            NavigationLink {
-                                FriendProfilePage()
-                                
-                            } label: {
+                        ForEach(filteredFriends(friendsList: friends, searchText: viewModel.searchText)) { friend in
+                            NavigationLink(destination: FriendProfilePage()) {
                                 friendRow(friend: friend)
                             }
-
                         }
                     }
                 }
                 .padding(.vertical, 8)
             }
-            
+                
             Spacer()
             
         }
+        .navigationTitle("Friends")
         .padding(.horizontal, 18)
+        .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
     
     func friendRow(friend: Friend) -> some View {
