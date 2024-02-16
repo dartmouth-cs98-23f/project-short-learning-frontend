@@ -101,13 +101,17 @@ struct VideoView: View {
     }
     
     func play() {
-        player?.play()
-        isPlaying = true
+        if (!isPlaying) {
+            player?.play()
+            isPlaying = true
+        }
     }
     
     func pause() {
-        player?.pause()
-        isPlaying = false
+        if (isPlaying) {
+            player?.pause()
+            isPlaying = false
+        }
     }
     
     func playPause(_ rect: CGRect) {
@@ -165,6 +169,12 @@ struct VideoView: View {
             } label: {
                 Image(systemName: "paperplane")
             }
+            
+            Button {
+                openYouTube()
+            } label: {
+                Image(systemName: "play.rectangle.fill")
+            }
 
         }
         .font(.title2)
@@ -217,7 +227,19 @@ struct VideoView: View {
         .padding(.trailing, safeArea.trailing + 18)
         .padding(.bottom, safeArea.bottom)
     }
+    
+    private func openYouTube() {
+        if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
+            UIApplication.shared.canOpenURL(youtubeURL) {
+            // Open in YouTube app if installed
+            UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
+            
+        } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
+            // Open in Safari if YouTube app is not installed
+            UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
+        }
 
+    }
 }
 
 #Preview {
