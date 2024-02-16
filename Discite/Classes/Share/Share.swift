@@ -25,9 +25,9 @@ struct Share: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("Share")
-                        .font(Font.H2)
-                        .padding(.top, 18)
+                    // Text("Share")
+                    //     .font(Font.H2)
+                    //     .padding(.top, 18)
                     
                     // SearchBar(text: $friendSearch)
                     
@@ -35,7 +35,7 @@ struct Share: View {
                     ScrollView(.horizontal) {
                         if let friends {
                             HStack(spacing: 18) {
-                                ForEach(friends) { friend in
+                                ForEach(filteredFriends(searchText: friendSearch)) { friend in
                                     profileSelectButton(friend: friend)
                                         .frame(minWidth: 56)
                                 }
@@ -69,12 +69,26 @@ struct Share: View {
                 ShareRepresentable(message: message)
                     .ignoresSafeArea()
             }
+            .navigationTitle("Share")
+            .searchable(text: $friendSearch)
         }
         .padding(18)
         .foregroundColor(.primaryBlueBlack)
         .background(.white)
     }
     
+    func filteredFriends(searchText: String) -> [Friend] {
+        guard let friends = friends else { return [] }
+        if searchText.isEmpty {
+            return friends
+        } else {
+            return friends.filter { friend in
+                friend.username.localizedCaseInsensitiveContains(searchText) ||
+                (friend.firstName + " " + friend.lastName).localizedCaseInsensitiveContains(searchText)
+            }
+        }
+    }
+
     func moreSharingOptions() -> some View {
         VStack(spacing: 4) {
             Text("Can't find who you're looking for?")
