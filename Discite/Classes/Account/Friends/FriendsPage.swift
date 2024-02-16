@@ -37,13 +37,13 @@ struct FriendsPage: View {
                             }
                         }
                     }
-                    .navigationTitle("Friends")
                     .padding(.vertical, 8)
                 }
                   
                 Spacer()
                 
             }
+            .navigationTitle("Friends")
             .padding(.horizontal, 18)
         }
         .searchable(text: $viewModel.searchText)
