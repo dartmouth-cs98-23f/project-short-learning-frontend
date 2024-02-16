@@ -7,7 +7,6 @@
 //  Updated by Jessie Li on 2/14/24.
 //
 
-//  Click Topic Tag --> Topic Tag is a nav link, brings you to TopicPageView seeded by topicTag
 import SwiftUI
 
 struct ExploreView: View {
