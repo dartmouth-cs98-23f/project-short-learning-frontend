@@ -22,61 +22,48 @@ struct Share: View {
     @State private var selection = Set<Friend>()
     
     var body: some View {
-        
-        NavigationStack {
-            VStack {
-                VStack(alignment: .leading, spacing: 16) {
-                    // Horizontally scrolling list of friends
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 18) {
-                            ForEach(filteredFriends(searchText: friendSearch)) { friend in
-                                profileSelectButton(friend: friend)
-                                    .frame(minWidth: 56)
+            NavigationStack {
+                VStack {
+                    VStack(alignment: .leading, spacing: 16) {
+                        // Horizontally scrolling list of friends
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 18) {
+                                ForEach(filteredFriends(friendsList: friends, searchText: friendSearch)) { friend in
+                                    profileSelectButton(friend: friend)
+                                        .frame(minWidth: 56)
+                                }
                             }
                         }
+                        .frame(minHeight: 84)
+                        .animation(.spring(duration: 1), value: friends == nil)
+                        
+                        // Add friend or Export
+                        moreSharingOptions()
+                        
+                        // Message box
+                        messageBox()
+                        
+                        Spacer()
+                        
+                        // Share button
+                        shareButton()                        
                     }
-                    .frame(minHeight: 84)
-                    .animation(.spring(duration: 1), value: friends == nil)
-                    
-                    // Add friend or Export
-                    moreSharingOptions()
-                    
-                    // Message box
-                    messageBox()
-                    
-                    Spacer()
-                    
-                    // Share button
-                    shareButton()                        
                 }
-            }
-            .task {
-                if friends == nil && viewModel.error == nil {
-                    friends = await viewModel.getFriends()
+                .task {
+                    if friends == nil && viewModel.error == nil {
+                        friends = await viewModel.getFriends()
+                    }
                 }
+                .sheet(isPresented: self.$isShowingActivities) {
+                    ShareRepresentable(message: message)
+                        .ignoresSafeArea()
+                }
+                .navigationTitle("Share")
+                .padding(18)
             }
-            .sheet(isPresented: self.$isShowingActivities) {
-                ShareRepresentable(message: message)
-                    .ignoresSafeArea()
-            }
-            .navigationTitle("Share")
-            .padding(18)
-        }
-        .foregroundColor(.primaryBlueBlack)
-        .background(.white)
-        .searchable(text: $friendSearch, prompt: "Share with")
-    }
-    
-    func filteredFriends(searchText: String) -> [Friend] {
-        guard let friends = friends else { return [] }
-        if searchText.isEmpty {
-            return friends
-        } else {
-            return friends.filter { friend in
-                friend.username.localizedCaseInsensitiveContains(searchText) ||
-                (friend.firstName + " " + friend.lastName).localizedCaseInsensitiveContains(searchText)
-            }
-        }
+            .foregroundColor(.primaryBlueBlack)
+            .background(.white)
+            .searchable(text: $friendSearch, prompt: "Share with")
     }
 
     func moreSharingOptions() -> some View {
