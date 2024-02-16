@@ -29,7 +29,8 @@ extension PlaylistError: LocalizedError {
 
 class Playlist: Decodable, Identifiable, ObservableObject {
     
-    var id: String
+    var id: UUID
+    var playlistId: String
     var sequenceIndex: Int
     
     private(set) var title: String
@@ -46,7 +47,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     private(set) var playerItem: AVPlayerItem?
     
     enum CodingKeys: String, CodingKey {
-        case id = "_id"
+        case playlistId = "_id"
         case title
         case description
         case uploadDate
@@ -65,7 +66,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decode(String.self, forKey: .id)
+        id = UUID()
+        playlistId = try container.decode(String.self, forKey: .playlistId)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
         topics = try container.decode([TopicTag].self, forKey: .topics)

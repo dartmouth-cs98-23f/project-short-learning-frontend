@@ -12,6 +12,7 @@ class SequenceViewModel: ObservableObject {
     @Published var items: [Playlist] = []
     @Published var state: PagingState
     
+    var seedPlaylist: PlaylistPreview?
     let threshold: Int
     private var index: Int = 0
     
@@ -26,13 +27,14 @@ class SequenceViewModel: ObservableObject {
         }
     }
     
-    init() {
+    init(seed: PlaylistPreview? = nil) {
         state = .loadingFirstPage
         threshold = 1
-        
-        currentTask = Task {
-            await load()
-        }
+        seedPlaylist = seed
+    }
+    
+    public func setSeed(seed: PlaylistPreview?) {
+        seedPlaylist = seed
     }
     
     public func onItemAppear(playlist: Playlist) {
@@ -69,7 +71,7 @@ class SequenceViewModel: ObservableObject {
     public func load() async {
         do {
             // (1) Ask for more playlists
-            let newItems = try await VideoService.mockFetchSequence()
+            let newItems = try await VideoService.mockFetchSequence(playlistId: seedPlaylist?.playlistId)
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence
@@ -106,4 +108,20 @@ class SequenceViewModel: ObservableObject {
 
     }
     
+}
+
+enum SequenceError: Error {
+    case emptySequence
+    case indexOutOfRange
+}
+
+extension SequenceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .emptySequence:
+            return NSLocalizedString("Error.SequenceError.EmptySequence", comment: "Sequence error")
+        case .indexOutOfRange:
+            return NSLocalizedString("Error.SequenceError.IndexOutOfRange", comment: "Sequence error")
+        }
+    }
 }

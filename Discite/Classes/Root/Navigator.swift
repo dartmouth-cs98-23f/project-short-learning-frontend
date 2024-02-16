@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Navigator: View {
     @State private var tabSelectionManager = TabSelectionManager()
-    @StateObject var sequence = Sequence()
+    @State var seedPlaylist: PlaylistPreview?
     
     var body: some View {
         
@@ -25,15 +25,12 @@ struct Navigator: View {
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView(sequence: sequence)
+                    ExploreView()
                 case .Shared:
                     Shared()
                 case .Account:
                     AccountView()
                 }
-            }
-            .task {
-                await sequence.load()
             }
         }
         .environment(tabSelectionManager)
@@ -81,6 +78,8 @@ struct TabItem {
 
 @Observable class TabSelectionManager {
     var selection: Tab
+    var topicSeed: TopicTag?
+    var playlistSeed: PlaylistPreview?
     
     init(selection: Tab = Tab.Watch) {
         self.selection = selection

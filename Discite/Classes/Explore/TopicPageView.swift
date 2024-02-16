@@ -3,102 +3,163 @@
 //  Discite
 //
 //  Created by Bansharee Ireen on 1/26/24.
+//  Updated by Jessie Li on 2/14/24.
 //
 
 import SwiftUI
 
 struct TopicPageView: View {
-    @ObservedObject var sequence: Sequence
-    @State private var columns: [GridItem] = [
-        GridItem(.flexible()), GridItem(.flexible())
+    var topicSeed: TopicTag
+    
+    @StateObject var viewModel = TopicViewModel()
+    
+    var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 2)
     ]
-    var topic: Topic
     
     var body: some View {
-        let topBottom = CGFloat(24)
-        let leadTrail = CGFloat(24)
-        
-        LazyVStack(alignment: .center, spacing: 10) {
-            HStack(alignment: .center) {
-                Spacer()
-                
-                Text("Topic")
-                    .font(Font.H5)
-                    .foregroundColor(Color.primaryPurpleDark)
-                
-                Spacer()
-                Button {
-                    // bookmark/save this topic
-                } label: {
-                    Image(systemName: "bookmark.fill")
-                        .foregroundColor(Color.primaryPurpleDark)
-                }
-            }
-        
-            Text(topic.topicName)
-                .font(Font.H3)
-        }
-        .padding(.top, 0)
-        .padding([.bottom], topBottom)
-        .padding([.leading, .trailing], leadTrail)
-        .navigationBarTitleDisplayMode(.inline)
-        
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 10) {
-                // description
-                Text("Description")
-                    .font(Font.H5)
-                
-                Text(topic.description ?? "")
-                
-                // "See roles" button
-                ToggleRoles()
-                
-                // playlists
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Playlists").font(Font.H5)
+        if let topic = viewModel.topic {
+            ScrollView(.vertical) {
+                VStack(spacing: 24) {
+                    topicHeader()
+                        .padding(.horizontal, 18)
+
+                    topicDescription(description: topic.description, 
+                                     rolesData: topic.spiderGraphData)
+                        .padding(.horizontal, 18)
                     
-                    LazyVGrid(columns: columns, spacing: 1) {
-                        ForEach(Array(sequence.playlists.enumerated()), id: \.offset) { index, playlist in
-                            PlaylistCard(playlist: playlist, index: index, width: 165, height: 200)
-                        }
+                    playlistGrid(playlistPreviews: topic.playlistPreviews)
+                }
+                .padding(.bottom, 18)
+            }
+            .ignoresSafeArea(edges: [.bottom, .horizontal])
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    // bookmark/save this topic
+                    Button {
+                        // bookmark/save this topic
+                    } label: {
+                        Image(systemName: "bookmark.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color.primaryBlueBlack)
                     }
                 }
-            
             }
-            .padding([.bottom], topBottom)
-            .padding([.leading, .trailing], leadTrail)
+            
+        } else {
+            ProgressView()
+                .containerRelativeFrame([.horizontal, .vertical])
+                .task {
+                    await viewModel.getTopic(topicId: topicSeed.id)
+                }
+    
+        }
+    }
+    
+    @ViewBuilder
+    func topicHeader() -> some View {
+        VStack {
+            HStack(spacing: 4) {
+                Image(systemName: "tag")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16, height: 16)
+                
+                Text("TOPIC")
+            }
+            .foregroundColor(.primaryPurpleLight)
+            
+            Text(topicSeed.topicName)
+                .font(.H3)
+                .foregroundStyle(Color.primaryBlueBlack)
+            
+        }
+    }
+    
+    @ViewBuilder
+    func topicDescription(description: String?, rolesData: RolesResponse) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Description")
+                .font(Font.H5)
+            
+            Text(description ?? "No description available.")
+                .font(.body2)
+                .multilineTextAlignment(.leading)
+            
+            // "See roles" button
+            ToggleRoles(spiderGraphData:
+                SpiderGraphData(data: [SpiderGraphEntry(
+                        values: rolesData.values,
+                        color: .secondaryPink)],
+                    axes: rolesData.roles,
+                    color: .grayNeutral, 
+                    titleColor: .gray, bgColor: .white))
+            
+        }
+        .frame(minHeight: 48)
+    }
+    
+    @ViewBuilder
+    func playlistGrid(playlistPreviews: [PlaylistPreview]) -> some View {
+        VStack(alignment: .leading) {
+            Text("Playlists").font(Font.H5)
+                .padding(.horizontal, 18)
+            
+            LazyVGrid(columns: columns, spacing: 2) {
+                ForEach(playlistPreviews) { playlist in
+                    PlaylistPreviewCard(playlist: playlist)
+                }
+            }
         }
     }
 }
 
 struct ToggleRoles: View {
+    var spiderGraphData: SpiderGraphData
+    
     @State private var rolesVisible = false
 
     var body: some View {
         VStack(alignment: .leading) {
-            if rolesVisible {
-                Button(action: {
-                    withAnimation {
-                        self.rolesVisible.toggle()
-                    }
-                }) {
-                    Text("Hide Roles")
-                        .padding(.horizontal, 0)
+            
+            Button {
+                withAnimation(.smooth(duration: 0.4)) {
+                    self.rolesVisible.toggle()
                 }
-            } else {
-                Button(action: {
-                    withAnimation {
-                        self.rolesVisible.toggle()
-                    }
-                }) {
-                    Text("See Roles")
-                }
+            } label: {
+                Text(rolesVisible ? "Hide roles" : "See roles")
+                    .font(.button)
             }
             
             if rolesVisible {
-                Text("Place spider-graph here")
+                spiderGraph()
             }
         }
     }
+    
+    @ViewBuilder
+    func spiderGraph() -> some View {
+        VStack(alignment: .leading) {
+            GeometryReader { geometry in
+                let center = CGPoint(x: geometry.size.width/2, y: geometry.size.height/2)
+
+                SpiderGraph(
+                    axes: spiderGraphData.axes,
+                    values: spiderGraphData.data,
+                    textColor: spiderGraphData.titleColor,
+                    center: center,
+                    radius: 125
+                )
+            }
+        }
+        .frame(minHeight: 350)
+    }
+}
+
+#Preview {
+    ExploreView()
+        .environment(TabSelectionManager(selection: .Explore))
 }

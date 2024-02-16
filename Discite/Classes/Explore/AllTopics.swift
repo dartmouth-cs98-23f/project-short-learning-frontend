@@ -3,30 +3,34 @@
 //  Discite
 //
 //  Created by Bansharee Ireen on 1/29/24.
+//  Updated by Jessie Li on 2/14/24.
 //
 
 import SwiftUI
 
 struct AllTopics: View {
-    @State private var columns: [GridItem] = [
+    
+    private var columns: [GridItem] = [
             GridItem(.flexible()), GridItem(.flexible())
     ]
-    @ObservedObject var sequence: Sequence
-    @StateObject var recommendations = Recommendations()
     
-    @State private var selectedSortOption = 0
-    let sortOptions = ["Relevance", "Recommendations", "Name"]
+    @State var topics: [TopicTag] = []
+    @State private var selectedSortOption: SortOption = .Relevance
+    
+    enum SortOption: String, CaseIterable {
+        case Relevance
+        case Recommendations
+        case Name
+    }
 
-    private var sortedTopics: [Topic] {
+    private var sortedTopics: [TopicTag]? {
         switch selectedSortOption {
-        case 0: // Relevance
-            return recommendations.topics
-        case 1: // Recommendations
-            return recommendations.topics
-        case 2: // Name
-            return recommendations.topics.sorted { $0.topicName < $1.topicName }
-        default:
-            return recommendations.topics
+        case .Relevance: // Relevance
+            return topics
+        case .Recommendations: // Recommendations
+            return topics
+        case .Name: // Name
+            return topics.sorted { $0.topicName < $1.topicName }
         }
     }
 
@@ -38,33 +42,40 @@ struct AllTopics: View {
                         Text("Sort by:")
                         
                         Picker("", selection: $selectedSortOption) {
-                            ForEach(0..<sortOptions.count) { index in
-                                Text(self.sortOptions[index]).tag(index)
+                            ForEach(SortOption.allCases, id: \.self) { option in
+                                Text("\(option.rawValue)")
+                                    .tag(option)
                             }
                         }
                         .pickerStyle(MenuPickerStyle())
                         .padding(0)
                     }
-                    topicScrollSection(topics: sortedTopics)
+                    
+                    topicScrollSection()
+                        .animation(.easeIn(duration: 0.3), value: topics.isEmpty)
+                    
                 }
                 .navigationTitle("Topics")
                 .padding(18)
             }
             .task {
-                await recommendations.load()
+                if topics.isEmpty {
+                    do { topics = try await ExploreService.mockGetAllTopics()
+                    } catch {
+                        print("Error fetching topics: \(error)")
+                    }
+    
+                }
+
             }
         }
     }
     
     // Vertically scrolling 2 column grid of topics
-    func topicScrollSection(topics: [Topic]) -> some View {
-        LazyVGrid(columns: columns, spacing: 10) {
-            ForEach(topics, id: \._id) { topic in
-                NavigationLink(destination: {
-                    TopicPageView(sequence: sequence, topic: topic)
-                }, label: {
-                    TopicCard(topic: topic, width: 170, height: 100)
-                })
+    func topicScrollSection() -> some View {
+        LazyVGrid(columns: columns, spacing: 18) {
+            ForEach(topics) { topic in
+                LargeTopicTagWithNavigation(topic: topic, maxHeight: 100)
             }
         }
     }
