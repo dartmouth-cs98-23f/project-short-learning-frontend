@@ -27,6 +27,7 @@ extension Color {
     static let secondaryPeachLight = Color("PeachLight")
     static let secondaryPink = Color("Pink")
     static let secondaryOrange = Color("Orange")
+    static let secondaryAqua = Color("Aqua")
     
     static let grayBlue = Color("BlueGray")
     static let grayNeutral = Color("Gray")
