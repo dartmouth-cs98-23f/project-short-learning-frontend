@@ -36,12 +36,18 @@ struct TopicPageView: View {
             .ignoresSafeArea(edges: [.bottom, .horizontal])
             .navigationBarTitleDisplayMode(.inline)
             .toastView(toast: $toast)
-            .border(.pink)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     // bookmark
                     Button {
                         topicSeed.isSaved.toggle()
+                        
+                        Task {
+                            await viewModel.mockSaveTopic(
+                                parameters: SaveTopicRequest(
+                                    topicId: topicSeed.topicId,
+                                    saved: topicSeed.isSaved))
+                        }
                         
                         if topicSeed.isSaved {
                             toast = Toast(style: .success, message: "Saved.")
@@ -61,7 +67,7 @@ struct TopicPageView: View {
             ProgressView()
                 .containerRelativeFrame([.horizontal, .vertical])
                 .task {
-                    await viewModel.getTopic(topicId: topicSeed.id)
+                    await viewModel.mockGetTopic(topicId: topicSeed.topicId)
                 }
     
         }
