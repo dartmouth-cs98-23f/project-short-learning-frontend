@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TopicPageView: View {
     @Binding var topicSeed: TopicTag
+    @State private var toast: Toast?
     
     @StateObject var viewModel = TopicViewModel()
     
@@ -34,12 +35,18 @@ struct TopicPageView: View {
             }
             .ignoresSafeArea(edges: [.bottom, .horizontal])
             .navigationBarTitleDisplayMode(.inline)
+            .toastView(toast: $toast)
+            .border(.pink)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     // bookmark
                     Button {
                         topicSeed.isSaved.toggle()
-                        print("saved: \(topicSeed.isSaved)")
+                        
+                        if topicSeed.isSaved {
+                            toast = Toast(style: .success, message: "Saved.")
+                        }
+            
                     } label: {
                         Image(systemName: topicSeed.isSaved ? "bookmark.fill" : "bookmark")
                             .resizable()

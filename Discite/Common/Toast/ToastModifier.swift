@@ -16,18 +16,17 @@ struct ToastModifier: ViewModifier {
   
     func body(content: Content) -> some View {
         ZStack {
-            mainToastView()
-                .padding(.top, 18)
-                .animation(.spring(), value: toast)
-                .frame(maxHeight: .infinity, alignment: .top)
-            
             content
                 .onChange(of: toast, {
                     showToast()
                 })
+            
+            mainToastView()
+                .padding(.bottom, 18)
+                .animation(.spring(duration: 0.2), value: toast)
+                .frame(maxHeight: .infinity, alignment: .bottom)
         }
         .containerRelativeFrame([.horizontal, .vertical])
-        
     }
     
     @ViewBuilder 
