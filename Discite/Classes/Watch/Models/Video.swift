@@ -10,7 +10,8 @@ import AVKit
 
 class Video: Decodable, Identifiable, ObservableObject {
 
-    var id: String
+    var id: UUID
+    var videoId: String
     var playlistId: String
     var title: String
     var description: String
@@ -20,7 +21,7 @@ class Video: Decodable, Identifiable, ObservableObject {
     var isLiked: Bool = false
     
     enum CodingKeys: String, CodingKey {
-        case id = "_id"
+        case videoId = "_id"
         case playlistId = "videoId"
         case title
         case description
@@ -38,7 +39,8 @@ class Video: Decodable, Identifiable, ObservableObject {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = try container.decode(String.self, forKey: .id)
+        id = UUID()
+        videoId = try container.decode(String.self, forKey: .videoId)
         playlistId = try container.decode(String.self, forKey: .playlistId)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)

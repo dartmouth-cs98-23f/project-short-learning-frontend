@@ -32,13 +32,14 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     var id: UUID
     var playlistId: String
     var sequenceIndex: Int
+    var videos: [Video]
     
     private(set) var title: String
     private(set) var description: String
     private(set) var topics: [TopicTag]
     private(set) var thumbnailURL: String
-    var videos: [Video]
     private(set) var authorUsername: String = "johndoe"
+    private(set) var youtubeId: String
     
     @Published private(set) var currentIndex: Int
     @Published var isLoading: Bool
@@ -54,6 +55,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         case uploader
         case duration
         case thumbnailURL
+        case youtubeId
         case topics
         case videos = "clips"
         case views
@@ -72,6 +74,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         description = try container.decode(String.self, forKey: .description)
         topics = try container.decode([TopicTag].self, forKey: .topics)
         thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
+        youtubeId = try container.decode(String.self, forKey: .youtubeId)
         
         videos = try container.decode([Video].self, forKey: .videos)
         
