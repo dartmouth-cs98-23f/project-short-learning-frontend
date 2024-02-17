@@ -56,11 +56,11 @@ class SequenceViewModel: ObservableObject {
         // (3) Appeared: Threshold not reached
         let thresholdIndex = items.index(items.endIndex, offsetBy: -threshold)
         if index != thresholdIndex {
-            print("OK: Enough playlists in queue.")
+            print("\tOK: Enough playlists in queue.")
             return
         }
         
-        print("LOADING NEXT.")
+        print("\tLOADING NEXT.")
         // (4) Appeared: Load next page
         state = .loadingNextPage
         currentTask = Task {

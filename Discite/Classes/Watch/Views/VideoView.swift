@@ -160,6 +160,20 @@ struct VideoView: View {
         VStack(spacing: 32) {
             
             Button {
+                playlist.isSaved.toggle()
+                
+                Task {
+                    // POST save or unsave
+                    await playlist.mockSave()
+                }
+                
+            } label: {
+                Image(systemName: playlist.isSaved ? "bookmark.fill" : "bookmark")
+            }
+            .symbolEffect(.bounce, value: video.isLiked)
+            .foregroundStyle(playlist.isSaved ? Color.primaryPurpleLight : .white)
+            
+            Button {
                 video.isLiked.toggle()
             } label: {
                 Image(systemName: video.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
@@ -168,6 +182,7 @@ struct VideoView: View {
             .foregroundStyle(video.isLiked ? Color.primaryPurpleLight : .white)
             
             Button {
+                video.isLiked = false
             } label: {
                 Image(systemName: "hand.thumbsdown")
             }

@@ -31,6 +31,7 @@
 "Error.PlaylistError.NoNextVideo" = "No next video in playlist.";
 "Error.PlaylistError.EmptyPlaylist" = "Playlist is empty.";
 "Error.PlaylistError.IndexOutOfRange" = "Index out of range.";
+"Error.PlaylistError.UnableToSavePlaylist" = "Unable to save/unsave playlist.";
 
 "Error.SequenceError.EmptySequence" = "Sequence is empty.";
 "Error.SequenceError.IndexOutOfRange" = "Index out of range.";

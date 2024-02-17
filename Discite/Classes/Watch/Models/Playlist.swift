@@ -12,6 +12,7 @@ enum PlaylistError: Error {
     case noNextVideo
     case emptyPlaylist
     case indexOutOfRange
+    case savePlaylist
 }
 
 extension PlaylistError: LocalizedError {
@@ -23,6 +24,8 @@ extension PlaylistError: LocalizedError {
             return NSLocalizedString("Error.PlaylistError.EmptyPlaylist", comment: "Playlist error")
         case .indexOutOfRange:
             return NSLocalizedString("Error.PlaylistError.IndexOutOfRange", comment: "Playlist error")
+        case.savePlaylist:
+            return NSLocalizedString("Error.PlaylistError.UnableToSavePlaylist", comment: "Playlist error")
         }
     }
 }
@@ -44,6 +47,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     @Published private(set) var currentIndex: Int
     @Published var isLoading: Bool
     @Published var isLiked: Bool = false
+    @Published var isSaved: Bool
+    @Published var error: Error?
     
     private(set) var playerItem: AVPlayerItem?
     
@@ -51,6 +56,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         case playlistId = "_id"
         case title
         case description
+        case isSaved
         case uploadDate
         case uploader
         case duration
@@ -72,6 +78,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         playlistId = try container.decode(String.self, forKey: .playlistId)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
+        isSaved = try container.decode(Bool.self, forKey: .isSaved)
         topics = try container.decode([TopicTag].self, forKey: .topics)
         thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
         youtubeId = try container.decode(String.self, forKey: .youtubeId)
@@ -135,5 +142,17 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         
         currentIndex = index
         return true
+    }
+    
+    func mockSave() async {
+        do {
+            _ = try await VideoService.mockSavePlaylist(
+                parameters:
+                    SavePlaylistRequest(playlistId: playlistId, saved: isSaved))
+       
+        } catch {
+            self.error = PlaylistError.savePlaylist
+            print("Error saving playlist: \(error)")
+        }
     }
 }
