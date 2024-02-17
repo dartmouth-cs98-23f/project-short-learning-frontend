@@ -49,6 +49,8 @@ struct TopicPageView: View {
                                     saved: topicSeed.isSaved))
                         }
                         
+                        // Would normally check if error == nil
+                        // and look for success message from API
                         if topicSeed.isSaved {
                             toast = Toast(style: .success, message: "Saved.")
                         }

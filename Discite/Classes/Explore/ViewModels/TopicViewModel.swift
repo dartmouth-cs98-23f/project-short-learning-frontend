@@ -52,7 +52,3 @@ struct SaveTopicRequest: Codable {
     var topicId: String
     var saved: Bool
 }
-
-//struct SaveTopicResponse: Codable {
-//    
-//}
