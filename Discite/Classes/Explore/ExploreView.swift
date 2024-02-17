@@ -52,8 +52,12 @@ struct ExploreView: View {
                         topicRecommendationsHeader()
                             .padding(.horizontal, 18)
                         
-                        if let topicRecs = viewModel.topicRecommendations {
-                            topicScrollSection(topics: topicRecs)
+                        if !viewModel.topicRecommendations.isEmpty {
+                            topicScrollSection(topics: $viewModel.topicRecommendations)
+                            
+                        } else if viewModel.error != nil {
+                            Text("Error fetching topic recommendations.")
+                                .frame(minHeight: 40)
                             
                         } else {
                             placeholderRectangle(minHeight: 40)
@@ -80,7 +84,7 @@ struct ExploreView: View {
                     }
                 }
                 .animation(.easeIn(duration: 0.3),
-                           value: viewModel.topicRecommendations == nil)
+                           value: viewModel.topicRecommendations.isEmpty)
                 .animation(.easeIn(duration: 0.3),
                            value: viewModel.playlistRecommendations == nil)
             }
@@ -94,7 +98,7 @@ struct ExploreView: View {
     
     // Horizontally scrolling list of topics
     @ViewBuilder
-    func topicScrollSection(topics: [TopicTag]) -> some View {
+    func topicScrollSection(topics: Binding<[TopicTag]>) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             // Topic tags
             ScrollView(.horizontal, showsIndicators: false) {

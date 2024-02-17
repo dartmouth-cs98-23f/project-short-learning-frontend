@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TopicPageView: View {
-    var topicSeed: TopicTag
+    @Binding var topicSeed: TopicTag
     
     @StateObject var viewModel = TopicViewModel()
     
@@ -36,11 +36,12 @@ struct TopicPageView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    // bookmark/save this topic
+                    // bookmark
                     Button {
-                        // bookmark/save this topic
+                        topicSeed.isSaved.toggle()
+                        print("saved: \(topicSeed.isSaved)")
                     } label: {
-                        Image(systemName: "bookmark.fill")
+                        Image(systemName: topicSeed.isSaved ? "bookmark.fill" : "bookmark")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
