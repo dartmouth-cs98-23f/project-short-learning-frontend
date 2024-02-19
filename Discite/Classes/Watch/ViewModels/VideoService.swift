@@ -18,6 +18,11 @@ struct SequenceData: Decodable {
     var playlists: [Playlist]
 }
 
+struct SavePlaylistRequest: Codable {
+    var playlistId: String
+    var saved: Bool
+}
+
 class VideoService {
     
     static func loadPlaylists(topicId: String? = nil, numPlaylists: Int = 2) async -> [Playlist] {
@@ -91,5 +96,15 @@ class VideoService {
 
             return data.playlists
         }
+    }
+    
+    static func mockSavePlaylist(parameters: SavePlaylistRequest) async throws {
+        print("TEST: SAVE playlist \(parameters.playlistId)")
+        _ = try await APIRequest<SavePlaylistRequest, EmptyResponse>
+            .mockRequest(method: .post,
+                         authorized: false,
+                         path: "/api/saveTopic",
+                         parameters: parameters,
+                         headers: [:])
     }
 }

@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct TopicPageView: View {
-    var topicSeed: TopicTag
+    @Binding var topicSeed: TopicTag
+    @State private var toast: Toast?
     
     @StateObject var viewModel = TopicViewModel()
     
@@ -34,13 +35,28 @@ struct TopicPageView: View {
             }
             .ignoresSafeArea(edges: [.bottom, .horizontal])
             .navigationBarTitleDisplayMode(.inline)
+            .toastView(toast: $toast)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    // bookmark/save this topic
+                    // bookmark
                     Button {
-                        // bookmark/save this topic
+                        topicSeed.isSaved.toggle()
+                        
+                        Task {
+                            await viewModel.mockSaveTopic(
+                                parameters: SaveTopicRequest(
+                                    topicId: topicSeed.topicId,
+                                    saved: topicSeed.isSaved))
+                        }
+                        
+                        // Would normally check if error == nil
+                        // and look for success message from API
+                        if topicSeed.isSaved {
+                            toast = Toast(style: .success, message: "Saved.")
+                        }
+            
                     } label: {
-                        Image(systemName: "bookmark.fill")
+                        Image(systemName: topicSeed.isSaved ? "bookmark.fill" : "bookmark")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
@@ -53,7 +69,7 @@ struct TopicPageView: View {
             ProgressView()
                 .containerRelativeFrame([.horizontal, .vertical])
                 .task {
-                    await viewModel.getTopic(topicId: topicSeed.id)
+                    await viewModel.mockGetTopic(topicId: topicSeed.topicId)
                 }
     
         }

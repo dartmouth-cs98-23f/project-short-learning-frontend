@@ -8,6 +8,7 @@
 import Foundation
 
 class AccountViewModel: ObservableObject {
+    @Published var error: Error?
     
     // GET user
     func getUser() async -> User? {
@@ -21,6 +22,7 @@ class AccountViewModel: ObservableObject {
             
         } catch {
             print("Error: \(error)")
+            self.error = error
             return nil
         }
     }
@@ -36,6 +38,7 @@ class AccountViewModel: ObservableObject {
             return response.statistics
             
         } catch {
+            self.error = error
             print("Error: \(error)")
             return nil
         }
@@ -52,6 +55,7 @@ class AccountViewModel: ObservableObject {
             return response.topics
             
         } catch {
+            self.error = error
             print("Error: \(error)")
             return nil
         }
@@ -74,6 +78,7 @@ class AccountViewModel: ObservableObject {
             return spiderGraphData
             
         } catch {
+            self.error = error
             print("Error: \(error)")
             return nil
         }

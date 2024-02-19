@@ -74,8 +74,8 @@ struct AllTopics: View {
     // Vertically scrolling 2 column grid of topics
     func topicScrollSection() -> some View {
         LazyVGrid(columns: columns, spacing: 18) {
-            ForEach(topics) { topic in
-                LargeTopicTagWithNavigation(topic: topic, maxHeight: 100)
+            ForEach($topics) { $topic in
+                LargeTopicTagWithNavigation(topic: $topic, maxHeight: 100)
             }
         }
     }

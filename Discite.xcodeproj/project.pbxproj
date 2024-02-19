@@ -105,6 +105,10 @@
 		C2A6410C2B7D696000C50F83 /* PlaylistPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6410B2B7D696000C50F83 /* PlaylistPreview.swift */; };
 		C2A6410F2B7D75DC00C50F83 /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6410E2B7D75DC00C50F83 /* TopicViewModel.swift */; };
 		C2A641182B80138900C50F83 /* VisibleKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A641172B80138900C50F83 /* VisibleKey.swift */; };
+		C2A6411C2B8047D300C50F83 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6411B2B8047D300C50F83 /* Toast.swift */; };
+		C2A6411E2B80488900C50F83 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6411D2B80488900C50F83 /* ToastView.swift */; };
+		C2A641202B8048C300C50F83 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6411F2B8048C300C50F83 /* ToastModifier.swift */; };
+		C2A641222B8048ED00C50F83 /* ToastSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A641212B8048ED00C50F83 /* ToastSample.swift */; };
 		C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */; };
 		C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287262AE0BA8F00BB263C /* APIRequest.swift */; };
 		C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */; };
@@ -224,6 +228,10 @@
 		C2A6410B2B7D696000C50F83 /* PlaylistPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPreview.swift; sourceTree = "<group>"; };
 		C2A6410E2B7D75DC00C50F83 /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		C2A641172B80138900C50F83 /* VisibleKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleKey.swift; sourceTree = "<group>"; };
+		C2A6411B2B8047D300C50F83 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		C2A6411D2B80488900C50F83 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		C2A6411F2B8048C300C50F83 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
+		C2A641212B8048ED00C50F83 /* ToastSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastSample.swift; sourceTree = "<group>"; };
 		C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 		C2D287262AE0BA8F00BB263C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -375,6 +383,7 @@
 		C2128A8B2ADB2B9100E90C66 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C2A6411A2B8047BD00C50F83 /* Toast */,
 				C2082F832B6BD45200EEED6B /* SpiderGraph */,
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
@@ -631,6 +640,17 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		C2A6411A2B8047BD00C50F83 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				C2A6411B2B8047D300C50F83 /* Toast.swift */,
+				C2A6411D2B80488900C50F83 /* ToastView.swift */,
+				C2A6411F2B8048C300C50F83 /* ToastModifier.swift */,
+				C2A641212B8048ED00C50F83 /* ToastSample.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		C2D287202AE0B03B00BB263C /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,8 +832,10 @@
 				C251C98A2AF4AD1200922B00 /* Video.swift in Sources */,
 				2CA0B1712B7BFD5D00558227 /* SearchDestinationView.swift in Sources */,
 				C2082F912B6C06B200EEED6B /* SampleSpiderGraph.swift in Sources */,
+				C2A641202B8048C300C50F83 /* ToastModifier.swift in Sources */,
 				C2A641052B7C8FC400C50F83 /* VideoView.swift in Sources */,
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
+				C2A641222B8048ED00C50F83 /* ToastSample.swift in Sources */,
 				C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C2EE4E572B23AF6300FEA5B5 /* Welcome.swift in Sources */,
@@ -868,6 +890,7 @@
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
 				C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */,
+				C2A6411E2B80488900C50F83 /* ToastView.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				2CF2EBE02B7FE4DC0063D80B /* FilterFriends.swift in Sources */,
 				66365F832B0095AC009E0438 /* OnboardingViewModel.swift in Sources */,
@@ -885,6 +908,7 @@
 				C2EE4E5D2B2A148D00FEA5B5 /* ContinueCard.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C2A640FF2B7C659100C50F83 /* PlaylistView.swift in Sources */,
+				C2A6411C2B8047D300C50F83 /* Toast.swift in Sources */,
 				C2A3FF1A2B01D84D001EDE9F /* SharedCard.swift in Sources */,
 				C235C6752ADF842500870600 /* Auth.swift in Sources */,
 			);

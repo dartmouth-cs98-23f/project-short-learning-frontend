@@ -9,7 +9,7 @@ import Foundation
 
 class ExploreViewModel: ObservableObject {
     
-    @Published var topicRecommendations: [TopicTag]?
+    @Published var topicRecommendations: [TopicTag] = []
     @Published var playlistRecommendations: [PlaylistPreview]?
     @Published var error: Error?
     

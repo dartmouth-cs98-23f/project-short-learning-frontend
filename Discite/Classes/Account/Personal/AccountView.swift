@@ -13,7 +13,7 @@ struct AccountView: View {
     
     @State var user: User?
     @State var statistics: [Statistic]?
-    @State var topics: [TopicTag]?
+    @State var topics: [TopicTag] = []
     @State var spiderGraphData: SpiderGraphData?
 
     @ObservedObject var viewModel: AccountViewModel = AccountViewModel()
@@ -37,9 +37,22 @@ struct AccountView: View {
                     .padding([.leading, .trailing], 18)
                     .padding(.bottom, 64)
                     .task {
-                        self.statistics = await viewModel.getProgressSummary()
-                        self.topics = await viewModel.getRecentTopics()
-                        self.spiderGraphData = await viewModel.getSpiderGraphData()
+                        if viewModel.error != nil {
+                            return
+                        }
+                        
+                        if self.statistics == nil {
+                            self.statistics = await viewModel.getProgressSummary()
+                        }
+                        
+                        if self.topics.isEmpty {
+                            self.topics = await viewModel.getRecentTopics() ?? []
+                        }
+                        
+                        if self.spiderGraphData == nil {
+                            self.spiderGraphData = await viewModel.getSpiderGraphData()
+                        }
+
                         if user == nil { user = await viewModel.getUser() }
                     }
                 }
@@ -131,11 +144,11 @@ struct AccountView: View {
                 allTopicsButton()
             }
             
-            if let topics {
+            if !topics.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
-                        ForEach(topics) { topic in
-                            TopicTagWithNavigation(topic: topic)
+                        ForEach($topics) { $topic in
+                            TopicTagWithNavigation(topic: $topic)
                         }
                     }
                 }
@@ -146,7 +159,7 @@ struct AccountView: View {
             }
 
         }
-        .animation(.easeIn(duration: 0.5), value: topics == nil)
+        .animation(.easeIn(duration: 0.5), value: topics.isEmpty)
     }
     
     func allTopicsButton() -> some View {

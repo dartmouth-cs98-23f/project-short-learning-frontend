@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct LargeTopicTagWithNavigation: View {
-    var topic: TopicTag
+    @Binding var topic: TopicTag
     var maxHeight: CGFloat
     
     var body: some View {
         
         NavigationLink(destination: {
-            TopicPageView(topicSeed: topic)
+            TopicPageView(topicSeed: $topic)
             
         }, label: {
             VStack(alignment: .leading) {
@@ -48,12 +48,12 @@ struct LargeTopicTagWithNavigation: View {
 }
 
 struct TopicTagWithNavigation: View {
-    var topic: TopicTag
+    @Binding var topic: TopicTag
     
     var body: some View {
         
         NavigationLink(destination: {
-            TopicPageView(topicSeed: topic)
+            TopicPageView(topicSeed: $topic)
             
         }, label: {
             HStack(spacing: 4) {

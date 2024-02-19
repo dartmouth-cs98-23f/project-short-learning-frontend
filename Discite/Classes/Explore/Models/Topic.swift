@@ -12,6 +12,7 @@ struct Topic: Decodable, Identifiable {
     var topicId: String
     var topicName: String
     var description: String?
+    var isSaved: Bool
     var spiderGraphData: RolesResponse
     var playlistPreviews: [PlaylistPreview]
     
@@ -19,6 +20,7 @@ struct Topic: Decodable, Identifiable {
         case topicId
         case topicName
         case description
+        case isSaved
         case roleDistribution
         case playlistPreviews
     }
@@ -28,6 +30,7 @@ struct Topic: Decodable, Identifiable {
         self.topicId = try container.decode(String.self, forKey: .topicId)
         self.topicName = try container.decode(String.self, forKey: .topicName)
         self.description = try container.decode(String.self, forKey: .description)
+        self.isSaved = try container.decode(Bool.self, forKey: .isSaved)
         self.spiderGraphData = try container.decode(RolesResponse.self, forKey: .roleDistribution)
         self.playlistPreviews = try container.decode([PlaylistPreview].self, forKey: .playlistPreviews)
         

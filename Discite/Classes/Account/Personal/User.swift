@@ -8,18 +8,48 @@
 import Foundation
 
 struct User: Codable, Identifiable {
-    var id: Int
+    var id: UUID
+    var userId: String
     var firstName: String
     var lastName: String
     var username: String
     var email: String?
     var password: String?
-    var birthDate: Date?
-    var lastLoginDate: Date?
     var profilePicture: String?
-    var onBoardingStatus: String?
     
-    static let anonymousUser = User(id: 0,
+    enum CodingKeys: String, CodingKey {
+        case userId = "id"
+        case firstName
+        case lastName
+        case username
+        case email
+        case password
+        case profilePicture
+    }
+    
+    init(userId: String, firstName: String, lastName: String, username: String, email: String) {
+        self.id = UUID()
+        self.userId = userId
+        self.firstName = firstName
+        self.lastName = lastName
+        self.username = username
+        self.email = email
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = UUID()
+        self.userId = try container.decode(String.self, forKey: .userId)
+        self.firstName = try container.decode(String.self, forKey: .firstName)
+        self.lastName = try container.decode(String.self, forKey: .lastName)
+        self.username = try container.decode(String.self, forKey: .username)
+        self.email = try container.decodeIfPresent(String.self, forKey: .email)
+        self.password = try container.decodeIfPresent(String.self, forKey: .password)
+        self.profilePicture = try container.decodeIfPresent(String.self, forKey: .profilePicture)
+    }
+    
+    static let anonymousUser = User(userId: "abc123",
                                     firstName: "John",
                                     lastName: "Doe",
                                     username: "johndoe",
