@@ -392,6 +392,7 @@
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
 				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
+				C2A4AD762B84169B00AD492F /* CustomTabView.swift */,
 				C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */,
 				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
 				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
@@ -579,7 +580,6 @@
 				C2A4AD742B84009400AD492F /* SavedViewModel.swift */,
 				C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */,
 				C20DB8DF2AF1A8A5006FC33A /* User.swift */,
-				C2A4AD762B84169B00AD492F /* CustomTabView.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
