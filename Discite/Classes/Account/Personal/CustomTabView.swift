@@ -7,11 +7,15 @@
 
 import SwiftUI
 
-struct CustomTabView<MyContent: View>: View {
+struct CustomTabView: View {
     @State private var selectedIndex: Int = 0
-    let tabItems: [CustomTabItem<MyContent>]
-    
-    init(_ tabItems: [CustomTabItem<MyContent>]) {
+    // let tabItems: [CustomTabItem<Content>]
+    let tabItems: [CustomTabItem]
+
+//    init(_ tabItems: [CustomTabItem<Content>]) {
+//        self.tabItems = tabItems
+//    }
+    init(_ tabItems: [CustomTabItem]) {
         self.tabItems = tabItems
     }
     
@@ -53,28 +57,44 @@ struct CustomTabView<MyContent: View>: View {
             tabItems[selectedIndex].content
                 .frame(maxWidth: .infinity, alignment: .leading)
             
+//            tabItems[selectedIndex].content()
+//                .frame(maxWidth: .infinity, alignment: .leading)
+            
             Spacer()
         }
         
     }
 }
 
-struct CustomTabItem<MyContent: View> {
+struct CustomTabItem {
     let label: String
-    let content: MyContent
-    
-    init(_ label: String, @ViewBuilder content: () -> MyContent) {
+    let content: AnyView
+
+    init<V: View>(_ label: String, @ViewBuilder content: @escaping () -> V) {
         self.label = label
-        self.content = content()
+        self.content = AnyView(content())
+    }
+}
+
+struct SampleContentPage: View {
+    var body: some View {
+        Text("Sample page for testing.")
     }
 }
 
 struct SampleCustomTabView: View {
     var body: some View {
-        let tabItems: [CustomTabItem<Text>] = [
-            CustomTabItem("Tab 1", content: { Text("Tab 1 Content") }),
-            CustomTabItem("Tab 2", content: { Text("Tab 2 Content") }),
-            CustomTabItem("Tab 3", content: { Text("Tab 3 Content") })
+      
+        let tabItems: [CustomTabItem] = [
+            CustomTabItem("Tab 1") {
+                Text("Tab 1 Content")
+            },
+            CustomTabItem("Tab 2") {
+                Text("Tab 2 Content")
+            },
+            CustomTabItem("Tab 3") {
+                SampleContentPage()
+            }
         ]
 
         CustomTabView(tabItems)

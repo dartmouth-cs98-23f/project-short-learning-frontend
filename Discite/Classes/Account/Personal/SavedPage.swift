@@ -23,71 +23,66 @@ struct SavedPage: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // tabs
-            HStack(alignment: .center) {
-                Button {
-                    selectedTab = .playlists
-                } label: {
-                    Text("Playlists")
-                        .font(selectedTab == .playlists ? .H5 : .H6)
-                        .foregroundStyle(selectedTab == .playlists ? Color.primaryPurple : Color.primaryPurpleLight)
-                        .overlay(
-                            Rectangle()
-                                .fill(selectedTab == .playlists ? Color.primaryPurple : Color.clear)
-                                .frame(height: 2), alignment: .bottom
-                        )
+            let tabItems: [CustomTabItem] = [
+                CustomTabItem("Playlists") {
+                    playlistsPage()
+                },
+                CustomTabItem("Topics") {
+                    topicsPage()
                 }
-                
-                Button {
-                    selectedTab = .topics
-                } label: {
-                    Text("Topics")
-                        .font(selectedTab == .topics ? .H5 : .H6)
-                        .foregroundStyle(selectedTab == .topics ? Color.primaryPurple : Color.primaryPurpleLight)
-                        .overlay(
-                            Rectangle()
-                                .fill(selectedTab == .topics ? Color.primaryPurple : Color.clear)
-                                .frame(height: 2), alignment: .bottom
-                        )
-                }
-                
-            }
+            ]
             
-            if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .border(.pink)
-                    .task {
-                        await viewModel.mockGetSaved()
-                    }
-                
-            } else if viewModel.error != nil {
-                Text("Couldn't load saved content.")
-                
-            } else {
-                switch selectedTab {
-                case .playlists:
-                    ScrollView(.vertical) {
-                        VStack(spacing: 8) {
-                            ForEach(viewModel.savedPlaylists) { playlist in
-                                singlePlaylist(playlist: playlist)
-                            }
-                        }
-                    }
-                case .topics:
-                    ScrollView(.vertical) {
-                        VStack(spacing: 18) {
-                            ForEach($viewModel.savedTopics) { $topic in
-                                singleTopic(topic: $topic)
-                            }
-                        }
-                    }
-                }
-            }
+            CustomTabView(tabItems)
             
             Spacer()
         }
         .padding(.horizontal, 18)
         .border(.blue)
+        .task {
+            if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
+                await viewModel.mockGetSaved()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func topicsPage() -> some View {
+        if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+        } else if viewModel.error != nil {
+            Text("Couldn't load saved playlists.")
+            
+        } else {
+            ScrollView(.vertical) {
+                VStack(spacing: 18) {
+                    ForEach($viewModel.savedTopics) { $topic in
+                        singleTopic(topic: $topic)
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func playlistsPage() -> some View {
+        if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+        } else if viewModel.error != nil {
+            Text("Couldn't load saved topics.")
+            
+        } else {
+            ScrollView(.vertical) {
+                VStack(spacing: 8) {
+                    ForEach(viewModel.savedPlaylists) { playlist in
+                        singlePlaylist(playlist: playlist)
+                    }
+                }
+            }
+        }
     }
     
     @ViewBuilder
@@ -104,6 +99,7 @@ struct SavedPage: View {
                 
                 Text(topic.wrappedValue.topicName)
                     .font(.H6)
+                    .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "chevron.right")
@@ -149,6 +145,7 @@ struct SavedPage: View {
             // title
             Text(playlist.title)
                 .font(.subtitle2)
+                .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // open Watch
