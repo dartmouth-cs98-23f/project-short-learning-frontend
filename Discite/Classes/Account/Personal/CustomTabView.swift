@@ -9,12 +9,8 @@ import SwiftUI
 
 struct CustomTabView: View {
     @State private var selectedIndex: Int = 0
-    // let tabItems: [CustomTabItem<Content>]
     let tabItems: [CustomTabItem]
 
-//    init(_ tabItems: [CustomTabItem<Content>]) {
-//        self.tabItems = tabItems
-//    }
     init(_ tabItems: [CustomTabItem]) {
         self.tabItems = tabItems
     }
@@ -56,10 +52,7 @@ struct CustomTabView: View {
             // content
             tabItems[selectedIndex].content
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
-//            tabItems[selectedIndex].content()
-//                .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             Spacer()
         }
         

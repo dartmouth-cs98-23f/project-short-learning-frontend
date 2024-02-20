@@ -16,7 +16,6 @@ struct SavedPage: View {
     @State var selectedTab: SavedTab = .playlists
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 18) {
             Text("Saved")
                 .font(.H2)
@@ -32,17 +31,18 @@ struct SavedPage: View {
                 }
             ]
             
+            // tab view
             CustomTabView(tabItems)
             
             Spacer()
         }
         .padding(.horizontal, 18)
-        .border(.blue)
         .task {
             if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
                 await viewModel.mockGetSaved()
             }
         }
+        .animation(.smooth, value: viewModel.savedPlaylists.isEmpty)
     }
     
     @ViewBuilder
