@@ -108,6 +108,7 @@ struct SavedPage: View {
                     .frame(width: 14, height: 14)
             }
             .padding(12)
+            .foregroundStyle(Color.primaryBlueBlack)
             .background {
                 RoundedRectangle(cornerRadius: 5)
                     .fill(Color.primaryPurpleLightest)
