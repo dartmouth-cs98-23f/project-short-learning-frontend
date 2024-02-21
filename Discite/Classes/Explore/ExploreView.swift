@@ -93,6 +93,13 @@ struct ExploreView: View {
             NavigationBar()
         }
         .ignoresSafeArea(edges: [.bottom, .leading, .trailing])
+        .onAppear {
+            Task {
+                await viewModel.getTopicRecommendations()
+                await viewModel.getPlaylistRecommendations()
+                searchViewModel.searchables = viewModel.createSearchables()
+            }
+        }
     }
     
     // Horizontally scrolling list of topics
