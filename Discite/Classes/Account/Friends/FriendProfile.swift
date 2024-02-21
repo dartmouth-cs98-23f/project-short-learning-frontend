@@ -14,21 +14,38 @@ struct FriendProfile: View {
     let photoBorderWidth: CGFloat = 10
 
     var body: some View {
-        VStack {
-            DisplayProfilePhoto()
+        ScrollView(.vertical) {
+            VStack(spacing: 32) {
+                // photo and name
+                displayBasicInfo()
 
+                // section
+                placeholderSection()
+
+                Spacer()
+            }
+            .padding()
+        }
+        .animation(.easeIn(duration: 0.5), value: friend == nil)
+        .padding()
+    }
+
+    func displayBasicInfo() -> some View {
+        VStack {
+            // profile photo
+            displayProfilePhoto()
+
+            // name
             Text((friend?.firstName ?? "") + " " + (friend?.lastName ?? ""))
                 .font(.H3)
             
+            // username
             Text(friend?.username ?? "")
                 .font(.body1)
-
-            Spacer()
         }
-        .animation(.easeIn(duration: 0.5), value: friend == nil)
     }
 
-    func DisplayProfilePhoto() -> some View {
+    func displayProfilePhoto() -> some View {
         VStack {
             if let friend = friend,
             let imageStringURL = friend.profileImage,
@@ -62,5 +79,19 @@ struct FriendProfile: View {
                 }
             }
         }
+    }
+
+    func placeholderSection() -> some View {
+        VStack(alignment: .leading) {
+            Text("Section")
+                .font(.H5)
+
+           HStack(spacing: 8) {
+               Rectangle()
+                   .frame(maxWidth: .infinity, minHeight: 100)
+                   .foregroundColor(.grayLight)
+           }
+        }
+        .animation(.easeIn(duration: 0.5))
     }
 }
