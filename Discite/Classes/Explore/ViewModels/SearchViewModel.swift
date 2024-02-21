@@ -10,13 +10,38 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isFocused = false
-    @Published var searchHistory: [String] = ["clowns", "buffalos"]
+    @Published var searchHistory: [String] = ["Internet", "Algorithms"]
     @Published var shouldNavigate = false
+    @StateObject var exploreViewModel = ExploreViewModel()
+    
+    // combine topics and recommendations
+    func createSearchables() -> [Searchable] {
+        var searchables: [Searchable] = []
+        
+        // add topic recommendations
+        for topic in exploreViewModel.topicRecommendations {
+            let searchable = Searchable(id: topic.id.uuidString, name: topic.topicName, type: .topic, topic: topic, playlist: nil)
+            searchables.append(searchable)
+            print("topic loop")
+        }
+        
+        // add playlist recommendations
+        if let playlists = exploreViewModel.playlistRecommendations {
+            for playlist in playlists {
+                let searchable = Searchable(id: playlist.id.uuidString, name: playlist.title, type: .playlist, topic: nil, playlist: playlist)
+                searchables.append(searchable)
+            }
+        }
+
+        print("Searchables: \(searchables)")
+        
+        return searchables
+    }
     
     // get search suggestions based on current text
-    func getSuggestions(for text: String) -> [String] {
-        let predefinedSuggestions = ["Apple Pie", "Apple Juice", "Banana Bread", "Banana Smoothie", "Orange Juice", "Orange Chicken"]
-        let filteredSuggestions = predefinedSuggestions.filter { $0.lowercased().contains(text.lowercased()) }
+    func getSuggestions(for text: String) -> [Searchable] {
+        let predefinedSuggestions = createSearchables()
+        let filteredSuggestions = predefinedSuggestions.filter { $0.name.lowercased().contains(text.lowercased()) }
 
         return filteredSuggestions
     }
@@ -65,14 +90,14 @@ class SearchViewModel: ObservableObject {
             
             Divider()
 
-            ForEach(self.getSuggestions(for: searchText), id: \.self) { suggestion in
+            ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
                 NavigationLink(destination: {
-                    SearchDestinationView(searchText: suggestion)
+                    //
                 }, label: {
-                    Text(suggestion)
-                    .font(Font.body)
-                    .padding(.horizontal, 16)
-                    .frame(alignment: .leading)
+                    Text(suggestion.name)
+                        .font(Font.body)
+                        .padding(.horizontal, 16)
+                        .frame(alignment: .leading)
                 })
             }
 

@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */; };
+		2C0CAB722B859A0900B8BA25 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */; };
+		2C0CAB762B85A28600B8BA25 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB752B85A28600B8BA25 /* Searchable.swift */; };
 		2C8509EB2B68107800707646 /* AllTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8509EA2B68107800707646 /* AllTopics.swift */; };
-		2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */; };
 		2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16E2B7A8B4400558227 /* CancelButton.swift */; };
 		2CA0B1712B7BFD5D00558227 /* SearchDestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B1702B7BFD5D00558227 /* SearchDestinationView.swift */; };
 		2CBE27162B6436D600DF585B /* TopicPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE27152B6436D600DF585B /* TopicPageView.swift */; };
@@ -127,8 +128,9 @@
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
 		2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfile.swift; sourceTree = "<group>"; };
+		2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = "/Users/bansharee/Desktop/COSC98/project/project-short-learning-frontend/Discite/Classes/Explore/ViewModels/SearchViewModel.swift"; sourceTree = "<absolute>"; };
+		2C0CAB752B85A28600B8BA25 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
 		2C8509EA2B68107800707646 /* AllTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTopics.swift; sourceTree = "<group>"; };
-		2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		2CA0B16E2B7A8B4400558227 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		2CA0B1702B7BFD5D00558227 /* SearchDestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDestinationView.swift; sourceTree = "<group>"; };
 		2CBE27152B6436D600DF585B /* TopicPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPageView.swift; sourceTree = "<group>"; };
@@ -397,7 +399,6 @@
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 				665D4CCF2AFED43D00F1C05C /* Constants.swift */,
-				2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */,
 				2CF2EBDF2B7FE4DC0063D80B /* FilterFriends.swift */,
 			);
 			path = Common;
@@ -594,6 +595,7 @@
 				C269CCFF2B5DC6E600A5126C /* TopicTag.swift */,
 				C20EFE772AFDCC9E0074EC9A /* Topic.swift */,
 				C2A6410B2B7D696000C50F83 /* PlaylistPreview.swift */,
+				2C0CAB752B85A28600B8BA25 /* Searchable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -613,6 +615,7 @@
 		C2A641102B7E65FC00C50F83 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */,
 				C20EFE632AFBC9C60074EC9A /* ExploreService.swift */,
 				C2A641082B7D670200C50F83 /* ExploreViewModel.swift */,
 				C2A6410E2B7D75DC00C50F83 /* TopicViewModel.swift */,
@@ -845,7 +848,6 @@
 				2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */,
 				2C8509EB2B68107800707646 /* AllTopics.swift in Sources */,
 				C2A44AB02B76D14D009FEEAB /* SettingsPage.swift in Sources */,
-				2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */,
 				C2EF0B002B52E9020000DCE8 /* AuthView.swift in Sources */,
 				C2A44AAE2B76CEE3009FEEAB /* FriendsPage.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
@@ -865,6 +867,7 @@
 				C2A3FF112B01CC57001EDE9F /* Shared.swift in Sources */,
 				C2EF0AFE2B52D6D10000DCE8 /* Login.swift in Sources */,
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
+				2C0CAB762B85A28600B8BA25 /* Searchable.swift in Sources */,
 				C2A6410F2B7D75DC00C50F83 /* TopicViewModel.swift in Sources */,
 				C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */,
 				C20EFE682AFBCF4C0074EC9A /* ExploreView.swift in Sources */,
@@ -890,6 +893,7 @@
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
 				C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */,
+				2C0CAB722B859A0900B8BA25 /* SearchViewModel.swift in Sources */,
 				C2A6411E2B80488900C50F83 /* ToastView.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				2CF2EBE02B7FE4DC0063D80B /* FilterFriends.swift in Sources */,

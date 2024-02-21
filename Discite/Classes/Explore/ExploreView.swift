@@ -10,10 +10,9 @@
 import SwiftUI
 
 struct ExploreView: View {
-
-    @StateObject var searchViewModel = SearchViewModel()
     @StateObject var viewModel = ExploreViewModel()
-    
+    @StateObject var searchViewModel = SearchViewModel()
+
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 0)
     ]
