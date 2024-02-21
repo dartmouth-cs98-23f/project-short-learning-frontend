@@ -32,52 +32,52 @@ class SearchViewModel: ObservableObject {
         Text("Search Text: \(searchText)")
     }
 
-    // *** displaying search-related stuff below***
+    // *** displaying search-related stuff below ***
     func showSearchHistory() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Search History")
-                .font(Font.caption)
-                .foregroundColor(.gray)
-                .padding(.leading, 16)
-            
-            Divider()
+        ScrollView(.vertical) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Search History")
+                    .font(Font.caption)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 16)
+                
+                Divider()
 
-            ForEach(searchHistory.reversed(), id: \.self) { searchItem in
-                NavigationLink(destination: {
-                    SearchDestinationView(searchText: searchItem)
-                }, label: {
-                    Text(searchItem)
-                    .font(Font.body)
-                    .padding(.horizontal, 16)
-                })
+                ForEach(searchHistory.reversed(), id: \.self) { searchItem in
+                    NavigationLink(destination: {
+                        SearchDestinationView(searchText: searchItem)
+                    }, label: {
+                        Text(searchItem)
+                        .font(Font.body)
+                        .padding(.horizontal, 16)
+                    })
+                }
             }
-
-            Spacer()
         }
     }
     
     func showSuggestions() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Suggestions")
-                .font(Font.caption)
-                .foregroundColor(.gray)
-                .padding(.leading, 16)
-                .frame(alignment: .leading)
-            
-            Divider()
+        ScrollView(.vertical) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Suggestions")
+                    .font(Font.caption)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 16)
+                    .frame(alignment: .leading)
+                
+                Divider()
 
-            ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
-                NavigationLink(destination: {
-                    //
-                }, label: {
-                    Text(suggestion.name)
-                        .font(Font.body)
-                        .padding(.horizontal, 16)
-                        .frame(alignment: .leading)
-                })
+                ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
+                    NavigationLink(destination: {
+                        //
+                    }, label: {
+                        Text(suggestion.name)
+                            .font(Font.body)
+                            .padding(.horizontal, 16)
+                            .frame(alignment: .leading)
+                    })
+                }
             }
-
-            Spacer()
         }
     }
 }
