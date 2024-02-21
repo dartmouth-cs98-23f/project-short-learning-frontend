@@ -125,7 +125,6 @@ struct FriendProfile: View {
                    .foregroundColor(.grayLight)
            }
         }
-        // .animation(.easeIn(duration: 0.5))
     }
 }
 
