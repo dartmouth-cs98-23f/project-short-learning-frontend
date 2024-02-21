@@ -27,10 +27,6 @@ class SearchViewModel: ObservableObject {
         // Set shouldNavigate to true to trigger navigation
         shouldNavigate = true
     }
-    
-    func DestinationView() -> some View {
-        Text("Search Text: \(searchText)")
-    }
 
     // *** displaying search-related stuff below ***
     func showSearchHistory() -> some View {
@@ -69,7 +65,7 @@ class SearchViewModel: ObservableObject {
 
                 ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
                     NavigationLink(destination: {
-                        //
+                        SearchDestinationView(searchText: suggestion.name)
                     }, label: {
                         Text(suggestion.name)
                             .font(Font.body)

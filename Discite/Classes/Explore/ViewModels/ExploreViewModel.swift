@@ -41,7 +41,6 @@ class ExploreViewModel: ObservableObject {
         for topic in topicRecommendations {
             let searchable = Searchable(id: topic.id.uuidString, name: topic.topicName, type: .topic, topic: topic, playlist: nil)
             searchables.append(searchable)
-            print("topic loop")
         }
         
         // add playlist recommendations
@@ -52,7 +51,7 @@ class ExploreViewModel: ObservableObject {
             }
         }
 
-        print("Searchables: \(searchables)")
+        print("Searchables complete")
         
         return searchables
     }
