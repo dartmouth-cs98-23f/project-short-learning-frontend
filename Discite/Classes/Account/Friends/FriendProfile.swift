@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FriendProfile: View {
     @State var friend: Friend?
+    @State var spiderGraphData: SpiderGraphData?
+    @ObservedObject var viewModel: FriendViewModel = FriendViewModel()
 
     let photoSize: CGFloat = 120
     let photoBorderWidth: CGFloat = 10
@@ -18,16 +20,26 @@ struct FriendProfile: View {
             VStack(spacing: 32) {
                 // photo and name
                 displayBasicInfo()
-
-                // section
-                placeholderSection()
+                
+                // possible section: friends since
+                Text("Friends since September, 2023.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // overlapped spider graph
+                displaySpiderGraph()
+                    .frame(minHeight: 350)
 
                 Spacer()
+            }
+            .task {
+                if self.spiderGraphData == nil {
+                    self.spiderGraphData = await viewModel.getSpiderGraphData()
+                }
             }
             .padding()
         }
         .animation(.easeIn(duration: 0.5), value: friend == nil)
-        .padding()
+        .ignoresSafeArea(edges: .bottom)
     }
 
     func displayBasicInfo() -> some View {
@@ -80,18 +92,44 @@ struct FriendProfile: View {
             }
         }
     }
+    
+    func displaySpiderGraph() -> some View {
+            VStack(alignment: .leading) {
+                Text((friend?.firstName ?? "") + "'s roles ")
+                    .font(.H5)
+                
+                if let spiderGraphData = spiderGraphData {
+                    GeometryReader { geometry in
+                        let center = CGPoint(x: geometry.size.width/2, y: geometry.size.height/2)
+                        
+                        SpiderGraph(
+                            axes: spiderGraphData.axes,
+                            values: spiderGraphData.data,
+                            textColor: spiderGraphData.titleColor,
+                            center: center,
+                            radius: 125
+                        )
+                    }
+                } else {
+                    placeholderSection()
+                }
+            }
+            .animation(.easeIn(duration: 0.5), value: spiderGraphData == nil)
+    }
 
     func placeholderSection() -> some View {
         VStack(alignment: .leading) {
-            Text("Section")
-                .font(.H5)
-
            HStack(spacing: 8) {
                Rectangle()
                    .frame(maxWidth: .infinity, minHeight: 100)
                    .foregroundColor(.grayLight)
            }
         }
-        .animation(.easeIn(duration: 0.5))
+        // .animation(.easeIn(duration: 0.5))
     }
 }
+
+//#Preview {
+//    AccountView(user: User.anonymousUser)
+//        .environment(TabSelectionManager(selection: .Account))
+//}
