@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */; };
+<<<<<<< Updated upstream
+=======
 		2C0CAB722B859A0900B8BA25 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */; };
 		2C0CAB762B85A28600B8BA25 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB752B85A28600B8BA25 /* Searchable.swift */; };
 		2C0CAB7C2B88072F00B8BA25 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */; };
@@ -628,6 +630,7 @@
 				C20EFE632AFBC9C60074EC9A /* ExploreService.swift */,
 				C2A641082B7D670200C50F83 /* ExploreViewModel.swift */,
 				C2A6410E2B7D75DC00C50F83 /* TopicViewModel.swift */,
+				2C0CAB792B8690D600B8BA25 /* AddToHistory.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -893,6 +896,7 @@
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
 				C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */,
 				C2082F932B6C098A00EEED6B /* SpiderGraph.swift in Sources */,
+				2C0CAB7A2B8690D600B8BA25 /* AddToHistory.swift in Sources */,
 				66365F822B0095AC009E0438 /* OnboardingView.swift in Sources */,
 				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
