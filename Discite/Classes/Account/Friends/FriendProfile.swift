@@ -125,6 +125,10 @@ struct FriendProfile: View {
                    .foregroundColor(.grayLight)
            }
         }
+<<<<<<< HEAD
+=======
+        // .animation(.easeIn(duration: 0.5))
+>>>>>>> 9126e65 (friend profile merge)
     }
 }
 
