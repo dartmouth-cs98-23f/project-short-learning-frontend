@@ -256,13 +256,15 @@ struct VideoView: View {
     }
     
     private func openYouTube() {
-        if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
+        // if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
+        if let youtubeURL = URL(string: "youtube://www.youtube.com"),
             UIApplication.shared.canOpenURL(youtubeURL) {
             // Open in YouTube app if installed
             print("Opening YouTube App.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
             
-        } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
+        // } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
+        } else if let youtubeURL = URL(string: "https://www.youtube.com") {
             // Open in Safari if YouTube app is not installed
             print("Opening YouTube in Safari.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
