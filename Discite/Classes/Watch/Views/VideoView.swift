@@ -256,7 +256,8 @@ struct VideoView: View {
     }
     
     private func openYouTube() {
-        if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
+        // if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
+        if let youtubeURL = URL(string: "youtube://www.youtube.com"),
             UIApplication.shared.canOpenURL(youtubeURL) {
             // Open in YouTube app if installed
             print("Opening YouTube App.")
