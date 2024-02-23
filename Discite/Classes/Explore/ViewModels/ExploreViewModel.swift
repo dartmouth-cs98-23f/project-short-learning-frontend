@@ -33,4 +33,26 @@ class ExploreViewModel: ObservableObject {
         }
     }
     
+    // combine topics and recommendations
+    func createSearchables() -> [Searchable] {
+        var searchables: [Searchable] = []
+        
+        // add topic recommendations
+        for topic in topicRecommendations {
+            let searchable = Searchable(id: topic.id.uuidString, name: topic.topicName, type: .topic, topic: topic, playlist: nil)
+            searchables.append(searchable)
+        }
+        
+        // add playlist recommendations
+        if let playlists = playlistRecommendations {
+            for playlist in playlists {
+                let searchable = Searchable(id: playlist.id.uuidString, name: playlist.title, type: .playlist, topic: nil, playlist: playlist)
+                searchables.append(searchable)
+            }
+        }
+
+        print("Searchables complete")
+        
+        return searchables
+    }
 }
