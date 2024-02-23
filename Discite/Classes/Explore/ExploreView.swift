@@ -37,7 +37,7 @@ struct ExploreView: View {
                 })
                 .animation(.smooth(duration: 0.3), value: searchViewModel.shouldNavigate)
                 .navigationDestination(isPresented: $searchViewModel.shouldNavigate, destination: {
-                    SearchDestinationView(searchText: searchViewModel.searchText)
+                    SearchDestinationView(searchText: searchViewModel.searchText, searchables: searchViewModel.searchables)
                 })
             }
             .padding(.horizontal, 18)
