@@ -18,19 +18,16 @@ struct SpiderGraphEntryView: View {
     
     let count: Int
     
-    @Binding var values: [CGFloat]
-    @Binding var animate: Bool
-    @State private var appeared: Bool = false
-    @State private var scale: CGFloat
-    @State private var opacity: CGFloat
-    @State private var circleRadius: CGFloat
-    // @State private var scale = 0.5
-    // @State private var opacity = 0.0
+    @State var values: [CGFloat]
+    @State var animate: Bool
+    @State private var scale: CGFloat = 0.5
+    @State private var opacity: CGFloat = 0.0
+    @State private var circleRadius: CGFloat = 15.0
     
     init(center: CGPoint,
          radius: CGFloat,
-         values: Binding<[CGFloat]>,
-         animate: Binding<Bool>,
+         values: [CGFloat],
+         animate: Bool,
          color: Color,
          interactive: Bool) {
         
@@ -38,14 +35,10 @@ struct SpiderGraphEntryView: View {
         self.radius = radius
         self.color = color
         self.interactive = interactive
-        
-        self._values = values
-        self._animate = animate
+        self.values = values
+        self.animate = animate
         
         count = values.count
-        scale = animate.wrappedValue ? 0.5 : 1.0
-        opacity = animate.wrappedValue ? 0.0 : 1.0
-        circleRadius = animate.wrappedValue ? 0.0 : 15.0
     }
     
     var body: some View {
@@ -72,23 +65,17 @@ struct SpiderGraphEntryView: View {
             .opacity(opacity)
             .onAppear {
                 if animate {
-                    print("animate")
-                    withAnimation(.spring(duration: 10)) {
+                    withAnimation(.spring(duration: 2)) {
                         scale = 1.0
                         opacity = 1.0
                         circleRadius = 15.0
                         animate = false
                     }}
                 }
-            
-//                withAnimation(.spring(duration: 1)) {
-//                    scale = 1.0
-//                    opacity = 1.0
-//                }}
-        }
-        
-        if interactive {
-            drawCircles(color: color)
+
+            if interactive {
+                drawCircles(color: color)
+            }
         }
     }
     
@@ -137,7 +124,7 @@ struct SpiderGraphEntryView: View {
 
 struct SpiderGraph: View {
     private let axes: [String]
-    // private let values: [SpiderGraphEntry]
+    private let values: [SpiderGraphEntry]
     private let color: Color
     private let circleCount: Int
     private let circleGap: CGFloat
@@ -152,7 +139,6 @@ struct SpiderGraph: View {
     private let layers = 4
     
     @State private var scale = 0.1
-    @State private var values: [SpiderGraphEntry]
     
     public init(axes: [String] = [],
                 values: [SpiderGraphEntry] = [],
@@ -189,26 +175,16 @@ struct SpiderGraph: View {
             
             drawLabels()
             
-            ForEach($values, id: \.self) { $entry in
+            ForEach(values, id: \.self) { entry in
                 SpiderGraphEntryView(center: center,
                                      radius: radius,
-                                     values: $entry.values,
-                                     animate: $entry.animate,
+                                     values: entry.values,
+                                     animate: entry.animate,
                                      color: entry.color,
                                      interactive: entry.interactive)
             }
-            
-//            ForEach(0..<values.count, id: \.self) { i in
-//                let entry = values[i]
-//                SpiderGraphEntryView(center: center,
-//                                     radius: radius,
-//                                     values: entry.$values,
-//                                     color: entry.color,
-//                                     interactive: entry.interactive)
-//            }
 
         }
-    
     }
     
     // Draws the polygon base of the graph
