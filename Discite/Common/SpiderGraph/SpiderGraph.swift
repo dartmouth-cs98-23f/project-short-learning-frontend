@@ -13,58 +13,131 @@ import SwiftUI
 struct SpiderGraphEntryView: View {
     let center: CGPoint
     let radius: CGFloat
-    let values: [CGFloat]
     let color: Color
+    let interactive: Bool
     
     let count: Int
     
-    @State private var appeared = false
-    @State private var scale = 0.5
-    @State private var opacity = 0.0
+    @Binding var values: [CGFloat]
+    @Binding var animate: Bool
+    @State private var appeared: Bool = false
+    @State private var scale: CGFloat
+    @State private var opacity: CGFloat
+    @State private var circleRadius: CGFloat
+    // @State private var scale = 0.5
+    // @State private var opacity = 0.0
     
-    init(center: CGPoint, radius: CGFloat, values: [CGFloat], color: Color) {
+    init(center: CGPoint,
+         radius: CGFloat,
+         values: Binding<[CGFloat]>,
+         animate: Binding<Bool>,
+         color: Color,
+         interactive: Bool) {
+        
         self.center = center
         self.radius = radius
-        self.values = values
         self.color = color
+        self.interactive = interactive
+        
+        self._values = values
+        self._animate = animate
         
         count = values.count
+        scale = animate.wrappedValue ? 0.5 : 1.0
+        opacity = animate.wrappedValue ? 0.0 : 1.0
+        circleRadius = animate.wrappedValue ? 0.0 : 15.0
     }
     
     var body: some View {
-        Path { path in
-            for i in 0..<values.count {
-                let angle = -.pi / 2 - CGFloat(i) * 2 * .pi / CGFloat(values.count)
-                let x = center.x + radius * values[i] * cos(angle)
-                let y = center.y + radius * values[i] * sin(angle)
-                let point = CGPoint(x: x, y: y)
-                
-                if i == 0 {
-                    path.move(to: point)
-                } else {
-                    path.addLine(to: point)
+        ZStack {
+            Path { path in
+                for i in 0..<values.count {
+                    let angle = -.pi / 2 - CGFloat(i) * 2 * .pi / CGFloat(values.count)
+                    let x = center.x + radius * values[i] * cos(angle)
+                    let y = center.y + radius * values[i] * sin(angle)
+                    let point = CGPoint(x: x, y: y)
+                    
+                    if i == 0 {
+                        path.move(to: point)
+                    } else {
+                        path.addLine(to: point)
+                    }
                 }
+                
+                path.closeSubpath()
             }
+            .stroke(color, lineWidth: 2)
+            .fill(color.opacity(0.5))
+            .scaleEffect(scale)
+            .opacity(opacity)
+            .onAppear {
+                if animate {
+                    print("animate")
+                    withAnimation(.spring(duration: 10)) {
+                        scale = 1.0
+                        opacity = 1.0
+                        circleRadius = 15.0
+                        animate = false
+                    }}
+                }
             
-            path.closeSubpath()
+//                withAnimation(.spring(duration: 1)) {
+//                    scale = 1.0
+//                    opacity = 1.0
+//                }}
         }
-        .stroke(color, lineWidth: 2)
-        .fill(color.opacity(0.5))
-        .scaleEffect(scale)
-        .opacity(opacity)
-        .onAppear {
-            withAnimation(.spring(duration: 1)) {
-                scale = 1.0
-                opacity = 1.0
-        }}
-
+        
+        if interactive {
+            drawCircles(color: color)
+        }
     }
     
+    private func drawCircles(color: Color = .primaryBlueBlack) -> some View {
+        return Group {
+            ForEach(0..<count, id: \.self) { i in
+                drawCircleAtIndex(index: i, color: color, size: circleRadius)
+                
+            }
+        }
+    }
+    
+    private func drawCircleAtIndex(index: Int, color: Color, size: CGFloat) -> some View {
+        let angle = -.pi / 2 - CGFloat(index) * 2 * .pi / CGFloat(values.count)
+
+        let x = center.x + radius * values[index] * cos(angle)
+        let y = center.y + radius * values[index] * sin(angle)
+
+        let circlePosition = CGPoint(x: x, y: y)
+        
+        let gesture = DragGesture()
+            .onChanged { value in
+                handleDrag(index: index, location: value.location)
+            }
+
+        return Circle()
+            .frame(width: size, height: size)
+            .foregroundColor(color)
+            .position(circlePosition)
+            .gesture(gesture)
+    }
+    
+    private func handleDrag(index: Int, location: CGPoint) {
+        let radius = min(max(distance(from: location, to: center) / radius, 0), 1)
+        
+        withAnimation(.smooth) {
+            values[index] = radius
+        }
+    }
+    
+    // Calculate the distance between two points
+    private func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
+        return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
+    }
 }
 
 struct SpiderGraph: View {
     private let axes: [String]
-    private let values: [SpiderGraphEntry]
+    // private let values: [SpiderGraphEntry]
     private let color: Color
     private let circleCount: Int
     private let circleGap: CGFloat
@@ -79,6 +152,7 @@ struct SpiderGraph: View {
     private let layers = 4
     
     @State private var scale = 0.1
+    @State private var values: [SpiderGraphEntry]
     
     public init(axes: [String] = [],
                 values: [SpiderGraphEntry] = [],
@@ -115,13 +189,23 @@ struct SpiderGraph: View {
             
             drawLabels()
             
-            ForEach(0..<values.count, id: \.self) { i in
-                let entry = values[i]
+            ForEach($values, id: \.self) { $entry in
                 SpiderGraphEntryView(center: center,
                                      radius: radius,
-                                     values: entry.values,
-                                     color: entry.color)
+                                     values: $entry.values,
+                                     animate: $entry.animate,
+                                     color: entry.color,
+                                     interactive: entry.interactive)
             }
+            
+//            ForEach(0..<values.count, id: \.self) { i in
+//                let entry = values[i]
+//                SpiderGraphEntryView(center: center,
+//                                     radius: radius,
+//                                     values: entry.$values,
+//                                     color: entry.color,
+//                                     interactive: entry.interactive)
+//            }
 
         }
     
@@ -202,7 +286,10 @@ extension String {
     }
 }
 
-public struct SpiderGraphEntry {
+public struct SpiderGraphEntry: Identifiable, Hashable {
+    public let id: UUID = UUID()
     var values: [CGFloat]
     var color: Color
+    var interactive: Bool = false
+    var animate: Bool = true
 }
