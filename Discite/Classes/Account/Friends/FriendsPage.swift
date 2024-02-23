@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FriendsPage: View {
     @ObservedObject var viewModel = FriendsViewModel()
-    
     @State var friends: [Friend]?
     
     var body: some View {
@@ -30,7 +29,7 @@ struct FriendsPage: View {
                 ScrollView(.vertical) {
                     LazyVStack(alignment: .leading) {
                         ForEach(filteredFriends(friendsList: friends, searchText: viewModel.searchText)) { friend in
-                            NavigationLink(destination: FriendProfilePage()) {
+                            NavigationLink(destination: FriendProfile(friend: friend)) {
                                 friendRow(friend: friend)
                             }
                         }

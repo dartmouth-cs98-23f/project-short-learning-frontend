@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */; };
+		2C0CAB722B859A0900B8BA25 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */; };
+		2C0CAB762B85A28600B8BA25 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB752B85A28600B8BA25 /* Searchable.swift */; };
+		2C0CAB7C2B88072F00B8BA25 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */; };
 		2C8509EB2B68107800707646 /* AllTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8509EA2B68107800707646 /* AllTopics.swift */; };
 		2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */; };
 		2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16E2B7A8B4400558227 /* CancelButton.swift */; };
@@ -93,7 +97,6 @@
 		C2A44AB02B76D14D009FEEAB /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */; };
 		C2A44AB22B76D612009FEEAB /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB12B76D612009FEEAB /* Placeholder.swift */; };
 		C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */; };
-		C2A44AB62B772415009FEEAB /* FriendProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */; };
 		C2A4AD752B84009400AD492F /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD742B84009400AD492F /* SavedViewModel.swift */; };
 		C2A4AD772B84169B00AD492F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD762B84169B00AD492F /* CustomTabView.swift */; };
 		C2A640F02B7C430700C50F83 /* WatchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640EF2B7C430700C50F83 /* WatchPage.swift */; };
@@ -128,6 +131,10 @@
 
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
+		2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfile.swift; sourceTree = "<group>"; };
+		2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = "/Users/bansharee/Desktop/COSC98/project/project-short-learning-frontend/Discite/Classes/Explore/ViewModels/SearchViewModel.swift"; sourceTree = "<absolute>"; };
+		2C0CAB752B85A28600B8BA25 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
+		2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		2C8509EA2B68107800707646 /* AllTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTopics.swift; sourceTree = "<group>"; };
 		2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		2CA0B16E2B7A8B4400558227 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
@@ -218,7 +225,6 @@
 		C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		C2A44AB12B76D612009FEEAB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
-		C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfilePage.swift; sourceTree = "<group>"; };
 		C2A4AD742B84009400AD492F /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		C2A4AD762B84169B00AD492F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		C2A640EF2B7C430700C50F83 /* WatchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPage.swift; sourceTree = "<group>"; };
@@ -420,16 +426,16 @@
 		C2128A8E2ADB32B100E90C66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2C610DE22B5C8A1500774B4F /* Recommended */,
-				66365F7F2B0095AC009E0438 /* Onboarding */,
-				C2D287202AE0B03B00BB263C /* Root */,
-				C2128A972ADB4F3A00E90C66 /* Authentication */,
-				C235C6762AE06DD700870600 /* Watch */,
-				C291450B2AE60DBF000BEB88 /* Explore */,
-				C291450C2AE60DDA000BEB88 /* Shared */,
 				C2237F412AE5E41500C9396E /* Account */,
+				C2128A972ADB4F3A00E90C66 /* Authentication */,
+				C291450B2AE60DBF000BEB88 /* Explore */,
+				66365F7F2B0095AC009E0438 /* Onboarding */,
+				2C610DE22B5C8A1500774B4F /* Recommended */,
+				C2D287202AE0B03B00BB263C /* Root */,
 				C20EFE862B012F6E0074EC9A /* Share */,
+				C291450C2AE60DDA000BEB88 /* Shared */,
 				C235C6712ADF460C00870600 /* Utility */,
+				C235C6762AE06DD700870600 /* Watch */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -588,8 +594,9 @@
 			isa = PBXGroup;
 			children = (
 				C2A44AAD2B76CEE3009FEEAB /* FriendsPage.swift */,
-				C2A44AB52B772415009FEEAB /* FriendProfilePage.swift */,
 				C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */,
+				2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */,
+				2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -837,6 +844,7 @@
 				C20EFE822AFFA9A30074EC9A /* Navigator.swift in Sources */,
 				C251C98A2AF4AD1200922B00 /* Video.swift in Sources */,
 				2CA0B1712B7BFD5D00558227 /* SearchDestinationView.swift in Sources */,
+				2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */,
 				C2082F912B6C06B200EEED6B /* SampleSpiderGraph.swift in Sources */,
 				C2A641202B8048C300C50F83 /* ToastModifier.swift in Sources */,
 				C2A641052B7C8FC400C50F83 /* VideoView.swift in Sources */,
@@ -849,6 +857,7 @@
 				C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */,
 				2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */,
 				2C8509EB2B68107800707646 /* AllTopics.swift in Sources */,
+				2C0CAB7C2B88072F00B8BA25 /* FriendViewModel.swift in Sources */,
 				C2A44AB02B76D14D009FEEAB /* SettingsPage.swift in Sources */,
 				2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */,
 				C2EF0B002B52E9020000DCE8 /* AuthView.swift in Sources */,
@@ -861,7 +870,6 @@
 				C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */,
 				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
-				C2A44AB62B772415009FEEAB /* FriendProfilePage.swift in Sources */,
 				C20DB8E02AF1A8A5006FC33A /* User.swift in Sources */,
 				C28ABE982AF31D9E007181F4 /* TextButtons.swift in Sources */,
 				C20EFE702AFDA6D70074EC9A /* CardButtonFrame.swift in Sources */,
