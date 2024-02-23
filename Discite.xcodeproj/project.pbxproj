@@ -8,13 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */; };
-<<<<<<< Updated upstream
-=======
 		2C0CAB722B859A0900B8BA25 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */; };
 		2C0CAB762B85A28600B8BA25 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB752B85A28600B8BA25 /* Searchable.swift */; };
 		2C0CAB7A2B8690D600B8BA25 /* AddToHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB792B8690D600B8BA25 /* AddToHistory.swift */; };
 		2C0CAB7C2B88072F00B8BA25 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */; };
->>>>>>> Stashed changes
 		2C8509EB2B68107800707646 /* AllTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8509EA2B68107800707646 /* AllTopics.swift */; };
 		2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16E2B7A8B4400558227 /* CancelButton.swift */; };
 		2CA0B1712B7BFD5D00558227 /* SearchDestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B1702B7BFD5D00558227 /* SearchDestinationView.swift */; };
@@ -133,6 +130,13 @@
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
 		2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfile.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = "/Users/bansharee/Desktop/COSC98/project/project-short-learning-frontend/Discite/Classes/Explore/ViewModels/SearchViewModel.swift"; sourceTree = "<absolute>"; };
+		2C0CAB752B85A28600B8BA25 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
+		2C0CAB792B8690D600B8BA25 /* AddToHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToHistory.swift; sourceTree = "<group>"; };
+		2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
+>>>>>>> df62c24 (merged)
 		2C8509EA2B68107800707646 /* AllTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTopics.swift; sourceTree = "<group>"; };
 		2CA0B16E2B7A8B4400558227 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		2CA0B1702B7BFD5D00558227 /* SearchDestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDestinationView.swift; sourceTree = "<group>"; };
