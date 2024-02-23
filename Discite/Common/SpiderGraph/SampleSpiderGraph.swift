@@ -21,7 +21,8 @@ struct SpiderGraphData {
 struct SpiderGraphView: View {
     @State var currentSample = SpiderGraphData(
         data: [SpiderGraphEntry(values: [0.8, 0.8, 1.0, 0.7, 0.9, 0.75],
-                                color: .primaryPurpleLight)],
+                                color: .primaryPurpleLight,
+                                interactive: false)],
         axes: ["Frontend", "Backend", "ML", "AI/Data", "DevOps", "QA"],
         color: .primaryPurpleLight, titleColor: .gray, bgColor: .white)
     

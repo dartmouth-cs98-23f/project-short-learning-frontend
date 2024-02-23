@@ -13,53 +13,113 @@ import SwiftUI
 struct SpiderGraphEntryView: View {
     let center: CGPoint
     let radius: CGFloat
-    let values: [CGFloat]
     let color: Color
-    
+    let interactive: Bool
+    let handleCornerDrag: (([CGFloat]) -> Void)?
     let count: Int
     
-    @State private var appeared = false
-    @State private var scale = 0.5
-    @State private var opacity = 0.0
+    @State var values: [CGFloat]
+    @State var animate: Bool
+    @State private var scale: CGFloat = 0.5
+    @State private var opacity: CGFloat = 0.0
+    @State private var circleRadius: CGFloat = 15.0
     
-    init(center: CGPoint, radius: CGFloat, values: [CGFloat], color: Color) {
+    init(entry: SpiderGraphEntry,
+         center: CGPoint,
+         radius: CGFloat) {
+        
         self.center = center
         self.radius = radius
-        self.values = values
-        self.color = color
+        self.color = entry.color
+        self.interactive = entry.interactive
+        self.values = entry.values
+        self.animate = entry.animate
+        self.handleCornerDrag = entry.handleCornerDrag
         
-        count = values.count
+        count = entry.values.count
     }
     
     var body: some View {
-        Path { path in
-            for i in 0..<values.count {
-                let angle = -.pi / 2 - CGFloat(i) * 2 * .pi / CGFloat(values.count)
-                let x = center.x + radius * values[i] * cos(angle)
-                let y = center.y + radius * values[i] * sin(angle)
-                let point = CGPoint(x: x, y: y)
-                
-                if i == 0 {
-                    path.move(to: point)
-                } else {
-                    path.addLine(to: point)
+        ZStack {
+            Path { path in
+                for i in 0..<values.count {
+                    let angle = -.pi / 2 - CGFloat(i) * 2 * .pi / CGFloat(values.count)
+                    let x = center.x + radius * values[i] * cos(angle)
+                    let y = center.y + radius * values[i] * sin(angle)
+                    let point = CGPoint(x: x, y: y)
+                    
+                    if i == 0 {
+                        path.move(to: point)
+                    } else {
+                        path.addLine(to: point)
+                    }
                 }
+                
+                path.closeSubpath()
             }
-            
-            path.closeSubpath()
-        }
-        .stroke(color, lineWidth: 2)
-        .fill(color.opacity(0.5))
-        .scaleEffect(scale)
-        .opacity(opacity)
-        .onAppear {
-            withAnimation(.spring(duration: 1)) {
-                scale = 1.0
-                opacity = 1.0
-        }}
+            .stroke(color, lineWidth: 2)
+            .fill(color.opacity(0.5))
+            .scaleEffect(scale)
+            .opacity(opacity)
+            .onAppear {
+                if animate {
+                    withAnimation(.spring(duration: 2)) {
+                        scale = 1.0
+                        opacity = 1.0
+                        circleRadius = 15.0
+                        animate = false
+                    }}
+                }
 
+            if interactive {
+                drawCircles(color: color)
+            }
+        }
     }
     
+    private func drawCircles(color: Color = .primaryBlueBlack) -> some View {
+        return Group {
+            ForEach(0..<count, id: \.self) { i in
+                drawCircleAtIndex(index: i, color: color, size: circleRadius)
+                
+            }
+        }
+    }
+    
+    private func drawCircleAtIndex(index: Int, color: Color, size: CGFloat) -> some View {
+        let angle = -.pi / 2 - CGFloat(index) * 2 * .pi / CGFloat(values.count)
+
+        let x = center.x + radius * values[index] * cos(angle)
+        let y = center.y + radius * values[index] * sin(angle)
+
+        let circlePosition = CGPoint(x: x, y: y)
+        
+        let gesture = DragGesture()
+            .onChanged { value in
+                handleDrag(index: index, location: value.location)
+            }
+
+        return Circle()
+            .frame(width: size, height: size)
+            .foregroundColor(color)
+            .position(circlePosition)
+            .gesture(gesture)
+    }
+    
+    private func handleDrag(index: Int, location: CGPoint) {
+        let radius = min(max(distance(from: location, to: center) / radius, 0), 1)
+        
+        withAnimation(.smooth) {
+            values[index] = radius
+        }
+        
+        handleCornerDrag?(values)
+    }
+    
+    // Calculate the distance between two points
+    private func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
+        return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
+    }
 }
 
 struct SpiderGraph: View {
@@ -115,16 +175,11 @@ struct SpiderGraph: View {
             
             drawLabels()
             
-            ForEach(0..<values.count, id: \.self) { i in
-                let entry = values[i]
-                SpiderGraphEntryView(center: center,
-                                     radius: radius,
-                                     values: entry.values,
-                                     color: entry.color)
+            ForEach(values, id: \.self) { entry in
+                SpiderGraphEntryView(entry: entry, center: center, radius: radius)
             }
 
         }
-    
     }
     
     // Draws the polygon base of the graph
@@ -202,7 +257,32 @@ extension String {
     }
 }
 
-public struct SpiderGraphEntry {
+public struct SpiderGraphEntry: Identifiable, Hashable {
+    public let id: UUID = UUID()
     var values: [CGFloat]
     var color: Color
+    var interactive: Bool = false
+    var animate: Bool = true
+    
+    // Optional callback to handle corner drag
+    // Will only be called if interactive == true
+    var handleCornerDrag: (([CGFloat]) -> Void)?
+
+    //  Exclude the function from hashing
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(values)
+        hasher.combine(color)
+        hasher.combine(interactive)
+        hasher.combine(animate)
+    }
+    
+    // Implementation for the == operator
+    public static func == (lhs: SpiderGraphEntry, rhs: SpiderGraphEntry) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.values == rhs.values &&
+               lhs.color == rhs.color &&
+               lhs.interactive == rhs.interactive &&
+               lhs.animate == rhs.animate
+    }
 }
