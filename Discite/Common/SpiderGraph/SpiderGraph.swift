@@ -15,7 +15,7 @@ struct SpiderGraphEntryView: View {
     let radius: CGFloat
     let color: Color
     let interactive: Bool
-    
+    let handleCornerDrag: (([CGFloat]) -> Void)?
     let count: Int
     
     @State var values: [CGFloat]
@@ -24,21 +24,19 @@ struct SpiderGraphEntryView: View {
     @State private var opacity: CGFloat = 0.0
     @State private var circleRadius: CGFloat = 15.0
     
-    init(center: CGPoint,
-         radius: CGFloat,
-         values: [CGFloat],
-         animate: Bool,
-         color: Color,
-         interactive: Bool) {
+    init(entry: SpiderGraphEntry,
+         center: CGPoint,
+         radius: CGFloat) {
         
         self.center = center
         self.radius = radius
-        self.color = color
-        self.interactive = interactive
-        self.values = values
-        self.animate = animate
+        self.color = entry.color
+        self.interactive = entry.interactive
+        self.values = entry.values
+        self.animate = entry.animate
+        self.handleCornerDrag = entry.handleCornerDrag
         
-        count = values.count
+        count = entry.values.count
     }
     
     var body: some View {
@@ -114,6 +112,8 @@ struct SpiderGraphEntryView: View {
         withAnimation(.smooth) {
             values[index] = radius
         }
+        
+        handleCornerDrag?(values)
     }
     
     // Calculate the distance between two points
@@ -176,12 +176,7 @@ struct SpiderGraph: View {
             drawLabels()
             
             ForEach(values, id: \.self) { entry in
-                SpiderGraphEntryView(center: center,
-                                     radius: radius,
-                                     values: entry.values,
-                                     animate: entry.animate,
-                                     color: entry.color,
-                                     interactive: entry.interactive)
+                SpiderGraphEntryView(entry: entry, center: center, radius: radius)
             }
 
         }
@@ -268,4 +263,26 @@ public struct SpiderGraphEntry: Identifiable, Hashable {
     var color: Color
     var interactive: Bool = false
     var animate: Bool = true
+    
+    // Optional callback to handle corner drag
+    // Will only be called if interactive == true
+    var handleCornerDrag: (([CGFloat]) -> Void)?
+
+    //  Exclude the function from hashing
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(values)
+        hasher.combine(color)
+        hasher.combine(interactive)
+        hasher.combine(animate)
+    }
+    
+    // Implementation for the == operator
+    public static func == (lhs: SpiderGraphEntry, rhs: SpiderGraphEntry) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.values == rhs.values &&
+               lhs.color == rhs.color &&
+               lhs.interactive == rhs.interactive &&
+               lhs.animate == rhs.animate
+    }
 }

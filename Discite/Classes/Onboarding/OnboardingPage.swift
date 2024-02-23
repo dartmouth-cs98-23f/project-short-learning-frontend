@@ -9,12 +9,6 @@ import SwiftUI
 
 struct OnboardingPage: View {
     @ObservedObject var viewModel = OnboardViewModel()
-    @State var spiderGraphEntry = SpiderGraphEntry(
-        values: [0.8, 0.8, 1.0, 0.7, 0.9, 0.75],
-        color: .primaryPurpleLight,
-        interactive: true)
-    
-    private let roles = ["Front", "Backend", "ML", "AI/Data", "DevOps", "QA"]
     
     var body: some View {
         GeometryReader { mainGeo in
@@ -31,52 +25,82 @@ struct OnboardingPage: View {
                 GeometryReader { geometry in
                     let center = CGPoint(x: radius, y: geometry.size.height/2)
                     
-                    ZStack {
-                        SpiderGraph(
-                            axes: roles,
-                            values: [spiderGraphEntry],
-                            textColor: .grayDark,
-                            center: center,
-                            radius: radius * 0.72
-                        )
-                    }
+                    let spiderGraphEntry = SpiderGraphEntry(
+                        values: viewModel.values,
+                        color: .primaryPurpleLight,
+                        interactive: true,
+                        handleCornerDrag: onCornerDrag)
+                    
+                    SpiderGraph(
+                        axes: viewModel.roles,
+                        values: [spiderGraphEntry],
+                        textColor: .grayDark,
+                        center: center,
+                        radius: radius * 0.72
+                    )
                 }
                 .frame(maxHeight: radius * 2.2)
                 
+                // reset
+                resetButton()
+                
+                // description
                 Text("Drag the corners of the graph to customize your interests.")
                     .font(.body1)
                     .lineSpacing(8.0)
                     .foregroundStyle(Color.primaryBlueBlack)
                 
                 // submit button
-                Button {
-                    Task {
-                        await viewModel.mockSubmitPreferences(parameters: OnboardRolesRequest(roles: roles, values: spiderGraphEntry.values))
-                    }
-                    
-                } label: {
-                    HStack(alignment: .center) {
-                        Spacer()
-                        
-                        Text("Start learning")
-                            .font(.subtitle1)
-                        
-                        AnimatedArrow()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
-                    }
-                }
-                .foregroundStyle(Color.primaryBlue)
-                .padding(12)
+                submitButton()
             }
             .frame(maxHeight: .infinity)
         }
         .padding(.horizontal, 18)
     }
     
+    @ViewBuilder
+    func resetButton() -> some View {
+        Button {
+            viewModel.resetGraphValues()
+
+        } label: {
+            HStack(alignment: .center) {
+                Text("Reset")
+                    .font(.button)
+                Image(systemName: "arrow.counterclockwise")
+            }
+            .foregroundStyle(Color.primaryPurple)
+        }
+        .frame(alignment: .trailing)
+        .padding(.vertical, 8)
+    }
+    
+    @ViewBuilder
+    func submitButton() -> some View {
+        Button {
+            Task {
+                await viewModel.mockSubmitPreferences()
+            }
+            
+        } label: {
+            HStack(alignment: .center) {
+                Spacer()
+                
+                Text("Start learning")
+                    .font(.subtitle1)
+                
+                AnimatedArrow()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            }
+        }
+        .foregroundStyle(Color.primaryBlue)
+        .padding(12)
+    }
+    
     // Update values when a corner is dragged
     func onCornerDrag(values: [CGFloat]) {
-        spiderGraphEntry.values = values
+        viewModel.values = values
     }
 }
 
