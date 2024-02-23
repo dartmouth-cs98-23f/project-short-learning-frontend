@@ -10,6 +10,15 @@ import SwiftUI
 struct SearchDestinationView: View {
     var searchText: String
     var searchables: [Searchable]
+    var playlists: [Searchable]     // extracted playlists
+    var topics: [Searchable]        // extracted topics
+    
+    init(searchText: String, searchables: [Searchable]) {
+        self.searchText = searchText
+        self.searchables = searchables
+        self.playlists = searchables.filter { $0.type == .playlist }
+        self.topics = searchables.filter { $0.type == .topic }
+    }
 
     var body: some View {
         VStack {
@@ -25,10 +34,10 @@ struct SearchDestinationView: View {
                         playlistResults()
                     },
                     CustomTabItem("Topics") {
-                        Text("Tab 2 Content")
+                        topicResults()
                     },
                     CustomTabItem("Accounts") {
-                        Text("List of accounts here")
+                        Text("No Account results.")
                     }
                 ]
 
@@ -42,14 +51,13 @@ struct SearchDestinationView: View {
     
     @ViewBuilder
     func playlistResults() -> some View {
-        let playlists = searchables.filter { $0.type == .playlist }
         let results = playlists.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-
+        
         if results.isEmpty && playlists.isEmpty {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if results.isEmpty {
-             Text("No playlist results.")
+            Text("No playlist results.")
         } else {
             ScrollView(.vertical) {
                 VStack(spacing: 8) {
@@ -62,7 +70,32 @@ struct SearchDestinationView: View {
     }
     
     @ViewBuilder
-    func singleTopic(topic: Binding<TopicTag>) -> some View {
+    func topicResults() -> some View {
+        let results = topics.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        
+        if results.isEmpty && topics.isEmpty {
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if results.isEmpty {
+            Text("No topic results.")
+        } else {
+            ScrollView(.vertical) {
+                VStack(spacing: 8) {
+                    ForEach(results.indices, id: \.self) { index in
+                        singleTopic(topic: results[index].topic!)
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func singleTopic(topic: TopicTag) -> some View {
+        let topic = Binding<TopicTag>(
+            get: { topic },
+            set: { _ in }
+        )
+        
         NavigationLink {
             TopicPageView(topicSeed: topic)
             
