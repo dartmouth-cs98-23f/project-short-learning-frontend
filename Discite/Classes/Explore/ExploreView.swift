@@ -10,9 +10,8 @@
 import SwiftUI
 
 struct ExploreView: View {
-
-    @StateObject var searchViewModel = SearchViewModel()
     @StateObject var viewModel = ExploreViewModel()
+    @StateObject var searchViewModel = SearchViewModel()
     
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 0)
@@ -94,6 +93,13 @@ struct ExploreView: View {
             NavigationBar()
         }
         .ignoresSafeArea(edges: [.bottom, .leading, .trailing])
+        .onAppear {
+            Task {
+                await viewModel.getTopicRecommendations()
+                await viewModel.getPlaylistRecommendations()
+                searchViewModel.searchables = viewModel.createSearchables()
+            }
+        }
     }
     
     // Horizontally scrolling list of topics
