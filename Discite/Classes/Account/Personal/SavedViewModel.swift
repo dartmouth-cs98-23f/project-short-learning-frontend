@@ -34,6 +34,14 @@ class SavedViewModel: ObservableObject {
         }
     }
     
+    // Filters unsaved topics out of savedTopics
+    public func filterSavedTopics() {
+        let filteredTopics = savedTopics.filter { topic in
+            return topic.isSaved
+        }
+        
+        savedTopics = filteredTopics
+    }
 }
 
 struct SavedResponse: Codable {

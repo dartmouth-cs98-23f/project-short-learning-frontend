@@ -37,8 +37,15 @@ struct SavedPage: View {
             Spacer()
         }
         .padding(.horizontal, 18)
+        .onAppear {
+            // Filter out topics that were unsaved
+            if !viewModel.savedTopics.isEmpty {
+                viewModel.filterSavedTopics()
+            }
+        }
         .task {
             if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
+                print("task")
                 await viewModel.mockGetSaved()
             }
         }
@@ -147,6 +154,7 @@ struct SavedPage: View {
             Text(playlist.title)
                 .font(.subtitle2)
                 .lineLimit(1)
+                .padding(.horizontal, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // open Watch
@@ -165,5 +173,6 @@ struct SavedPage: View {
 }
 
 #Preview {
-    SavedPage()
+    AccountView(user: User.anonymousUser)
+        .environment(TabSelectionManager(selection: .Account))
 }
