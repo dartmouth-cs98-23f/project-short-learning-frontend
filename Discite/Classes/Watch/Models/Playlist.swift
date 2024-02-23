@@ -42,7 +42,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     private(set) var topics: [TopicTag]
     private(set) var thumbnailURL: String
     private(set) var authorUsername: String = "johndoe"
-    private(set) var youtubeId: String
+    private(set) var youtubeId: String?
     
     @Published private(set) var currentIndex: Int
     @Published var isLoading: Bool
@@ -81,7 +81,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         isSaved = try container.decode(Bool.self, forKey: .isSaved)
         topics = try container.decode([TopicTag].self, forKey: .topics)
         thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
-        youtubeId = try container.decode(String.self, forKey: .youtubeId)
+        youtubeId = try container.decodeIfPresent(String.self, forKey: .youtubeId)
         
         videos = try container.decode([Video].self, forKey: .videos)
         
