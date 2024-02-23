@@ -12,13 +12,6 @@ class SearchViewModel: ObservableObject {
     @Published var isFocused = false
     @Published var searchHistory: [String] = ["Internet", "Algorithms"]
     @Published var shouldNavigate = false
-<<<<<<< HEAD
-    @Published var searchables: [Searchable] = []
-    
-    // get search suggestions based on current text
-    func getSuggestions(for text: String) -> [Searchable] {
-        let predefinedSuggestions = searchables
-=======
     @StateObject var exploreViewModel = ExploreViewModel()
     
     // combine topics and recommendations
@@ -48,7 +41,6 @@ class SearchViewModel: ObservableObject {
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [Searchable] {
         let predefinedSuggestions = createSearchables()
->>>>>>> fc0d644 (rebase)
         let filteredSuggestions = predefinedSuggestions.filter { $0.name.lowercased().contains(text.lowercased()) }
 
         return filteredSuggestions
