@@ -6,11 +6,9 @@
 //
 
 import SwiftUI
-import GoogleSignIn
-import GoogleSignInSwift
 
 struct Login: View {
-    @EnvironmentObject var viewModel: AuthViewModel
+    @ObservedObject var viewModel = LoginViewModel()
     
     var body: some View {
         
@@ -88,5 +86,4 @@ struct Login: View {
 
 #Preview {
     Login()
-        .environmentObject(AuthViewModel())
 }

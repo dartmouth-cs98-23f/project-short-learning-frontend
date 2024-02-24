@@ -8,14 +8,14 @@
 import Foundation
 
 class User: Codable, Identifiable {
-    var id: UUID
-    var userId: String
-    var firstName: String
-    var lastName: String
-    var username: String
-    var email: String?
-    var password: String?
-    var profilePicture: String?
+    private(set) var id: UUID
+    private(set) var userId: String
+    private(set) var firstName: String
+    private(set) var lastName: String
+    private(set) var username: String
+    private(set) var email: String?
+    private(set) var password: String?
+    private(set) var profilePicture: String?
     var onboarded: Bool
     
     enum CodingKeys: String, CodingKey {
@@ -29,13 +29,14 @@ class User: Codable, Identifiable {
         case onboarded = "onBoardingStatus"
     }
     
-    init(userId: String, firstName: String, lastName: String, username: String, email: String) {
+    init(userId: String, firstName: String, lastName: String, username: String, email: String, profilePicture: String? = nil) {
         self.id = UUID()
         self.userId = userId
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
         self.email = email
+        self.profilePicture = profilePicture
         self.onboarded = false
     }
     
@@ -61,12 +62,10 @@ class User: Codable, Identifiable {
                                     username: "johndoe",
                                     email: "johndoe@email.com")
     
+    static var shared: User?
+    
     func getFullName() -> String {
         return self.firstName + " " + self.lastName
-    }
-    
-    func getUserName() -> String {
-        return self.username
     }
 }
 

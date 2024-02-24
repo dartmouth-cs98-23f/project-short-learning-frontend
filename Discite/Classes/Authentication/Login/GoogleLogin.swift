@@ -34,9 +34,7 @@ struct GoogleLogin: View {
                 
                 // preview first button
                 Button {
-                    print("setting preview mode")
                     viewModel.setPreviewMode()
-                    print("viewModel.status: \(viewModel.status)")
                     
                 } label: {
                     HStack(alignment: .center, spacing: 4) {
@@ -47,23 +45,6 @@ struct GoogleLogin: View {
                 .font(.body2)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.primaryPurple)
-                
-                // preview first button
-//                NavigationLink {
-//                    OnboardingPage()
-//                    
-//                } label: {
-//                    HStack(alignment: .center, spacing: 4) {
-//                        Text("Preview first")
-//                        Image(systemName: "arrow.right")
-//                    }
-//                }
-//                .onTapGesture {
-//                    viewModel.setPreviewMode()
-//                }
-//                .font(.body2)
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .foregroundStyle(Color.primaryPurple)
 
             }
         }
