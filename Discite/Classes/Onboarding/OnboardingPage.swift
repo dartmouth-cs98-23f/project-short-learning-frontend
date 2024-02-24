@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingPage: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+    let authViewModel = AuthViewModel.shared
     @ObservedObject var viewModel = OnboardViewModel()
     
     var body: some View {
@@ -79,37 +79,38 @@ struct OnboardingPage: View {
     @ViewBuilder
     func submitButton() -> some View {
         Button {
+            authViewModel.onboardingComplete()
+            
             Task {
                 await viewModel.mockSubmitPreferences()
-                // authViewModel.status = .loggedIn
             }
-            
+
         } label: {
-            NavigationLink {
-                Navigator()
-                
-            } label: {
-                HStack(alignment: .center) {
-                    Spacer()
-                    
-                    Text("Start learning")
-                        .font(.subtitle1)
-                    
-                    AnimatedArrow()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                }
-            }
-//            HStack(alignment: .center) {
-//                Spacer()
+//            NavigationLink {
+//                Navigator()
 //                
-//                Text("Start learning")
-//                    .font(.subtitle1)
-//                
-//                AnimatedArrow()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 20, height: 20)
+//            } label: {
+//                HStack(alignment: .center) {
+//                    Spacer()
+//                    
+//                    Text("Start learning")
+//                        .font(.subtitle1)
+//                    
+//                    AnimatedArrow()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 20, height: 20)
+//                }
 //            }
+            HStack(alignment: .center) {
+                Spacer()
+                
+                Text("Start learning")
+                    .font(.subtitle1)
+                
+                AnimatedArrow()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            }
         }
         .foregroundStyle(Color.primaryBlue)
         .padding(12)
@@ -138,5 +139,4 @@ private struct AnimatedArrow: View {
 
 #Preview {
     OnboardingPage()
-        .environmentObject(AuthViewModel())
 }

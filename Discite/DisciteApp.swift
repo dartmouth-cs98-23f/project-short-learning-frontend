@@ -12,8 +12,6 @@ import GoogleSignIn
 
 @main
 struct DisciteApp: App {
-    
-    @StateObject var userAuth: AuthViewModel =  AuthViewModel()
         
     init() {
         NetworkMonitor.shared.startMonitoring()
@@ -22,7 +20,6 @@ struct DisciteApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(userAuth)
         }
     }
 }

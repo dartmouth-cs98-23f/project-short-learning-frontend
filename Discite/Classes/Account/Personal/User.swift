@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Codable, Identifiable {
+class User: Codable, Identifiable {
     var id: UUID
     var userId: String
     var firstName: String
@@ -39,7 +39,7 @@ struct User: Codable, Identifiable {
         self.onboarded = false
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.id = UUID()

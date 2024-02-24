@@ -13,8 +13,6 @@ import SwiftUI
 import GoogleSignIn
 
 public enum AuthStatus: String, Identifiable, CaseIterable {
-    case loading
-    case error
     case loggedOut
     case onboarding
     case loggedIn
@@ -22,18 +20,58 @@ public enum AuthStatus: String, Identifiable, CaseIterable {
     public var id: String { rawValue }
 }
 
-class AuthViewModel: ObservableObject {
+public enum AuthError: Error {
+    case noRootController
+    case failedSignIn
+    case noToken
+}
 
+class AuthViewModel: ObservableObject {
+    static let shared = AuthViewModel()
+    
     @Published var status: AuthStatus = .loggedOut
     @Published var error: Error?
-    var user: User?
+    @Published var isLoading: Bool = false
     
     // For the login page
     @Published var usernameOrEmail: String = "johndoe"
     @Published var password: String = "abc123"
     
+    var user: User?
+    
     init() {
         checkPreviousSignIn()
+    }
+    
+    func updateStatus() {
+        withAnimation(.spring) {
+            if let user = self.user, user.onboarded {
+                status = .loggedIn
+            } else if self.user != nil {
+                status = .onboarding
+            } else {
+                status = .loggedOut
+            }
+        }
+    }
+    
+    func onboardingComplete() {
+        print("onboarding complete")
+        if let user {
+            user.onboarded = true
+        }
+        
+        withAnimation(.spring) {
+            status = .loggedIn
+        }
+    }
+    
+    func setPreviewMode() {
+        self.user = User.anonymousUser
+        
+        withAnimation(.spring) {
+            self.status = .onboarding
+        }
     }
     
     func checkPreviousSignIn() {
@@ -51,17 +89,24 @@ class AuthViewModel: ObservableObject {
                 // Send ID token to backend and set global user
                 let response = try await AuthenticationService.mockGoogleLogin(idToken: idToken.tokenString)
                 self.user = response
-                self.status = .loggedIn
+                
+                self.updateStatus()
             }
         }
     }
     
     func googleSignIn() {
-        guard let presentingViewController = 
+        isLoading = true
+        error = nil
+        
+        guard let presentingViewController =
                 (UIApplication.shared.connectedScenes.first
                 as? UIWindowScene)?.windows.first?.rootViewController
                 
-        else { return }
+        else {
+            self.error = AuthError.noRootController
+            return
+        }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { signInResult, error in
             guard error == nil else {
@@ -69,19 +114,31 @@ class AuthViewModel: ObservableObject {
                 return
             }
             
-            guard let signInResult = signInResult else { return }
+            guard let signInResult = signInResult else {
+                self.error = AuthError.failedSignIn
+                return
+            }
             
             signInResult.user.refreshTokensIfNeeded { user, error in
-                guard error == nil else { return }
-                guard let user = user else { return }
-
-                guard let idToken = user.idToken else { return }
+                guard 
+                    error == nil,
+                    let user = user,
+                    let idToken = user.idToken
+                        
+                else {
+                    self.error = AuthError.noToken
+                    return
+                }
                 
                 Task {
                     // Send ID token to backend and set global user
                     let response = try await AuthenticationService.mockGoogleLogin(idToken: idToken.tokenString)
                     self.user = response
-                    self.status = .loggedIn
+                    
+                    withAnimation(.spring) {
+                        self.status = .loggedIn
+                        self.isLoading = false
+                    }
                 }
             }
         }
@@ -89,11 +146,16 @@ class AuthViewModel: ObservableObject {
     
     func googleSignOut() {
         GIDSignIn.sharedInstance.signOut()
-        status = .loggedOut
+        self.user = nil
+
+        withAnimation(.spring) {
+            status = .loggedOut
+        }
     }
     
     func login() async {
-        status = .loading
+        isLoading = true
+        error = nil
         
         do {
             let response = try await AuthenticationService.mockLogin(
@@ -102,12 +164,12 @@ class AuthViewModel: ObservableObject {
                     password: password))
             
             try Auth.shared.setToken(token: response.token)
-            status = .loggedIn
+            updateStatus()
+            isLoading = false
             
         } catch {
             print("Login failed: \(error)")
             self.error = error
-            status = .error
         }
     }
 }

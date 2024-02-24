@@ -14,7 +14,10 @@ struct Login: View {
     
     var body: some View {
         
-        if viewModel.status == .loading {
+        if viewModel.error != nil {
+            Text("Error logging in.")
+            
+        } else if viewModel.isLoading {
             ProgressView("Logging in...")
             
         } else {

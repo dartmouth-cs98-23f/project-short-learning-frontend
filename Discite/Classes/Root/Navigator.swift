@@ -89,5 +89,4 @@ struct TabItem {
 
 #Preview {
     ContentView()
-        .environmentObject(AuthViewModel())
 }

@@ -270,13 +270,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C610DE22B5C8A1500774B4F /* Recommended */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Recommended;
-			sourceTree = "<group>";
-		};
 		3622EC259FD8B4B212031657 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,7 +424,6 @@
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
 				C291450B2AE60DBF000BEB88 /* Explore */,
 				66365F7F2B0095AC009E0438 /* Onboarding */,
-				2C610DE22B5C8A1500774B4F /* Recommended */,
 				C2D287202AE0B03B00BB263C /* Root */,
 				C20EFE862B012F6E0074EC9A /* Share */,
 				C291450C2AE60DDA000BEB88 /* Shared */,

@@ -10,7 +10,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct GoogleLogin: View {
-    @EnvironmentObject var viewModel: AuthViewModel
+    let viewModel = AuthViewModel.shared
     let customGoogleViewModel = GoogleSignInButtonViewModel(style: .wide)
     
     var body: some View {
@@ -33,8 +33,10 @@ struct GoogleLogin: View {
                     action: viewModel.googleSignIn)
                 
                 // preview first button
-                NavigationLink {
-                    OnboardingPage()
+                Button {
+                    print("setting preview mode")
+                    viewModel.setPreviewMode()
+                    print("viewModel.status: \(viewModel.status)")
                     
                 } label: {
                     HStack(alignment: .center, spacing: 4) {
@@ -45,6 +47,23 @@ struct GoogleLogin: View {
                 .font(.body2)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.primaryPurple)
+                
+                // preview first button
+//                NavigationLink {
+//                    OnboardingPage()
+//                    
+//                } label: {
+//                    HStack(alignment: .center, spacing: 4) {
+//                        Text("Preview first")
+//                        Image(systemName: "arrow.right")
+//                    }
+//                }
+//                .onTapGesture {
+//                    viewModel.setPreviewMode()
+//                }
+//                .font(.body2)
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .foregroundStyle(Color.primaryPurple)
 
             }
         }

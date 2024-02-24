@@ -9,33 +9,29 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-
+    @ObservedObject var authViewModel = AuthViewModel.shared
+    
+    let transition: AnyTransition = .asymmetric(
+        insertion: .move(edge: .trailing),
+        removal: .move(edge: .leading))
+        
     var body: some View {
-        NavigationStack {
-            switch authViewModel.status {
-            case .loading:
-                ProgressView()
-                    .containerRelativeFrame([.horizontal, .vertical])
-            case .error:
-                Text("Error.")
-            case .loggedIn:
-                Navigator()
-            case .onboarding:
-                OnboardingPage()
-            case .loggedOut:
-                GoogleLogin()
-                     .navigationBarTitle("Sign in", displayMode: .inline)
-                     .navigationBarHidden(true)
-            }
+        switch authViewModel.status {
+        case .loggedIn:
+            Navigator()
+                .transition(transition)
+            
+        case .onboarding:
+            OnboardingPage()
+                .transition(transition)
+            
+        case .loggedOut:
+            GoogleLogin()
+                .transition(transition)
         }
-        .animation(.smooth, value: authViewModel.status)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environmentObject(AuthViewModel())
-    }
+#Preview {
+    ContentView()
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountMenu: View {
     @ObservedObject var viewModel: AccountViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel
+    let authViewModel: AuthViewModel = AuthViewModel.shared
 
     var body: some View {
         VStack(spacing: 14) {
