@@ -82,7 +82,8 @@ struct AuthenticationService {
             .mockRequest(method: .post,
                         authorized: false,
                         path: "/api/auth/googleSignIn",
-                        parameters: authData)
+                        parameters: authData,
+                        headers: [:])
         
         return response
     }

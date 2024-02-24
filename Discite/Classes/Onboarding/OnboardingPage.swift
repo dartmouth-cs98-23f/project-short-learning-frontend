@@ -17,6 +17,10 @@ struct OnboardingPage: View {
 
             VStack(alignment: .leading) {
                 // title
+                Text("Welcome, \(User.shared?.firstName ?? "new user")!")
+                    .font(.H6)
+                    .foregroundStyle(Color.secondaryPurplePink)
+                
                 Text("Create your ideal profile.")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(Color.primaryBlueBlack)
@@ -86,21 +90,6 @@ struct OnboardingPage: View {
             }
 
         } label: {
-//            NavigationLink {
-//                Navigator()
-//                
-//            } label: {
-//                HStack(alignment: .center) {
-//                    Spacer()
-//                    
-//                    Text("Start learning")
-//                        .font(.subtitle1)
-//                    
-//                    AnimatedArrow()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(width: 20, height: 20)
-//                }
-//            }
             HStack(alignment: .center) {
                 Spacer()
                 
