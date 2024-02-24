@@ -447,7 +447,6 @@
 				C2128A8D2ADB32A600E90C66 /* Login */,
 				66EE0EB32AF4D4A500F65F38 /* Signup */,
 				C2A3FF2D2B033F2D001EDE9F /* Testing */,
-				C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */,
 				C2EF0AFF2B52E9020000DCE8 /* AuthView.swift */,
 				C235C6742ADF842500870600 /* Auth.swift */,
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
@@ -572,6 +571,7 @@
 		C2A3FF2D2B033F2D001EDE9F /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				C2EE4E562B23AF6300FEA5B5 /* Welcome.swift */,
 				66EE0EB52AF4D4A500F65F38 /* SignupView.swift */,
 				C2128A8F2ADB341400E90C66 /* LoginView.swift */,
 			);

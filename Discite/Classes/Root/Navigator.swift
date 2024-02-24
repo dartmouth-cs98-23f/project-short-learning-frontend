@@ -33,6 +33,7 @@ struct Navigator: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .environment(tabSelectionManager)
     }
 }
@@ -88,4 +89,5 @@ struct TabItem {
 
 #Preview {
     ContentView()
+        .environmentObject(AuthViewModel())
 }

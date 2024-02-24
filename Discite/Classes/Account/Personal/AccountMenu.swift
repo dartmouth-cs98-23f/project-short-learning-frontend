@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AccountMenu: View {
     @ObservedObject var viewModel: AccountViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         VStack(spacing: 14) {
@@ -45,7 +46,9 @@ struct AccountMenu: View {
     
     func logoutButton() -> some View {
         Button(action: {
-            viewModel.logout()
+            // viewModel.logout()
+            authViewModel.googleSignOut()
+            
         }, label: {
             Text("Log out")
                 .font(.button)

@@ -9,20 +9,28 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
-    // @ObservedObject var auth = Auth.shared
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
-        // Navigator()
-        GoogleLogin()
+        NavigationStack {
+            switch authViewModel.status {
+            case .loading:
+                ProgressView()
+                    .containerRelativeFrame([.horizontal, .vertical])
+            case .error:
+                Text("Error.")
+            case .loggedIn:
+                Navigator()
+            case .onboarding:
+                OnboardingPage()
+            case .loggedOut:
+                GoogleLogin()
+                     .navigationBarTitle("Sign in", displayMode: .inline)
+                     .navigationBarHidden(true)
+            }
+        }
+        .animation(.smooth, value: authViewModel.status)
     }
-        
-//        if Auth.shared.loggedIn {
-//            AuthView()
-//
-//        } else {
-//            Navigator()
-//        }
-//    }
 }
 
 struct ContentView_Previews: PreviewProvider {

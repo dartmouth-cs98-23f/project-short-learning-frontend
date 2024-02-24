@@ -10,23 +10,47 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct GoogleLogin: View {
-    @EnvironmentObject var vm: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
+    let customGoogleViewModel = GoogleSignInButtonViewModel(style: .wide)
     
-    let customGoogleViewModel = GoogleSignInButtonViewModel(style: .icon)
     var body: some View {
-        
-        VStack {
-            if vm.isLoggedIn {
-                Text("Logged in!")
-            } else {
-                Text("Signed out.")
+    
+        VStack(spacing: 32) {
+            // logo and subtitle
+            VStack(alignment: .leading, spacing: 18) {
+                Image("Logo")
+                Text("Logo.Subtitle")
+                    .font(.subtitle1)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            GoogleSignInButton(viewModel: customGoogleViewModel, action: vm.googleSignIn)
-            
-        }
-    }
+            // buttons
+            VStack(spacing: 24) {
+                // sign in with google button
+                GoogleSignInButton(
+                    viewModel: customGoogleViewModel,
+                    action: viewModel.googleSignIn)
+                
+                // preview first button
+                NavigationLink {
+                    OnboardingPage()
+                    
+                } label: {
+                    HStack(alignment: .center, spacing: 4) {
+                        Text("Preview first")
+                        Image(systemName: "arrow.right")
+                    }
+                }
+                .font(.body2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Color.primaryPurple)
 
+            }
+        }
+        .padding(.horizontal, 18)
+            
+    }
 }
 
 #Preview {
