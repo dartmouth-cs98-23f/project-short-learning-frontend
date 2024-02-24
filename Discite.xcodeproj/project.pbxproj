@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */; };
-		2C0CAB722B859A0900B8BA25 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */; };
-		2C0CAB762B85A28600B8BA25 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB752B85A28600B8BA25 /* Searchable.swift */; };
 		2C0CAB7C2B88072F00B8BA25 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */; };
 		2C8509EB2B68107800707646 /* AllTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8509EA2B68107800707646 /* AllTopics.swift */; };
 		2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */; };
@@ -99,6 +97,8 @@
 		C2A4AD772B84169B00AD492F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD762B84169B00AD492F /* CustomTabView.swift */; };
 		C2A4AD7D2B88ED2300AD492F /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD7C2B88ED2300AD492F /* OnboardingPage.swift */; };
 		C2A4AD7F2B88FF1B00AD492F /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */; };
+		C2A4AD812B8920E900AD492F /* GoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD802B8920E900AD492F /* GoogleLogin.swift */; };
+		C2A4AD832B8925C000AD492F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD822B8925C000AD492F /* AuthViewModel.swift */; };
 		C2A640F02B7C430700C50F83 /* WatchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640EF2B7C430700C50F83 /* WatchPage.swift */; };
 		C2A640F22B7C446F00C50F83 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640F12B7C446F00C50F83 /* Like.swift */; };
 		C2A640F42B7C468E00C50F83 /* PostViewVerticalOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640F32B7C468E00C50F83 /* PostViewVerticalOnly.swift */; };
@@ -132,8 +132,6 @@
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
 		2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfile.swift; sourceTree = "<group>"; };
-		2C0CAB712B859A0900B8BA25 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = "/Users/bansharee/Desktop/COSC98/project/project-short-learning-frontend/Discite/Classes/Explore/ViewModels/SearchViewModel.swift"; sourceTree = "<absolute>"; };
-		2C0CAB752B85A28600B8BA25 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
 		2C0CAB7B2B88072F00B8BA25 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		2C8509EA2B68107800707646 /* AllTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTopics.swift; sourceTree = "<group>"; };
 		2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -227,6 +225,8 @@
 		C2A4AD762B84169B00AD492F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		C2A4AD7C2B88ED2300AD492F /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
+		C2A4AD802B8920E900AD492F /* GoogleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLogin.swift; sourceTree = "<group>"; };
+		C2A4AD822B8925C000AD492F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		C2A640EF2B7C430700C50F83 /* WatchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPage.swift; sourceTree = "<group>"; };
 		C2A640F12B7C446F00C50F83 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		C2A640F32B7C468E00C50F83 /* PostViewVerticalOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewVerticalOnly.swift; sourceTree = "<group>"; };
@@ -419,6 +419,7 @@
 			children = (
 				C2EF0AFD2B52D6D10000DCE8 /* Login.swift */,
 				C2128A952ADB45AE00E90C66 /* LoginViewModel.swift */,
+				C2A4AD802B8920E900AD492F /* GoogleLogin.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -450,6 +451,7 @@
 				C2EF0AFF2B52E9020000DCE8 /* AuthView.swift */,
 				C235C6742ADF842500870600 /* Auth.swift */,
 				C2128A932ADB454500E90C66 /* AuthenticationService.swift */,
+				C2A4AD822B8925C000AD492F /* AuthViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -708,6 +710,7 @@
 				C2128A6F2ADB270B00E90C66 /* Frameworks */,
 				C2128A702ADB270B00E90C66 /* Resources */,
 				C2128A832ADB2ACD00E90C66 /* SwiftLint */,
+				061297088AADBBEDED357164 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -789,6 +792,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		061297088AADBBEDED357164 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Discite/Pods-Discite-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Discite/Pods-Discite-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Discite/Pods-Discite-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C2128A832ADB2ACD00E90C66 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -877,6 +897,7 @@
 				C269CD002B5DC6E600A5126C /* TopicTag.swift in Sources */,
 				C2A3FF202B02B16F001EDE9F /* TextFields.swift in Sources */,
 				C2A4AD752B84009400AD492F /* SavedViewModel.swift in Sources */,
+				C2A4AD832B8925C000AD492F /* AuthViewModel.swift in Sources */,
 				C2A3FF112B01CC57001EDE9F /* Shared.swift in Sources */,
 				C2EF0AFE2B52D6D10000DCE8 /* Login.swift in Sources */,
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
@@ -896,6 +917,7 @@
 				C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */,
 				C2082F932B6C098A00EEED6B /* SpiderGraph.swift in Sources */,
 				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,
+				C2A4AD812B8920E900AD492F /* GoogleLogin.swift in Sources */,
 				C2128A942ADB454500E90C66 /* AuthenticationService.swift in Sources */,
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				66EE0EB72AF4D4A500F65F38 /* SignupView.swift in Sources */,

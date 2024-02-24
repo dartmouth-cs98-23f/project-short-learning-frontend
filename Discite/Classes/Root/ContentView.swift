@@ -9,10 +9,11 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
-    @ObservedObject var auth = Auth.shared
+    // @ObservedObject var auth = Auth.shared
 
     var body: some View {
-        Navigator()
+        // Navigator()
+        GoogleLogin()
     }
         
 //        if Auth.shared.loggedIn {
@@ -27,5 +28,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(AuthViewModel())
     }
 }

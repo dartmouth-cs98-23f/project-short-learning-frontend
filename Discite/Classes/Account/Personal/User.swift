@@ -16,6 +16,7 @@ struct User: Codable, Identifiable {
     var email: String?
     var password: String?
     var profilePicture: String?
+    var onboardingStatus: Bool
     
     enum CodingKeys: String, CodingKey {
         case userId = "id"
@@ -25,6 +26,7 @@ struct User: Codable, Identifiable {
         case email
         case password
         case profilePicture
+        case onboardingStatus = "onBoardingStatus"
     }
     
     init(userId: String, firstName: String, lastName: String, username: String, email: String) {
@@ -34,6 +36,7 @@ struct User: Codable, Identifiable {
         self.lastName = lastName
         self.username = username
         self.email = email
+        self.onboardingStatus = false
     }
     
     init(from decoder: Decoder) throws {
@@ -47,6 +50,9 @@ struct User: Codable, Identifiable {
         self.email = try container.decodeIfPresent(String.self, forKey: .email)
         self.password = try container.decodeIfPresent(String.self, forKey: .password)
         self.profilePicture = try container.decodeIfPresent(String.self, forKey: .profilePicture)
+        
+        let stringOnboardingStatus = try container.decode(String.self, forKey: .onboardingStatus)
+        self.onboardingStatus = (stringOnboardingStatus == "complete")
     }
     
     static let anonymousUser = User(userId: "abc123",

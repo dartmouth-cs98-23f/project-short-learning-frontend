@@ -28,12 +28,8 @@ struct SignupRequest: Encodable {
     let birthDate: String
 }
 
-struct OnboardRequest: Encodable {
-    let topics: [String]
-}
-
-struct OnboardResponse: Decodable {
-    let playlists: [Playlist]
+struct GoogleLoginRequest: Codable {
+    var idToken: String
 }
 
 struct AuthenticationService {
@@ -58,16 +54,6 @@ struct AuthenticationService {
         return response
     }
     
-    static func onboard(parameters: OnboardRequest) async throws -> OnboardResponse {
-        let response = try await APIRequest<OnboardRequest, OnboardResponse>
-            .apiRequest(method: .post,
-                        authorized: true,
-                        path: "/api/user/technigala/onboard",
-                        parameters: parameters)
-        
-        return response
-    }
-    
     static func mockLogin(parameters: LoginRequest) async throws -> AuthResponseData {
         let response = try await APIRequest<LoginRequest, AuthResponseData>
             .mockRequest(method: .post,
@@ -84,6 +70,19 @@ struct AuthenticationService {
                         authorized: false,
                         path: "/api/auth/signup",
                         parameters: parameters)
+        
+        return response
+    }
+    
+    // https://developers.google.com/identity/sign-in/ios/backend-auth
+    static func mockGoogleLogin(idToken: String) async throws -> User {
+        let authData = GoogleLoginRequest(idToken: idToken)
+        
+        let response = try await APIRequest<GoogleLoginRequest, User>
+            .mockRequest(method: .post,
+                        authorized: false,
+                        path: "/api/auth/googleSignIn",
+                        parameters: authData)
         
         return response
     }

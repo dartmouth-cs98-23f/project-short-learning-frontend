@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>GIDServerClientID</key>
+    <string>771775157801-25bq79a9vmmdqptun0juhru3r85a120b.apps.googleusercontent.com</string>
+    <key>GIDClientID</key>
+    <string>771775157801-ldtt9pasnid1e9o9g196rb0fbnga9m1e.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.771775157801-ldtt9pasnid1e9o9g196rb0fbnga9m1e</string>
+			</array>
+		</dict>
+	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>youtube</string>
