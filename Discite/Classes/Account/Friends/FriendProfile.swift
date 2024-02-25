@@ -43,7 +43,7 @@ struct FriendProfile: View {
                         SpiderGraphEntry(values: friend?.roles ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
                                          color: .primaryPurpleLight,
                                          interactive: false),
-                        SpiderGraphEntry(values: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+                        SpiderGraphEntry(values: userSpiderGraphData?.data[0].values ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
                                          color: .red,
                                          interactive: false)
                     ],
