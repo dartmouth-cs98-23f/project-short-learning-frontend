@@ -30,30 +30,29 @@ struct FriendProfile: View {
             .task {
                 if self.userSpiderGraphData == nil {
                     self.userSpiderGraphData = await viewModel.getUserSpiderGraphData()
+                    
+                    if spiderGraphData == nil {
+                        spiderGraphData = SpiderGraphData(
+                            data: [
+                                SpiderGraphEntry(values: friend?.roles ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                                                color: .primaryPurpleLight,
+                                                interactive: false),
+                                SpiderGraphEntry(values: userSpiderGraphData?.data[0].values ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                                                color: .red,
+                                                interactive: false)
+                            ],
+                            axes: ["Frontend", "Backend", "ML", "AI/Data", "DevOps", "QA"],
+                            color: .primaryPurpleLight,
+                            titleColor: .gray,
+                            bgColor: .white
+                        )
+                    }
                 }
             }
             .padding()
         }
         .animation(.easeIn(duration: 0.5), value: friend == nil)
         .ignoresSafeArea(edges: .bottom)
-        .onAppear {
-            if spiderGraphData == nil {
-                spiderGraphData = SpiderGraphData(
-                    data: [
-                        SpiderGraphEntry(values: friend?.roles ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                                         color: .primaryPurpleLight,
-                                         interactive: false),
-                        SpiderGraphEntry(values: userSpiderGraphData?.data[0].values ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                                         color: .red,
-                                         interactive: false)
-                    ],
-                    axes: ["Frontend", "Backend", "ML", "AI/Data", "DevOps", "QA"],
-                    color: .primaryPurpleLight,
-                    titleColor: .gray,
-                    bgColor: .white
-                )
-            }
-        }
     }
 
     func displayBasicInfo() -> some View {
