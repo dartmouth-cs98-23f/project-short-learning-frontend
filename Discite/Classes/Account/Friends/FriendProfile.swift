@@ -35,10 +35,10 @@ struct FriendProfile: View {
                         spiderGraphData = SpiderGraphData(
                             data: [
                                 SpiderGraphEntry(values: friend?.roles ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                                                color: .primaryPurpleLight,
+                                                color: .primaryPurpleDark,
                                                 interactive: false),
                                 SpiderGraphEntry(values: userSpiderGraphData?.data[0].values ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                                                color: .red,
+                                                color: .primaryPurpleLight,
                                                 interactive: false)
                             ],
                             axes: ["Frontend", "Backend", "ML", "AI/Data", "DevOps", "QA"],
@@ -99,7 +99,7 @@ struct FriendProfile: View {
 
     func displaySpiderGraph() -> some View {
         VStack(alignment: .leading) {
-            Text((friend?.firstName ?? "") + "'s roles ")
+            Text("Compare Roles")
                 .font(.H5)
             
             if let spiderGraphData = spiderGraphData {
