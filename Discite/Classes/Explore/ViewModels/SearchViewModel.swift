@@ -41,7 +41,7 @@ class SearchViewModel: ObservableObject {
 
                 ForEach(searchHistory.reversed(), id: \.self) { searchItem in
                     NavigationLink(destination: {
-                        SearchDestinationView(searchText: searchItem)
+                        SearchDestinationView(searchText: searchItem, searchables: self.searchables)
                     }, label: {
                         Text(searchItem)
                         .font(Font.body)
@@ -65,7 +65,7 @@ class SearchViewModel: ObservableObject {
 
                 ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
                     NavigationLink(destination: {
-                        SearchDestinationView(searchText: suggestion.name)
+                        SearchDestinationView(searchText: suggestion.name, searchables: self.searchables)
                     }, label: {
                         Text(suggestion.name)
                             .font(Font.body)

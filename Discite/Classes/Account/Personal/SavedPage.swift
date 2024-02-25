@@ -54,7 +54,7 @@ struct SavedPage: View {
     
     @ViewBuilder
     func topicsPage() -> some View {
-        if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
+        if viewModel.error == nil && viewModel.savedTopics.isEmpty {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             

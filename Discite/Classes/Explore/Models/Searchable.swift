@@ -5,6 +5,8 @@
 //  Created by Bansharee Ireen on 2/20/24.
 //
 
+import SwiftUI
+
 struct Searchable {
     let id: String
     let name: String
