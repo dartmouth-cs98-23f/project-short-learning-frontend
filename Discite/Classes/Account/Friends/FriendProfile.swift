@@ -127,8 +127,3 @@ struct FriendProfile: View {
         }
     }
 }
-
-//#Preview {
-//    AccountView(user: User.anonymousUser)
-//        .environment(TabSelectionManager(selection: .Account))
-//}
