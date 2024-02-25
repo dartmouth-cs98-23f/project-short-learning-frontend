@@ -10,6 +10,8 @@ import SwiftUI
 struct FriendProfile: View {
     @State var friend: Friend?
     @State var spiderGraphData: SpiderGraphData?
+    @State var userSpiderGraphData: SpiderGraphData?
+    @ObservedObject var viewModel: FriendViewModel = FriendViewModel()
 
     let photoSize: CGFloat = 120
     let photoBorderWidth: CGFloat = 10
@@ -25,6 +27,11 @@ struct FriendProfile: View {
 
                 Spacer()
             }
+            .task {
+                if self.userSpiderGraphData == nil {
+                    self.userSpiderGraphData = await viewModel.getUserSpiderGraphData()
+                }
+            }
             .padding()
         }
         .animation(.easeIn(duration: 0.5), value: friend == nil)
@@ -32,9 +39,14 @@ struct FriendProfile: View {
         .onAppear {
             if spiderGraphData == nil {
                 spiderGraphData = SpiderGraphData(
-                    data: [SpiderGraphEntry(values: friend?.roles ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                                             color: .primaryPurpleLight,
-                                             interactive: false)],
+                    data: [
+                        SpiderGraphEntry(values: friend?.roles ?? [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                                         color: .primaryPurpleLight,
+                                         interactive: false),
+                        SpiderGraphEntry(values: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+                                         color: .red,
+                                         interactive: false)
+                    ],
                     axes: ["Frontend", "Backend", "ML", "AI/Data", "DevOps", "QA"],
                     color: .primaryPurpleLight,
                     titleColor: .gray,

@@ -259,7 +259,7 @@ extension String {
 
 public struct SpiderGraphEntry: Identifiable, Hashable {
     public let id: UUID = UUID()
-    var values: [CGFloat]
+    public var values: [CGFloat]
     var color: Color
     var interactive: Bool = false
     var animate: Bool = true
