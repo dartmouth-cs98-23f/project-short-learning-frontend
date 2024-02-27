@@ -9,27 +9,23 @@
 import SwiftUI
 
 struct AllTopics: View {
-    
     private var columns: [GridItem] = [
             GridItem(.flexible()), GridItem(.flexible())
     ]
     
     @State var topics: [TopicTag] = []
-    @State private var selectedSortOption: SortOption = .Relevance
+    @State private var selectedSortOption: SortOption = .Recommendations
     
     enum SortOption: String, CaseIterable {
-        case Relevance
         case Recommendations
         case Name
     }
 
     private var sortedTopics: [TopicTag]? {
         switch selectedSortOption {
-        case .Relevance: // Relevance
+        case .Recommendations:  // Recommendations
             return topics
-        case .Recommendations: // Recommendations
-            return topics
-        case .Name: // Name
+        case .Name:             // Name
             return topics.sorted { $0.topicName < $1.topicName }
         }
     }
@@ -74,8 +70,8 @@ struct AllTopics: View {
     // Vertically scrolling 2 column grid of topics
     func topicScrollSection() -> some View {
         LazyVGrid(columns: columns, spacing: 18) {
-            ForEach($topics) { $topic in
-                LargeTopicTagWithNavigation(topic: $topic, maxHeight: 100)
+            ForEach(sortedTopics ?? []) { topic in
+                LargeTopicTagWithNavigation(topic: .constant(topic), maxHeight: 100)
             }
         }
     }
