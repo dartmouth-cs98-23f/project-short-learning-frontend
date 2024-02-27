@@ -13,4 +13,5 @@ struct Friend: Codable, Identifiable, Hashable {
     var firstName: String
     var lastName: String
     var profileImage: String?
+    var roles: [CGFloat]
 }

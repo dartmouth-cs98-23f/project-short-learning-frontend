@@ -11,7 +11,7 @@ class FriendViewModel: ObservableObject {
     @Published var error: Error?
     
     // GET spider graph data
-    func getSpiderGraphData() async -> SpiderGraphData? {
+    func getUserSpiderGraphData() async -> SpiderGraphData? {
         do {
             let response = try await APIRequest<EmptyRequest, RolesResponse>
                 .mockRequest(method: .get,
