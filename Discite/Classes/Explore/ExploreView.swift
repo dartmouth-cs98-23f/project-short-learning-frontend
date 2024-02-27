@@ -48,9 +48,6 @@ struct ExploreView: View {
                     VStack(alignment: .leading, spacing: 24) {
                         
                         // Section: Recommended topics
-                        topicRecommendationsHeader()
-                            .padding(.horizontal, 18)
-                        
                         if !viewModel.topicRecommendations.isEmpty {
                             topicScrollSection(topics: $viewModel.topicRecommendations)
                             
@@ -66,10 +63,6 @@ struct ExploreView: View {
                         }
                         
                         // Section: Recommended playlists
-                        Text("Recommended playlists")
-                            .font(Font.H5)
-                            .padding(.horizontal, 18)
-                        
                         if let playlistRecs = viewModel.playlistRecommendations {
                             playlistScrollSection(playlists: playlistRecs)
                             
@@ -112,28 +105,19 @@ struct ExploreView: View {
                     ForEach(topics) { topic in
                         TopicTagWithNavigation(topic: topic)
                     }
+                    
+                    NavigationLink(destination: {
+                        AllTopics()
+                    }, label: {
+                        Text("See all")
+                            .font(.small)
+                            .foregroundColor(.primaryPurple)
+                    })
                 }
             }
             .frame(minHeight: 40)
         }
         .padding(.horizontal, 18)
-    }
-    
-    @ViewBuilder
-    func topicRecommendationsHeader() -> some View {
-        HStack(alignment: .center) {
-            Text("Recommended topics").font(Font.H5)
-            
-            Spacer()
-            
-            NavigationLink(destination: {
-                AllTopics()
-            }, label: {
-                Text("See all topics")
-                    .font(.small)
-                    .foregroundColor(.primaryPurple)
-            })
-        }
     }
     
     // Vertically scrolling 2 column grid of playlists
