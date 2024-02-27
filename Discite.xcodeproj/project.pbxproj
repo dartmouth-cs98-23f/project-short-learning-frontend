@@ -99,6 +99,7 @@
 		C2A4AD7F2B88FF1B00AD492F /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */; };
 		C2A4AD812B8920E900AD492F /* GoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD802B8920E900AD492F /* GoogleLogin.swift */; };
 		C2A4AD832B8925C000AD492F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD822B8925C000AD492F /* AuthViewModel.swift */; };
+		C2A4AD8E2B8E35EB00AD492F /* OnboardingComplexity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD8D2B8E35EB00AD492F /* OnboardingComplexity.swift */; };
 		C2A640F02B7C430700C50F83 /* WatchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640EF2B7C430700C50F83 /* WatchPage.swift */; };
 		C2A640F22B7C446F00C50F83 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640F12B7C446F00C50F83 /* Like.swift */; };
 		C2A640F42B7C468E00C50F83 /* PostViewVerticalOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640F32B7C468E00C50F83 /* PostViewVerticalOnly.swift */; };
@@ -227,6 +228,7 @@
 		C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
 		C2A4AD802B8920E900AD492F /* GoogleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLogin.swift; sourceTree = "<group>"; };
 		C2A4AD822B8925C000AD492F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		C2A4AD8D2B8E35EB00AD492F /* OnboardingComplexity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingComplexity.swift; sourceTree = "<group>"; };
 		C2A640EF2B7C430700C50F83 /* WatchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPage.swift; sourceTree = "<group>"; };
 		C2A640F12B7C446F00C50F83 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		C2A640F32B7C468E00C50F83 /* PostViewVerticalOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewVerticalOnly.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		66365F7F2B0095AC009E0438 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C2A4AD8D2B8E35EB00AD492F /* OnboardingComplexity.swift */,
 				C2A4AD7C2B88ED2300AD492F /* OnboardingPage.swift */,
 				C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */,
 			);
@@ -936,6 +939,7 @@
 				C2A640F82B7C476700C50F83 /* CustomVideoPlayer.swift in Sources */,
 				C2A44AAC2B76CE5E009FEEAB /* SavedPage.swift in Sources */,
 				C2EE4E5D2B2A148D00FEA5B5 /* ContinueCard.swift in Sources */,
+				C2A4AD8E2B8E35EB00AD492F /* OnboardingComplexity.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
 				C2A640FF2B7C659100C50F83 /* PlaylistView.swift in Sources */,
 				C2A6411C2B8047D300C50F83 /* Toast.swift in Sources */,
