@@ -11,13 +11,7 @@ struct AccountMenu: View {
     @ObservedObject var viewModel: AccountViewModel
 
     var body: some View {
-        VStack(spacing: 14) {
-            NavigationLink {
-                SavedPage()
-            } label: {
-                textualMenuButton(label: "Saved")
-            }
-            
+        VStack(spacing: 14) {            
             NavigationLink {
                 Settings()
             } label: {
