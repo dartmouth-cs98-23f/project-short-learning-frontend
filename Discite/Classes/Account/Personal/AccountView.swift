@@ -15,8 +15,9 @@ struct AccountView: View {
     @State var statistics: [Statistic]?
     @State var topics: [TopicTag] = []
     @State var spiderGraphData: SpiderGraphData?
-
     @ObservedObject var viewModel: AccountViewModel = AccountViewModel()
+    @ObservedObject var friendsViewModel = FriendsViewModel()
+    @State var friends: [Friend]?
     
     var body: some View {
         NavigationStack {
@@ -24,6 +25,9 @@ struct AccountView: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 32) {
                         basicInformation()
+                        
+                        // friends button
+                        friendsButton()
                         
                         progressSummary()
                         
@@ -54,6 +58,8 @@ struct AccountView: View {
                         }
 
                         if user == nil { user = await viewModel.getUser() }
+                        
+                        friends = await friendsViewModel.getFriends()
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -93,9 +99,25 @@ struct AccountView: View {
                 .font(.H3)
             
             Text(user?.username ?? "")
-                .font(.body1)
         }
         .animation(.easeIn(duration: 0.5), value: user == nil)
+    }
+    
+    func friendsButton() -> some View {
+        NavigationLink {
+            FriendsPage()
+        } label: {
+            VStack {
+                if let count = friends?.count {
+                    Text("\(count)")
+                        .font(.H4)
+                    Text("Friends")
+                        .font(.body1)
+                }
+            }
+            .padding(0)
+        }
+        .foregroundColor(.primaryBlueBlack)
     }
     
     func progressSummary() -> some View {

@@ -19,12 +19,6 @@ struct AccountMenu: View {
             }
             
             NavigationLink {
-                FriendsPage()
-            } label: {
-                textualMenuButton(label: "Friends")
-            }
-            
-            NavigationLink {
                 Settings()
             } label: {
                 textualMenuButton(label: "Settings")
