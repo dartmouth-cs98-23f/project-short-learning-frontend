@@ -118,6 +118,23 @@ struct AccountView: View {
         .foregroundColor(.primaryBlueBlack)
     }
     
+    func friendsButton() -> some View {
+        NavigationLink {
+            FriendsPage()
+        } label: {
+            VStack {
+                if let count = friends?.count {
+                    Text("\(count)")
+                        .font(.H4)
+                    Text("Friends")
+                        .font(.body1)
+                }
+            }
+            .padding(0)
+        }
+        .foregroundColor(.primaryBlueBlack)
+    }
+    
     func progressSummary() -> some View {
         VStack(alignment: .leading) {
             Text("Summary")
