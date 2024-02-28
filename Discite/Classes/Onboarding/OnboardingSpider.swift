@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OnboardingSpider: View {
-    let authViewModel = AuthViewModel.shared
     @ObservedObject var viewModel: OnboardViewModel
     
     var body: some View {
@@ -22,7 +21,7 @@ struct OnboardingSpider: View {
                         .font(.H2)
                     
                     // description
-                    Text("Drag the corners of the graph to customize your interests.")
+                    Text("Drag the corners of the graph to help us understand your preferred roles.")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.body1)
 
@@ -80,7 +79,7 @@ struct OnboardingSpider: View {
     @ViewBuilder
     func submitButton() -> some View {
         Button {
-            authViewModel.onboardingComplete()
+            // authViewModel.onboardingComplete()
             
 //            Task {
 //                await viewModel.mockSubmitPreferences()

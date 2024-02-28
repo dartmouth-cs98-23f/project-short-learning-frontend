@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Hello: View {
+    @EnvironmentObject var user: User
     
     var body: some View {
         NavigationStack {
@@ -16,7 +17,7 @@ struct Hello: View {
                     Text("Hello,")
                         .font(.H1)
                     
-                    Text("\(User.shared.firstName).")
+                    Text("\(user.firstName).")
                         .font(.extraBig)
                         .foregroundStyle(Color.primaryPurpleLight)
                 }
@@ -48,4 +49,5 @@ struct Hello: View {
 
 #Preview {
     Hello()
+        .environmentObject(User())
 }

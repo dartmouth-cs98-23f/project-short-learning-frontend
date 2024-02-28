@@ -11,7 +11,21 @@
 import Foundation
 
 struct AuthResponseData: Decodable {
+    let userId: String
     let token: String
+    let message: String
+    let firstName: String
+    let lastName: String
+    let email: String
+    let birthDate: String
+    let profilePicture: String?
+    let onboarded: Bool
+}
+
+struct SignUpResponseData: Decodable {
+    let userId: String
+    let token: String
+    let message: String
 }
 
 struct LoginRequest: Encodable {
@@ -75,10 +89,10 @@ struct AuthenticationService {
     }
     
     // https://developers.google.com/identity/sign-in/ios/backend-auth
-    static func mockGoogleLogin(idToken: String) async throws -> User {
+    static func mockGoogleLogin(idToken: String) async throws -> AuthResponseData {
         let authData = GoogleLoginRequest(idToken: idToken)
         
-        let response = try await APIRequest<GoogleLoginRequest, User>
+        let response = try await APIRequest<GoogleLoginRequest, AuthResponseData>
             .mockRequest(method: .post,
                         authorized: false,
                         path: "/api/auth/googleSignIn",

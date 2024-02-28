@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class OnboardViewModel: ObservableObject {
     @Published var error: Error?
     
@@ -22,14 +23,14 @@ class OnboardViewModel: ObservableObject {
     let defaultValues: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
     let roles: [String] = ["Front", "Backend", "ML", "AI/Data", "DevOps", "QA"]
     
-    func resetGraphValues() {
+    public func resetGraphValues() {
         print("pressed reset")
         values = defaultValues
         resetGraph.toggle()
     }
     
     // POST onboarding
-    func mockOnboard() async {
+    public func mockOnboard(user: User) async {
         error = nil
         
         let filteredTopics = topics.compactMap { topic in

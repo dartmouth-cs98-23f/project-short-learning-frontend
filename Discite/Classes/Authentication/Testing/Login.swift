@@ -62,7 +62,7 @@ struct Login: View {
         PrimaryActionButton(
             action: {
                 Task {
-                    await viewModel.login()
+                    // await viewModel.login()
                 }
             },
             label: "Log in",

@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct OnboardingPage: View {
+    @EnvironmentObject var user: User
+    
     let totalPages = 3
     @State var currentPage = 0
     @StateObject var viewModel = OnboardViewModel()
-    let authViewModel = AuthViewModel.shared
     
     let transition: AnyTransition = .asymmetric(
         insertion: .move(edge: .trailing),
@@ -27,19 +28,15 @@ struct OnboardingPage: View {
                 OnboardingComplexity(viewModel: viewModel)
                     .transition(transition)
             case 1:
-                OnboardingTopics(viewModel: viewModel)
-                    .transition(transition)
-            case 2:
                 OnboardingSpider(viewModel: viewModel)
                     .transition(transition)
-                
+            case 2:
+                OnboardingTopics(viewModel: viewModel)
+                    .transition(transition)
             default:
                 Hello()
-                    // .transition(transition)
             }
-//            NavigationStack {
-//                OnboardingComplexity(viewModel: viewModel)
-//            }
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -96,10 +93,8 @@ struct OnboardingPage: View {
                     
                 } else {
                     Button {
-                        authViewModel.onboardingComplete()
-                        
                         Task {
-                            await viewModel.mockOnboard()
+                            await viewModel.mockOnboard(user: user)
                         }
                         
                     } label: {
@@ -169,4 +164,5 @@ struct OnboardingPage: View {
 
 #Preview {
     OnboardingPage()
+        .environmentObject(User())
 }

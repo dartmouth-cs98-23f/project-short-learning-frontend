@@ -10,8 +10,8 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(TabSelectionManager.self) private var tabSelection
+    @EnvironmentObject private var user: User
     
-    let user = User.shared
     @State var statistics: [Statistic]?
     @State var topics: [TopicTag] = []
     @State var spiderGraphData: SpiderGraphData?
@@ -227,4 +227,5 @@ struct AccountView: View {
 #Preview {
     AccountView()
         .environment(TabSelectionManager(selection: .Account))
+        .environmentObject(User())
 }

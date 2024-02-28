@@ -21,7 +21,7 @@ struct LoginView: View {
                     HStack {
                         Spacer()
                         
-                        Image(.disciteLogo)
+                        Image("AppIcon")
                             .resizable()
                             .frame(width: 250, height: 130)
                             .padding()

@@ -41,7 +41,7 @@ struct Signup: View {
                         PrimaryActionButton(
                             action: {
                                 Task {
-                                    await viewModel.signup()
+                                    // await viewModel.signup()
                                 }
                             },
                             label: "Sign up",

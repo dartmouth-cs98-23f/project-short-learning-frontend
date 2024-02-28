@@ -23,7 +23,7 @@ struct OnboardingComplexity: View {
                     .font(.H2)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("Pick a complexity value that agrees with your computer science experience.")
+                Text("Estimate your overall computer science skill level on a scale of 0 to 1.")
                     .font(.body1)
             }
             
