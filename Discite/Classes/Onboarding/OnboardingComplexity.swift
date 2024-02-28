@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct OnboardingComplexity: View {
-    @State private var value: Double = 0.5
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: OnboardViewModel
     
     var body: some View {
         let color = Color.interpolate(from: .primaryBlueNavy,
                                       to: .secondaryPurplePinkLight,
-                                      value: value)
+                                      value: viewModel.complexity)
         
         VStack(spacing: 24) {
             // header
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Complexity")
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Experience")
                     .font(.H2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("Pick a complexity value that agrees with your computer science background.")
+                Text("Pick a complexity value that agrees with your computer science experience.")
                     .font(.body1)
             }
             
@@ -29,18 +31,17 @@ struct OnboardingComplexity: View {
             
             // slider
             VStack(spacing: 12) {
-                Text(String(format: "%.2f", value))
+                Text(String(format: "%.2f", viewModel.complexity))
                     .font(.extraBig)
                     .foregroundStyle(color)
-                    .animation(.smooth, value: value)
+                    .animation(.smooth, value: viewModel.complexity)
                 
-                Slider(value: $value, in: 0...1, step: 0.01) {
+                Slider(value: $viewModel.complexity, in: 0...1, step: 0.01) {
                 } minimumValueLabel: {
                         Text("0")
                 } maximumValueLabel: {
                     Text("1")
                 }
-                .padding()
                 .tint(color)
             }
             
@@ -48,16 +49,54 @@ struct OnboardingComplexity: View {
             legend()
             
             Spacer()
+        
         }
+        .padding(.vertical, 24)
         .padding(.horizontal, 18)
-        .padding(.vertical, 48)
-        .frame(maxHeight: .infinity, alignment: .top)
+        .navigationBarBackButtonHidden(true)
+//        .toolbar {
+//            navigationButtons()
+//        }
     }
+    
+//    func navigationButtons() -> ToolbarItemGroup<some View> {
+//        ToolbarItemGroup(placement: .bottomBar) {
+//            // back
+//            Button {
+//                dismiss()
+//                
+//            } label: {
+//                HStack(alignment: .center) {
+//                    Image(systemName: "chevron.left")
+//                    Text("Back")
+//                }
+//            }
+//            .font(.button)
+//            .foregroundStyle(Color.primaryPurple)
+//            
+//            Spacer()
+//            
+//            // next
+//            NavigationLink {
+//                OnboardingTopics(viewModel: viewModel)
+//                
+//            } label: {
+//                HStack(alignment: .center) {
+//                    Text("Next")
+//                        .frame(maxWidth: .infinity, alignment: .trailing)
+//                    
+//                    Image(systemName: "chevron.right")
+//                }
+//            }
+//            .font(.button)
+//            .foregroundStyle(Color.primaryPurple)
+//        }
+//    }
     
     @ViewBuilder
     func legend() -> some View {
         VStack(alignment: .leading) {
-            let currComplexity = Complexity.complexity(for: value)
+            let currComplexity = Complexity.complexity(for: viewModel.complexity)
             
             ForEach(0..<5, id: \.self) { i in
                 let val = Double(i)/5
@@ -132,5 +171,5 @@ enum Complexity: CaseIterable {
 }
 
 #Preview {
-    OnboardingComplexity()
+    OnboardingComplexity(viewModel: OnboardViewModel())
 }

@@ -87,10 +87,10 @@ struct AccountView: View {
                 .scaledToFit()
                 .frame(width: 120, height: 120)
             
-            Text(user?.getFullName() ?? "Anonymous")
+            Text(user.fullName)
                 .font(.H3)
             
-            Text(user?.username ?? "anonymous")
+            Text(user.username)
                 .font(.body1)
         }
     }

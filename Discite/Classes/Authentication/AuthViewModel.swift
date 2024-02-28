@@ -40,7 +40,7 @@ class AuthViewModel: ObservableObject {
     
     // Update status to show onboarded completed
     func onboardingComplete() {
-        User.shared?.onboarded = true
+        User.shared.onboarded = true
         
         withAnimation(.spring) {
             status = .loggedIn
@@ -88,14 +88,12 @@ class AuthViewModel: ObservableObject {
             Task {
                 // Send ID token to backend and set global user
                 let response = try await AuthenticationService.mockGoogleLogin(idToken: idToken.tokenString)
-                User.shared?.onboarded = response.onboarded
+                User.shared.onboarded = response.onboarded
             }
             
             withAnimation(.spring) {
-                if let user = User.shared {
-                    self.status =  user.onboarded ? .loggedIn : .onboarding
-                    self.isLoading = false
-                }
+                self.status =  User.shared.onboarded ? .loggedIn : .onboarding
+                self.isLoading = false
             }
         }
     }
@@ -142,15 +140,13 @@ class AuthViewModel: ObservableObject {
                 Task {
                     // Send ID token to backend and set global user
                     let response = try await AuthenticationService.mockGoogleLogin(idToken: idToken.tokenString)
-                    User.shared?.onboarded = response.onboarded
+                    User.shared.onboarded = response.onboarded
                     // User.shared = response
                 }
                 
                 withAnimation(.spring) {
-                    if let user = User.shared {
-                        self.status =  user.onboarded ? .loggedIn : .onboarding
-                        self.isLoading = false
-                    }
+                    self.status =  User.shared.onboarded ? .loggedIn : .onboarding
+                    self.isLoading = false
                 }
             }
         }
@@ -159,7 +155,7 @@ class AuthViewModel: ObservableObject {
     // Sign out with Google
     func googleSignOut() {
         GIDSignIn.sharedInstance.signOut()
-        User.shared = nil
+        User.shared = User.anonymousUser
 
         withAnimation(.spring) {
             status = .loggedOut

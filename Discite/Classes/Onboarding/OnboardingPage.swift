@@ -2,129 +2,170 @@
 //  OnboardingPage.swift
 //  Discite
 //
-//  Created by Jessie Li on 2/23/24.
+//  Created by Jessie Li on 2/27/24.
 //
 
 import SwiftUI
 
 struct OnboardingPage: View {
+    let totalPages = 3
+    @State var currentPage = 0
+    @StateObject var viewModel = OnboardViewModel()
     let authViewModel = AuthViewModel.shared
-    @ObservedObject var viewModel = OnboardViewModel()
+    
+    let transition: AnyTransition = .asymmetric(
+        insertion: .move(edge: .trailing),
+        removal: .move(edge: .leading))
     
     var body: some View {
-        GeometryReader { mainGeo in
-            let radius = mainGeo.size.width/2
-
-            VStack(alignment: .leading) {
-                // title
-                Text("Welcome, \(User.shared?.firstName ?? "new user")!")
-                    .font(.H6)
-                    .foregroundStyle(Color.secondaryPurplePink)
-                
-                Text("Create your ideal profile.")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundStyle(Color.primaryBlueBlack)
-                    .font(.H2)
-                
-                // spider graph
-                GeometryReader { geometry in
-                    let center = CGPoint(x: radius, y: geometry.size.height/2)
-                    
-                    let spiderGraphEntry = SpiderGraphEntry(
-                        values: viewModel.values,
-                        color: .primaryPurpleLight,
-                        interactive: true,
-                        handleCornerDrag: onCornerDrag)
-                    
-                    SpiderGraph(
-                        axes: viewModel.roles,
-                        values: [spiderGraphEntry],
-                        textColor: .grayDark,
-                        center: center,
-                        radius: radius * 0.72
-                    )
-                }
-                .frame(maxHeight: radius * 2.2)
-                
-                // reset
-                resetButton()
-                
-                // description
-                Text("Drag the corners of the graph to customize your interests.")
-                    .font(.body1)
-                    .lineSpacing(8.0)
-                    .foregroundStyle(Color.primaryBlueBlack)
-                
-                // submit button
-                submitButton()
-            }
-            .frame(maxHeight: .infinity)
-        }
-        .padding(.horizontal, 18)
-    }
-    
-    @ViewBuilder
-    func resetButton() -> some View {
-        Button {
-            viewModel.resetGraphValues()
-
-        } label: {
-            HStack(alignment: .center) {
-                Text("Reset")
-                    .font(.button)
-                Image(systemName: "arrow.counterclockwise")
-            }
-            .foregroundStyle(Color.primaryPurple)
-        }
-        .frame(alignment: .trailing)
-        .padding(.vertical, 8)
-    }
-    
-    @ViewBuilder
-    func submitButton() -> some View {
-        Button {
-            authViewModel.onboardingComplete()
+        VStack(alignment: .leading) {
+            progressDots()
+                .padding(.horizontal, 18)
             
-            Task {
-                await viewModel.mockSubmitPreferences()
+            switch currentPage {
+            case 0:
+                OnboardingComplexity(viewModel: viewModel)
+                    .transition(transition)
+            case 1:
+                OnboardingTopics(viewModel: viewModel)
+                    .transition(transition)
+            case 2:
+                OnboardingSpider(viewModel: viewModel)
+                    .transition(transition)
+                
+            default:
+                Hello()
+                    // .transition(transition)
             }
-
-        } label: {
-            HStack(alignment: .center) {
+//            NavigationStack {
+//                OnboardingComplexity(viewModel: viewModel)
+//            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                // back
+                if currentPage > 0 {
+                    Button {
+                        withAnimation {
+                            currentPage -= 1
+                        }
+                        
+                    } label: {
+                        HStack(alignment: .center) {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                    }
+                    .font(.button)
+                    .foregroundStyle(Color.primaryPurple)
+                }
+                
                 Spacer()
                 
-                Text("Start learning")
-                    .font(.subtitle1)
-                
-                AnimatedArrow()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
-            }
-        }
-        .foregroundStyle(Color.primaryBlue)
-        .padding(12)
-    }
-    
-    // Update values when a corner is dragged
-    func onCornerDrag(values: [CGFloat]) {
-        viewModel.values = values
-    }
-}
-
-private struct AnimatedArrow: View {
-    @State private var arrowOpacity: Double = 1.0
-
-    var body: some View {
-        Image(systemName: "arrow.right")
-            .resizable()
-            .opacity(arrowOpacity)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 1.5).repeatForever()) {
-                    arrowOpacity = 0.4
+                // next
+                if currentPage < totalPages - 1 {
+//                    NavigationLink {
+//                        OnboardingTopics(viewModel: viewModel)
+//                        
+//                    } label: {
+//                        HStack(alignment: .center) {
+//                            Text("Next")
+//                                .frame(maxWidth: .infinity, alignment: .trailing)
+//                            
+//                            Image(systemName: "chevron.right")
+//                        }
+//                    }
+//                    .font(.button)
+//                    .foregroundStyle(Color.primaryPurple)
+                    Button {
+                        withAnimation {
+                            currentPage += 1
+                        }
+                        
+                    } label: {
+                        HStack(alignment: .center) {
+                            Text("Next")
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                    .font(.button)
+                    .foregroundStyle(Color.primaryPurple)
+                    
+                } else {
+                    Button {
+                        authViewModel.onboardingComplete()
+                        
+                        Task {
+                            await viewModel.mockOnboard()
+                        }
+                        
+                    } label: {
+                        Text("FINISH")
+                    }
                 }
             }
+        }
+        .padding(.top, 36)
+    }
+    
+        // @ViewBuilder
+//    func navigationButtons() -> ToolbarItemGroup<some View> {
+//        ToolbarItemGroup(placement: .bottomBar) {
+//            // back
+//            Button {
+//                // dismiss()
+//                print("hello")
+//                
+//            } label: {
+//                HStack(alignment: .center) {
+//                    Image(systemName: "chevron.left")
+//                    Text("Back")
+//                }
+//            }
+//            .font(.button)
+//            .foregroundStyle(Color.primaryPurple)
+//            
+//            Spacer()
+//            
+//            // next
+//            NavigationLink {
+//                OnboardingTopics()
+//                
+//            } label: {
+//                HStack(alignment: .center) {
+//                    Text("Next")
+//                        .frame(maxWidth: .infinity, alignment: .trailing)
+//                    
+//                    Image(systemName: "chevron.right")
+//                }
+//            }
+//            .font(.button)
+//            .foregroundStyle(Color.primaryPurple)
+//        }
+//    }
+    
+    @ViewBuilder 
+    func progressDots() -> some View {
+        HStack {
+            ForEach(0..<totalPages, id: \.self) { i in
+                Circle()
+                    .frame(width: i == currentPage ? 12 : 8)
+                    .foregroundStyle(i == currentPage ?
+                                     Color.secondaryPurplePink : Color.grayNeutral)
+                
+            }
+        }
     }
 }
+
+//struct OnboardingData: Codable {
+//    var complexity: Double
+//    var topics: [String]
+//    var roles: [
+//}
 
 #Preview {
     OnboardingPage()

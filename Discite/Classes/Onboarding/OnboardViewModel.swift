@@ -9,8 +9,15 @@ import Foundation
 
 class OnboardViewModel: ObservableObject {
     @Published var error: Error?
-    @Published var resetGraph: Bool = false
     
+    // experience
+    @Published var complexity: Double = 0.50
+    
+    // topics
+    @Published var topics: [OnboardingTopic] = OnboardingTopic.defaults()
+    
+    // spider
+    @Published var resetGraph: Bool = false
     var values: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
     let defaultValues: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
     let roles: [String] = ["Front", "Backend", "ML", "AI/Data", "DevOps", "QA"]
@@ -21,27 +28,37 @@ class OnboardViewModel: ObservableObject {
         resetGraph.toggle()
     }
     
-    // POST role preferences to API
-    func mockSubmitPreferences() async {
+    // POST onboarding
+    func mockOnboard() async {
         error = nil
-        let onboardRequest = OnboardRolesRequest(roles: roles, values: values)
+        
+        let filteredTopics = topics.compactMap { topic in
+            topic.selected ? topic.title : nil
+        }
+        
+        let onboardRequest = OnboardRolesRequest(complexity: complexity,
+                                                 topics: filteredTopics,
+                                                 roles: roles,
+                                                 values: values)
         
         do {
-            print("TEST: POST role preferences with values \(values)")
+            print("TEST: POST onboard")
             _ = try await APIRequest<OnboardRolesRequest, EmptyResponse>
                 .mockRequest(method: .post,
                              authorized: false,
-                             path: "/api/setRolePreferences",
+                             path: "/api/onboard",
                              parameters: onboardRequest,
                              headers: [:])
         } catch {
             self.error = error
-            print("Error in OnboardViewModel.mockSubmitPreferences: \(error)")
+            print("Error in OnboardViewModel.mockOnboard: \(error)")
         }
     }
 }
 
 struct OnboardRolesRequest: Codable {
+    var complexity: Double
+    var topics: [String]
     var roles: [String]
     var values: [CGFloat]
 }

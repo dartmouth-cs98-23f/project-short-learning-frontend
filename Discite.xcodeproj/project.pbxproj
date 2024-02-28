@@ -95,11 +95,15 @@
 		C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */; };
 		C2A4AD752B84009400AD492F /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD742B84009400AD492F /* SavedViewModel.swift */; };
 		C2A4AD772B84169B00AD492F /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD762B84169B00AD492F /* CustomTabView.swift */; };
-		C2A4AD7D2B88ED2300AD492F /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD7C2B88ED2300AD492F /* OnboardingPage.swift */; };
+		C2A4AD7D2B88ED2300AD492F /* OnboardingSpider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD7C2B88ED2300AD492F /* OnboardingSpider.swift */; };
 		C2A4AD7F2B88FF1B00AD492F /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */; };
 		C2A4AD812B8920E900AD492F /* GoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD802B8920E900AD492F /* GoogleLogin.swift */; };
 		C2A4AD832B8925C000AD492F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD822B8925C000AD492F /* AuthViewModel.swift */; };
 		C2A4AD8E2B8E35EB00AD492F /* OnboardingComplexity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD8D2B8E35EB00AD492F /* OnboardingComplexity.swift */; };
+		C2A4AD902B8E867100AD492F /* OnboardingTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD8F2B8E867100AD492F /* OnboardingTopics.swift */; };
+		C2A4AD922B8E86C800AD492F /* OnboardingTopicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD912B8E86C800AD492F /* OnboardingTopicList.swift */; };
+		C2A4AD962B8EBEC200AD492F /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD952B8EBEC200AD492F /* OnboardingPage.swift */; };
+		C2A4AD982B8ECD3100AD492F /* Hello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A4AD972B8ECD3100AD492F /* Hello.swift */; };
 		C2A640F02B7C430700C50F83 /* WatchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640EF2B7C430700C50F83 /* WatchPage.swift */; };
 		C2A640F22B7C446F00C50F83 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640F12B7C446F00C50F83 /* Like.swift */; };
 		C2A640F42B7C468E00C50F83 /* PostViewVerticalOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A640F32B7C468E00C50F83 /* PostViewVerticalOnly.swift */; };
@@ -224,11 +228,15 @@
 		C2A44AB32B771866009FEEAB /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		C2A4AD742B84009400AD492F /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		C2A4AD762B84169B00AD492F /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
-		C2A4AD7C2B88ED2300AD492F /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
+		C2A4AD7C2B88ED2300AD492F /* OnboardingSpider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSpider.swift; sourceTree = "<group>"; };
 		C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
 		C2A4AD802B8920E900AD492F /* GoogleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLogin.swift; sourceTree = "<group>"; };
 		C2A4AD822B8925C000AD492F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		C2A4AD8D2B8E35EB00AD492F /* OnboardingComplexity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingComplexity.swift; sourceTree = "<group>"; };
+		C2A4AD8F2B8E867100AD492F /* OnboardingTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTopics.swift; sourceTree = "<group>"; };
+		C2A4AD912B8E86C800AD492F /* OnboardingTopicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTopicList.swift; sourceTree = "<group>"; };
+		C2A4AD952B8EBEC200AD492F /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
+		C2A4AD972B8ECD3100AD492F /* Hello.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hello.swift; sourceTree = "<group>"; };
 		C2A640EF2B7C430700C50F83 /* WatchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPage.swift; sourceTree = "<group>"; };
 		C2A640F12B7C446F00C50F83 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		C2A640F32B7C468E00C50F83 /* PostViewVerticalOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewVerticalOnly.swift; sourceTree = "<group>"; };
@@ -292,9 +300,13 @@
 		66365F7F2B0095AC009E0438 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C2A4AD952B8EBEC200AD492F /* OnboardingPage.swift */,
+				C2A4AD972B8ECD3100AD492F /* Hello.swift */,
 				C2A4AD8D2B8E35EB00AD492F /* OnboardingComplexity.swift */,
-				C2A4AD7C2B88ED2300AD492F /* OnboardingPage.swift */,
+				C2A4AD8F2B8E867100AD492F /* OnboardingTopics.swift */,
+				C2A4AD7C2B88ED2300AD492F /* OnboardingSpider.swift */,
 				C2A4AD7E2B88FF1B00AD492F /* OnboardViewModel.swift */,
+				C2A4AD912B8E86C800AD492F /* OnboardingTopicList.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -865,6 +877,8 @@
 				C2A641052B7C8FC400C50F83 /* VideoView.swift in Sources */,
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
 				C2A641222B8048ED00C50F83 /* ToastSample.swift in Sources */,
+				C2A4AD922B8E86C800AD492F /* OnboardingTopicList.swift in Sources */,
+				C2A4AD982B8ECD3100AD492F /* Hello.swift in Sources */,
 				C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C2EE4E572B23AF6300FEA5B5 /* Welcome.swift in Sources */,
@@ -872,6 +886,7 @@
 				C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */,
 				2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */,
 				2C8509EB2B68107800707646 /* AllTopics.swift in Sources */,
+				C2A4AD902B8E867100AD492F /* OnboardingTopics.swift in Sources */,
 				2C0CAB7C2B88072F00B8BA25 /* FriendViewModel.swift in Sources */,
 				C2A44AB02B76D14D009FEEAB /* SettingsPage.swift in Sources */,
 				2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */,
@@ -879,6 +894,7 @@
 				C2A44AAE2B76CEE3009FEEAB /* FriendsPage.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
 				C269CD102B6083C100A5126C /* SequenceViewModel.swift in Sources */,
+				C2A4AD962B8EBEC200AD492F /* OnboardingPage.swift in Sources */,
 				C2A640FB2B7C565D00C50F83 /* OffsetKey.swift in Sources */,
 				C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */,
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
@@ -908,7 +924,7 @@
 				C2A641092B7D670200C50F83 /* ExploreViewModel.swift in Sources */,
 				2CBE27162B6436D600DF585B /* TopicPageView.swift in Sources */,
 				C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */,
-				C2A4AD7D2B88ED2300AD492F /* OnboardingPage.swift in Sources */,
+				C2A4AD7D2B88ED2300AD492F /* OnboardingSpider.swift in Sources */,
 				C2A44AB42B771866009FEEAB /* FriendsViewModel.swift in Sources */,
 				C2082F932B6C098A00EEED6B /* SpiderGraph.swift in Sources */,
 				665D4CD02AFED43D00F1C05C /* Constants.swift in Sources */,

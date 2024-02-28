@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User: Codable, Identifiable {
+class User: Codable, Identifiable, ObservableObject {
     private(set) var id: UUID
     private(set) var userId: String
     private(set) var firstName: String
@@ -62,9 +62,13 @@ class User: Codable, Identifiable {
                                     username: "johndoe",
                                     email: "johndoe@email.com")
     
-    static var shared: User?
+    static var shared = User(userId: "0",
+                            firstName: "John",
+                            lastName: "Doe",
+                            username: "johndoe",
+                            email: "johndoe@email.com")
     
-    func getFullName() -> String {
+    var fullName: String {
         return self.firstName + " " + self.lastName
     }
 }
