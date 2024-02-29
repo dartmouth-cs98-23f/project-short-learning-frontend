@@ -56,3 +56,40 @@ extension View {
         self.overlay(gradient).mask(self)
     }
 }
+
+struct ColorComponents {
+    var red: Double
+    var green: Double
+    var blue: Double
+    var opacity: Double
+
+    init(_ color: Color) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        self.red = Double(red)
+        self.green = Double(green)
+        self.blue = Double(blue)
+        self.opacity = Double(alpha)
+    }
+}
+
+extension Color {
+    // Custom function to interpolate between two colors given a value (0 to 1)
+    static func interpolate(from start: Color, to end: Color, value: Double) -> Color {
+        let frac = max(0, min(1, value))
+
+        let s = ColorComponents(start)
+        let e = ColorComponents(end)
+        
+        let red = s.red + (e.red - s.red) * frac
+        let green = s.green + (e.green - s.green) * frac
+        let blue = s.blue + (e.blue - s.blue) * frac
+        let alpha = s.opacity + (e.opacity - s.opacity) * frac
+
+        return Color(red: red, green: green, blue: blue, opacity: alpha)
+    }
+}

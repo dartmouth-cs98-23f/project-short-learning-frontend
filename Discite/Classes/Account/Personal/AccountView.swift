@@ -10,8 +10,8 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(TabSelectionManager.self) private var tabSelection
+    @EnvironmentObject private var user: User
     
-    @State var user: User?
     @State var statistics: [Statistic]?
     @State var topics: [TopicTag] = []
     @State var spiderGraphData: SpiderGraphData?
@@ -56,8 +56,6 @@ struct AccountView: View {
                         if self.spiderGraphData == nil {
                             self.spiderGraphData = await viewModel.getSpiderGraphData()
                         }
-
-                        if user == nil { user = await viewModel.getUser() }
                         
                         friends = await friendsViewModel.getFriends()
                     }
@@ -95,12 +93,12 @@ struct AccountView: View {
                 .scaledToFit()
                 .frame(width: 120, height: 120)
             
-            Text(user?.getFullName() ?? "")
+            Text(user.fullName)
                 .font(.H3)
-            
-            Text(user?.username ?? "")
+
+            Text(user.username)
+                .font(.body1)
         }
-        .animation(.easeIn(duration: 0.5), value: user == nil)
     }
     
     func friendsButton() -> some View {
@@ -137,7 +135,7 @@ struct AccountView: View {
     
             }
         }
-        .animation(.easeIn(duration: 0.5), value: statistics == nil)
+        .animation(.easeIn(duration: 0.3), value: statistics == nil)
     }
     
     func summaryCard(statistic: Statistic) -> some View {
@@ -215,7 +213,7 @@ struct AccountView: View {
                 placeholderRectangle(minHeight: 400)
             }
         }
-        .animation(.easeIn(duration: 0.5), value: spiderGraphData == nil)
+        .animation(.easeIn(duration: 0.3), value: spiderGraphData == nil)
     }
     
     func exploreFooter() -> some View {
@@ -250,6 +248,7 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView(user: User.anonymousUser)
+    AccountView()
         .environment(TabSelectionManager(selection: .Account))
+        .environmentObject(User())
 }

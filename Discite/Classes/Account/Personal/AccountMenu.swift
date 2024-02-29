@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AccountMenu: View {
+    @EnvironmentObject var user: User
     @ObservedObject var viewModel: AccountViewModel
 
     var body: some View {
@@ -24,6 +25,7 @@ struct AccountMenu: View {
         .padding([.leading, .trailing], 18)
     }
     
+    @ViewBuilder
     func textualMenuButton(label: String) -> some View {
         Text(label)
             .font(.H5)
@@ -31,9 +33,15 @@ struct AccountMenu: View {
             .frame(maxWidth: .infinity, alignment: .leading)
     }
     
+    @ViewBuilder
     func logoutButton() -> some View {
         Button(action: {
-            viewModel.logout()
+            do { 
+                try user.clear()
+            } catch {
+                print("Unable to log out \(error)")
+            }
+            
         }, label: {
             Text("Log out")
                 .font(.button)
@@ -47,4 +55,5 @@ struct AccountMenu: View {
     let viewModel = AccountViewModel()
     
     return AccountMenu(viewModel: viewModel)
+        .environmentObject(User())
 }

@@ -32,6 +32,7 @@ extension Font {
     static let button = Font.custom("Mulish-Bold", size: 16)
     static let captionBold = Font.custom("Mulish-ExtraBold", size: 12)
     static let price = Font.custom("Mulish-ExtraBold", size: 48)
+    static let extraBig = Font.custom("Mulish-Light", size: 64)
 
 }
 

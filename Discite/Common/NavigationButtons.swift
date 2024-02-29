@@ -92,9 +92,9 @@ struct TextualNavigationButton<Content: View>: View {
 
 #Preview {
     NavigationStack {
-        PrimaryNavigationButton(destination: { Welcome() }, label: "Primary")
-        SecondaryNavigationButton(destination: { Welcome() }, label: "Secondary")
-        TextualNavigationButton(destination: { Welcome() }, label: "Textual")
+        PrimaryNavigationButton(destination: { Hello() }, label: "Primary")
+        SecondaryNavigationButton(destination: { Hello() }, label: "Secondary")
+        TextualNavigationButton(destination: { Hello() }, label: "Textual")
     }
     .padding([.leading, .trailing], 12)
 }

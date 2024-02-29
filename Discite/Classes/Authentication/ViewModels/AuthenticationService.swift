@@ -11,7 +11,22 @@
 import Foundation
 
 struct AuthResponseData: Decodable {
+    let userId: String
+    let username: String
     let token: String
+    let message: String
+    let firstName: String
+    let lastName: String
+    let email: String
+    let birthDate: String
+    let profilePicture: String?
+    let onBoardingStatus: Bool
+}
+
+struct SignUpResponseData: Decodable {
+    let userId: String
+    let token: String
+    let message: String
 }
 
 struct LoginRequest: Encodable {
@@ -25,15 +40,10 @@ struct SignupRequest: Encodable {
     let firstName: String
     let lastName: String
     let password: String
-    let birthDate: String
 }
 
-struct OnboardRequest: Encodable {
-    let topics: [String]
-}
-
-struct OnboardResponse: Decodable {
-    let playlists: [Playlist]
+struct GoogleLoginRequest: Codable {
+    var idToken: String
 }
 
 struct AuthenticationService {
@@ -58,17 +68,8 @@ struct AuthenticationService {
         return response
     }
     
-    static func onboard(parameters: OnboardRequest) async throws -> OnboardResponse {
-        let response = try await APIRequest<OnboardRequest, OnboardResponse>
-            .apiRequest(method: .post,
-                        authorized: true,
-                        path: "/api/user/technigala/onboard",
-                        parameters: parameters)
-        
-        return response
-    }
-    
     static func mockLogin(parameters: LoginRequest) async throws -> AuthResponseData {
+        print("TEST: api/auth/signin")
         let response = try await APIRequest<LoginRequest, AuthResponseData>
             .mockRequest(method: .post,
                         authorized: true,
@@ -84,6 +85,20 @@ struct AuthenticationService {
                         authorized: false,
                         path: "/api/auth/signup",
                         parameters: parameters)
+        
+        return response
+    }
+    
+    // https://developers.google.com/identity/sign-in/ios/backend-auth
+    static func mockGoogleLogin(idToken: String) async throws -> AuthResponseData {
+        let authData = GoogleLoginRequest(idToken: idToken)
+        
+        let response = try await APIRequest<GoogleLoginRequest, AuthResponseData>
+            .mockRequest(method: .post,
+                        authorized: false,
+                        path: "/api/auth/googleSignIn",
+                        parameters: authData,
+                        headers: [:])
         
         return response
     }

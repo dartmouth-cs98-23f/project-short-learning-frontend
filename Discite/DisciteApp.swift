@@ -4,6 +4,8 @@
 //
 //  Created by Jessie Li on 11/8/23.
 //
+//  Google sign-in:
+//      https://developers.google.com/identity/sign-in/ios/sign-in
 
 import SwiftUI
 
