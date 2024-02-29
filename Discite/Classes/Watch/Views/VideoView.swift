@@ -164,7 +164,7 @@ struct VideoView: View {
                 
                 Task {
                     // POST save or unsave
-                    await playlist.mockSave()
+                    await playlist.save()
                 }
                 
             } label: {

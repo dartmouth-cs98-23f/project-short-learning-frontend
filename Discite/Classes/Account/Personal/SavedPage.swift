@@ -46,7 +46,7 @@ struct SavedPage: View {
         .task {
             if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
                 print("task")
-                await viewModel.mockGetSaved()
+                await viewModel.getSaved()
             }
         }
         .animation(.smooth, value: viewModel.savedPlaylists.isEmpty)

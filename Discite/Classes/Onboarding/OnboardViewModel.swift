@@ -29,7 +29,7 @@ class OnboardViewModel: ObservableObject {
     }
     
     // POST onboarding
-    public func mockOnboard(user: User) async {
+    public func onboard(user: User) async {
         error = nil
         
         let filteredTopics = topics.compactMap { topic in
@@ -44,10 +44,10 @@ class OnboardViewModel: ObservableObject {
                                                  values: values)
         
         do {
-            print("TEST: POST onboard")
+            print("POST onboard")
             _ = try await APIRequest<OnboardRolesRequest, EmptyResponse>
-                .mockRequest(method: .post,
-                             authorized: false,
+                .apiRequest(method: .post,
+                             authorized: true,
                              path: "/api/onboard",
                              parameters: onboardRequest,
                              headers: [:])
@@ -56,7 +56,7 @@ class OnboardViewModel: ObservableObject {
             
         } catch {
             self.error = error
-            print("Error in OnboardViewModel.mockOnboard: \(error)")
+            print("Error in OnboardViewModel.onboard: \(error)")
         }
     }
 }

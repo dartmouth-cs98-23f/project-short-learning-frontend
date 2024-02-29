@@ -14,9 +14,9 @@ class FriendViewModel: ObservableObject {
     func getUserSpiderGraphData() async -> SpiderGraphData? {
         do {
             let response = try await APIRequest<EmptyRequest, RolesResponse>
-                .mockRequest(method: .get,
-                             authorized: false,
-                             path: "/api/roles")
+                .apiRequest(method: .get,
+                             authorized: true,
+                             path: "/api/user/roles")
             
             let spiderGraphData = SpiderGraphData(
                 data: [SpiderGraphEntry(values: response.values,

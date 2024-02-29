@@ -23,7 +23,7 @@ class SignupViewModel: ObservableObject {
         isLoading = true
         
         do {
-            let response = try await AuthenticationService.mockSignup(
+            let response = try await AuthenticationService.signup(
                 parameters: SignupRequest(
                     username: username.lowercased(),
                     email: email,

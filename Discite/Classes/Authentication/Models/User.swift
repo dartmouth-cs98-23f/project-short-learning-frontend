@@ -63,7 +63,7 @@ class User: Identifiable, ObservableObject {
     
     public func getUser(token: String) async throws {
         let response = try await APIRequest<EmptyRequest, UserData>
-            .mockRequest(method: .get,
+            .apiRequest(method: .get,
                         authorized: true,
                         path: "/api/user")
         

@@ -13,29 +13,33 @@ class TopicViewModel: ObservableObject {
     
     init() { }
     
-    public func mockGetTopic(topicId: String) async {
+    @MainActor
+    public func getTopic(topicId: String) async {
         do {
-            let query = URLQueryItem(name: "topicId", value: topicId)
+            let path = "/api/topics/\(topicId)"
+            
             topic = try await APIRequest<EmptyRequest, Topic>
-                .mockRequest(method: .get,
+                .apiRequest(method: .get,
                         authorized: true,
-                        path: "/api/topic",
-                        queryItems: [query])
+                        path: path)
         } catch {
             self.error = TopicError.getTopic
             print("Error fetching topic: \(error)")
         }
     }
 
-    public func mockSaveTopic(parameters: SaveTopicRequest) async {
+    @MainActor
+    public func saveTopic(parameters: SaveTopicRequest) async {
         do {
-            print("TEST: POST save topic \(parameters.topicId)")
+            print("POST save topic \(parameters.topicId)")
+            let path = "/api/save/topics/\(parameters.topicId)"
+            
             _ = try await APIRequest<SaveTopicRequest, EmptyResponse>
-                .mockRequest(method: .post,
-                             authorized: false,
-                             path: "/api/saveTopic",
-                             parameters: parameters,
-                             headers: [:])
+                .apiRequest(method: .post,
+                             authorized: true,
+                             path: path,
+                             parameters: parameters)
+            
         } catch {
             self.error = TopicError.saveTopic
             print("Error saving topic: \(error)")

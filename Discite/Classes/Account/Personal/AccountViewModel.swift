@@ -11,12 +11,13 @@ class AccountViewModel: ObservableObject {
     @Published var error: Error?
     
     // GET summary statistics
+    @MainActor
     func getProgressSummary() async -> [Statistic]? {
         do {
             let response = try await APIRequest<EmptyRequest, ProgressResponse>
-                .mockRequest(method: .get,
-                            authorized: false,
-                            path: "/api/statistics")
+                .apiRequest(method: .get,
+                            authorized: true,
+                            path: "/api/user/statistics")
             
             return response.statistics
             
@@ -28,12 +29,13 @@ class AccountViewModel: ObservableObject {
     }
     
     // GET recent topics
+    @MainActor
     func getRecentTopics() async -> [TopicTag]? {
         do {
             let response = try await APIRequest<EmptyRequest, RecentTopicsResponse>
-                .mockRequest(method: .get,
-                            authorized: false,
-                            path: "/api/recentTopics")
+                .apiRequest(method: .get,
+                            authorized: true,
+                            path: "/api/topics/recent")
             
             return response.topics
             
@@ -45,12 +47,13 @@ class AccountViewModel: ObservableObject {
     }
     
     // GET spider graph data
+    @MainActor
     func getSpiderGraphData() async -> SpiderGraphData? {
         do {
             let response = try await APIRequest<EmptyRequest, RolesResponse>
-                .mockRequest(method: .get,
-                            authorized: false,
-                            path: "/api/roles")
+                .apiRequest(method: .get,
+                            authorized: true,
+                            path: "/api/user/roles")
             
             let spiderGraphData = SpiderGraphData(
                 data: [SpiderGraphEntry(values: response.values,

@@ -81,7 +81,7 @@ struct OnboardingPage: View {
                 } else {
                     Button {
                         Task {
-                            await viewModel.mockOnboard(user: user)
+                            await viewModel.onboard(user: user)
                         }
                         
                     } label: {

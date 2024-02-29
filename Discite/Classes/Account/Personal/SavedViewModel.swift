@@ -15,14 +15,15 @@ class SavedViewModel: ObservableObject {
     init() { }
     
     // GET saved playlists and topics
-    public func mockGetSaved() async {
+    @MainActor
+    public func getSaved() async {
         error = nil
         
         do {
-            print("TEST: GET saved")
+            print("GET saved")
             let response = try await APIRequest<EmptyRequest, SavedResponse>
                 .mockRequest(method: .get,
-                            authorized: false,
+                            authorized: true,
                             path: "/api/saved")
             
             savedPlaylists = response.savedPlaylists
