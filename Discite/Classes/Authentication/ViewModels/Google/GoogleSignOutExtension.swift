@@ -15,10 +15,6 @@ func googleSignOut(user: User) {
         GIDSignIn.sharedInstance.signOut()
         try user.clear()
         
-        withAnimation(.spring) {
-            user.state = .signedOut
-        }
-        
     } catch {
         print("Error signing out.")
     }
