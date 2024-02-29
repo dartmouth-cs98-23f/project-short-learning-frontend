@@ -5,11 +5,11 @@
 //  Created by Jessie Li on 2/28/24.
 //
 
-//import Foundation
-//import GoogleSignIn
-//import SwiftUI
+// import Foundation
+// import GoogleSignIn
+// import SwiftUI
 //
-//extension LoginViewModel {
+// extension LoginViewModel {
 //    // Try to restore Google sign in state
 //    @MainActor
 //    public func restoreGoogleSignIn(user: User) {
@@ -83,4 +83,4 @@
 //        }
 //    }
 //    
-//}
+// }

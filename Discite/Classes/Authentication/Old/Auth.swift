@@ -9,7 +9,6 @@
 
 import Foundation
 
-
 class Auth: ObservableObject {
     
     enum AuthError: Error {
