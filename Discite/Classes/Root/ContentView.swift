@@ -9,23 +9,32 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
-    @ObservedObject var auth = Auth.shared
-
-    var body: some View {
-        Navigator()
-    }
+    @StateObject var user = User()
+    
+    let transition: AnyTransition = .asymmetric(
+        insertion: .move(edge: .trailing),
+        removal: .move(edge: .leading))
         
-//        if Auth.shared.loggedIn {
-//            AuthView()
-//
-//        } else {
-//            Navigator()
-//        }
-//    }
+    var body: some View {
+        switch user.state {
+        case .signedIn:
+            Navigator()
+                .transition(transition)
+                .environmentObject(user)
+            
+        case .onboarding:
+            Hello()
+                .transition(transition)
+                .environmentObject(user)
+            
+        case .signedOut:
+            MainAuthPage()
+                .transition(transition)
+                .environmentObject(user)
+        }
+    }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView()
 }

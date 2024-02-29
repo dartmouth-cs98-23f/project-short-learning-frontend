@@ -8,21 +8,17 @@
 import Foundation
 
 class SignupViewModel: ObservableObject {
-
     @Published var firstname: String = "John"
     @Published var lastname: String = "Doe"
     @Published var username: String = "johndoe"
     @Published var email: String = "johndoe@email.com"
-    @Published var password: String = "abc123"
-    @Published var confirmPassword: String = ""
-    @Published var date: Date = Date.now
-    @Published var birthDate: String =  "2000-10-10"
+    @Published var password: String = "12345678"
+    @Published var confirmPassword: String = "12345678"
 
     @Published var error: Error?
-    @Published var internalError: String = ""
     @Published var isLoading = false
     
-    func signup() async {
+    func signup(user: User) async {
         
         isLoading = true
         
@@ -33,13 +29,12 @@ class SignupViewModel: ObservableObject {
                     email: email,
                     firstName: firstname,
                     lastName: lastname,
-                    password: password,
-                    birthDate: birthDate))
+                    password: password))
             
-            try Auth.shared.setToken(token: response.token)
+            try await user.configure(data: response)
             
         } catch {
-            print("Signup failed: \(error)")
+            print("SignupViewModel.signup failed: \(error)")
             self.error = error
         }
         

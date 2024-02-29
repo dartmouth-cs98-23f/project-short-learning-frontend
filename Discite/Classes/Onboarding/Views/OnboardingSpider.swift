@@ -7,19 +7,30 @@
 
 import SwiftUI
 
-struct OnboardingPage: View {
-    @ObservedObject var viewModel = OnboardViewModel()
+struct OnboardingSpider: View {
+    @ObservedObject var viewModel: OnboardViewModel
     
     var body: some View {
         GeometryReader { mainGeo in
             let radius = mainGeo.size.width/2
 
             VStack(alignment: .leading) {
-                // title
-                Text("Create your ideal profile.")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundStyle(Color.primaryBlueBlack)
-                    .font(.H2)
+                VStack(spacing: 12) {
+                    Text("Create your ideal profile.")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.H2)
+                    
+                    // description
+                    Text("Drag the corners of the graph to help us understand your preferred roles.")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.body1)
+
+                }
+                .foregroundStyle(Color.primaryBlueBlack)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // reset
+                resetButton()
                 
                 // spider graph
                 GeometryReader { geometry in
@@ -40,21 +51,11 @@ struct OnboardingPage: View {
                     )
                 }
                 .frame(maxHeight: radius * 2.2)
-                
-                // reset
-                resetButton()
-                
-                // description
-                Text("Drag the corners of the graph to customize your interests.")
-                    .font(.body1)
-                    .lineSpacing(8.0)
-                    .foregroundStyle(Color.primaryBlueBlack)
-                
-                // submit button
-                submitButton()
+
             }
-            .frame(maxHeight: .infinity)
+            // .frame(maxHeight: .infinity)
         }
+        .padding(.vertical, 24)
         .padding(.horizontal, 18)
     }
     
@@ -78,10 +79,12 @@ struct OnboardingPage: View {
     @ViewBuilder
     func submitButton() -> some View {
         Button {
-            Task {
-                await viewModel.mockSubmitPreferences()
-            }
+            // authViewModel.onboardingComplete()
             
+//            Task {
+//                await viewModel.mockSubmitPreferences()
+//            }
+
         } label: {
             HStack(alignment: .center) {
                 Spacer()
@@ -120,5 +123,5 @@ private struct AnimatedArrow: View {
 }
 
 #Preview {
-    OnboardingPage()
+    OnboardingSpider(viewModel: OnboardViewModel())
 }

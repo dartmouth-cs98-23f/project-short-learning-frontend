@@ -10,23 +10,6 @@ import Foundation
 class AccountViewModel: ObservableObject {
     @Published var error: Error?
     
-    // GET user
-    func getUser() async -> User? {
-        do {
-            let response = try await APIRequest<EmptyRequest, User>
-                .mockRequest(method: .get,
-                            authorized: false,
-                            path: "/api/user")
-            
-            return response
-            
-        } catch {
-            print("Error: \(error)")
-            self.error = error
-            return nil
-        }
-    }
-    
     // GET summary statistics
     func getProgressSummary() async -> [Statistic]? {
         do {

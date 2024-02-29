@@ -33,6 +33,7 @@ struct Navigator: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .environment(tabSelectionManager)
     }
 }

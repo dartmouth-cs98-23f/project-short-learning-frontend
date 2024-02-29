@@ -5,7 +5,7 @@
 //  Created by Jessie Li on 10/17/23.
 //
 //  Source:
-//      https://medium.com/mop-developers/build-your-first-swiftui-app-part-5-handling-authorization-95f49cdb0b29
+//      https://github.com/jrendel/SwiftKeychainWrapper/blob/develop/README.md
 
 import Foundation
 

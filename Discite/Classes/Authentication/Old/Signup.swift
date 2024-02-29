@@ -1,5 +1,5 @@
 //
-//  Login.swift
+//  Signup.swift
 //  Discite
 //
 //  Created by Jessie Li on 1/13/24.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct Login: View {
-    @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
+struct Signup: View {
+    @ObservedObject var viewModel: SignupViewModel = SignupViewModel()
     
     var body: some View {
         
         if viewModel.isLoading {
-            ProgressView("Logging in...")
+            ProgressView()
             
         } else {
             GeometryReader { geometry in
                 ScrollView {
                     VStack(alignment: .leading) {
-                        Text("Log in")
+                        Text("Sign up")
                             .font(Font.H2)
                         
                         if viewModel.error != nil {
@@ -28,27 +28,32 @@ struct Login: View {
                         }
                         
                         VStack(spacing: 24) {
-                            PrimaryTextField(label: "Email", text: $viewModel.usernameOrEmail)
-                            CustomSecureTextField(label: "Password", text: $viewModel.password)
+                            PrimaryTextField(label: "Email", text: $viewModel.email) {_ in
+                                return viewModel.email.count > 0
+                            }
+                            
+                            CustomSecureTextField(label: "Password", text: $viewModel.password) {_ in
+                                return viewModel.password.count > 0
+                            }
                         }
                         .padding([.top, .bottom], 48)
                         
                         PrimaryActionButton(
                             action: {
                                 Task {
-                                    await viewModel.login()
+                                    // await viewModel.signup()
                                 }
                             },
-                            label: "Log in",
-                            disabled: viewModel.usernameOrEmail.count == 0)
+                            label: "Sign up",
+                            disabled: viewModel.email.count == 0 || viewModel.password.count == 0)
                         
                         HStack {
-                            Text("Need an account?")
+                            Text("Already have an account?")
                                 .font(.body1)
                             
                             TextualNavigationButton(destination: {
-                                Signup()
-                            }, label: "Sign up")
+                                Login()
+                            }, label: "Log in")
                         }
                         .padding(.top, 12)
                         
@@ -56,7 +61,6 @@ struct Login: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: 48, alignment: .trailing)
-                        
                     }
                     .padding([.top, .bottom], 48)
                     .frame(minHeight: geometry.size.height)
@@ -68,5 +72,5 @@ struct Login: View {
 }
 
 #Preview {
-    Login()
+    Signup()
 }

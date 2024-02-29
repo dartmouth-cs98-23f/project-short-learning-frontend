@@ -173,6 +173,6 @@ struct SavedPage: View {
 }
 
 #Preview {
-    AccountView(user: User.anonymousUser)
+    AccountView()
         .environment(TabSelectionManager(selection: .Account))
 }
