@@ -26,8 +26,8 @@ struct Navigator: View {
                     
                 case .Explore:
                     ExploreView()
-                case .Shared:
-                    Shared()
+                case .Saved:
+                    SavedPage()
                 case .Account:
                     AccountView()
                 }
@@ -43,7 +43,7 @@ struct NavigationBar: View {
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
-                TabItem(systemImage: "person.2.fill", tag: .Shared),
+                TabItem(systemImage: "bookmark.fill", tag: .Saved),
                 TabItem(systemImage: "person.crop.circle", tag: .Account)]
     
     var body: some View {
@@ -68,7 +68,7 @@ struct NavigationBar: View {
 enum Tab {
     case Watch
     case Explore
-    case Shared
+    case Saved
     case Account
 }
 

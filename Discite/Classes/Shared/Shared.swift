@@ -37,8 +37,3 @@ struct Shared: View {
     }
     
 }
-
-#Preview {
-    Shared()
-        .environment(TabSelectionManager(selection: .Shared))
-}

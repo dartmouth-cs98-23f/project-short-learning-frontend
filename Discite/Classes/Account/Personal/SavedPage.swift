@@ -50,6 +50,8 @@ struct SavedPage: View {
             }
         }
         .animation(.smooth, value: viewModel.savedPlaylists.isEmpty)
+        
+        NavigationBar()
     }
     
     @ViewBuilder
