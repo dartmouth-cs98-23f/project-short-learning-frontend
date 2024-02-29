@@ -20,7 +20,7 @@ struct AuthResponseData: Decodable {
     let email: String
     let birthDate: String
     let profilePicture: String?
-    let onboardingStatus: String
+    let onBoardingStatus: Bool
 }
 
 struct SignUpResponseData: Decodable {
@@ -40,7 +40,6 @@ struct SignupRequest: Encodable {
     let firstName: String
     let lastName: String
     let password: String
-    let birthDate: String
 }
 
 struct GoogleLoginRequest: Codable {

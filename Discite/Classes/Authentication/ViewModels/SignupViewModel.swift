@@ -14,11 +14,8 @@ class SignupViewModel: ObservableObject {
     @Published var email: String = "johndoe@email.com"
     @Published var password: String = "12345678"
     @Published var confirmPassword: String = "12345678"
-    @Published var date: Date = Date.now
-    @Published var birthDate: String =  "2000-10-10"
 
     @Published var error: Error?
-    @Published var internalError: String = ""
     @Published var isLoading = false
     
     func signup(user: User) async {
@@ -32,8 +29,7 @@ class SignupViewModel: ObservableObject {
                     email: email,
                     firstName: firstname,
                     lastName: lastname,
-                    password: password,
-                    birthDate: birthDate))
+                    password: password))
             
             try await user.configure(data: response)
             

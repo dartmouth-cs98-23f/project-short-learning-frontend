@@ -14,5 +14,5 @@ struct UserData: Codable {
     var username: String
     var email: String?
     var profilePicture: String?
-    var onboardingStatus: String
+    var onBoardingStatus: Bool
 }

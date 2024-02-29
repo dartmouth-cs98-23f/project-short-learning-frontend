@@ -74,7 +74,7 @@ class User: Identifiable, ObservableObject {
         self.email = response.email
         
         withAnimation {
-            self.state = response.onboardingStatus == "complete" ? .signedIn : .onboarding
+            self.state = response.onBoardingStatus ? .signedIn : .onboarding
         }
     }
     
@@ -111,7 +111,7 @@ class User: Identifiable, ObservableObject {
         try KeychainItem(account: KeychainKey.token.rawValue).saveItem(token)
         
         withAnimation {
-            self.state = data.onboardingStatus == "complete" ? .signedIn : .onboarding
+            self.state = data.onBoardingStatus ? .signedIn : .onboarding
         }
     }
     
