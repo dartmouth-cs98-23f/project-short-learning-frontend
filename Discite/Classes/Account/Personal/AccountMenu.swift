@@ -48,8 +48,11 @@ struct AccountMenu: View {
     @ViewBuilder
     func logoutButton() -> some View {
         Button(action: {
-            do { try user.clear() }
-            catch { print("Unable to log out \(error)") }
+            do { 
+                try user.clear()
+            } catch {
+                print("Unable to log out \(error)")
+            }
             
         }, label: {
             Text("Log out")

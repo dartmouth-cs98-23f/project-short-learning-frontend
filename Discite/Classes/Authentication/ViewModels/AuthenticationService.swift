@@ -12,6 +12,7 @@ import Foundation
 
 struct AuthResponseData: Decodable {
     let userId: String
+    let username: String
     let token: String
     let message: String
     let firstName: String
@@ -19,7 +20,7 @@ struct AuthResponseData: Decodable {
     let email: String
     let birthDate: String
     let profilePicture: String?
-    let onboarded: Bool
+    let onboardingStatus: String
 }
 
 struct SignUpResponseData: Decodable {
@@ -69,6 +70,7 @@ struct AuthenticationService {
     }
     
     static func mockLogin(parameters: LoginRequest) async throws -> AuthResponseData {
+        print("TEST: api/auth/signin")
         let response = try await APIRequest<LoginRequest, AuthResponseData>
             .mockRequest(method: .post,
                         authorized: true,

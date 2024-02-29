@@ -35,7 +35,7 @@ class SignupViewModel: ObservableObject {
                     password: password,
                     birthDate: birthDate))
             
-            try user.configure(data: response)
+            try await user.configure(data: response)
             
         } catch {
             print("SignupViewModel.signup failed: \(error)")

@@ -24,11 +24,18 @@ struct LoginPage: View {
                     .font(.subtitle1)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if viewModel.error != nil {
+                    Text("Sorry, we couldn't log you in.")
+                        .foregroundStyle(Color.red)
+                }
             }
+            .animation(.smooth, value: viewModel.error == nil)
             
             // regular sign in
             textField(label: "Username or email", text: $viewModel.usernameOrEmail)
             secureTextField(label: "Password", text: $viewModel.password)
+            
             signInButton()
             
             // buttons
@@ -113,6 +120,7 @@ struct LoginPage: View {
             Task {
                 await viewModel.signIn(user: user)
             }
+            
         } label: {
             Text("Log in")
                 .frame(maxWidth: .infinity)

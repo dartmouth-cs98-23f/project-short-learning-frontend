@@ -24,7 +24,6 @@ class OnboardViewModel: ObservableObject {
     let roles: [String] = ["Front", "Backend", "ML", "AI/Data", "DevOps", "QA"]
     
     public func resetGraphValues() {
-        print("pressed reset")
         values = defaultValues
         resetGraph.toggle()
     }
@@ -36,6 +35,8 @@ class OnboardViewModel: ObservableObject {
         let filteredTopics = topics.compactMap { topic in
             topic.selected ? topic.title : nil
         }
+        
+        print("Filtered topics: \(filteredTopics)")
         
         let onboardRequest = OnboardRolesRequest(complexity: complexity,
                                                  topics: filteredTopics,
@@ -50,6 +51,9 @@ class OnboardViewModel: ObservableObject {
                              path: "/api/onboard",
                              parameters: onboardRequest,
                              headers: [:])
+            
+            user.completeOnboarding()
+            
         } catch {
             self.error = error
             print("Error in OnboardViewModel.mockOnboard: \(error)")

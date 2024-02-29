@@ -31,12 +31,9 @@ extension LoginViewModel {
                 let response = try await AuthenticationService.mockGoogleLogin(idToken: idToken.tokenString)
                 try user.configure(data: response)
             }
-            
-            withAnimation(.spring) {
-                user.state =  user.onboarded ? .signedIn : .onboarding
-                self.isLoading = false
-            }
         }
+        
+        self.isLoading = false
     }
     
     // Sign in with Google
@@ -78,13 +75,10 @@ extension LoginViewModel {
                 Task {
                     // Send ID token to backend and set global user
                     let response = try await AuthenticationService.mockGoogleLogin(idToken: idToken.tokenString)
-                    try user.configure(data: response)
+                    try await user.configure(data: response)
                 }
-                
-                withAnimation(.spring) {
-                    user.state =  user.onboarded ? .signedIn : .onboarding
-                    self.isLoading = false
-                }
+
+                self.isLoading = false
             }
         }
     }

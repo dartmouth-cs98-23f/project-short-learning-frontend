@@ -7,7 +7,6 @@
 
 import Foundation
 import GoogleSignIn
-import SwiftKeychainWrapper
 import SwiftUI
 
 class User: Identifiable, ObservableObject {
@@ -32,7 +31,6 @@ class User: Identifiable, ObservableObject {
     private(set) var username: String = ""
     private(set) var email: String?
     private(set) var profilePicture: String?
-    private(set) var onboarded: Bool = false
     
     public var fullName: String {
         return self.firstName + " " + self.lastName
@@ -69,6 +67,15 @@ class User: Identifiable, ObservableObject {
             .mockRequest(method: .get,
                         authorized: true,
                         path: "/api/user")
+        
+        self.username = response.username
+        self.firstName = response.firstName
+        self.lastName = response.lastName
+        self.email = response.email
+        
+        withAnimation {
+            self.state = response.onboardingStatus == "complete" ? .signedIn : .onboarding
+        }
     }
     
     @MainActor
@@ -91,9 +98,11 @@ class User: Identifiable, ObservableObject {
         }
     }
     
+    @MainActor
     public func configure(data: AuthResponseData) throws {
         self.userId = data.userId
-        self.firstName = data.userId
+        self.username = data.username
+        self.firstName = data.firstName
         self.lastName = data.lastName
         self.email = data.email
         self.profilePicture = data.profilePicture
@@ -102,34 +111,25 @@ class User: Identifiable, ObservableObject {
         try KeychainItem(account: KeychainKey.token.rawValue).saveItem(token)
         
         withAnimation {
-            self.state = .signedIn
-        }
-    }
-    
-    public func configure(user: GIDGoogleUser) throws {
-        self.userId = user.userID ?? ""
-        self.firstName = user.profile?.givenName ?? ""
-        self.lastName = user.profile?.familyName ?? ""
-        self.email = user.profile?.email ?? ""
-        self.profilePicture = user.profile?.imageURL(withDimension: 100)?.absoluteString
-        self.token = user.idToken?.tokenString ?? ""
-        
-        try KeychainItem(account: KeychainKey.token.rawValue).saveItem(token)
-        
-        withAnimation {
-            self.state = .signedIn
+            self.state = data.onboardingStatus == "complete" ? .signedIn : .onboarding
         }
     }
     
     @MainActor
     public func clear() throws {
         self.userId = ""
+        self.username = ""
         self.firstName = ""
         self.lastName = ""
         self.email = ""
         self.profilePicture = ""
+        self.token = ""
         
         try KeychainItem(account: KeychainKey.token.rawValue).deleteItem()
+        
+        withAnimation {
+            self.state = .signedOut
+        }
     }
     
 }

@@ -23,12 +23,12 @@ struct ContentView: View {
                 .environmentObject(user)
             
         case .onboarding:
-            OnboardingPage()
+            Hello()
                 .transition(transition)
                 .environmentObject(user)
             
         case .signedOut:
-            LoginPage()
+            MainAuthPage()
                 .transition(transition)
                 .environmentObject(user)
         }

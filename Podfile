@@ -9,6 +9,5 @@ target 'Discite' do
   pod 'SwiftLint'
   pod 'GoogleSignIn'
   pod 'GoogleSignInSwiftSupport'
-  pod 'SwiftKeychainWrapper'
 
 end

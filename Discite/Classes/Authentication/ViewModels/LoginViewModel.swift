@@ -35,21 +35,18 @@ class LoginViewModel: ObservableObject {
     
     // Default sign in with our own authentication
     func signIn(user: User) async {
-        isLoading = true
-            
         do {
             let data = try await AuthenticationService.mockLogin(
                 parameters: LoginRequest(
                     email: usernameOrEmail,
                     password: password))
             
-            try user.configure(data: data)
+            try await user.configure(data: data)
             
         } catch {
             print("Login failed: \(error)")
             self.error = error
+            
         }
-        
-        isLoading = false
     }
 }

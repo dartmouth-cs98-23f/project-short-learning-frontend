@@ -8,7 +8,6 @@
 //      https://github.com/jrendel/SwiftKeychainWrapper/blob/develop/README.md
 
 import Foundation
-import SwiftKeychainWrapper
 
 
 class Auth: ObservableObject {
