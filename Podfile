@@ -7,7 +7,7 @@ target 'Discite' do
 
   # Pods for Discite
   pod 'SwiftLint'
-  pod 'GoogleSignIn'
-  pod 'GoogleSignInSwiftSupport'
+  # pod 'GoogleSignIn'
+  # pod 'GoogleSignInSwiftSupport'
 
 end

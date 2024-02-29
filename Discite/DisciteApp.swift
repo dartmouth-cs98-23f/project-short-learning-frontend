@@ -8,7 +8,6 @@
 //      https://developers.google.com/identity/sign-in/ios/sign-in
 
 import SwiftUI
-import GoogleSignIn
 
 @main
 struct DisciteApp: App {
