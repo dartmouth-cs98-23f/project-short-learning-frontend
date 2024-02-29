@@ -54,44 +54,7 @@ struct OnboardingComplexity: View {
         .padding(.vertical, 24)
         .padding(.horizontal, 18)
         .navigationBarBackButtonHidden(true)
-//        .toolbar {
-//            navigationButtons()
-//        }
     }
-    
-//    func navigationButtons() -> ToolbarItemGroup<some View> {
-//        ToolbarItemGroup(placement: .bottomBar) {
-//            // back
-//            Button {
-//                dismiss()
-//                
-//            } label: {
-//                HStack(alignment: .center) {
-//                    Image(systemName: "chevron.left")
-//                    Text("Back")
-//                }
-//            }
-//            .font(.button)
-//            .foregroundStyle(Color.primaryPurple)
-//            
-//            Spacer()
-//            
-//            // next
-//            NavigationLink {
-//                OnboardingTopics(viewModel: viewModel)
-//                
-//            } label: {
-//                HStack(alignment: .center) {
-//                    Text("Next")
-//                        .frame(maxWidth: .infinity, alignment: .trailing)
-//                    
-//                    Image(systemName: "chevron.right")
-//                }
-//            }
-//            .font(.button)
-//            .foregroundStyle(Color.primaryPurple)
-//        }
-//    }
     
     @ViewBuilder
     func legend() -> some View {

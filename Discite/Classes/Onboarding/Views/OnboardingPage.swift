@@ -106,42 +106,6 @@ struct OnboardingPage: View {
         .padding(.top, 36)
     }
     
-        // @ViewBuilder
-//    func navigationButtons() -> ToolbarItemGroup<some View> {
-//        ToolbarItemGroup(placement: .bottomBar) {
-//            // back
-//            Button {
-//                // dismiss()
-//                print("hello")
-//                
-//            } label: {
-//                HStack(alignment: .center) {
-//                    Image(systemName: "chevron.left")
-//                    Text("Back")
-//                }
-//            }
-//            .font(.button)
-//            .foregroundStyle(Color.primaryPurple)
-//            
-//            Spacer()
-//            
-//            // next
-//            NavigationLink {
-//                OnboardingTopics()
-//                
-//            } label: {
-//                HStack(alignment: .center) {
-//                    Text("Next")
-//                        .frame(maxWidth: .infinity, alignment: .trailing)
-//                    
-//                    Image(systemName: "chevron.right")
-//                }
-//            }
-//            .font(.button)
-//            .foregroundStyle(Color.primaryPurple)
-//        }
-//    }
-    
     @ViewBuilder 
     func progressDots() -> some View {
         HStack {
@@ -155,12 +119,6 @@ struct OnboardingPage: View {
         }
     }
 }
-
-//struct OnboardingData: Codable {
-//    var complexity: Double
-//    var topics: [String]
-//    var roles: [
-//}
 
 #Preview {
     OnboardingPage()
