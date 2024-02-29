@@ -62,19 +62,6 @@ struct OnboardingPage: View {
                 
                 // next
                 if currentPage < totalPages - 1 {
-//                    NavigationLink {
-//                        OnboardingTopics(viewModel: viewModel)
-//                        
-//                    } label: {
-//                        HStack(alignment: .center) {
-//                            Text("Next")
-//                                .frame(maxWidth: .infinity, alignment: .trailing)
-//                            
-//                            Image(systemName: "chevron.right")
-//                        }
-//                    }
-//                    .font(.button)
-//                    .foregroundStyle(Color.primaryPurple)
                     Button {
                         withAnimation {
                             currentPage += 1
