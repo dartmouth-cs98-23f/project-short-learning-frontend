@@ -1129,6 +1129,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C1F61C4EDA5D5D25811A5526 /* Pods-Discite.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1162,6 +1163,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
