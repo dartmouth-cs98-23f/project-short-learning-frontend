@@ -10,19 +10,12 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isFocused = false
-    @Binding var history: [String]
+    @StateObject var store: HistoryStore
     @Published var shouldNavigate = false
     @Published var searchables: [Searchable] = []
     
-    init(history: Binding<[String]>) {
-        _history = history
-    }
-    
-    // load persistent history into var
-    func loadHistory(historyFromStore: [String]) {
-        self.history = historyFromStore
-        print("loading from store into searchViewModel")
-        print(historyFromStore)
+    init(store: HistoryStore) {
+        _store = StateObject(wrappedValue: store)
     }
     
     // get search suggestions based on current text
@@ -50,9 +43,9 @@ class SearchViewModel: ObservableObject {
                 
                 Divider()
 
-                ForEach(history.reversed(), id: \.self) { searchItem in
+                ForEach(self.store.history.reversed(), id: \.self) { searchItem in
                     NavigationLink(destination: {
-                        SearchDestinationView(history: self.$history, searchText: searchItem, searchables: self.searchables)
+                        SearchDestinationView(store: self.store, searchText: searchItem, searchables: self.searchables)
                     }, label: {
                         Text(searchItem)
                         .font(Font.body)
@@ -76,7 +69,7 @@ class SearchViewModel: ObservableObject {
 
                 ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
                     NavigationLink(destination: {
-                        SearchDestinationView(history: self.$history, searchText: suggestion.name, searchables: self.searchables)
+                        SearchDestinationView(store: self.store, searchText: suggestion.name, searchables: self.searchables)
                     }, label: {
                         Text(suggestion.name)
                             .font(Font.body)

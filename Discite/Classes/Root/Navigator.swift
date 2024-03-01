@@ -26,12 +26,11 @@ struct Navigator: View {
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView(history: $store.history) {
+                    ExploreView(store: store) {
                         Task {
                             do {
                                 try await store.save(newHistory: store.history)
-                                print("Saving to store")
-                                print(store.history)
+
                             } catch {
                                 fatalError(error.localizedDescription)
                             }

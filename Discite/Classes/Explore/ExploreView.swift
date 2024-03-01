@@ -10,16 +10,16 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @Binding var history: [String]
+    @StateObject var store: HistoryStore
     @Environment(\.scenePhase) private var scenePhase
     @StateObject var viewModel: ExploreViewModel
     @StateObject var searchViewModel: SearchViewModel
     let saveAction: () -> Void
 
-    init(history: Binding<[String]>, saveAction: @escaping () -> Void) {
-        _history = history
+    init(store: HistoryStore, saveAction: @escaping () -> Void) {
+        _store = StateObject(wrappedValue: store)
         _viewModel = StateObject(wrappedValue: ExploreViewModel())
-        _searchViewModel = StateObject(wrappedValue: SearchViewModel(history: history))
+        _searchViewModel = StateObject(wrappedValue: SearchViewModel(store: store))
         self.saveAction = saveAction
     }
     
@@ -47,7 +47,7 @@ struct ExploreView: View {
                 })
                 .animation(.smooth(duration: 0.3), value: searchViewModel.shouldNavigate)
                 .navigationDestination(isPresented: $searchViewModel.shouldNavigate, destination: {
-                    SearchDestinationView(history: $history, searchText: searchViewModel.searchText, searchables: searchViewModel.searchables)
+                    SearchDestinationView(store: self.store, searchText: searchViewModel.searchText, searchables: searchViewModel.searchables)
                 })
             }
             .padding(.horizontal, 18)
@@ -101,7 +101,6 @@ struct ExploreView: View {
                 await viewModel.getTopicRecommendations()
                 await viewModel.getPlaylistRecommendations()
                 searchViewModel.searchables = viewModel.createSearchables()
-                searchViewModel.loadHistory(historyFromStore: history)
             }
         }
         .onChange(of: scenePhase) { phase in
