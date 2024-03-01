@@ -21,12 +21,12 @@ struct ToastView: View {
         
           // icon
           Image(systemName: style.iconFileName)
-              .foregroundColor(style.themeColor)
+              .foregroundStyle(style.themeColor)
       
           // message
           Text(message)
               .font(Font.body1)
-              .foregroundStyle(Color.primaryBlueBlack)
+              .foregroundStyle(Color.white)
       
           Spacer(minLength: 10)
         
@@ -35,18 +35,17 @@ struct ToastView: View {
               onCancelTapped()
           } label: {
               Image(systemName: "xmark")
-                  .foregroundColor(style.themeColor)
+                  .foregroundStyle(Color.white)
           }
         
       }
-      .frame(maxWidth: .infinity, minHeight: 40)
+      .frame(maxWidth: .infinity, minHeight: 48)
       .padding(.horizontal, 12)
-      .background(Color.white)
       .cornerRadius(8)
-      .overlay(
-        RoundedRectangle(cornerRadius: 8)
-            .strokeBorder(style.themeColor, lineWidth: 2)
-      )
+      .background {
+          RoundedRectangle(cornerRadius: 8)
+              .fill(Color.primaryBlueBlack)
+      }
       .padding(.horizontal, 16)
     }
 }
