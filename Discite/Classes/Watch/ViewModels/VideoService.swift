@@ -18,9 +18,12 @@ struct SequenceData: Decodable {
     var playlists: [Playlist]
 }
 
-struct SavePlaylistRequest: Codable {
-    var playlistId: String
-    var saved: Bool
+struct UnderstandRequest: Encodable {
+    var understand: Bool
+}
+
+struct VideoTimestampRequest: Encodable {
+    var timestamp: Double
 }
 
 class VideoService {
@@ -48,11 +51,86 @@ class VideoService {
         }
     }
     
-    static func savePlaylist(parameters: SavePlaylistRequest) async throws {
-        print("POST api/save/playlists/\(parameters.playlistId)")
-        let path = "api/save/playlists/\(parameters.playlistId)"
+    static func postSave(playlistId: String) async throws {
+        print("POST api/save/playlists/\(playlistId)")
+        let path = "/api/save/playlists/\(playlistId)"
         
-        _ = try await APIRequest<SavePlaylistRequest, EmptyResponse>
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func deleteSave(playlistId: String) async throws {
+        print("DELETE api/save/playlists/\(playlistId)")
+        let path = "/api/save/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .delete,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postLike(playlistId: String) async throws {
+        print("POST api/like/playlists/\(playlistId)")
+        let path = "/api/like/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func deleteLike(playlistId: String) async throws {
+        print("DELETE api/like/playlists/\(playlistId)")
+        let path = "/api/like/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .delete,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postDislike(playlistId: String) async throws {
+        print("POST api/dislike/playlists/\(playlistId)")
+        let path = "/api/dislike/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func deleteDislike(playlistId: String) async throws {
+        print("DELETE api/dislike/playlists/\(playlistId)")
+        let path = "/api/dislike/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .delete,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postUnderstanding(videoId: String, understand: Bool) async throws {
+        print("POST api/videos/\(videoId)/understand")
+        let path = "/api/videos/\(videoId)/understand"
+        
+        let parameters = UnderstandRequest(understand: understand)
+        
+        _ = try await APIRequest<UnderstandRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path,
+                         parameters: parameters)
+    }
+    
+    static func postTimestamp(videoId: String, timestamp: Double) async throws {
+        print("POST api/videos/\(videoId)/timestamp")
+        let path = "/api/videos/\(videoId)/timestamp"
+        
+        let parameters = VideoTimestampRequest(timestamp: timestamp)
+        
+        _ = try await APIRequest<VideoTimestampRequest, EmptyResponse>
             .apiRequest(method: .post,
                          authorized: true,
                          path: path,

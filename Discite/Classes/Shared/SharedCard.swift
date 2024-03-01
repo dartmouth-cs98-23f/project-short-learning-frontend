@@ -19,7 +19,7 @@ struct SharedCard: View {
             HStack {
                 VStack(alignment: .leading, spacing: 18) {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("\(sharedPlaylist.playlist.length()) videos").font(Font.small)
+                        Text("\(sharedPlaylist.playlist.length) videos").font(Font.small)
                         Text(sharedPlaylist.playlist.title).font(Font.H5)
                     }
                     

@@ -19,7 +19,7 @@ struct ShareCard: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("\(playlist.length()) videos").font(Font.small)
+                    Text("\(playlist.length) videos").font(Font.small)
                     Text(playlist.title).font(Font.H6)
                 }
                 

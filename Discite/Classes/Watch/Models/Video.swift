@@ -17,6 +17,7 @@ class Video: Decodable, Identifiable, ObservableObject {
     var description: String
     var image: String
     var videoURL: String
+    var error: Error?
     
     var isLiked: Bool = false
     
@@ -48,12 +49,23 @@ class Video: Decodable, Identifiable, ObservableObject {
         videoURL = try container.decode(String.self, forKey: .videoURL)
     }
     
-    public func getURL() -> String {
-        return videoURL
+    func postUnderstanding(understand: Bool) async {
+        do {
+            _ = try await VideoService.postUnderstanding(videoId: videoId, understand: understand)
+            
+        } catch {
+            self.error = PlaylistError.savePlaylist
+            print("Error in Video.postUnderstanding: \(error)")
+        }
     }
     
-    public func getPlayerItem() -> AVPlayerItem {
-        return AVPlayerItem(url: URL(string: videoURL)!)
+    func postTimestamp(timestamp: Double) async {
+        do {
+            _ = try await VideoService.postTimestamp(videoId: videoId, timestamp: timestamp)
+            
+        } catch {
+            self.error = PlaylistError.savePlaylist
+            print("Error in Video.postTimestamp: \(error)")
+        }
     }
-    
 }

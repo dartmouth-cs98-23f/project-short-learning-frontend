@@ -107,7 +107,6 @@ class SequenceViewModel: ObservableObject {
         }
 
     }
-    
 }
 
 enum SequenceError: Error {

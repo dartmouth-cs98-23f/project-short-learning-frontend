@@ -31,7 +31,7 @@ struct ContinueCard: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Topic").font(.body2)
                     Text(playlist.title).font(.H4)
-                    Text("\(playlist.length()) videos • \(playlist.currentIndex/playlist.length())% complete").font(.body2)
+                    Text("\(playlist.length) videos • \(playlist.currentIndex/playlist.length)% complete").font(.body2)
                 }
                 
                 Spacer()

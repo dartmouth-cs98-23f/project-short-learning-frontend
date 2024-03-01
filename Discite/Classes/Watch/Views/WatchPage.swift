@@ -74,4 +74,5 @@ struct WatchPage: View {
 
 #Preview {
     ContentView()
+        .environmentObject(User())
 }

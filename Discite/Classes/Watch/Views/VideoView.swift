@@ -19,14 +19,18 @@ struct VideoView: View {
     @State var player: AVPlayer?
     @State var looper: AVPlayerLooper?
     @State var isPlaying: Bool = false
-    
     @State var isShareShowing = false
+    @State var didDislike = false
+    @State var error: Error?
+    
+    let alertTitle = "Disliked?"
     
     var body: some View {
         GeometryReader {
             let rect = $0.frame(in: .scrollView(axis: .horizontal))
             let shouldPlay = isMainView(rect)
             
+            // VideoPlayer(player: player)
             CustomVideoPlayer(player: $player)
                 // share sheet
                 .sheet(isPresented: $isShareShowing) {
@@ -47,6 +51,11 @@ struct VideoView: View {
                 .preference(key: VisibleKey.self, value: shouldPlay)
                 .onPreferenceChange(VisibleKey.self, perform: { value in
                     playPause(shouldPlay: value)
+                    
+                    if let currentTime = player?.currentTime() {
+                        let timestamp = CMTimeGetSeconds(currentTime)
+                        Task { await video.postTimestamp(timestamp: timestamp) }
+                    }
                 })
             
                 // liking the video
@@ -64,7 +73,7 @@ struct VideoView: View {
                     
                     video.isLiked = true
                 })
-                
+            
                 // playing/pausing on tap
                 .onTapGesture {
                     switch player?.timeControlStatus {
@@ -80,7 +89,7 @@ struct VideoView: View {
                         break
                     }
                 }
-                
+            
                 // populating the player
                 .onAppear {
                     guard player == nil else { return }
@@ -95,11 +104,27 @@ struct VideoView: View {
                     player?.play()
                     isPlaying = true
                 }
-                
+            
                 // clearing the player
                 .onDisappear {
                     player = nil
                 }
+                .alert(
+                    alertTitle,
+                    isPresented: $didDislike
+                ) {
+                    Button("Too easy") {
+                        Task { await video.postUnderstanding(understand: true) }
+                    }
+                    
+                    Button("Too hard") {
+                        Task { await video.postUnderstanding(understand: false) }
+                    }
+                    
+                } message: {
+                    Text("Tell us why you disliked this video.")
+                }
+                       
         }
     }
     
@@ -163,8 +188,9 @@ struct VideoView: View {
                 playlist.isSaved.toggle()
                 
                 Task {
-                    // POST save or unsave
-                    await playlist.save()
+                    playlist.isSaved
+                    ? await playlist.postSave()
+                    : await playlist.deleteSave()
                 }
                 
             } label: {
@@ -174,18 +200,37 @@ struct VideoView: View {
             .foregroundStyle(playlist.isSaved ? Color.primaryPurpleLight : .white)
             
             Button {
-                video.isLiked.toggle()
+                playlist.isDisliked = false
+                playlist.isLiked.toggle()
+                
+                Task {
+                    playlist.isLiked 
+                    ? await playlist.postLike()
+                    : await playlist.deleteLike()
+                }
+                
             } label: {
-                Image(systemName: video.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                Image(systemName: playlist.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
             }
-            .symbolEffect(.bounce, value: video.isLiked)
-            .foregroundStyle(video.isLiked ? Color.primaryPurpleLight : .white)
+            .symbolEffect(.bounce, value: playlist.isLiked)
+            .foregroundStyle(playlist.isLiked ? Color.primaryPurpleLight : .white)
             
             Button {
-                video.isLiked = false
+                playlist.isLiked = false
+                playlist.isDisliked.toggle()
+                didDislike.toggle()
+                
+                Task {
+                    playlist.isDisliked
+                    ? await playlist.postDislike()
+                    : await playlist.deleteDislike()
+                }
+                
             } label: {
-                Image(systemName: "hand.thumbsdown")
+                Image(systemName: playlist.isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
             }
+            .symbolEffect(.bounce, value: playlist.isDisliked)
+            .foregroundStyle(playlist.isDisliked ? Color.red : .white)
             
             Button {
                 isShareShowing = true
