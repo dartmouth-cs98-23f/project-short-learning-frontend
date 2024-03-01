@@ -10,9 +10,14 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isFocused = false
-    @Published var searchHistory: [String] = ["Internet", "Algorithms"]
+    @Published var searchHistory: [String] = []
     @Published var shouldNavigate = false
     @Published var searchables: [Searchable] = []
+    
+    // load persistent history into var
+    func loadHistory(historyFromStore: [String]) {
+        self.searchHistory = historyFromStore
+    }
     
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [Searchable] {

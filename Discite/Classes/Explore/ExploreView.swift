@@ -11,9 +11,12 @@ import SwiftUI
 
 struct ExploreView: View {
     @StateObject var viewModel = ExploreViewModel()
+    @StateObject var store = HistoryStore()
+    @Environment(\.scenePhase) var scenePhase
     @StateObject var searchViewModel = SearchViewModel()
+    let saveAction: () -> Void
     
-    private var columns: [GridItem] = [
+    var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 0)
     ]
     
@@ -91,7 +94,17 @@ struct ExploreView: View {
                 await viewModel.getTopicRecommendations()
                 await viewModel.getPlaylistRecommendations()
                 searchViewModel.searchables = viewModel.createSearchables()
+                searchViewModel.loadHistory(historyFromStore: store.history)
+
+                do {
+                    try await store.load()
+                } catch {
+                    fatalError(error.localizedDescription)
+                }
             }
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .inactive { saveAction() }
         }
     }
     
@@ -153,6 +166,6 @@ struct ExploreView: View {
 }
 
 #Preview {
-    ExploreView()
+    ExploreView(saveAction: {})
         .environment(TabSelectionManager(selection: .Explore))
 }

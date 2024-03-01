@@ -25,7 +25,7 @@ struct Navigator: View {
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView()
+                    ExploreView(saveAction: {})
                 case .Saved:
                     SavedPage()
                 case .Account:

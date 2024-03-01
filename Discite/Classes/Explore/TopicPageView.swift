@@ -176,6 +176,6 @@ struct ToggleRoles: View {
 }
 
 #Preview {
-    ExploreView()
+    ExploreView(saveAction: {})
         .environment(TabSelectionManager(selection: .Explore))
 }

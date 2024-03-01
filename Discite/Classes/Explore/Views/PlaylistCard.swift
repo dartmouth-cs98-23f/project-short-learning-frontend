@@ -58,6 +58,6 @@ struct PlaylistPreviewCard: View {
 }
 
 #Preview {
-    ExploreView()
+    ExploreView(saveAction: {})
         .environment(TabSelectionManager(selection: .Explore))
 }
