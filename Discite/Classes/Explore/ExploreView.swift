@@ -12,9 +12,16 @@ import SwiftUI
 struct ExploreView: View {
     @Binding var history: [String]
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject var viewModel = ExploreViewModel()
-    @StateObject var searchViewModel = SearchViewModel()
+    @StateObject var viewModel: ExploreViewModel
+    @StateObject var searchViewModel: SearchViewModel
     let saveAction: () -> Void
+
+    init(history: Binding<[String]>, saveAction: @escaping () -> Void) {
+        _history = history
+        _viewModel = StateObject(wrappedValue: ExploreViewModel())
+        _searchViewModel = StateObject(wrappedValue: SearchViewModel(history: history))
+        self.saveAction = saveAction
+    }
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 0)
@@ -40,7 +47,7 @@ struct ExploreView: View {
                 })
                 .animation(.smooth(duration: 0.3), value: searchViewModel.shouldNavigate)
                 .navigationDestination(isPresented: $searchViewModel.shouldNavigate, destination: {
-                    SearchDestinationView(searchText: searchViewModel.searchText, searchables: searchViewModel.searchables)
+                    SearchDestinationView(history: $history, searchText: searchViewModel.searchText, searchables: searchViewModel.searchables)
                 })
             }
             .padding(.horizontal, 18)
@@ -94,6 +101,7 @@ struct ExploreView: View {
                 await viewModel.getTopicRecommendations()
                 await viewModel.getPlaylistRecommendations()
                 searchViewModel.searchables = viewModel.createSearchables()
+                searchViewModel.loadHistory(historyFromStore: history)
             }
         }
         .onChange(of: scenePhase) { phase in

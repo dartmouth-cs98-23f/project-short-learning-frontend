@@ -8,16 +8,29 @@
 import SwiftUI
 
 struct SearchDestinationView: View {
+    @Binding var history: [String]
     var searchText: String
     var searchables: [Searchable]
     var playlists: [Searchable]     // extracted playlists
     var topics: [Searchable]        // extracted topics
     
-    init(searchText: String, searchables: [Searchable]) {
+    init(history: Binding<[String]>, searchText: String, searchables: [Searchable]) {
+        _history = history
         self.searchText = searchText
         self.searchables = searchables
         self.playlists = searchables.filter { $0.type == .playlist }
         self.topics = searchables.filter { $0.type == .topic }
+    }
+    
+    func appendToSearchHistory() {
+        print(history)
+        history.append(self.searchText)
+        print(history)
+        
+        // limit the number of items in the search history
+        if history.count > 10 {
+            history.removeFirst(history.count - 10)
+        }
     }
 
     var body: some View {
@@ -46,6 +59,11 @@ struct SearchDestinationView: View {
             .padding(18)
             
             Spacer()
+        }
+        .onAppear {
+            print("appending to history...")
+            appendToSearchHistory()
+            print()
         }
     }
     

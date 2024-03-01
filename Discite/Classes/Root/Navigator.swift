@@ -30,6 +30,8 @@ struct Navigator: View {
                         Task {
                             do {
                                 try await store.save(newHistory: store.history)
+                                print("Saving to store")
+                                print(store.history)
                             } catch {
                                 fatalError(error.localizedDescription)
                             }

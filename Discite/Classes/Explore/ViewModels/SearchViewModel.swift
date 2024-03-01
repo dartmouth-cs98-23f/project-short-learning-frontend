@@ -10,13 +10,19 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isFocused = false
-    @Published var searchHistory: [String] = []
+    @Binding var history: [String]
     @Published var shouldNavigate = false
     @Published var searchables: [Searchable] = []
     
+    init(history: Binding<[String]>) {
+        _history = history
+    }
+    
     // load persistent history into var
     func loadHistory(historyFromStore: [String]) {
-        self.searchHistory = historyFromStore
+        self.history = historyFromStore
+        print("loading from store into searchViewModel")
+        print(historyFromStore)
     }
     
     // get search suggestions based on current text
@@ -44,9 +50,9 @@ class SearchViewModel: ObservableObject {
                 
                 Divider()
 
-                ForEach(searchHistory.reversed(), id: \.self) { searchItem in
+                ForEach(history.reversed(), id: \.self) { searchItem in
                     NavigationLink(destination: {
-                        SearchDestinationView(searchText: searchItem, searchables: self.searchables)
+                        SearchDestinationView(history: self.$history, searchText: searchItem, searchables: self.searchables)
                     }, label: {
                         Text(searchItem)
                         .font(Font.body)
@@ -70,7 +76,7 @@ class SearchViewModel: ObservableObject {
 
                 ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in
                     NavigationLink(destination: {
-                        SearchDestinationView(searchText: suggestion.name, searchables: self.searchables)
+                        SearchDestinationView(history: self.$history, searchText: suggestion.name, searchables: self.searchables)
                     }, label: {
                         Text(suggestion.name)
                             .font(Font.body)
