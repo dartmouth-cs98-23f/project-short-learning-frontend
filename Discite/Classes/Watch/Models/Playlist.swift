@@ -132,7 +132,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
        
         } catch {
             self.error = PlaylistError.savePlaylist
-            print("Error in Playlist.deleteSave: \(error)")
+            print("Error in Playlist.postLike: \(error)")
         }
     }
     
@@ -143,7 +143,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
        
         } catch {
             self.error = PlaylistError.savePlaylist
-            print("Error in Playlist.deleteSave: \(error)")
+            print("Error in Playlist.deleteLike: \(error)")
         }
     }
     
@@ -154,7 +154,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
        
         } catch {
             self.error = PlaylistError.savePlaylist
-            print("Error in Playlist.deleteLike: \(error)")
+            print("Error in Playlist.postDislike: \(error)")
         }
     }
     

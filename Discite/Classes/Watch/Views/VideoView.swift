@@ -218,7 +218,8 @@ struct VideoView: View {
             Button {
                 playlist.isLiked = false
                 playlist.isDisliked.toggle()
-                didDislike.toggle()
+                
+                if playlist.isDisliked { didDislike = true }
                 
                 Task {
                     playlist.isDisliked
@@ -294,7 +295,7 @@ struct VideoView: View {
             NavigationBar()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .padding(.top, safeArea.top + 12)
+        .padding(.top, safeArea.top)
         .padding(.leading, safeArea.leading + 18)
         .padding(.trailing, safeArea.trailing + 18)
         .padding(.bottom, safeArea.bottom)

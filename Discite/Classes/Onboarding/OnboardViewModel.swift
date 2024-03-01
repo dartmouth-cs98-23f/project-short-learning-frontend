@@ -29,14 +29,13 @@ class OnboardViewModel: ObservableObject {
     }
     
     // POST onboarding
+    @MainActor
     public func onboard(user: User) async {
         error = nil
         
         let filteredTopics = topics.compactMap { topic in
             topic.selected ? topic.title : nil
         }
-        
-        print("Filtered topics: \(filteredTopics)")
         
         let onboardRequest = OnboardRolesRequest(complexity: complexity,
                                                  topics: filteredTopics,
@@ -49,8 +48,7 @@ class OnboardViewModel: ObservableObject {
                 .apiRequest(method: .post,
                              authorized: true,
                              path: "/api/onboard",
-                             parameters: onboardRequest,
-                             headers: [:])
+                             parameters: onboardRequest)
             
             user.completeOnboarding()
             

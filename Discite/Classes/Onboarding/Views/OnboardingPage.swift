@@ -13,6 +13,7 @@ struct OnboardingPage: View {
     let totalPages = 3
     @State var currentPage = 0
     @StateObject var viewModel = OnboardViewModel()
+    @State private var toast: Toast?
     
     let transition: AnyTransition = .asymmetric(
         insertion: .move(edge: .trailing),
@@ -38,6 +39,7 @@ struct OnboardingPage: View {
             }
             
         }
+        .toastView(toast: $toast)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
@@ -82,6 +84,10 @@ struct OnboardingPage: View {
                     Button {
                         Task {
                             await viewModel.onboard(user: user)
+                            if viewModel.error != nil {
+                                toast = Toast(style: .error,
+                                              message: "Failed to onboard.")
+                            }
                         }
                         
                     } label: {
