@@ -174,8 +174,3 @@ struct ToggleRoles: View {
         .frame(minHeight: 350)
     }
 }
-
-#Preview {
-    ExploreView(saveAction: {})
-        .environment(TabSelectionManager(selection: .Explore))
-}

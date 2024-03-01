@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Navigator: View {
+    @StateObject var store: HistoryStore
     @State private var tabSelectionManager = TabSelectionManager()
     @State var seedPlaylist: PlaylistPreview?
     
@@ -25,7 +26,15 @@ struct Navigator: View {
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView(saveAction: {})
+                    ExploreView(history: $store.history) {
+                        Task {
+                            do {
+                                try await store.save(newHistory: store.history)
+                            } catch {
+                                fatalError(error.localizedDescription)
+                            }
+                        }
+                    }
                 case .Saved:
                     SavedPage()
                 case .Account:
@@ -85,8 +94,4 @@ struct TabItem {
     init(selection: Tab = Tab.Watch) {
         self.selection = selection
     }
-}
-
-#Preview {
-    ContentView()
 }

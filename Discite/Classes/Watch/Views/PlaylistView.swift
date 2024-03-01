@@ -33,7 +33,3 @@ struct PlaylistView: View {
         
     }
 }
-
-#Preview {
-    ContentView()
-}

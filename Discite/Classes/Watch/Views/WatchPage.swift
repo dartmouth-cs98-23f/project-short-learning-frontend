@@ -71,7 +71,3 @@ struct WatchPage: View {
         }
     }
 }
-
-#Preview {
-    ContentView()
-}

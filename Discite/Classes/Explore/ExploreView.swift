@@ -10,9 +10,9 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @Binding var history: [String]
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject var viewModel = ExploreViewModel()
-    @StateObject var store = HistoryStore()
-    @Environment(\.scenePhase) var scenePhase
     @StateObject var searchViewModel = SearchViewModel()
     let saveAction: () -> Void
     
@@ -94,13 +94,6 @@ struct ExploreView: View {
                 await viewModel.getTopicRecommendations()
                 await viewModel.getPlaylistRecommendations()
                 searchViewModel.searchables = viewModel.createSearchables()
-                searchViewModel.loadHistory(historyFromStore: store.history)
-
-                do {
-                    try await store.load()
-                } catch {
-                    fatalError(error.localizedDescription)
-                }
             }
         }
         .onChange(of: scenePhase) { phase in
@@ -163,9 +156,4 @@ struct ExploreView: View {
         }
     }
     
-}
-
-#Preview {
-    ExploreView(saveAction: {})
-        .environment(TabSelectionManager(selection: .Explore))
 }

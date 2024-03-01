@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
+    @StateObject var store: HistoryStore
     @StateObject var user = User()
     
     let transition: AnyTransition = .asymmetric(
@@ -18,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         switch user.state {
         case .signedIn:
-            Navigator()
+            Navigator(store: store)
                 .transition(transition)
                 .environmentObject(user)
             
@@ -33,8 +34,4 @@ struct ContentView: View {
                 .environmentObject(user)
         }
     }
-}
-
-#Preview {
-    ContentView()
 }

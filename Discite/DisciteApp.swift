@@ -11,6 +11,7 @@ import SwiftUI
 
 @main
 struct DisciteApp: App {
+    @StateObject private var store = HistoryStore()
         
     init() {
         NetworkMonitor.shared.startMonitoring()
@@ -18,7 +19,7 @@ struct DisciteApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(store: store)
         }
     }
 }

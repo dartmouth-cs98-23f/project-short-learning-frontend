@@ -174,7 +174,3 @@ struct PostViewVertical: View {
     }
     
 }
-
-#Preview {
-    ContentView()
-}
