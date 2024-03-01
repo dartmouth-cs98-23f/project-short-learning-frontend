@@ -144,9 +144,9 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         return true
     }
     
-    func mockSave() async {
+    func save() async {
         do {
-            _ = try await VideoService.mockSavePlaylist(
+            _ = try await VideoService.savePlaylist(
                 parameters:
                     SavePlaylistRequest(playlistId: playlistId, saved: isSaved))
        

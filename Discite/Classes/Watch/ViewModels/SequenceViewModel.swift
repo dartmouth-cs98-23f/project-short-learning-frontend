@@ -71,7 +71,7 @@ class SequenceViewModel: ObservableObject {
     public func load() async {
         do {
             // (1) Ask for more playlists
-            let newItems = try await VideoService.mockFetchSequence(playlistId: seedPlaylist?.playlistId)
+            let newItems = try await VideoService.fetchSequence(playlistId: seedPlaylist?.playlistId)
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence

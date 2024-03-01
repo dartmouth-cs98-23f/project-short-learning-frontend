@@ -68,39 +68,4 @@ struct AuthenticationService {
         return response
     }
     
-    static func mockLogin(parameters: LoginRequest) async throws -> AuthResponseData {
-        print("TEST: api/auth/signin")
-        let response = try await APIRequest<LoginRequest, AuthResponseData>
-            .mockRequest(method: .post,
-                        authorized: true,
-                        path: "/api/auth/signin",
-                        parameters: parameters)
-        
-        return response
-    }
-    
-    static func mockSignup(parameters: SignupRequest) async throws -> AuthResponseData {
-        let response = try await APIRequest<SignupRequest, AuthResponseData>
-            .mockRequest(method: .post,
-                        authorized: false,
-                        path: "/api/auth/signup",
-                        parameters: parameters)
-        
-        return response
-    }
-    
-    // https://developers.google.com/identity/sign-in/ios/backend-auth
-    static func mockGoogleLogin(idToken: String) async throws -> AuthResponseData {
-        let authData = GoogleLoginRequest(idToken: idToken)
-        
-        let response = try await APIRequest<GoogleLoginRequest, AuthResponseData>
-            .mockRequest(method: .post,
-                        authorized: false,
-                        path: "/api/auth/googleSignIn",
-                        parameters: authData,
-                        headers: [:])
-        
-        return response
-    }
-    
 }

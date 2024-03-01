@@ -15,18 +15,20 @@ class ExploreViewModel: ObservableObject {
     
     init() { }
     
+    @MainActor
     func getTopicRecommendations() async {
         do {
-            topicRecommendations = try await ExploreService.mockGetTopicRecommendations()
+            topicRecommendations = try await ExploreService.getTopicRecommendations()
         } catch {
             self.error = error
             print("Error fetching topic recommendations: \(error)")
         }
     }
     
+    @MainActor
     func getPlaylistRecommendations() async {
         do {
-            playlistRecommendations = try await ExploreService.mockGetPlaylistRecommendations()
+            playlistRecommendations = try await ExploreService.getPlaylistRecommendations()
         } catch {
             self.error = error
             print("Error fetching playlist recommendations: \(error)")

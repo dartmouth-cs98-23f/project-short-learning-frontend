@@ -73,7 +73,7 @@ struct AllTopics: View {
             }
             .task {
                 if topics.isEmpty {
-                    do { topics = try await ExploreService.mockGetAllTopics()
+                    do { topics = try await ExploreService.getAllTopics()
                     } catch {
                         print("Error fetching topics: \(error)")
                     }

@@ -43,7 +43,7 @@ struct TopicPageView: View {
                         topicSeed.isSaved.toggle()
                         
                         Task {
-                            await viewModel.mockSaveTopic(
+                            await viewModel.saveTopic(
                                 parameters: SaveTopicRequest(
                                     topicId: topicSeed.topicId,
                                     saved: topicSeed.isSaved))
@@ -69,7 +69,7 @@ struct TopicPageView: View {
             ProgressView()
                 .containerRelativeFrame([.horizontal, .vertical])
                 .task {
-                    await viewModel.mockGetTopic(topicId: topicSeed.topicId)
+                    await viewModel.getTopic(topicId: topicSeed.topicId)
                 }
     
         }

@@ -76,31 +76,6 @@ struct OnboardingSpider: View {
         .padding(.vertical, 8)
     }
     
-    @ViewBuilder
-    func submitButton() -> some View {
-        Button {
-            // authViewModel.onboardingComplete()
-            
-//            Task {
-//                await viewModel.mockSubmitPreferences()
-//            }
-
-        } label: {
-            HStack(alignment: .center) {
-                Spacer()
-                
-                Text("Start learning")
-                    .font(.subtitle1)
-                
-                AnimatedArrow()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
-            }
-        }
-        .foregroundStyle(Color.primaryBlue)
-        .padding(12)
-    }
-    
     // Update values when a corner is dragged
     func onCornerDrag(values: [CGFloat]) {
         viewModel.values = values

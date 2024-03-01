@@ -10,35 +10,35 @@ import Foundation
 import SwiftUI
 
 struct ExploreService {
-    static func mockGetTopicRecommendations() async throws -> [TopicTag] {
-        print("TEST: GET topic recommendations")
+    static func getTopicRecommendations() async throws -> [TopicTag] {
+        print("GET topic recommendations")
         
         let data = try await APIRequest<EmptyRequest, TopicRecommendations>
-            .mockRequest(method: .get,
-                         authorized: false,
-                         path: "/api/recommendedTopics")
+            .apiRequest(method: .get,
+                         authorized: true,
+                         path: "/api/topics/recommended")
         
         return data.recommendedTopics
     }
     
-    static func mockGetPlaylistRecommendations() async throws -> [PlaylistPreview] {
-        print("TEST: GET playlist recommendations")
+    static func getPlaylistRecommendations() async throws -> [PlaylistPreview] {
+        print("GET playlist recommendations")
         
         let data = try await APIRequest<EmptyRequest, PlaylistRecommendations>
-            .mockRequest(method: .get,
-                         authorized: false,
-                         path: "/api/recommendedPlaylists")
+            .apiRequest(method: .get,
+                         authorized: true,
+                         path: "/api/playlists/recommended")
         
         return data.recommendedPlaylists
     }
     
-    static func mockGetAllTopics() async throws -> [TopicTag] {
-        print("TEST: GET all topics")
+    static func getAllTopics() async throws -> [TopicTag] {
+        print("GET api/topics/all")
         
         let data = try await APIRequest<EmptyRequest, AllTopicsResponse>
-            .mockRequest(method: .get,
-                         authorized: false,
-                         path: "/api/allTopics")
+            .apiRequest(method: .get,
+                         authorized: true,
+                         path: "/api/topics/all")
         
         return data.topics
     }
