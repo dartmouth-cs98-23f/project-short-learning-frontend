@@ -19,40 +19,35 @@ struct VideoView: View {
     @State var player: AVPlayer?
     @State var looper: AVPlayerLooper?
     @State var isPlaying: Bool = false
-    @State var isShareShowing = false
-    @State var didDislike = false
     @State var error: Error?
-    
-    let alertTitle = "Disliked?"
+    @State var showOverlay: Bool = false
     
     var body: some View {
-        GeometryReader {
-            let rect = $0.frame(in: .scrollView(axis: .horizontal))
+        GeometryReader { geo in
+            let rect = geo.frame(in: .scrollView(axis: .horizontal))
             let shouldPlay = isMainView(rect)
             
-            // VideoPlayer(player: player)
             CustomVideoPlayer(player: $player)
-                // share sheet
-                .sheet(isPresented: $isShareShowing) {
-                    Share(playlist: playlist, isShowing: $isShareShowing)
-                }
-            
+
                 // details and controls, only show on pause
                 .overlay(alignment: .bottom) {
-                    if !isPlaying {
-                        PostDetailsView()
-                            .background(.black.opacity(0.7))
-                            .opacity(isPlaying ? 0 : 1)
+                    if showOverlay {
+                        VideoDetailsView(
+                            playlist: playlist,
+                            video: video,
+                            player: $player,
+                            safeArea: safeArea
+                        )
                     }
                 }
-                .animation(.easeIn(duration: 0.3), value: isPlaying)
+                .animation(.easeIn(duration: 0.3), value: showOverlay)
             
                 // offset updates
                 .preference(key: VisibleKey.self, value: shouldPlay)
                 .onPreferenceChange(VisibleKey.self, perform: { value in
                     playPause(shouldPlay: value)
                     
-                    if let currentTime = player?.currentTime() {
+                    if !shouldPlay, let currentTime = player?.currentTime() {
                         let timestamp = CMTimeGetSeconds(currentTime)
                         Task { await video.postTimestamp(timestamp: timestamp) }
                     }
@@ -76,18 +71,7 @@ struct VideoView: View {
             
                 // playing/pausing on tap
                 .onTapGesture {
-                    switch player?.timeControlStatus {
-                    case .paused:
-                        play()
-                    case .waitingToPlayAtSpecifiedRate:
-                        break
-                    case .playing:
-                        pause()
-                    case .none:
-                        break
-                    @unknown default:
-                        break
-                    }
+                    showOverlay.toggle()
                 }
             
                 // populating the player
@@ -101,30 +85,16 @@ struct VideoView: View {
                     looper = AVPlayerLooper(player: queue, templateItem: playerItem)
                     player = queue
                     
-                    player?.play()
-                    isPlaying = true
+                    if shouldPlay {
+                        player?.play()
+                        isPlaying = true
+                    }
                 }
             
                 // clearing the player
                 .onDisappear {
                     player = nil
                 }
-                .alert(
-                    alertTitle,
-                    isPresented: $didDislike
-                ) {
-                    Button("Too easy") {
-                        Task { await video.postUnderstanding(understand: true) }
-                    }
-                    
-                    Button("Too hard") {
-                        Task { await video.postUnderstanding(understand: false) }
-                    }
-                    
-                } message: {
-                    Text("Tell us why you disliked this video.")
-                }
-                       
         }
     }
     
@@ -159,163 +129,6 @@ struct VideoView: View {
             pause()
             player?.seek(to: .zero)
         }
-    }
-    
-    @ViewBuilder
-    func dotNavigation() -> some View {
-        let currentIndex = playlist.videos.firstIndex(where: { $0.id == video.id })
-        
-        HStack(spacing: 10) {
-            ForEach(0..<playlist.videos.count, id: \.self) { index in
-                if currentIndex == index {
-                    Circle()
-                        .fill(Color.primaryPurpleLightest.opacity(1))
-                        .frame(width: 12, height: 12)
-                } else {
-                    Circle()
-                        .fill(Color.primaryPurpleLight.opacity(0.5))
-                        .frame(width: 8, height: 8)
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func controls() -> some View {
-        VStack(spacing: 32) {
-            
-            Button {
-                playlist.isSaved.toggle()
-                
-                Task {
-                    playlist.isSaved
-                    ? await playlist.postSave()
-                    : await playlist.deleteSave()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isSaved ? "bookmark.fill" : "bookmark")
-            }
-            .symbolEffect(.bounce, value: video.isLiked)
-            .foregroundStyle(playlist.isSaved ? Color.primaryPurpleLight : .white)
-            
-            Button {
-                playlist.isDisliked = false
-                playlist.isLiked.toggle()
-                
-                Task {
-                    playlist.isLiked 
-                    ? await playlist.postLike()
-                    : await playlist.deleteLike()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
-            }
-            .symbolEffect(.bounce, value: playlist.isLiked)
-            .foregroundStyle(playlist.isLiked ? Color.primaryPurpleLight : .white)
-            
-            Button {
-                playlist.isLiked = false
-                playlist.isDisliked.toggle()
-                
-                if playlist.isDisliked { didDislike = true }
-                
-                Task {
-                    playlist.isDisliked
-                    ? await playlist.postDislike()
-                    : await playlist.deleteDislike()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
-            }
-            .symbolEffect(.bounce, value: playlist.isDisliked)
-            .foregroundStyle(playlist.isDisliked ? Color.red : .white)
-            
-            Button {
-                isShareShowing = true
-                print("pressed share")
-            } label: {
-                Image(systemName: "paperplane")
-            }
-        }
-        .font(.title2)
-        .foregroundColor(.white)
-    }
-    
-    @ViewBuilder
-    func PostDetailsView() -> some View {
-        VStack(spacing: 12) {
-            dotNavigation()
-            Spacer()
-            HStack(alignment: .bottom, spacing: 10) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Button {
-                        openYouTube()
-                    } label: {
-                        HStack(spacing: 4) {
-                            Text("Open in YouTube")
-                            Image(systemName: "arrow.right")
-                        }
-                    }
-                    .font(.small)
-                    .foregroundStyle(Color.secondaryPurplePinkLight)
-                    
-                    Text(playlist.title)
-                        .font(.H4)
-                        .lineLimit(2)
-                        .clipped()
-                    
-                    // Author details
-                    HStack(spacing: 10) {
-                        Image(systemName: "person.circle.fill")
-                            .font(.title)
-                        
-                        Text(playlist.authorUsername)
-                            .font(.subtitle1)
-                            .lineLimit(1)
-                            .clipped()
-                    }
-                    .foregroundStyle(.white)
-                    
-                    Text(playlist.description)
-                        .font(.body1)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
-                        .clipped()
-                }
-                
-                Spacer(minLength: 0)
-                
-                // Controls
-                controls()
-            }
-            
-            NavigationBar()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .padding(.top, safeArea.top)
-        .padding(.leading, safeArea.leading + 18)
-        .padding(.trailing, safeArea.trailing + 18)
-        .padding(.bottom, safeArea.bottom)
-    }
-    
-    private func openYouTube() {
-        // if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
-        if let youtubeURL = URL(string: "youtube://www.youtube.com"),
-            UIApplication.shared.canOpenURL(youtubeURL) {
-            // Open in YouTube app if installed
-            print("Opening YouTube App.")
-            UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
-            
-        // } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
-        } else if let youtubeURL = URL(string: "https://www.youtube.com") {
-            // Open in Safari if YouTube app is not installed
-            print("Opening YouTube in Safari.")
-            UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
-        }
-
     }
 }
 
