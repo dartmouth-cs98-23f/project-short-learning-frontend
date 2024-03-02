@@ -80,10 +80,15 @@ struct TabItem {
 @Observable class TabSelectionManager {
     var selection: Tab
     var topicSeed: TopicTag?
-    var playlistSeed: PlaylistPreview?
+    private(set) var playlistSeed: PlaylistPreview?
     
     init(selection: Tab = Tab.Watch) {
         self.selection = selection
+    }
+    
+    @MainActor
+    public func setSeed(playlist: PlaylistPreview?) {
+        playlistSeed = playlist
     }
 }
 

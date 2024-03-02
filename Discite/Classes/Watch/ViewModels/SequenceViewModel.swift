@@ -33,6 +33,7 @@ class SequenceViewModel: ObservableObject {
         seedPlaylist = seed
     }
     
+    @MainActor
     public func setSeed(seed: PlaylistPreview?) {
         seedPlaylist = seed
     }
@@ -72,6 +73,8 @@ class SequenceViewModel: ObservableObject {
         do {
             // (1) Ask for more playlists
             let newItems = try await VideoService.fetchSequence(playlistId: seedPlaylist?.playlistId)
+            // clear seed
+            seedPlaylist = nil
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence

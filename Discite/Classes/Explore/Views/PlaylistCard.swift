@@ -14,7 +14,7 @@ struct PlaylistPreviewCard: View {
     
     var body: some View {
         Button {
-            tabSelection.playlistSeed = playlist
+            tabSelection.setSeed(playlist: playlist)
             tabSelection.selection = .Watch
                 
         } label: {

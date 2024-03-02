@@ -28,6 +28,7 @@ struct WatchPage: View {
                 .task {
                     if let seed = tabSelection.playlistSeed {
                         viewModel.setSeed(seed: seed)
+                        tabSelection.setSeed(playlist: nil)
                     }
 
                     await viewModel.load()
