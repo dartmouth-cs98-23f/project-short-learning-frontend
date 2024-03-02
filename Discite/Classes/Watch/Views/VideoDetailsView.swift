@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import UIKit
 
 struct VideoDetailsView: View {
     @ObservedObject var playlist: Playlist
@@ -30,59 +31,65 @@ struct VideoDetailsView: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 18) {
-                dotNavigation()
-                
-                Spacer()
-                
-                HStack(alignment: .bottom, spacing: 10) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Button {
-                            openYouTube()
-                        } label: {
-                            HStack(spacing: 4) {
-                                Text("Open in YouTube")
-                                Image(systemName: "arrow.right")
+        GeometryReader { geo in
+            ZStack {
+                VStack(spacing: 12) {
+                    dotNavigation()
+                    
+                    Spacer()
+                    
+                    HStack(alignment: .bottom, spacing: 10) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Button {
+                                openYouTube()
+                            } label: {
+                                HStack(spacing: 4) {
+                                    Text("Open in YouTube")
+                                    Image(systemName: "arrow.right")
+                                }
+                            }
+                            .font(.small)
+                            .foregroundStyle(Color.secondaryPurplePinkLight)
+                            
+                            Text(playlist.title)
+                                .font(.H4)
+                                .lineLimit(2)
+                                .clipped()
+                            
+                            // Author details
+                            HStack(spacing: 10) {
+                                Image(systemName: "person.circle.fill")
+                                    .font(.title)
+                                
+                                Text(playlist.authorUsername)
+                                    .font(.subtitle1)
+                                    .lineLimit(1)
+                                    .clipped()
+                            }
+                            .foregroundStyle(.white)
+                            
+                            if geo.size.height > 400 {
+                                Text(playlist.description)
+                                    .font(.body1)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(2)
+                                    .clipped()
                             }
                         }
-                        .font(.small)
-                        .foregroundStyle(Color.secondaryPurplePinkLight)
                         
-                        Text(playlist.title)
-                            .font(.H4)
-                            .lineLimit(2)
-                            .clipped()
+                        Spacer(minLength: 0)
                         
-                        // Author details
-                        HStack(spacing: 10) {
-                            Image(systemName: "person.circle.fill")
-                                .font(.title)
-                            
-                            Text(playlist.authorUsername)
-                                .font(.subtitle1)
-                                .lineLimit(1)
-                                .clipped()
-                        }
-                        .foregroundStyle(.white)
-                        
-                        Text(playlist.description)
-                            .font(.body1)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(2)
-                            .clipped()
+                        // Controls
+                        controls()
                     }
                     
-                    Spacer(minLength: 0)
-                    
-                    // Controls
-                    controls()
+                    NavigationBar()
                 }
                 
-                NavigationBar()
+                playBackControls()
+                    .frame(maxWidth: 200)
+                    .padding(.horizontal, 64)
             }
-            playBackControls()
-                .padding(.horizontal, 48)
         }
         .sheet(isPresented: $isShareShowing) {
             Share(playlist: playlist, isShowing: $isShareShowing)
@@ -102,7 +109,7 @@ struct VideoDetailsView: View {
         } message: {
             Text("Tell us why you disliked this video.")
         }
-        .padding(.top, safeArea.top)
+        .padding(.top, safeArea.top + 4)
         .padding(.leading, safeArea.leading + 18)
         .padding(.trailing, safeArea.trailing + 18)
         .padding(.bottom, safeArea.bottom)
