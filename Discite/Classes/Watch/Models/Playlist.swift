@@ -22,11 +22,11 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     var videos: [Video]
     
     private(set) var title: String
-    private(set) var description: String
-    private(set) var topics: [TopicTag]
-    private(set) var thumbnailURL: String
+    private(set) var description: String?
+    // private(set) var topics: [TopicTag]
+    private(set) var thumbnailURL: String?
     private(set) var authorUsername: String = "johndoe"
-    private(set) var youtubeId: String?
+    private(set) var youtubeURL: String?
     
     @Published private(set) var currentIndex: Int
     @Published var isLoading: Bool
@@ -40,20 +40,20 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     }
     
     enum CodingKeys: String, CodingKey {
-        case playlistId = "_id"
-        case title
-        case description
-        case isSaved
-        case uploadDate
-        case uploader
-        case duration
-        case thumbnailURL
-        case youtubeId
+        case playlistId = "videoId"
         case topics
-        case videos = "clips"
-        case views
-        case likes
-        case dislikes
+        case score
+        case metadata
+    }
+    
+    struct PlaylistMetadata: Decodable {
+        var title: String
+        var description: String?
+        var youtubeURL: String?
+        var thumbnailURL: String?
+        var clips: [Video]
+        var inferenceComplexities: [Double]
+        var inferenceTopics: [String]
     }
     
     required init(from decoder: Decoder) throws {
@@ -61,16 +61,22 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = UUID()
         playlistId = try container.decode(String.self, forKey: .playlistId)
-        title = try container.decode(String.self, forKey: .title)
-        description = try container.decode(String.self, forKey: .description)
-        isSaved = try container.decode(Bool.self, forKey: .isSaved)
-        topics = try container.decode([TopicTag].self, forKey: .topics)
-        thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
-        youtubeId = try container.decodeIfPresent(String.self, forKey: .youtubeId)
         
-        videos = try container.decode([Video].self, forKey: .videos)
+        let metadata = try container.decode(PlaylistMetadata.self, forKey: .metadata)
+        title = metadata.title
+        description = metadata.description
+        thumbnailURL = metadata.thumbnailURL
+        videos = metadata.clips
+        
+        if let youtubeLink = metadata.youtubeURL,
+           let url = URL(string: youtubeLink),
+           let path = url.host?.appending(url.path) {
+            youtubeURL = path
+        }
+        
+        id = UUID()
+        isSaved = false
         
         if videos.isEmpty {
             throw PlaylistError.emptyPlaylist

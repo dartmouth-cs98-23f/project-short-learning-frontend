@@ -26,28 +26,62 @@ struct VideoTimestampRequest: Encodable {
     var timestamp: Double
 }
 
+struct VectorizedRecommendationsResponse: Decodable {
+    struct Results: Decodable {
+        let userId: String
+        let videos: [Playlist]
+    }
+
+    let results: Results
+}
+
 class VideoService {
+//    static func fetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
+//        if let playlistId {
+//            print("GET sequence with playlistId \(playlistId)")
+//            let query = URLQueryItem(name: "firstPlaylistId", value: playlistId)
+//            
+//            let data = try await APIRequest<EmptyRequest, SequenceData>
+//                .apiRequest(method: .get,
+//                        authorized: true,
+//                        path: "/api/playlists/sequence",
+//                        queryItems: [query])
+//            
+//            return data.playlists
+//            
+//        } else {
+//            print("GET /api/recommendations/vectorized")
+//            let data = try await APIRequest<EmptyRequest, SequenceData>
+//                .apiRequest(method: .get,
+//                            authorized: true,
+//                             // path: "/api/playlists/sequence"
+//                            path: "/api/recommendations/vectorized")
+//
+//            return data.playlists
+//        }
+//    }
+    
     static func fetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
         if let playlistId {
             print("GET sequence with playlistId \(playlistId)")
             let query = URLQueryItem(name: "firstPlaylistId", value: playlistId)
             
-            let data = try await APIRequest<EmptyRequest, SequenceData>
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
                 .apiRequest(method: .get,
                         authorized: true,
-                        path: "/api/playlists/sequence",
+                        path: "/api/recommendations/vectorized",
                         queryItems: [query])
             
-            return data.playlists
+            return data.results.videos
             
         } else {
-            print("GET playlists/sequence")
-            let data = try await APIRequest<EmptyRequest, SequenceData>
+            print("GET /api/recommendations/vectorized")
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
                 .apiRequest(method: .get,
-                             authorized: true,
-                             path: "/api/playlists/sequence")
+                            authorized: true,
+                            path: "/api/recommendations/vectorized")
 
-            return data.playlists
+            return data.results.videos
         }
     }
     

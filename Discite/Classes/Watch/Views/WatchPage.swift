@@ -17,7 +17,7 @@ struct WatchPage: View {
     
     var body: some View {
         if case .error = viewModel.state {
-            Text("Error loading content.")
+            errorView()
 
         } else if viewModel.items.isEmpty {
             ProgressView()
@@ -71,9 +71,24 @@ struct WatchPage: View {
             .environment(\.colorScheme, .dark)
         }
     }
+    
+    @ViewBuilder
+    private func errorView() -> some View {
+        VStack {
+            Text("Error loading content.")
+                .foregroundStyle(Color.secondaryPink)
+                .containerRelativeFrame([.horizontal, .vertical])
+            
+            Spacer()
+            
+            NavigationBar()
+        }
+        .background(Color.primaryBlueBlack)
+    }
 }
 
 #Preview {
-    ContentView()
+    // ContentView()
+    Navigator()
         .environmentObject(User())
 }

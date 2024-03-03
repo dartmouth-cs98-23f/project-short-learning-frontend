@@ -23,7 +23,7 @@ class AccountViewModel: ObservableObject {
             
         } catch {
             self.error = error
-            print("Error: \(error)")
+            print("Error in AccountViewModel.getProgressSummary: \(error)")
             return nil
         }
     }
@@ -41,7 +41,7 @@ class AccountViewModel: ObservableObject {
             
         } catch {
             self.error = error
-            print("Error: \(error)")
+            print("Error in AccountViewModel.getRecentTopics: \(error)")
             return nil
         }
     }
@@ -65,7 +65,7 @@ class AccountViewModel: ObservableObject {
             
         } catch {
             self.error = error
-            print("Error: \(error)")
+            print("Error in AccountViewModel.getSpiderGraphData: \(error)")
             return nil
         }
     }

@@ -47,7 +47,7 @@ class OnboardViewModel: ObservableObject {
             _ = try await APIRequest<OnboardRolesRequest, EmptyResponse>
                 .apiRequest(method: .post,
                              authorized: true,
-                             path: "/api/onboard",
+                             path: "/api/user/onboarding",
                              parameters: onboardRequest)
             
             user.completeOnboarding()

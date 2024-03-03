@@ -33,7 +33,7 @@ struct LoginPage: View {
             .animation(.smooth, value: viewModel.error == nil)
             
             // regular sign in
-            textField(label: "Username or email", text: $viewModel.usernameOrEmail)
+            textField(label: "Email", text: $viewModel.usernameOrEmail)
             secureTextField(label: "Password", text: $viewModel.password)
             
             signInButton()

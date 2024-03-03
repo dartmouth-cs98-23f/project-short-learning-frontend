@@ -43,9 +43,13 @@ class User: Identifiable, ObservableObject {
         do {
             // try to retrieve token
             self.token = try KeychainItem(account: KeychainKey.token.rawValue).readItem()
-            
+            print("Token found: \(token), getting user.")
             Task {
-                try await getUser(token: self.token)
+                do {
+                    try await getUser(token: self.token)
+                } catch {
+                    print("Error getting user: \(error)")
+                }
             }
             
         } catch {
@@ -61,7 +65,9 @@ class User: Identifiable, ObservableObject {
         }
     }
     
+    @MainActor
     public func getUser(token: String) async throws {
+        print("GET /api/user")
         let response = try await APIRequest<EmptyRequest, UserData>
             .apiRequest(method: .get,
                         authorized: true,
@@ -73,6 +79,7 @@ class User: Identifiable, ObservableObject {
         self.email = response.email
         
         withAnimation {
+            print("Setting user state to signedIn.")
             self.state = response.onBoardingStatus ? .signedIn : .onboarding
         }
     }
@@ -98,14 +105,14 @@ class User: Identifiable, ObservableObject {
     }
     
     @MainActor
-    public func configure(data: AuthResponseData) throws {
-        self.userId = data.userId
+    public func configure(token: String, data: AuthResponseData) throws {
+        // self.userId = data.userId
         self.username = data.username
         self.firstName = data.firstName
         self.lastName = data.lastName
         self.email = data.email
         self.profilePicture = data.profilePicture
-        self.token = data.token
+        self.token = token
         
         try KeychainItem(account: KeychainKey.token.rawValue).saveItem(token)
         

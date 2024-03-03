@@ -13,13 +13,19 @@ struct ContinueCard: View {
     
     var body: some View {
         ZStack {
-
-            AsyncImage(url: URL(string: playlist.thumbnailURL)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                
-            } placeholder: {
+            if let thumbnailURL = playlist.thumbnailURL {
+                AsyncImage(url: URL(string: thumbnailURL)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                    
+                } placeholder: {
+                    Rectangle()
+                        .fill(Color.grayNeutral)
+                        .frame(height: 160)
+                }
+      
+            } else {
                 Rectangle()
                     .fill(Color.grayNeutral)
                     .frame(height: 160)

@@ -17,6 +17,7 @@ struct ExploreService {
             .apiRequest(method: .get,
                          authorized: true,
                          path: "/api/topics/recommended")
+                        // path: "/api/recommendations/topics")
         
         return data.recommendedTopics
     }

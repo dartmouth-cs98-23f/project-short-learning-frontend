@@ -129,7 +129,7 @@ struct PostViewVertical: View {
                 }
                 .foregroundStyle(.white)
                 
-                Text(playlist.description)
+                Text(playlist.description ?? "")
                     .font(.body1)
                     .foregroundStyle(.secondary)
                     .lineLimit(2)

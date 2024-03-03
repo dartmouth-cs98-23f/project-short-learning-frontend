@@ -18,6 +18,7 @@ class Video: Decodable, Identifiable, ObservableObject {
     var image: String
     var videoURL: String
     var error: Error?
+    // var topics
     
     var isLiked: Bool = false
     

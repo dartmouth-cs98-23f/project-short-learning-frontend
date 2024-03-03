@@ -10,23 +10,48 @@
 
 import Foundation
 
-struct AuthResponseData: Decodable {
-    let userId: String
-    let username: String
+struct LoginResponse: Codable {
     let token: String
-    let message: String
+    let user: AuthResponseData
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.token = try container.decode(String.self, forKey: .token)
+        self.user = try container.decode(AuthResponseData.self, forKey: .user)
+    }
+}
+
+struct AuthResponseData: Codable {
+    let username: String
     let firstName: String
     let lastName: String
     let email: String
-    let birthDate: String
+    let birthDate: String?
     let profilePicture: String?
     let onBoardingStatus: Bool
+    
+    init(username: String, 
+         firstName: String,
+         lastName: String,
+         email: String,
+         birthDate: String? = nil,
+         profilePicture: String? = nil,
+         onBoardingStatus: Bool = false
+    ) {
+        self.username = username
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.birthDate = birthDate
+        self.profilePicture = profilePicture
+        self.onBoardingStatus = onBoardingStatus
+    }
 }
 
 struct SignUpResponseData: Decodable {
-    let userId: String
+    // let userId: String
     let token: String
-    let message: String
+    // let message: String
 }
 
 struct LoginRequest: Encodable {
@@ -48,8 +73,8 @@ struct GoogleLoginRequest: Codable {
 
 struct AuthenticationService {
     
-    static func login(parameters: LoginRequest) async throws -> AuthResponseData {
-        let response = try await APIRequest<LoginRequest, AuthResponseData>
+    static func login(parameters: LoginRequest) async throws -> LoginResponse {
+        let response = try await APIRequest<LoginRequest, LoginResponse>
             .apiRequest(method: .post,
                         authorized: true,
                         path: "/api/auth/signin",
@@ -58,8 +83,8 @@ struct AuthenticationService {
         return response
     }
     
-    static func signup(parameters: SignupRequest) async throws -> AuthResponseData {
-        let response = try await APIRequest<SignupRequest, AuthResponseData>
+    static func signup(parameters: SignupRequest) async throws -> SignUpResponseData {
+        let response = try await APIRequest<SignupRequest, SignUpResponseData>
             .apiRequest(method: .post,
                         authorized: false,
                         path: "/api/auth/signup",

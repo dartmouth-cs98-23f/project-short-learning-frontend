@@ -69,7 +69,7 @@ struct VideoDetailsView: View {
                             .foregroundStyle(.white)
                             
                             if geo.size.height > 400 {
-                                Text(playlist.description)
+                                Text(playlist.description ?? "")
                                     .font(.body1)
                                     .foregroundStyle(.secondary)
                                     .lineLimit(2)
@@ -250,14 +250,16 @@ struct VideoDetailsView: View {
     
     private func openYouTube() {
         // if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
-        if let youtubeURL = URL(string: "youtube://www.youtube.com"),
+        let youtubeLink = playlist.youtubeURL != nil ? playlist.youtubeURL! : "www.youtube.com"
+           
+        if let youtubeURL = URL(string: "youtube://\(youtubeLink)"),
             UIApplication.shared.canOpenURL(youtubeURL) {
             // Open in YouTube app if installed
             print("Opening YouTube App.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
             
         // } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
-        } else if let youtubeURL = URL(string: "https://www.youtube.com") {
+        } else if let youtubeURL = URL(string: "https://\(youtubeLink)") {
             // Open in Safari if YouTube app is not installed
             print("Opening YouTube in Safari.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)

@@ -125,7 +125,8 @@ struct Share: View {
                     .frame(width: 54, height: 54)
                 
                 // Check thumbnail URL
-                if let url = URL(string: playlist.thumbnailURL) {
+                if let thumbnailURL = playlist.thumbnailURL,
+                   let url = URL(string: thumbnailURL) {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
