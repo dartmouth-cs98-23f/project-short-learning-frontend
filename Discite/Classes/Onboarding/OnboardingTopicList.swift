@@ -18,9 +18,6 @@ let onboardingTopics = [
     "Networks",
     "Cloud",
     "Operating Systems",
-    "Games",
-    "Robotics",
-    "Blockchain",
     "Data Science",
     "Computer Vision",
     "Quantum Computing"
