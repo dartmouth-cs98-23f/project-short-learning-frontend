@@ -14,7 +14,7 @@ struct LargeTopicTagWithNavigation: View {
     var body: some View {
         
         NavigationLink(destination: {
-            TopicPageView(topicSeed: $topic)
+            TopicPageView(topicSeed: topic)
             
         }, label: {
             VStack(alignment: .leading) {
@@ -53,7 +53,7 @@ struct TopicTagWithNavigation: View {
     var body: some View {
         
         NavigationLink(destination: {
-            TopicPageView(topicSeed: $topic)
+            TopicPageView(topicSeed: topic)
             
         }, label: {
             HStack(spacing: 4) {

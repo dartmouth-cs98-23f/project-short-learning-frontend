@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TopicPageView: View {
-    @Binding var topicSeed: TopicTag
+    @State var topicSeed: TopicTag
     @State private var toast: Toast?
     
     @StateObject var viewModel = TopicViewModel()

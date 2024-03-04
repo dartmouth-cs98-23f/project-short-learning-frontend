@@ -16,8 +16,14 @@ class MainExploreViewModel: ObservableObject {
     private(set) var page: Int = 0
     
     init() {
+        loadNextExplorePage()
+    }
+    
+    public func loadNextExplorePage() {
         task = Task {
             let response = await getExplorePage()
+            self.topicVideos.append(contentsOf: response?.topicVideos ?? [])
+            self.roleVideos.append(contentsOf: response?.roleVideos ?? [])
         }
     }
     

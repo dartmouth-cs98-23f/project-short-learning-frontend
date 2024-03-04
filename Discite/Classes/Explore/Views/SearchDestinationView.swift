@@ -91,10 +91,6 @@ struct SearchDestinationView: View {
     
     @ViewBuilder
     func singleTopic(topic: TopicTag) -> some View {
-        let topic = Binding<TopicTag>(
-            get: { topic },
-            set: { _ in }
-        )
         
         NavigationLink {
             TopicPageView(topicSeed: topic)
@@ -106,7 +102,7 @@ struct SearchDestinationView: View {
                     .scaledToFit()
                     .frame(width: 20, height: 20)
                 
-                Text(topic.wrappedValue.topicName)
+                Text(topic.topicName)
                     .font(.H6)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
