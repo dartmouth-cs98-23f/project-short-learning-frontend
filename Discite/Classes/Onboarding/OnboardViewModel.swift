@@ -34,11 +34,11 @@ class OnboardViewModel: ObservableObject {
         error = nil
         
         let filteredTopics = topics.compactMap { topic in
-            topic.selected ? topic.title : nil
-        }
+            topic.selected ? topic.values : nil
+        }.flatMap { $0 }
         
         let onboardRequest = OnboardRolesRequest(complexity: complexity,
-                                                 topics: filteredTopics,
+                                                 topics: Set(filteredTopics),
                                                  roles: roles,
                                                  values: values)
         
@@ -61,7 +61,7 @@ class OnboardViewModel: ObservableObject {
 
 struct OnboardRolesRequest: Codable {
     var complexity: Double
-    var topics: [String]
+    var topics: Set<Int>
     var roles: [String]
     var values: [CGFloat]
 }

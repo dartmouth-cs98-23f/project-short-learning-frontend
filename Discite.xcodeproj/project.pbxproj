@@ -29,10 +29,8 @@
 		C20EFE642AFBC9C60074EC9A /* ExploreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE632AFBC9C60074EC9A /* ExploreService.swift */; };
 		C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE652AFBCC3E0074EC9A /* TopicCard.swift */; };
 		C20EFE682AFBCF4C0074EC9A /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE672AFBCF4C0074EC9A /* ExploreView.swift */; };
-		C20EFE6A2AFBDC920074EC9A /* sampletopic.json in Resources */ = {isa = PBXBuildFile; fileRef = C20EFE692AFBDC920074EC9A /* sampletopic.json */; };
 		C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE6D2AFD93C20074EC9A /* PlaylistCard.swift */; };
 		C20EFE702AFDA6D70074EC9A /* CardButtonFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE6F2AFDA6D70074EC9A /* CardButtonFrame.swift */; };
-		C20EFE742AFDCB740074EC9A /* samplerecommendations.json in Resources */ = {isa = PBXBuildFile; fileRef = C20EFE732AFDCB740074EC9A /* samplerecommendations.json */; };
 		C20EFE782AFDCC9E0074EC9A /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE772AFDCC9E0074EC9A /* Topic.swift */; };
 		C20EFE7C2AFEC4F00074EC9A /* sampleplaylists.json in Resources */ = {isa = PBXBuildFile; fileRef = C20EFE7B2AFEC4F00074EC9A /* sampleplaylists.json */; };
 		C20EFE822AFFA9A30074EC9A /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20EFE812AFFA9A30074EC9A /* Navigator.swift */; };
@@ -128,6 +126,12 @@
 		C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */; };
 		C2E3EFCE2B93CEE600F2AC65 /* VideoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFCD2B93CEE600F2AC65 /* VideoDetailsView.swift */; };
 		C2E3EFD22B94FC8800F2AC65 /* TestVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD12B94FC8800F2AC65 /* TestVideo.swift */; };
+		C2E3EFD42B95278A00F2AC65 /* MainExplorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD32B95278A00F2AC65 /* MainExplorePage.swift */; };
+		C2E3EFD62B954D0F00F2AC65 /* PlaylistDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD52B954D0F00F2AC65 /* PlaylistDetailsViewModel.swift */; };
+		C2E3EFD82B95527400F2AC65 /* PlaylistInferenceSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD72B95527400F2AC65 /* PlaylistInferenceSummary.swift */; };
+		C2E3EFDA2B95590500F2AC65 /* ViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD92B95590500F2AC65 /* ViewModelState.swift */; };
+		C2E3EFDC2B95599400F2AC65 /* PlaylistSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFDB2B95599400F2AC65 /* PlaylistSummaryView.swift */; };
+		C2E3EFDE2B955AC900F2AC65 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFDD2B955AC900F2AC65 /* ErrorView.swift */; };
 		C2EE4E592B23B4C500FEA5B5 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */; };
 		C2EE4E5D2B2A148D00FEA5B5 /* ContinueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E5C2B2A148D00FEA5B5 /* ContinueCard.swift */; };
 		C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */; };
@@ -163,10 +167,8 @@
 		C20EFE632AFBC9C60074EC9A /* ExploreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreService.swift; sourceTree = "<group>"; };
 		C20EFE652AFBCC3E0074EC9A /* TopicCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCard.swift; sourceTree = "<group>"; };
 		C20EFE672AFBCF4C0074EC9A /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
-		C20EFE692AFBDC920074EC9A /* sampletopic.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampletopic.json; sourceTree = "<group>"; };
 		C20EFE6D2AFD93C20074EC9A /* PlaylistCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCard.swift; sourceTree = "<group>"; };
 		C20EFE6F2AFDA6D70074EC9A /* CardButtonFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButtonFrame.swift; sourceTree = "<group>"; };
-		C20EFE732AFDCB740074EC9A /* samplerecommendations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = samplerecommendations.json; sourceTree = "<group>"; };
 		C20EFE772AFDCC9E0074EC9A /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		C20EFE7B2AFEC4F00074EC9A /* sampleplaylists.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleplaylists.json; sourceTree = "<group>"; };
 		C20EFE812AFFA9A30074EC9A /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
@@ -266,6 +268,12 @@
 		C2D287282AE0C4DF00BB263C /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		C2E3EFCD2B93CEE600F2AC65 /* VideoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsView.swift; sourceTree = "<group>"; };
 		C2E3EFD12B94FC8800F2AC65 /* TestVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVideo.swift; sourceTree = "<group>"; };
+		C2E3EFD32B95278A00F2AC65 /* MainExplorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExplorePage.swift; sourceTree = "<group>"; };
+		C2E3EFD52B954D0F00F2AC65 /* PlaylistDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsViewModel.swift; sourceTree = "<group>"; };
+		C2E3EFD72B95527400F2AC65 /* PlaylistInferenceSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistInferenceSummary.swift; sourceTree = "<group>"; };
+		C2E3EFD92B95590500F2AC65 /* ViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
+		C2E3EFDB2B95599400F2AC65 /* PlaylistSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSummaryView.swift; sourceTree = "<group>"; };
+		C2E3EFDD2B955AC900F2AC65 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		C2EE4E582B23B4C500FEA5B5 /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
 		C2EE4E5C2B2A148D00FEA5B5 /* ContinueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueCard.swift; sourceTree = "<group>"; };
 		C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -339,8 +347,6 @@
 		C20EFE832AFFCEDB0074EC9A /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				C20EFE692AFBDC920074EC9A /* sampletopic.json */,
-				C20EFE732AFDCB740074EC9A /* samplerecommendations.json */,
 				C29145092AE60DBA000BEB88 /* TopicsView.swift */,
 			);
 			path = Testing;
@@ -463,6 +469,7 @@
 				C251C9852AF4960F00922B00 /* Playlist.swift */,
 				C251C9892AF4AD1100922B00 /* Video.swift */,
 				C2A641172B80138900C50F83 /* VisibleKey.swift */,
+				C2E3EFD72B95527400F2AC65 /* PlaylistInferenceSummary.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -583,6 +590,7 @@
 				C2A6410A2B7D694000C50F83 /* Models */,
 				C20EFE832AFFCEDB0074EC9A /* Testing */,
 				2C8509EA2B68107800707646 /* AllTopics.swift */,
+				C2E3EFD32B95278A00F2AC65 /* MainExplorePage.swift */,
 				C20EFE672AFBCF4C0074EC9A /* ExploreView.swift */,
 				2CBE27152B6436D600DF585B /* TopicPageView.swift */,
 			);
@@ -688,6 +696,8 @@
 				C2A640F72B7C476700C50F83 /* CustomVideoPlayer.swift */,
 				C2E3EFCD2B93CEE600F2AC65 /* VideoDetailsView.swift */,
 				C2E3EFD12B94FC8800F2AC65 /* TestVideo.swift */,
+				C2E3EFDB2B95599400F2AC65 /* PlaylistSummaryView.swift */,
+				C2E3EFDD2B955AC900F2AC65 /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -697,6 +707,8 @@
 			children = (
 				C23A44182AE9E813004C6927 /* VideoService.swift */,
 				C269CD0F2B6083C100A5126C /* SequenceViewModel.swift */,
+				C2E3EFD52B954D0F00F2AC65 /* PlaylistDetailsViewModel.swift */,
+				C2E3EFD92B95590500F2AC65 /* ViewModelState.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -814,10 +826,8 @@
 				C28ABEB52AF33D74007181F4 /* Mulish-ExtraBoldItalic.ttf in Resources */,
 				C28ABEC12AF33D75007181F4 /* Mulish-MediumItalic.ttf in Resources */,
 				C28ABEC22AF33D75007181F4 /* Mulish-SemiBold.ttf in Resources */,
-				C20EFE742AFDCB740074EC9A /* samplerecommendations.json in Resources */,
 				C28ABEBC2AF33D74007181F4 /* Mulish-Bold.ttf in Resources */,
 				C28ABEBB2AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf in Resources */,
-				C20EFE6A2AFBDC920074EC9A /* sampletopic.json in Resources */,
 				C28ABEBF2AF33D74007181F4 /* Mulish-ExtraLight.ttf in Resources */,
 				C28ABEC42AF33D75007181F4 /* OFL.txt in Resources */,
 				C28ABEC52AF33D75007181F4 /* README.txt in Resources */,
@@ -892,15 +902,18 @@
 				C20EFE822AFFA9A30074EC9A /* Navigator.swift in Sources */,
 				C251C98A2AF4AD1200922B00 /* Video.swift in Sources */,
 				2CA0B1712B7BFD5D00558227 /* SearchDestinationView.swift in Sources */,
+				C2E3EFDE2B955AC900F2AC65 /* ErrorView.swift in Sources */,
 				2C0CAB702B85845200B8BA25 /* FriendProfile.swift in Sources */,
 				C2082F912B6C06B200EEED6B /* SampleSpiderGraph.swift in Sources */,
 				C2A641202B8048C300C50F83 /* ToastModifier.swift in Sources */,
+				C2E3EFDC2B95599400F2AC65 /* PlaylistSummaryView.swift in Sources */,
 				C2A641052B7C8FC400C50F83 /* VideoView.swift in Sources */,
 				C23A44192AE9E813004C6927 /* VideoService.swift in Sources */,
 				C2A641222B8048ED00C50F83 /* ToastSample.swift in Sources */,
 				C2A4AD922B8E86C800AD492F /* OnboardingTopicList.swift in Sources */,
 				C2A4AD982B8ECD3100AD492F /* Hello.swift in Sources */,
 				C2A3FF2F2B035C2C001EDE9F /* Loading.swift in Sources */,
+				C2E3EFD82B95527400F2AC65 /* PlaylistInferenceSummary.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
 				C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */,
@@ -914,6 +927,7 @@
 				C2EF0B002B52E9020000DCE8 /* AuthView.swift in Sources */,
 				C2A44AAE2B76CEE3009FEEAB /* FriendsPage.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
+				C2E3EFDA2B95590500F2AC65 /* ViewModelState.swift in Sources */,
 				C269CD102B6083C100A5126C /* SequenceViewModel.swift in Sources */,
 				C2A4AD962B8EBEC200AD492F /* OnboardingPage.swift in Sources */,
 				C2A640FB2B7C565D00C50F83 /* OffsetKey.swift in Sources */,
@@ -962,6 +976,7 @@
 				C2A4AD772B84169B00AD492F /* CustomTabView.swift in Sources */,
 				C2A4AD7F2B88FF1B00AD492F /* OnboardViewModel.swift in Sources */,
 				C2A640F02B7C430700C50F83 /* WatchPage.swift in Sources */,
+				C2E3EFD62B954D0F00F2AC65 /* PlaylistDetailsViewModel.swift in Sources */,
 				C2D287292AE0C4DF00BB263C /* NetworkMonitor.swift in Sources */,
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
 				C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */,
@@ -977,6 +992,7 @@
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
 				C2A6410C2B7D696000C50F83 /* PlaylistPreview.swift in Sources */,
 				C269CD062B5DF50C00A5126C /* PagingViewModel.swift in Sources */,
+				C2E3EFD42B95278A00F2AC65 /* MainExplorePage.swift in Sources */,
 				C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */,
 				C2A640F82B7C476700C50F83 /* CustomVideoPlayer.swift in Sources */,
 				C2A44AAC2B76CE5E009FEEAB /* SavedPage.swift in Sources */,

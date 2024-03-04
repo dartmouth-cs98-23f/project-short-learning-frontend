@@ -12,6 +12,8 @@ enum PlaylistError: Error {
     case emptyPlaylist
     case indexOutOfRange
     case savePlaylist
+    case likePlaylist
+    case dislikePlaylist
 }
 
 class Playlist: Decodable, Identifiable, ObservableObject {
@@ -29,11 +31,10 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     private(set) var youtubeURL: String?
     
     @Published private(set) var currentIndex: Int
-    @Published var isLoading: Bool
+    @Published var state: ViewModelState = .loading
     @Published var isLiked: Bool = false
     @Published var isDisliked: Bool = false
     @Published var isSaved: Bool
-    @Published var error: Error?
 
     var length: Int {
         return videos.count
@@ -57,8 +58,6 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     }
     
     required init(from decoder: Decoder) throws {
-        isLoading = true
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         playlistId = try container.decode(String.self, forKey: .playlistId)
@@ -84,7 +83,20 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         
         sequenceIndex = -1
         currentIndex = 0
-        isLoading = false
+        state = .loaded
+    }
+    
+    init() {
+        self.id = UUID()
+        self.playlistId = "65d8fc1995f306b28d1b8870"
+        self.sequenceIndex = -1
+        self.videos = []
+        
+        self.title = "Playlist Title"
+        self.description = "Playlist description here."
+        
+        self.currentIndex = -1
+        self.isSaved = false
     }
     
     // MARK: Getters
@@ -115,7 +127,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             _ = try await VideoService.postSave(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: PlaylistError.savePlaylist)
             print("Error in Playlist.postSave: \(error)")
         }
     }
@@ -126,7 +138,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             _ = try await VideoService.deleteSave(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: PlaylistError.savePlaylist)
             print("Error in Playlist.deleteSave: \(error)")
         }
     }
@@ -137,7 +149,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             _ = try await VideoService.postLike(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: PlaylistError.likePlaylist)
             print("Error in Playlist.postLike: \(error)")
         }
     }
@@ -148,7 +160,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             _ = try await VideoService.deleteLike(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: PlaylistError.likePlaylist)
             print("Error in Playlist.deleteLike: \(error)")
         }
     }
@@ -159,7 +171,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             _ = try await VideoService.postDislike(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: PlaylistError.dislikePlaylist)
             print("Error in Playlist.postDislike: \(error)")
         }
     }
@@ -170,7 +182,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             _ = try await VideoService.deleteDislike(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: PlaylistError.dislikePlaylist)
             print("Error in Playlist.deleteDislike: \(error)")
         }
     }

@@ -36,30 +36,6 @@ struct VectorizedRecommendationsResponse: Decodable {
 }
 
 class VideoService {
-//    static func fetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
-//        if let playlistId {
-//            print("GET sequence with playlistId \(playlistId)")
-//            let query = URLQueryItem(name: "firstPlaylistId", value: playlistId)
-//            
-//            let data = try await APIRequest<EmptyRequest, SequenceData>
-//                .apiRequest(method: .get,
-//                        authorized: true,
-//                        path: "/api/playlists/sequence",
-//                        queryItems: [query])
-//            
-//            return data.playlists
-//            
-//        } else {
-//            print("GET /api/recommendations/vectorized")
-//            let data = try await APIRequest<EmptyRequest, SequenceData>
-//                .apiRequest(method: .get,
-//                            authorized: true,
-//                             // path: "/api/playlists/sequence"
-//                            path: "/api/recommendations/vectorized")
-//
-//            return data.playlists
-//        }
-//    }
     
     static func fetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
         if let playlistId {
@@ -169,5 +145,17 @@ class VideoService {
                          authorized: true,
                          path: path,
                          parameters: parameters)
+    }
+    
+    static func getPlaylistSummary(playlistId: String) async throws -> PlaylistInferenceSummary {
+        print("GET api/videos/\(playlistId)/summary")
+        let path = "/api/videos/\(playlistId)/summary"
+        
+        let response = try await APIRequest<EmptyRequest, PlaylistInferenceSummary>
+            .apiRequest(method: .get,
+                         authorized: true,
+                         path: path)
+        
+        return response
     }
 }

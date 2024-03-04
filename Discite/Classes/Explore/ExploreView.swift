@@ -154,5 +154,6 @@ struct ExploreView: View {
 
 #Preview {
     ExploreView()
+        .environmentObject(User())
         .environment(TabSelectionManager(selection: .Explore))
 }

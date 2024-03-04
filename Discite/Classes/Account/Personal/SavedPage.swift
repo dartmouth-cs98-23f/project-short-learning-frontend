@@ -176,5 +176,6 @@ struct SavedPage: View {
 
 #Preview {
     AccountView()
+        .environmentObject(User())
         .environment(TabSelectionManager(selection: .Account))
 }
