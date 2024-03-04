@@ -10,32 +10,25 @@ import AVKit
 
 class Video: Decodable, Identifiable, ObservableObject {
 
-    var id: UUID
-    var videoId: String
-    var playlistId: String
-    var title: String
-    var description: String
-    var image: String
-    var videoURL: String
-    var error: Error?
-    // var topics
-    
-    var isLiked: Bool = false
+    private(set) var id: UUID
+    private(set) var videoId: String
+    private(set) var playlistId: String
+    private(set) var title: String
+    private(set) var description: String
+    private(set) var videoURL: String
+
+    @Published var state: ViewModelState = .loading
+    public var isLiked: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case videoId = "_id"
         case playlistId = "videoId"
         case title
         case description
-        case image
-        case uploadDate
         case uploader
         case duration
         case thumbnailURL
         case videoURL = "clipURL"
-        case views
-        case likes
-        case dislikes
     }
 
     required init(from decoder: Decoder) throws {
@@ -46,26 +39,37 @@ class Video: Decodable, Identifiable, ObservableObject {
         playlistId = try container.decode(String.self, forKey: .playlistId)
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
-        image = try container.decode(String.self, forKey: .image)
         videoURL = try container.decode(String.self, forKey: .videoURL)
     }
     
+    // A sample video for previews.
+    init() {
+        id = UUID()
+        videoId = "12345678"
+        playlistId = "65d8fc1995f306b28d1b8870"
+        title = "Video Title"
+        description = "Sample video description here."
+        videoURL = "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761"
+    }
+    
+    @MainActor
     func postUnderstanding(understand: Bool) async {
         do {
             _ = try await VideoService.postUnderstanding(videoId: videoId, understand: understand)
             
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: error)
             print("Error in Video.postUnderstanding: \(error)")
         }
     }
     
+    @MainActor
     func postTimestamp(timestamp: Double) async {
         do {
             _ = try await VideoService.postTimestamp(videoId: videoId, timestamp: timestamp)
             
         } catch {
-            self.error = PlaylistError.savePlaylist
+            self.state = .error(error: error)
             print("Error in Video.postTimestamp: \(error)")
         }
     }

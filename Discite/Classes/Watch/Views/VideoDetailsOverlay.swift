@@ -16,13 +16,19 @@ struct VideoDetailsView: View {
     @Binding var player: AVPlayer?
     
     @State var didDislike: Bool = false
-    @State var isShareShowing: Bool = false
+    @State var shareShowing: Bool = false
+    @State var detailsShowing: Bool = false
     @State var isPlaying: Bool
     
-    var safeArea: EdgeInsets
-    private let alertTitle = "Disliked?"
-    
-    init(playlist: Playlist, video: Video, player: Binding<AVPlayer?>, safeArea: EdgeInsets) {
+    private var safeArea: EdgeInsets
+    private let alertTitle = "Tell us why you disliked this video."
+
+    init(playlist: Playlist, 
+         video: Video,
+         player: Binding<AVPlayer?>,
+         safeArea: EdgeInsets
+    ) {
+       
         self.playlist = playlist
         self.video = video
         self.safeArea = safeArea
@@ -54,24 +60,13 @@ struct VideoDetailsView: View {
                             Text(playlist.title)
                                 .font(.H4)
                                 .lineLimit(2)
+                                .foregroundStyle(Color.secondaryPeachLight)
                                 .clipped()
-                            
-                            // Author details
-                            HStack(spacing: 10) {
-                                Image(systemName: "person.circle.fill")
-                                    .font(.title)
-                                
-                                Text(playlist.authorUsername)
-                                    .font(.subtitle1)
-                                    .lineLimit(1)
-                                    .clipped()
-                            }
-                            .foregroundStyle(.white)
                             
                             if geo.size.height > 400 {
                                 Text(playlist.description ?? "")
                                     .font(.body1)
-                                    .foregroundStyle(.secondary)
+                                    .foregroundStyle(Color.grayLight)
                                     .lineLimit(2)
                                     .clipped()
                             }
@@ -91,23 +86,23 @@ struct VideoDetailsView: View {
                     .padding(.horizontal, 64)
             }
         }
-        .sheet(isPresented: $isShareShowing) {
-            Share(playlist: playlist, isShowing: $isShareShowing)
+        .sheet(isPresented: $shareShowing) {
+            Share(playlist: playlist, isShowing: $shareShowing)
         }
-        .alert(
-            alertTitle,
-            isPresented: $didDislike
-        ) {
+        .sheet(isPresented: $detailsShowing) {
+            PlaylistSummaryView(playlist: playlist)
+        }
+        .alert(alertTitle, isPresented: $didDislike) {
             Button("Too easy") {
                 Task { await video.postUnderstanding(understand: true) }
             }
             
-            Button("Too hard") {
+            Button("Too difficult") {
                 Task { await video.postUnderstanding(understand: false) }
             }
             
         } message: {
-            Text("Tell us why you disliked this video.")
+            Text("Help us improve our recommendations by telling us why this video wasn't right for you.")
         }
         .padding(.top, safeArea.top + 4)
         .padding(.leading, safeArea.leading + 18)
@@ -166,71 +161,20 @@ struct VideoDetailsView: View {
     }
     
     @ViewBuilder
-    func controls() -> some View {
+    private func controls() -> some View {
         VStack(spacing: 32) {
-            
-            Button {
-                playlist.isSaved.toggle()
-                
-                Task {
-                    playlist.isSaved
-                    ? await playlist.postSave()
-                    : await playlist.deleteSave()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isSaved ? "bookmark.fill" : "bookmark")
-            }
-            .symbolEffect(.bounce, value: video.isLiked)
-            .foregroundStyle(playlist.isSaved ? Color.primaryPurpleLight : .white)
-            
-            Button {
-                playlist.isDisliked = false
-                playlist.isLiked.toggle()
-                
-                Task {
-                    playlist.isLiked
-                    ? await playlist.postLike()
-                    : await playlist.deleteLike()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
-            }
-            .symbolEffect(.bounce, value: playlist.isLiked)
-            .foregroundStyle(playlist.isLiked ? Color.primaryPurpleLight : .white)
-            
-            Button {
-                playlist.isLiked = false
-                playlist.isDisliked.toggle()
-                
-                if playlist.isDisliked { didDislike = true }
-                
-                Task {
-                    playlist.isDisliked
-                    ? await playlist.postDislike()
-                    : await playlist.deleteDislike()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
-            }
-            .symbolEffect(.bounce, value: playlist.isDisliked)
-            .foregroundStyle(playlist.isDisliked ? Color.red : .white)
-            
-            Button {
-                isShareShowing = true
-                print("pressed share")
-            } label: {
-                Image(systemName: "paperplane")
-            }
+            saveButton()
+            likeButton()
+            dislikeButton()
+            shareButton()
+            detailsButton()
         }
         .font(.title2)
-        .foregroundColor(.white)
+        .foregroundStyle(Color.secondaryPeachLight)
     }
     
     @ViewBuilder
-    func dotNavigation() -> some View {
+    private func dotNavigation() -> some View {
         let currentIndex = playlist.videos.firstIndex(where: { $0.id == video.id })
         
         HStack(spacing: 10) {
@@ -245,6 +189,91 @@ struct VideoDetailsView: View {
                         .frame(width: 8, height: 8)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func saveButton() -> some View {
+        Button {
+            playlist.isSaved.toggle()
+            Task {
+                playlist.isSaved
+                ? await playlist.postSave()
+                : await playlist.deleteSave()
+            }
+        } label: {
+            Image(systemName: playlist.isSaved
+                  ? "bookmark.fill"
+                  : "bookmark")
+        }
+        .foregroundStyle(playlist.isSaved
+                         ? Color.primaryPurpleLight
+                         : Color.secondaryPeachLight)
+    }
+    
+    @ViewBuilder
+    private func likeButton() -> some View {
+        Button {
+            playlist.isDisliked = false
+            playlist.isLiked.toggle()
+            
+            Task {
+                playlist.isLiked
+                ? await playlist.postLike()
+                : await playlist.deleteLike()
+            }
+            
+        } label: {
+            Image(systemName: playlist.isLiked
+                  ? "hand.thumbsup.fill"
+                  : "hand.thumbsup")
+        }
+        .symbolEffect(.bounce, value: playlist.isLiked)
+        .foregroundStyle(playlist.isLiked
+                         ? Color.primaryPurpleLight
+                         : Color.secondaryPeachLight)
+    }
+    
+    @ViewBuilder
+    private func dislikeButton() -> some View {
+        Button {
+            playlist.isLiked = false
+            playlist.isDisliked.toggle()
+            
+            if playlist.isDisliked { didDislike = true }
+            
+            Task {
+                playlist.isDisliked
+                ? await playlist.postDislike()
+                : await playlist.deleteDislike()
+            }
+            
+        } label: {
+            Image(systemName: playlist.isDisliked
+                  ? "hand.thumbsdown.fill"
+                  : "hand.thumbsdown")
+        }
+        .symbolEffect(.bounce, value: playlist.isDisliked)
+        .foregroundStyle(playlist.isDisliked
+                         ? Color.red
+                         : Color.secondaryPeachLight)
+    }
+    
+    @ViewBuilder
+    private func shareButton() -> some View {
+        Button {
+            shareShowing = true
+        } label: {
+            Image(systemName: "paperplane")
+        }
+    }
+    
+    @ViewBuilder
+    private func detailsButton() -> some View {
+        Button {
+            detailsShowing = true
+        } label: {
+            Image(systemName: "ellipsis")
         }
     }
     
@@ -265,5 +294,23 @@ struct VideoDetailsView: View {
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
         }
 
+    }
+}
+
+#Preview {
+    @State var player: AVPlayer?
+    let video = Video()
+    let playlist = Playlist()
+    
+    return GeometryReader {
+        let size = $0.size
+        let safeArea = $0.safeAreaInsets
+        
+        VideoDetailsView(playlist: playlist,
+                         video: video,
+                         player: $player,
+                         safeArea: safeArea)
+        .ignoresSafeArea(.container, edges: .all)
+        .environment(TabSelectionManager(selection: .Watch))
     }
 }

@@ -131,7 +131,3 @@ struct VideoView: View {
         }
     }
 }
-
-#Preview {
-    ContentView()
-}

@@ -20,22 +20,22 @@ struct PlaylistInferenceSummary: Decodable {
         case introduction, sections, topics, generalTopics
     }
     
+    private enum SectionKey: String, CodingKey {
+        case title
+        case content
+    }
+    
     struct Section: Decodable, Identifiable {
         var id: UUID
         var title: String
         var content: [String]
         
-        enum CodingKeys: CodingKey {
-            case title
-            case content
-        }
-        
         init(from decoder: Decoder) throws {
-            let container: KeyedDecodingContainer<PlaylistInferenceSummary.Section.CodingKeys> = try decoder.container(keyedBy: PlaylistInferenceSummary.Section.CodingKeys.self)
+            let container: KeyedDecodingContainer<PlaylistInferenceSummary.SectionKey> = try decoder.container(keyedBy: PlaylistInferenceSummary.SectionKey.self)
             
             self.id = UUID()
-            self.title = try container.decode(String.self, forKey: PlaylistInferenceSummary.Section.CodingKeys.title)
-            self.content = try container.decode([String].self, forKey: PlaylistInferenceSummary.Section.CodingKeys.content)
+            self.title = try container.decode(String.self, forKey: PlaylistInferenceSummary.SectionKey.title)
+            self.content = try container.decode([String].self, forKey: PlaylistInferenceSummary.SectionKey.content)
         }
     }
     
