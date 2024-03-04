@@ -21,7 +21,7 @@ class OnboardViewModel: ObservableObject {
     @Published var resetGraph: Bool = false
     var values: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
     let defaultValues: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
-    let roles: [String] = ["Front", "Backend", "Systems Design", "AI/Data", "DevOps", "UI/UX"]
+    let roles: [String] = ["Front", "Backend", "Systems", "AI/Data", "DevOps", "UI/UX"]
     
     public func resetGraphValues() {
         values = defaultValues

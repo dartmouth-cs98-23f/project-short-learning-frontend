@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlaylistPreview: Codable, Identifiable {
+struct PlaylistPreview: Codable, Identifiable, Hashable {
     var id: UUID
     var title: String
     var playlistId: String
@@ -30,5 +30,13 @@ struct PlaylistPreview: Codable, Identifiable {
         self.thumbnailURL = try container.decodeIfPresent(String.self, forKey: .thumbnailURL)
         
         self.id = UUID()
+    }
+    
+    init() {
+        self.id = UUID()
+        self.title = "Playlist Title"
+        self.playlistId = "playlistId"
+        self.description = "Playlist description here, can span multiple lines."
+        self.thumbnailURL = "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg"
     }
 }

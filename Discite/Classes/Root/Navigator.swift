@@ -21,12 +21,12 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    MainExplorePage()
-//                    WatchPage(size: size, safeArea: safeArea)
-//                        .ignoresSafeArea(.container, edges: .all)
+                    WatchPage(size: size, safeArea: safeArea)
+                        .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView()
+                    MainExplorePage()
+                    
                 case .Saved:
                     SavedPage()
                 case .Account:
