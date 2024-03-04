@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ExploreService {
     static func getTopicRecommendations() async throws -> [TopicTag] {
-        print("GET topic recommendations")
+        print("GET /api/topics/recommended")
         
         let data = try await APIRequest<EmptyRequest, TopicRecommendations>
             .apiRequest(method: .get,
@@ -23,7 +23,7 @@ struct ExploreService {
     }
     
     static func getPlaylistRecommendations() async throws -> [PlaylistPreview] {
-        print("GET playlist recommendations")
+        print("GET /api/playlists/recommended")
         
         let data = try await APIRequest<EmptyRequest, PlaylistRecommendations>
             .apiRequest(method: .get,
@@ -34,7 +34,7 @@ struct ExploreService {
     }
     
     static func getAllTopics() async throws -> [TopicTag] {
-        print("GET api/topics/all")
+        print("GET /api/topics/all")
         
         let data = try await APIRequest<EmptyRequest, AllTopicsResponse>
             .apiRequest(method: .get,
@@ -42,6 +42,23 @@ struct ExploreService {
                          path: "/api/topics/all")
         
         return data.topics
+    }
+    
+    static func getExplorePage(page: Int) async throws -> ExplorePageResponse {
+        print("GET /api/explore/explorepage")
+        let query = URLQueryItem(name: "page", value: "\(page)")
+        
+        let data = try await APIRequest<EmptyRequest, ExplorePageResponse>
+            .apiRequest(method: .get,
+                        authorized: true,
+                        path: "/api/explore/explorepage",
+                        queryItems: [query])
+        
+        return data
+    }
+    
+    static func getExploreSearch() {
+        
     }
 }
 

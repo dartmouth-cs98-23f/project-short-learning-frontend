@@ -29,6 +29,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     private(set) var thumbnailURL: String?
     private(set) var authorUsername: String = "johndoe"
     private(set) var youtubeURL: String?
+    private(set) var inferenceTopics: [String]
+    private(set) var inferenceComplexities: [Double]
     
     @Published private(set) var currentIndex: Int
     @Published var state: ViewModelState = .loading
@@ -67,6 +69,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         description = metadata.description
         thumbnailURL = metadata.thumbnailURL
         videos = metadata.clips
+        inferenceTopics = metadata.inferenceTopics
+        inferenceComplexities = metadata.inferenceComplexities
         
         if let youtubeLink = metadata.youtubeURL,
            let url = URL(string: youtubeLink),
@@ -91,6 +95,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         self.playlistId = "65d8fc1995f306b28d1b8870"
         self.sequenceIndex = -1
         self.videos = []
+        self.inferenceTopics = []
+        self.inferenceComplexities = []
         
         self.title = "Playlist Title"
         self.description = "Playlist description here."

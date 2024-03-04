@@ -11,22 +11,23 @@ struct PlaylistPreview: Codable, Identifiable {
     var id: UUID
     var title: String
     var playlistId: String
+    var description: String
     var thumbnailURL: String?
-    var isSaved: Bool
+    var isSaved: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case title
-        case playlistId
+        case playlistId = "_id"
+        case description
         case thumbnailURL
-        case isSaved
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
         self.playlistId = try container.decode(String.self, forKey: .playlistId)
+        self.description = try container.decode(String.self, forKey: .description)
         self.thumbnailURL = try container.decodeIfPresent(String.self, forKey: .thumbnailURL)
-        self.isSaved =  try container.decode(Bool.self, forKey: .isSaved)
         
         self.id = UUID()
     }

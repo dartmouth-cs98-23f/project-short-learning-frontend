@@ -21,8 +21,9 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    WatchPage(size: size, safeArea: safeArea)
-                        .ignoresSafeArea(.container, edges: .all)
+                    MainExplorePage()
+//                    WatchPage(size: size, safeArea: safeArea)
+//                        .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
                     ExploreView()

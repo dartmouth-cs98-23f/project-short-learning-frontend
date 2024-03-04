@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MainExplorePage: View {
-    @StateObject var viewModel = ExploreViewModel()
-    @StateObject var searchViewModel = SearchViewModel()
+    @StateObject var viewModel = MainExploreViewModel()
     
     var body: some View {
         NavigationStack {
@@ -23,8 +22,8 @@ struct MainExplorePage: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 12) {
                         // topic recommendations carousel
-                        topicScrollSection()
-                            .border(.pink)
+                        // topicScrollSection()
+                           //  .border(.pink)
                         
                         ForEach(0..<5) { _ in
                             playlistCarousel()
@@ -38,33 +37,34 @@ struct MainExplorePage: View {
             .padding(.horizontal, 18)
             
             NavigationBar()
+                .background(.black)
         }
     }
 
     // horizontally scrolling list of topics
-    @ViewBuilder
-    private func topicScrollSection() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach($viewModel.topicRecommendations) { $topic in
-                        TopicTagWithNavigation(topic: $topic)
-                    }
-                    
-                    NavigationLink(destination: {
-                        AllTopics()
-                        
-                    }, label: {
-                        Text("See all")
-                            .font(.small)
-                            .foregroundColor(.primaryPurple)
-                    })
-                }
-            }
-            .frame(minHeight: 40)
-        }
-        .padding(.horizontal, 18)
-    }
+//    @ViewBuilder
+//    private func topicScrollSection() -> some View {
+//        VStack(alignment: .leading, spacing: 8) {
+//            ScrollView(.horizontal, showsIndicators: false) {
+//                HStack(spacing: 12) {
+//                    ForEach($viewModel.topicRecommendations) { $topic in
+//                        TopicTagWithNavigation(topic: $topic)
+//                    }
+//                    
+//                    NavigationLink(destination: {
+//                        AllTopics()
+//                        
+//                    }, label: {
+//                        Text("See all")
+//                            .font(.small)
+//                            .foregroundColor(.primaryPurple)
+//                    })
+//                }
+//            }
+//            .frame(minHeight: 40)
+//        }
+//        .padding(.horizontal, 18)
+//    }
     
     @ViewBuilder
     private func playlistCarousel() -> some View {
@@ -99,9 +99,28 @@ struct MainExplorePage: View {
         .padding(.bottom, 12)
         // .border(.blue)
     }
+    
+    @ViewBuilder
+    private func topicCarousel(topicVideo: TopicVideo) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // title
+            Text(topicVideo.topic)
+                .font(.H4)
+            
+            // playlist previews
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(topicVideo.videos) { playlist in
+                        
+                    }
+                }
+            }
+        }
+    }
 }
 
 #Preview {
-    MainExplorePage()
-        .environment(TabSelectionManager(selection: .Explore))
+//    MainExplorePage()
+//        .environment(TabSelectionManager(selection: .Explore))
+    ContentView()
 }
