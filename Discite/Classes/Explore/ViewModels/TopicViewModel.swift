@@ -9,7 +9,6 @@ import Foundation
 
 class TopicViewModel: ObservableObject {
     @Published var topic: Topic?
-    @Published var error: Error? 
     @Published var state: ViewModelState = .loading
     
     private var task: Task<Void, Error>?
@@ -37,7 +36,7 @@ class TopicViewModel: ObservableObject {
             state = .loaded
             
         } catch {
-            self.state = .error(error: error)
+            self.state = .error(error: TopicError.getTopic)
             print("Error in TopicViewModel.getTopic: \(error)")
         }
     }
@@ -57,7 +56,7 @@ class TopicViewModel: ObservableObject {
             state = .loaded
             
         } catch {
-            self.state = .error(error: error)
+            self.state = .error(error: TopicError.getTopic)
             print("Error in TopicViewModel.mockGetTopic: \(error)")
         }
     }
@@ -79,7 +78,7 @@ class TopicViewModel: ObservableObject {
             state = .loaded
             
         } catch {
-            self.state = .error(error: error)
+            self.state = .error(error: TopicError.getTopic)
             print("Error in TopicViewModel.getTopic: \(error)")
         }
     }
@@ -97,7 +96,7 @@ class TopicViewModel: ObservableObject {
                              parameters: parameters)
             
         } catch {
-            self.state = .error(error: error)
+            self.state = .error(error: TopicError.saveTopic)
             print("Error in TopicViewModel.saveTopic: \(error)")
         }
     }
