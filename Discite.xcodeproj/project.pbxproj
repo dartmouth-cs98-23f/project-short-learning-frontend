@@ -420,21 +420,13 @@
 		C2128A8B2ADB2B9100E90C66 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C2A6411A2B8047BD00C50F83 /* Toast */,
-				C2082F832B6BD45200EEED6B /* SpiderGraph */,
+				C2E3EFF92B97C0A100F2AC65 /* Components */,
 				C20EFE582AFBAF690074EC9A /* SampleData */,
 				C2D287232AE0B25800BB263C /* Styles */,
 				C28ABE952AF31945007181F4 /* CustomJSONDecoder.swift */,
 				C2E3EFD92B95590500F2AC65 /* ViewModelState.swift */,
-				C2A4AD762B84169B00AD492F /* CustomTabView.swift */,
-				C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */,
-				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
-				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
-				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
-				C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */,
 				C2128A8A2ADB2B8100E90C66 /* Localizable.strings */,
 				665D4CCF2AFED43D00F1C05C /* Constants.swift */,
-				2CF2EBDF2B7FE4DC0063D80B /* FilterFriends.swift */,
 				C2128A792ADB271300E90C66 /* Assets.xcassets */,
 			);
 			path = Common;
@@ -761,6 +753,30 @@
 				C20EFE6F2AFDA6D70074EC9A /* CardButtonFrame.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		C2E3EFF82B97C07C00F2AC65 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */,
+				C28ABE972AF31D9E007181F4 /* TextButtons.swift */,
+				C2A3FF212B02B185001EDE9F /* IconButtons.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		C2E3EFF92B97C0A100F2AC65 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C2A6411A2B8047BD00C50F83 /* Toast */,
+				C2082F832B6BD45200EEED6B /* SpiderGraph */,
+				C2E3EFF82B97C07C00F2AC65 /* Buttons */,
+				C2EE4E5E2B2A362500FEA5B5 /* SearchBar.swift */,
+				C2A3FF1F2B02B16F001EDE9F /* TextFields.swift */,
+				C2A4AD762B84169B00AD492F /* CustomTabView.swift */,
+				2CF2EBDF2B7FE4DC0063D80B /* FilterFriends.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		C2ECB9632AF4575100433A3A /* Testing */ = {
