@@ -35,11 +35,9 @@ struct ExploreSearchResponse: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.topics = try container.decode([TopicSearchResult].self, forKey: .topics)
-        
-        let playlists = try container.decode([Playlist].self, forKey: .videos)
-        self.playlists = playlists.map { playlist in
-            return PlaylistPreview(playlist: playlist)
-        }
+        self.topics = try container.decodeIfPresent([TopicSearchResult].self, forKey: .topics)
+        self.playlists = (try? container.decodeIfPresent([Playlist].self, forKey: .videos))?.map { p in
+                return PlaylistPreview(playlist: p)
+            }
     }
 }

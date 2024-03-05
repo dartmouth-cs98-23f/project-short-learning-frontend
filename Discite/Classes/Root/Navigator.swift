@@ -25,7 +25,7 @@ struct Navigator: View {
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    MainExplorePage()
+                    MainExplorePageSearchWrapper()
                     
                 case .Saved:
                     SavedPage()

@@ -72,7 +72,7 @@ class VideoService {
     }
     
     static func deleteSave(playlistId: String) async throws {
-        print("DELETE api/save/playlists/\(playlistId)")
+        print("DELETE /api/save/playlists/\(playlistId)")
         let path = "/api/save/playlists/\(playlistId)"
         
         _ = try await APIRequest<EmptyRequest, EmptyResponse>
@@ -82,8 +82,8 @@ class VideoService {
     }
     
     static func postLike(playlistId: String) async throws {
-        print("POST api/like/playlists/\(playlistId)")
-        let path = "/api/like/playlists/\(playlistId)"
+        print("POST /api/videos/\(playlistId)/like")
+        let path = "/api/videos/\(playlistId)/like"
         
         _ = try await APIRequest<EmptyRequest, EmptyResponse>
             .apiRequest(method: .post,
@@ -92,8 +92,8 @@ class VideoService {
     }
     
     static func deleteLike(playlistId: String) async throws {
-        print("DELETE api/like/playlists/\(playlistId)")
-        let path = "/api/like/playlists/\(playlistId)"
+        print("DELETE /api/videos/\(playlistId)/like")
+        let path = "/api/videos/\(playlistId)/like"
         
         _ = try await APIRequest<EmptyRequest, EmptyResponse>
             .apiRequest(method: .delete,
@@ -102,8 +102,8 @@ class VideoService {
     }
     
     static func postDislike(playlistId: String) async throws {
-        print("POST api/dislike/playlists/\(playlistId)")
-        let path = "/api/dislike/playlists/\(playlistId)"
+        print("POST /api/videos/\(playlistId)/dislike")
+        let path = "/api/videos/\(playlistId)/dislike"
         
         _ = try await APIRequest<EmptyRequest, EmptyResponse>
             .apiRequest(method: .post,
@@ -112,8 +112,8 @@ class VideoService {
     }
     
     static func deleteDislike(playlistId: String) async throws {
-        print("DELETE api/dislike/playlists/\(playlistId)")
-        let path = "/api/dislike/playlists/\(playlistId)"
+        print("DELETE /api/videos/\(playlistId)/dislike")
+        let path = "/api/videos/\(playlistId)/dislike"
         
         _ = try await APIRequest<EmptyRequest, EmptyResponse>
             .apiRequest(method: .delete,

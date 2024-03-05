@@ -25,7 +25,6 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     
     private(set) var title: String
     private(set) var description: String?
-    // private(set) var topics: [TopicTag]
     private(set) var thumbnailURL: String?
     private(set) var authorUsername: String = "johndoe"
     private(set) var youtubeURL: String?
@@ -80,10 +79,6 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         
         id = UUID()
         isSaved = false
-        
-        if videos.isEmpty {
-            throw PlaylistError.emptyPlaylist
-        }
         
         sequenceIndex = -1
         currentIndex = 0
