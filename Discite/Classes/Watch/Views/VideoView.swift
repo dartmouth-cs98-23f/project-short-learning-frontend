@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 
 struct VideoView: View {
+    @ObservedObject var viewModel: SequenceViewModel
     @ObservedObject var playlist: Playlist
     @ObservedObject var video: Video
     @Binding var likedCounter: [Like]
@@ -46,8 +47,7 @@ struct VideoView: View {
                 // offset updates
                 .preference(key: VisibleKey.self, value: shouldPlay)
                 .onPreferenceChange(VisibleKey.self, perform: { value in
-                    playPause(shouldPlay: value)
-                    
+                    // playPause(shouldPlay: value)
                     if let looper = looper,
                        let player = player,
                        let currentPlayerItem = player.currentItem {
@@ -58,10 +58,12 @@ struct VideoView: View {
                         
                         let totalTime = Double(loopCount) + totalDuration + currentTime
                         
-                        print("total time: \(totalTime)")
+                        print("\tTotal time: \(totalTime)")
                     }
                     
                     if !shouldPlay, let currentTime = player?.currentTime() {
+                        print("\tVideo \(video.id) should NOT play.")
+                        player = nil
                         let timestamp = CMTimeGetSeconds(currentTime)
                         Task { await video.postTimestamp(timestamp: timestamp) }
                     }

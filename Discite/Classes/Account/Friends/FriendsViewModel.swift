@@ -25,7 +25,7 @@ class FriendsViewModel: ObservableObject {
             
         } catch {
             self.error = error
-            print(error)
+            print("Error in FriendsViewModel.getFriends: \(error)")
             return nil
         }
     }

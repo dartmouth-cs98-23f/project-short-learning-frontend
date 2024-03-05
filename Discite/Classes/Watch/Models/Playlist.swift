@@ -134,6 +134,17 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     }
     
     @MainActor
+    func putSave() async {
+        do {
+            _ = try await VideoService.putSave(playlistId: playlistId, saved: isSaved)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.savePlaylist)
+            print("Error in Playlist.postSave: \(error)")
+        }
+    }
+    
+    @MainActor
     func deleteSave() async {
         do {
             _ = try await VideoService.deleteSave(playlistId: playlistId)

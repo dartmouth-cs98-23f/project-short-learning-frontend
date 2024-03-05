@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlaylistView: View {
+    @ObservedObject var viewModel: SequenceViewModel
     @ObservedObject var playlist: Playlist
     @Binding var likedCounter: [Like]
     
@@ -18,11 +19,12 @@ struct PlaylistView: View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 0) {
                 ForEach(playlist.videos) { video in
-                    VideoView(playlist: playlist,
-                               video: video,
-                               likedCounter: $likedCounter,
-                               size: size,
-                               safeArea: safeArea)
+                    VideoView(viewModel: viewModel,
+                              playlist: playlist,
+                              video: video,
+                              likedCounter: $likedCounter,
+                              size: size,
+                              safeArea: safeArea)
                     .frame(maxHeight: .infinity)
                     .containerRelativeFrame(.horizontal)
                 }

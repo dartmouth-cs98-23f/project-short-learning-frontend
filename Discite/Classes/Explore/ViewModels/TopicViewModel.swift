@@ -24,7 +24,22 @@ class TopicViewModel: ObservableObject {
                         path: path)
         } catch {
             self.error = TopicError.getTopic
-            print("Error fetching topic: \(error)")
+            print("Error in TopicViewModel.getTopic: \(error)")
+        }
+    }
+    
+    @MainActor
+    public func mockGetTopic(topicId: String) async {
+        do {
+            let path = "/api/topics/\(topicId)"
+            
+            topic = try await APIRequest<EmptyRequest, Topic>
+                .mockRequest(method: .get,
+                        authorized: true,
+                        path: path)
+        } catch {
+            self.error = TopicError.getTopic
+            print("Error in TopicViewModel.mockGetTopic: \(error)")
         }
     }
 
@@ -42,7 +57,7 @@ class TopicViewModel: ObservableObject {
             
         } catch {
             self.error = TopicError.saveTopic
-            print("Error saving topic: \(error)")
+            print("Error in TopicViewModel.saveTopic: \(error)")
         }
     }
 }

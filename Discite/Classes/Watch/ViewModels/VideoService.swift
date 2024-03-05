@@ -22,6 +22,11 @@ struct UnderstandRequest: Encodable {
     var understand: Bool
 }
 
+struct SavePlaylistRequest: Encodable {
+    var playlistId: String
+    var saved: Bool
+}
+
 struct VideoTimestampRequest: Encodable {
     var clipId: String
     var duration: Double
@@ -94,6 +99,19 @@ class VideoService {
             .apiRequest(method: .post,
                          authorized: true,
                          path: path)
+    }
+    
+    static func putSave(playlistId: String, saved: Bool) async throws {
+        print("POST api/user/savePlaylist: \(playlistId)")
+        let path = "/api/user/savePlaylist"
+        
+        let requestBody = SavePlaylistRequest(playlistId: playlistId, saved: saved)
+        
+        _ = try await APIRequest<SavePlaylistRequest, EmptyResponse>
+            .apiRequest(method: .put,
+                         authorized: true,
+                         path: path,
+                         parameters: requestBody)
     }
     
     static func deleteSave(playlistId: String) async throws {

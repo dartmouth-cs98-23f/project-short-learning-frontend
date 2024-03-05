@@ -15,16 +15,7 @@ struct MainExplorePage: View {
     private var isSearching: Bool
     
     var body: some View {
-//         NavigationStack {
             VStack(alignment: .leading) {
-                // page title
-//                Text("Explore.Title")
-//                    .font(Font.H2)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                // search bar here
-                // SearchBar(viewModel: searchViewModel)
-                
                 ScrollView(.vertical) {
                     LazyVStack(spacing: 18) {
                         
@@ -63,8 +54,6 @@ struct MainExplorePage: View {
             .padding(.horizontal, 18)
             
             NavigationBar()
-            
-        // }
     }
     
     @ViewBuilder
@@ -116,6 +105,11 @@ struct MainExplorePage: View {
                 
                 Spacer(minLength: 24)
                 NavigationLink {
+                    TopicPageView(topicSeed: TopicTag(
+                        id: topicVideo.id,
+                        topicId: topicVideo.topicId,
+                        topicName: topicVideo.title
+                    ))
                     
                 } label: {
                     Text("See more")

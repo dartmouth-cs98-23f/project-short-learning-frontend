@@ -40,7 +40,8 @@ struct WatchPage: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.items) { item in
-                        PlaylistView(playlist: item,
+                        PlaylistView(viewModel: viewModel,
+                                     playlist: item,
                                      likedCounter: $likedCounter,
                                      size: size,
                                      safeArea: safeArea)
@@ -90,5 +91,10 @@ struct WatchPage: View {
 }
 
 #Preview {
-    ContentView()
+    // ContentView()
+    GeometryReader { geo in
+        WatchPage(size: geo.size, safeArea: geo.safeAreaInsets)
+            .environment(TabSelectionManager(selection: .Watch))
+            .environmentObject(User())
+    }
 }

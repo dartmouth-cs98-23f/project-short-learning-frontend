@@ -33,60 +33,23 @@ struct RoleVideo: Identifiable, Decodable, GenericTopic {
 
 struct TopicVideo: Identifiable, Decodable, GenericTopic {
     let id: UUID
+    let topicId: String
     let title: String
     let videos: [PlaylistPreview]
     
     enum CodingKeys: String, CodingKey {
-        case topic, videos
+        case topic, topicId, videos
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .topic)
+        self.topicId = try container.decode(String.self, forKey: .topicId)
         self.videos = try container.decode([PlaylistPreview].self, forKey: .videos)
         
         self.id = UUID()
     }
 }
-
-struct GenericTopicVideo: Identifiable, Decodable {
-    let id: UUID
-    private(set) var type: TopicType
-    private(set) var title: String
-    private(set) var videos: [PlaylistPreview]
-    
-    enum TopicType: String, CaseIterable {
-        case role, topic
-    }
-    
-    enum TopicVideoKeys: String, CodingKey {
-        case topic, videos
-    }
-    
-    enum RoleVideoKeys: String, CodingKey {
-        case role, videos
-    }
-    
-    init(from decoder: Decoder) throws {
-        self.id = UUID()
-        
-        do {
-            let container = try decoder.container(keyedBy: TopicVideoKeys.self)
-            self.title = try container.decode(String.self, forKey: .topic)
-            self.videos = try container.decode([PlaylistPreview].self, forKey: .videos)
-            self.type = .topic
-            return
-    
-        } catch { 
-    
-        }
-        
-        let container = try decoder.container(keyedBy: RoleVideoKeys.self)
-        self.title = try container.decode(String.self, forKey: .role)
-        self.videos = try container.decode([PlaylistPreview].self, forKey: .videos)
-        self.type = .role
-    }
- }
 
 protocol GenericTopic: Identifiable, Decodable, Hashable {
     var id: UUID { get }

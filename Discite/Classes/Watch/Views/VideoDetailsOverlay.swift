@@ -198,7 +198,7 @@ struct VideoDetailsView: View {
             playlist.isSaved.toggle()
             Task {
                 playlist.isSaved
-                ? await playlist.postSave()
+                ? await playlist.putSave()
                 : await playlist.deleteSave()
             }
         } label: {

@@ -13,11 +13,13 @@ class AccountViewModel: ObservableObject {
     // GET summary statistics
     @MainActor
     func getProgressSummary() async -> [Statistic]? {
+        print("GET /api/statistics")
+        
         do {
-            let response = try await APIRequest<EmptyRequest, ProgressResponse>
+            let response = try await APIRequest<EmptyRequest, WatchStatisticsResponse>
                 .apiRequest(method: .get,
                             authorized: true,
-                            path: "/api/user/statistics")
+                            path: "/api/statistics")
             
             return response.statistics
             
@@ -31,11 +33,13 @@ class AccountViewModel: ObservableObject {
     // GET recent topics
     @MainActor
     func getRecentTopics() async -> [TopicTag]? {
+        print("GET /api/recentTopics")
+        
         do {
             let response = try await APIRequest<EmptyRequest, RecentTopicsResponse>
                 .apiRequest(method: .get,
                             authorized: true,
-                            path: "/api/topics/recent")
+                            path: "/api/recentTopics")
             
             return response.topics
             
@@ -49,11 +53,13 @@ class AccountViewModel: ObservableObject {
     // GET spider graph data
     @MainActor
     func getSpiderGraphData() async -> SpiderGraphData? {
+        print("GET /api/dashboard")
+        
         do {
             let response = try await APIRequest<EmptyRequest, RolesResponse>
                 .apiRequest(method: .get,
                             authorized: true,
-                            path: "/api/user/roles")
+                            path: "/api/dashboard")
             
             let spiderGraphData = SpiderGraphData(
                 data: [SpiderGraphEntry(values: response.values,
@@ -84,6 +90,6 @@ struct RecentTopicsResponse: Codable {
     var topics: [TopicTag]
 }
 
-struct ProgressResponse: Codable {
+struct WatchStatisticsResponse: Codable {
     var statistics: [Statistic]
 }
