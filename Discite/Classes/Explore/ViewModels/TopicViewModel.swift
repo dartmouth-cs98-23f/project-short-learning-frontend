@@ -16,21 +16,23 @@ class TopicViewModel: ObservableObject {
     
     init(topicId: String) {
         task = Task {
-            await mockGetTopic(topicId: topicId)
+            await mockGetTopicWithQuery(topicId: topicId)
         }
     }
     
     @MainActor
     public func getTopic(topicId: String) async {
         self.state = .loading
+        let query = URLQueryItem(name: "topicId", value: topicId)
         
         do {
-            let path = "/api/topics/\(topicId)"
+            let path = "/api/topics"
             
             topic = try await APIRequest<EmptyRequest, Topic>
                 .apiRequest(method: .get,
                         authorized: true,
-                        path: path)
+                        path: path,
+                        queryItems: [query])
             
             state = .loaded
             
@@ -57,6 +59,28 @@ class TopicViewModel: ObservableObject {
         } catch {
             self.state = .error(error: error)
             print("Error in TopicViewModel.mockGetTopic: \(error)")
+        }
+    }
+    
+    @MainActor
+    public func mockGetTopicWithQuery(topicId: String) async {
+        self.state = .loading
+        let query = URLQueryItem(name: "topicId", value: topicId)
+        
+        do {
+            let path = "/api/topics"
+            
+            topic = try await APIRequest<EmptyRequest, Topic>
+                .mockRequest(method: .get,
+                        authorized: true,
+                        path: path,
+                        queryItems: [query])
+            
+            state = .loaded
+            
+        } catch {
+            self.state = .error(error: error)
+            print("Error in TopicViewModel.getTopic: \(error)")
         }
     }
 
