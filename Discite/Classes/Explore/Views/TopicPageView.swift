@@ -11,15 +11,21 @@ import SwiftUI
 struct TopicPageView: View {
     @State var topicSeed: TopicTag
     @State private var toast: Toast?
+    @StateObject var viewModel: TopicViewModel
     
-    @StateObject var viewModel = TopicViewModel()
+    init(topicSeed: TopicTag) {
+        self._topicSeed = State(initialValue: topicSeed)
+        self._viewModel = StateObject(
+            wrappedValue: TopicViewModel(topicId: topicSeed.topicId))
+    }
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 2)
     ]
     
     var body: some View {
-        if let topic = viewModel.topic {
+        if case .loaded = viewModel.state,
+            let topic = viewModel.topic {
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
                     topicHeader()
@@ -65,13 +71,14 @@ struct TopicPageView: View {
                 }
             }
             
+        } else if case .error = viewModel.state {
+            Text("Error getting topic page.")
+                .foregroundStyle(Color.pink)
+                .containerRelativeFrame([.horizontal, .vertical])
+            
         } else {
             ProgressView()
                 .containerRelativeFrame([.horizontal, .vertical])
-                .task {
-                    await viewModel.getTopic(topicId: topicSeed.topicId)
-                }
-    
         }
     }
     
@@ -176,6 +183,11 @@ struct ToggleRoles: View {
 }
 
 #Preview {
-    ExploreView()
-        .environment(TabSelectionManager(selection: .Explore))
+    TopicPageView(topicSeed: TopicTag(
+        id: UUID(),
+        topicId: "12",
+        topicName: "Algorithms")
+    )
+    .environment(TabSelectionManager(selection: .Explore))
+    .environmentObject(User())
 }

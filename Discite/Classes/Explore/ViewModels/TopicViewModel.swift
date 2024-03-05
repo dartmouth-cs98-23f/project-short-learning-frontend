@@ -10,11 +10,20 @@ import Foundation
 class TopicViewModel: ObservableObject {
     @Published var topic: Topic?
     @Published var error: Error? 
+    @Published var state: ViewModelState = .loading
     
-    init() { }
+    private var task: Task<Void, Error>?
+    
+    init(topicId: String) {
+        task = Task {
+            await mockGetTopic(topicId: topicId)
+        }
+    }
     
     @MainActor
     public func getTopic(topicId: String) async {
+        self.state = .loading
+        
         do {
             let path = "/api/topics/\(topicId)"
             
@@ -22,14 +31,19 @@ class TopicViewModel: ObservableObject {
                 .apiRequest(method: .get,
                         authorized: true,
                         path: path)
+            
+            state = .loaded
+            
         } catch {
-            self.error = TopicError.getTopic
+            self.state = .error(error: error)
             print("Error in TopicViewModel.getTopic: \(error)")
         }
     }
     
     @MainActor
     public func mockGetTopic(topicId: String) async {
+        self.state = .loading
+        
         do {
             let path = "/api/topics/\(topicId)"
             
@@ -37,8 +51,11 @@ class TopicViewModel: ObservableObject {
                 .mockRequest(method: .get,
                         authorized: true,
                         path: path)
+            
+            state = .loaded
+            
         } catch {
-            self.error = TopicError.getTopic
+            self.state = .error(error: error)
             print("Error in TopicViewModel.mockGetTopic: \(error)")
         }
     }
@@ -56,9 +73,13 @@ class TopicViewModel: ObservableObject {
                              parameters: parameters)
             
         } catch {
-            self.error = TopicError.saveTopic
+            self.state = .error(error: error)
             print("Error in TopicViewModel.saveTopic: \(error)")
         }
+    }
+    
+    deinit {
+        task?.cancel()
     }
 }
 

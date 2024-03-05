@@ -26,7 +26,7 @@ struct PlaylistPreview: Codable, Identifiable, Hashable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
         self.playlistId = try container.decode(String.self, forKey: .playlistId)
-        self.description = try container.decode(String.self, forKey: .description)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.thumbnailURL = try container.decodeIfPresent(String.self, forKey: .thumbnailURL)
         
         self.id = UUID()
