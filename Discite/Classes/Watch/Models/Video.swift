@@ -66,7 +66,11 @@ class Video: Decodable, Identifiable, ObservableObject {
     @MainActor
     func postTimestamp(timestamp: Double) async {
         do {
-            _ = try await VideoService.postTimestamp(videoId: videoId, timestamp: timestamp)
+            _ = try await VideoService.postTimestamp(
+                playlistId: playlistId,
+                videoId: videoId,
+                timestamp: timestamp
+            )
             
         } catch {
             self.state = .error(error: error)

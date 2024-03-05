@@ -10,10 +10,20 @@ import SwiftUI
 struct WatchPage: View {
     var size: CGSize
     var safeArea: EdgeInsets
+    var seed: PlaylistPreview?
 
     @Environment(TabSelectionManager.self) private var tabSelection
-    @StateObject var viewModel = SequenceViewModel()
+    @StateObject var viewModel: SequenceViewModel
     @State var likedCounter: [Like] = []
+    
+    init(size: CGSize, safeArea: EdgeInsets, seed: PlaylistPreview? = nil) {
+        self.size = size
+        self.safeArea = safeArea
+        self.seed = seed
+        
+        self._viewModel = StateObject(
+            wrappedValue: SequenceViewModel(seed: seed))
+    }
     
     var body: some View {
         if case .error = viewModel.state {
@@ -25,14 +35,6 @@ struct WatchPage: View {
                 .tint(.white)
                 .background(.black)
                 .animation(.easeOut(duration: 0.1), value: viewModel.items.isEmpty)
-                .task {
-                    if let seed = tabSelection.playlistSeed {
-                        viewModel.setSeed(seed: seed)
-                        tabSelection.setSeed(playlist: nil)
-                    }
-
-                    await viewModel.load()
-                }
             
         } else {
             ScrollView(.vertical) {
@@ -88,7 +90,5 @@ struct WatchPage: View {
 }
 
 #Preview {
-    // ContentView()
-    Navigator()
-        .environmentObject(User())
+    ContentView()
 }

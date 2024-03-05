@@ -23,21 +23,21 @@ struct CustomTabView: View {
                     let selected = index == selectedIndex
                     
                     Button {
-                        withAnimation(.smooth(duration: 0.1)) {
+                        withAnimation(.smooth) {
                             selectedIndex = index
                         }
                         
                     } label: {
                         Text(tabItems[index].label)
-                            .font(selected ? .H5 : .H6)
+                            .font(.H6)
                             .foregroundStyle(selected ?
-                                             Color.primaryBlueBlack
+                                             Color.primaryPurpleDark
                                              : Color.primaryPurpleLight)
                             // underline
                             .background {
                                 if selected {
                                     Rectangle()
-                                        .foregroundColor(Color.primaryBlueBlack)
+                                        .foregroundColor(Color.primaryPurple)
                                         .frame(height: 2)
                                         .padding(.top, 28)
                                 }
@@ -51,6 +51,7 @@ struct CustomTabView: View {
             
             // content
             tabItems[selectedIndex].content
+                .padding(.top, 12)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Spacer()

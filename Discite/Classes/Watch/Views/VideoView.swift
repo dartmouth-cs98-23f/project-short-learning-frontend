@@ -22,13 +22,14 @@ struct VideoView: View {
     @State var error: Error?
     @State var showOverlay: Bool = false
     
+    var duration: Double = 0
+    
     var body: some View {
         GeometryReader { geo in
             let rect = geo.frame(in: .scrollView(axis: .horizontal))
             let shouldPlay = isMainView(rect)
             
             CustomVideoPlayer(player: $player)
-
                 // details and controls, only show on pause
                 .overlay(alignment: .bottom) {
                     if showOverlay {
@@ -46,6 +47,19 @@ struct VideoView: View {
                 .preference(key: VisibleKey.self, value: shouldPlay)
                 .onPreferenceChange(VisibleKey.self, perform: { value in
                     playPause(shouldPlay: value)
+                    
+                    if let looper = looper,
+                       let player = player,
+                       let currentPlayerItem = player.currentItem {
+                    
+                        let loopCount = looper.loopCount
+                        let totalDuration = CMTimeGetSeconds(currentPlayerItem.duration)
+                        let currentTime =  CMTimeGetSeconds(player.currentTime())
+                        
+                        let totalTime = Double(loopCount) + totalDuration + currentTime
+                        
+                        print("total time: \(totalTime)")
+                    }
                     
                     if !shouldPlay, let currentTime = player?.currentTime() {
                         let timestamp = CMTimeGetSeconds(currentTime)
@@ -84,11 +98,6 @@ struct VideoView: View {
                     let queue = AVQueuePlayer(playerItem: playerItem)
                     looper = AVPlayerLooper(player: queue, templateItem: playerItem)
                     player = queue
-                    
-                    if shouldPlay {
-                        player?.play()
-                        isPlaying = true
-                    }
                 }
             
                 // clearing the player
@@ -98,30 +107,30 @@ struct VideoView: View {
         }
     }
     
-    func isMainView(_ rect: CGRect) -> Bool {
+    private func isMainView(_ rect: CGRect) -> Bool {
         let mainVertical = -rect.minY < (rect.height * 0.5) && rect.minY < (rect.height * 0.5)
         let mainHorizontal = -rect.minX < (rect.width * 0.5) && rect.minX < (rect.width * 0.5)
         
         return mainVertical && mainHorizontal
     }
     
-    func play() {
+    private func play() {
         if !isPlaying {
-            print("play \(video.id)")
+            print("\tVideoView: PLAY \(video.id)")
             player?.play()
             isPlaying = true
         }
     }
     
-    func pause() {
+    private func pause() {
         if isPlaying {
-            print("pause \(video.id)")
+            print("\tVideoView: PAUSE \(video.id)")
             player?.pause()
             isPlaying = false
         }
     }
     
-    func playPause(shouldPlay: Bool) {
+    private func playPause(shouldPlay: Bool) {
         if shouldPlay {
             play()
 

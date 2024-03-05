@@ -23,7 +23,8 @@ struct UnderstandRequest: Encodable {
 }
 
 struct VideoTimestampRequest: Encodable {
-    var timestamp: Double
+    var clipId: String
+    var duration: Double
 }
 
 struct VectorizedRecommendationsResponse: Decodable {
@@ -37,10 +38,10 @@ struct VectorizedRecommendationsResponse: Decodable {
 
 class VideoService {
     
-    static func fetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
+    static func getSequence(playlistId: String? = nil) async throws -> [Playlist] {
         if let playlistId {
-            print("GET sequence with playlistId \(playlistId)")
-            let query = URLQueryItem(name: "firstPlaylistId", value: playlistId)
+            print("GET /api/recommendations/vectorized with \(playlistId)")
+            let query = URLQueryItem(name: "videoId", value: playlistId)
             
             let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
                 .apiRequest(method: .get,
@@ -55,6 +56,30 @@ class VideoService {
             let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
                 .apiRequest(method: .get,
                             authorized: true,
+                            path: "/api/recommendations/vectorized")
+
+            return data.results.videos
+        }
+    }
+    
+    static func mockGetSequence(playlistId: String? = nil) async throws -> [Playlist] {
+        if let playlistId {
+            print("GET /api/recommendations/vectorized with \(playlistId)")
+            let query = URLQueryItem(name: "videoId", value: playlistId)
+            
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
+                .mockRequest(method: .get,
+                        authorized: false,
+                        path: "/api/recommendations/vectorized",
+                        queryItems: [query])
+            
+            return data.results.videos
+            
+        } else {
+            print("GET /api/recommendations/vectorized")
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
+                .mockRequest(method: .get,
+                            authorized: false,
                             path: "/api/recommendations/vectorized")
 
             return data.results.videos
@@ -134,11 +159,11 @@ class VideoService {
                          parameters: parameters)
     }
     
-    static func postTimestamp(videoId: String, timestamp: Double) async throws {
-        print("POST api/videos/\(videoId)/timestamp")
-        let path = "/api/videos/\(videoId)/timestamp"
+    static func postTimestamp(playlistId: String, videoId: String, timestamp: Double) async throws {
+        print("POST /api/watchhistory/\(playlistId)")
+        let path = "/api/watchhistory/\(playlistId)"
         
-        let parameters = VideoTimestampRequest(timestamp: timestamp)
+        let parameters = VideoTimestampRequest(clipId: videoId, duration: timestamp)
         
         _ = try await APIRequest<VideoTimestampRequest, EmptyResponse>
             .apiRequest(method: .post,

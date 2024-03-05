@@ -21,7 +21,10 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    WatchPage(size: size, safeArea: safeArea)
+                    WatchPage(
+                        size: size,
+                        safeArea: safeArea,
+                        seed: tabSelectionManager.playlistSeed)
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:

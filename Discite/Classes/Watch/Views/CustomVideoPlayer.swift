@@ -10,9 +10,11 @@ import AVKit
 
 struct CustomVideoPlayer: UIViewControllerRepresentable {
     @Binding var player: AVPlayer?
+    @State var timeObserverToken: Any?
     
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let controller = AVPlayerViewController()
+        
         controller.player = player
         controller.videoGravity = .resizeAspect
         controller.showsPlaybackControls = false

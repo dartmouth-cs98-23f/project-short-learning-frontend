@@ -16,10 +16,10 @@ struct SearchDestinationPage: View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading) {
                 Text("Results for")
-                    .font(.H5)
+                    .font(.subtitle1)
                 
                 Text(text)
-                    .font(.H3)
+                    .font(.H4)
                     .foregroundStyle(Color.primaryPurpleLight)
             }
             
@@ -31,15 +31,12 @@ struct SearchDestinationPage: View {
                 let tabItems: [CustomTabItem] = [
                     CustomTabItem("Playlists") {
                         playlistResults(viewModel.resultPlaylists ?? [])
-                            .padding(.top, 8)
                     },
                     CustomTabItem("Topics") {
                         topicResults(viewModel.resultTopics ?? [])
-                            .padding(.top, 8)
                     },
                     CustomTabItem("Accounts") {
                         Text("No accounts match the query '\(text)'.")
-                            .padding(.top, 8)
                     }
                 ]
 
