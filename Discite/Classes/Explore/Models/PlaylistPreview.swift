@@ -11,7 +11,7 @@ struct PlaylistPreview: Codable, Identifiable, Hashable {
     var id: UUID
     var title: String
     var playlistId: String
-    var description: String
+    var description: String?
     var thumbnailURL: String?
     var isSaved: Bool = false
     
@@ -38,5 +38,13 @@ struct PlaylistPreview: Codable, Identifiable, Hashable {
         self.playlistId = "playlistId"
         self.description = "Playlist description here, can span multiple lines."
         self.thumbnailURL = "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg"
+    }
+    
+    init(playlist: Playlist) {
+        self.id = playlist.id
+        self.title = playlist.title
+        self.playlistId = playlist.playlistId
+        self.description = playlist.description
+        self.thumbnailURL = playlist.thumbnailURL
     }
 }

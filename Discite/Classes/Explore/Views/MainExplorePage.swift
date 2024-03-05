@@ -9,18 +9,21 @@ import SwiftUI
 
 struct MainExplorePage: View {
     @StateObject var viewModel = MainExploreViewModel()
-    @StateObject var searchViewModel = SearchViewModel()
+    @Binding var searchText: String
+
+    @Environment(\.isSearching)
+    private var isSearching: Bool
     
     var body: some View {
-        NavigationStack {
+//         NavigationStack {
             VStack(alignment: .leading) {
                 // page title
-                Text("Explore.Title")
-                    .font(Font.H2)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+//                Text("Explore.Title")
+//                    .font(Font.H2)
+//                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 // search bar here
-                SearchBar(viewModel: searchViewModel)
+                // SearchBar(viewModel: searchViewModel)
                 
                 ScrollView(.vertical) {
                     LazyVStack(spacing: 18) {
@@ -52,11 +55,16 @@ struct MainExplorePage: View {
                     }
                 }
             }
+            .overlay {
+                if isSearching && !searchText.isEmpty {
+                    SearchSuggestionsList(searchText: $searchText)
+                }
+            }
             .padding(.horizontal, 18)
             
             NavigationBar()
             
-        }
+        // }
     }
     
     @ViewBuilder
@@ -161,7 +169,7 @@ struct MainExplorePage: View {
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(playlist.description)
+                Text(playlist.description ?? "")
                     .font(.body2)
                     .lineLimit(2)
                     .foregroundStyle(Color.grayDark)
@@ -185,5 +193,7 @@ struct MainExplorePage: View {
 }
 
 #Preview {
-    ContentView()
+    MainExplorePageSearchWrapper()
+        .environment(TabSelectionManager(selection: .Explore))
+        .environmentObject(User())
 }

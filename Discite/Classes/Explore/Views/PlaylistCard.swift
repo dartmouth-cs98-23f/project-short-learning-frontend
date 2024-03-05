@@ -50,7 +50,7 @@ struct ExplorePlaylistPreviewCard: View {
                         .clipped()
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text(playlist.description)
+                    Text(playlist.description ?? "")
                         .font(.body2)
                         .foregroundStyle(Color.grayDark)
                         .multilineTextAlignment(.leading)

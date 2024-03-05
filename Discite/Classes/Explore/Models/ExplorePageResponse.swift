@@ -16,7 +16,6 @@ struct ExplorePageResponse: Decodable {
 struct RoleVideo: Identifiable, Decodable, GenericTopic {
     let id: UUID
     let title: String
-    // let role: String
     let videos: [PlaylistPreview]
     
     enum CodingKeys: String, CodingKey {
@@ -25,7 +24,6 @@ struct RoleVideo: Identifiable, Decodable, GenericTopic {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        // self.role = try container.decode(String.self, forKey: .role)
         self.title = try container.decode(String.self, forKey: .role)
         self.videos = try container.decode([PlaylistPreview].self, forKey: .videos)
         
@@ -36,7 +34,6 @@ struct RoleVideo: Identifiable, Decodable, GenericTopic {
 struct TopicVideo: Identifiable, Decodable, GenericTopic {
     let id: UUID
     let title: String
-    // let topic: String
     let videos: [PlaylistPreview]
     
     enum CodingKeys: String, CodingKey {
@@ -45,7 +42,6 @@ struct TopicVideo: Identifiable, Decodable, GenericTopic {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        // self.topic = try container.decode(String.self, forKey: .topic)
         self.title = try container.decode(String.self, forKey: .topic)
         self.videos = try container.decode([PlaylistPreview].self, forKey: .videos)
         
