@@ -13,12 +13,16 @@ struct ExplorePlaylistPreviewCard: View {
     var imageHeight: CGFloat = 130
     var cardHeight: CGFloat = 250
     
+    @Binding var isWatchShowing: Bool
+    
     @Environment(TabSelectionManager.self) private var tabSelection
     
     var body: some View {
         Button {
+            print("Setting playlist seed to \(playlist.playlistId).")
             tabSelection.setSeed(playlist: playlist)
-            tabSelection.selection = .Watch
+            isWatchShowing = true
+            // tabSelection.selection = .Watch
                 
         } label: {
             VStack(alignment: .leading, spacing: 8) {
@@ -124,6 +128,8 @@ struct PlaylistPreviewCard: View {
 #Preview {
     let playlistPreview = PlaylistPreview()
     
-    return ExplorePlaylistPreviewCard(playlist: playlistPreview)
+    return ExplorePlaylistPreviewCard(
+        playlist: playlistPreview,
+        isWatchShowing: .constant(false))
         .environment(TabSelectionManager(selection: .Explore))
 }

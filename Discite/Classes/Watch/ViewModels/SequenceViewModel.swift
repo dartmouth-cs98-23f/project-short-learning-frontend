@@ -74,6 +74,7 @@ class SequenceViewModel: ObservableObject {
         do {
             // (1) Ask for more playlists
             // let newItems = try await VideoService.getSequence(playlistId: seedPlaylist?.playlistId)
+            print("Getting sequence with seed: \(seedPlaylist?.playlistId ?? "None")")
             let newItems = try await VideoService.mockGetSequence(playlistId: seedPlaylist?.playlistId)
             // clear seed
             await self.setSeed(seed: nil)

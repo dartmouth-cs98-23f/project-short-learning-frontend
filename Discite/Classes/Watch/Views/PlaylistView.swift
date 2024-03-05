@@ -14,6 +14,7 @@ struct PlaylistView: View {
     
     var size: CGSize
     var safeArea: EdgeInsets
+    var includeNavigation: Bool = true
     
     var body: some View {
         ScrollView(.horizontal) {
@@ -24,7 +25,8 @@ struct PlaylistView: View {
                               video: video,
                               likedCounter: $likedCounter,
                               size: size,
-                              safeArea: safeArea)
+                              safeArea: safeArea,
+                              includeNavigation: includeNavigation)
                     .frame(maxHeight: .infinity)
                     .containerRelativeFrame(.horizontal)
                 }

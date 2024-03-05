@@ -11,15 +11,17 @@ struct WatchPage: View {
     var size: CGSize
     var safeArea: EdgeInsets
     var seed: PlaylistPreview?
+    var includeNavigation: Bool
 
     @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel: SequenceViewModel
     @State var likedCounter: [Like] = []
     
-    init(size: CGSize, safeArea: EdgeInsets, seed: PlaylistPreview? = nil) {
+    init(size: CGSize, safeArea: EdgeInsets, seed: PlaylistPreview? = nil, includeNavigation: Bool = true) {
         self.size = size
         self.safeArea = safeArea
         self.seed = seed
+        self.includeNavigation = includeNavigation
         
         self._viewModel = StateObject(
             wrappedValue: SequenceViewModel(seed: seed))
@@ -44,7 +46,8 @@ struct WatchPage: View {
                                      playlist: item,
                                      likedCounter: $likedCounter,
                                      size: size,
-                                     safeArea: safeArea)
+                                     safeArea: safeArea,
+                                     includeNavigation: includeNavigation)
                         .frame(maxWidth: .infinity)
                         .containerRelativeFrame(.vertical)
                         .onAppear {

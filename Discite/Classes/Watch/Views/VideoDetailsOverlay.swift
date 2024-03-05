@@ -20,18 +20,21 @@ struct VideoDetailsView: View {
     @State var detailsShowing: Bool = false
     @State var isPlaying: Bool
     
+    private var includeNavigation: Bool
     private var safeArea: EdgeInsets
     private let alertTitle = "Tell us why you disliked this video."
 
     init(playlist: Playlist, 
          video: Video,
          player: Binding<AVPlayer?>,
-         safeArea: EdgeInsets
+         safeArea: EdgeInsets,
+         includeNavigation: Bool = true
     ) {
        
         self.playlist = playlist
         self.video = video
         self.safeArea = safeArea
+        self.includeNavigation = includeNavigation
         self._player = player
         self._isPlaying =  State(initialValue: player.wrappedValue?.timeControlStatus == .playing)
     }
@@ -41,6 +44,7 @@ struct VideoDetailsView: View {
             ZStack {
                 VStack(spacing: 12) {
                     dotNavigation()
+                        .padding(8)
                     
                     Spacer()
                     
@@ -78,7 +82,9 @@ struct VideoDetailsView: View {
                         controls()
                     }
                     
-                    NavigationBar()
+                    if includeNavigation {
+                        NavigationBar()
+                    }
                 }
                 
                 playBackControls()

@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MainExplorePage: View {
+    @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel = MainExploreViewModel()
     @Binding var searchText: String
+    @State var isWatchShowing: Bool = false
 
     @Environment(\.isSearching)
     private var isSearching: Bool
@@ -45,6 +47,31 @@ struct MainExplorePage: View {
                         
                     }
                 }
+            }
+            .fullScreenCover(isPresented: $isWatchShowing) {
+                VStack(alignment: .leading) {
+                    Button {
+                        isWatchShowing = false
+                        
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundStyle(Color.secondaryPeachLight)
+                            .frame(width: 22, height: 22)
+                    }
+                    .frame(maxHeight: 24, alignment: .leading)
+                    .padding(.horizontal, 18)
+                    
+                    GeometryReader { geo in
+                        WatchPage(size: geo.size,
+                                  safeArea: geo.safeAreaInsets,
+                                  seed: tabSelection.playlistSeed,
+                                  includeNavigation: false)
+                    }
+                    .containerRelativeFrame([.vertical])
+                }
+                .background(.black)
             }
             .overlay {
                 if isSearching && !searchText.isEmpty {
@@ -122,7 +149,9 @@ struct MainExplorePage: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     ForEach(topicVideo.videos) { playlist in
-                        ExplorePlaylistPreviewCard(playlist: playlist)
+                        ExplorePlaylistPreviewCard(
+                            playlist: playlist,
+                            isWatchShowing: $isWatchShowing)
                             .padding(.bottom, 18)
                     }
                 }

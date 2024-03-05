@@ -16,6 +16,7 @@ struct VideoView: View {
 
     var size: CGSize
     var safeArea: EdgeInsets
+    var includeNavigation: Bool = true
     
     @State var player: AVPlayer?
     @State var looper: AVPlayerLooper?
@@ -38,7 +39,8 @@ struct VideoView: View {
                             playlist: playlist,
                             video: video,
                             player: $player,
-                            safeArea: safeArea
+                            safeArea: safeArea,
+                            includeNavigation: includeNavigation
                         )
                     }
                 }
