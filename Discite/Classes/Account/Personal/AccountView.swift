@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(TabSelectionManager.self) private var tabSelection
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var user: User
     
     @State var statistics: [Statistic]?
@@ -108,10 +109,16 @@ struct AccountView: View {
             VStack {
                 if let count = friends?.count {
                     Text("\(count)")
-                        .font(.H4)
-                    Text("Friends")
-                        .font(.body1)
+                        .font(.H3)
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                } else {
+                    Text("0")
+                        .font(.H3)
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }
+                Text("Friends")
+                    .font(.body1)
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             }
             .padding(0)
         }
