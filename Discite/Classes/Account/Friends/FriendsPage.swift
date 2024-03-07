@@ -15,9 +15,8 @@ struct FriendsPage: View {
     var body: some View {
         VStack(spacing: 8) {
             if viewModel.error != nil {
-                Text("Error loading friends.")
-                    .foregroundColor(Color.red)
-                
+                Text("Nobody here to display.")
+                                
             } else if friends == nil {
                 ProgressView("Loading...")
                     .frame(minHeight: 400)
