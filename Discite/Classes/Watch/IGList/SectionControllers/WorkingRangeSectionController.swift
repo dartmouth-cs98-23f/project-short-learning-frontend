@@ -20,7 +20,7 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
     var visibleCell: EmbeddedVideoCell?
     
     // single VIDEO goes here
-    // private var video: Video?
+    private var video: Video?
     
     private var player: AVPlayer?
     var videoURLs = [URL]()
@@ -77,18 +77,17 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
             return UICollectionViewCell()
         }
         
-        let playerItem = AVPlayerItem.init(url: videoURLs[index % 2])
-        cell.configureWithPlayerItem(playerItem: playerItem)
+        if let url = video?.videoLink {
+            let playerItem = AVPlayerItem(url: url)
+            cell.configureWithPlayerItem(playerItem: playerItem)
+        }
+//        let playerItem = AVPlayerItem.init(url: videoURLs[index % 2])
+//        cell.configureWithPlayerItem(playerItem: playerItem)
         return cell
     }
 
     override func didUpdate(to object: Any) {
-        print("\tWorkingRangeSectionController UPDATED to an object: \(object as? Int)")
-        // self.height = object as? Int
-    }
-    
-    override func didDeselectItem(at index: Int) {
-        print("\tWorkingRangeSectionController DESELECTED index \(index)")
+        self.video = object as? Video
     }
     
     // MARK: ListDisplayDelegate

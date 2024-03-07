@@ -13,10 +13,10 @@ import UIKit
 
 final class HorizontalSectionController: ListSectionController, ListAdapterDataSource, ListDisplayDelegate {
     
-    // Each horizontal section is a playlist of videos, will store playlist here
-    // private var playlist: Playlist
+    // Each horizontal section is a playlist of videos
+    private var playlist: Playlist?
     
-    private var number: Int?
+    // private var number: Int?
     var visibleIP: IndexPath?
 
     lazy var adapter: ListAdapter = {
@@ -53,7 +53,8 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
     }
 
     override func didUpdate(to object: Any) {
-        number = object as? Int
+        playlist = object as? Playlist
+        // number = object as? Int
     }
     
     // MARK: ListDisplayDelegate
@@ -131,8 +132,10 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let number = number else { return [] }
-        return (0..<number).map { $0 as ListDiffable }
+        guard let playlist = playlist else { return [] }
+        return playlist.videos as [ListDiffable]
+        // guard let number = number else { return [] }
+        // return (0..<number).map { $0 as ListDiffable }
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

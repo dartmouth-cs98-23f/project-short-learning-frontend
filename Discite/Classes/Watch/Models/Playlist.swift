@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import IGListKit
 
 enum PlaylistError: Error {
     case noNextVideo
@@ -197,5 +198,23 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             self.state = .error(error: PlaylistError.dislikePlaylist)
             print("Error in Playlist.deleteDislike: \(error)")
         }
+    }
+}
+
+extension Playlist: ListDiffable {
+    public func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+        
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        if object === self {
+            return true
+        }
+        
+        if let object = object as? Playlist {
+            return id == object.id
+        }
+        
+        return false
     }
 }
