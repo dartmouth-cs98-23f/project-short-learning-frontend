@@ -108,7 +108,12 @@ struct AccountView: View {
             VStack {
                 if let count = friends?.count {
                     Text("\(count)")
-                        .font(.H4)
+                        .font(.H5)
+                    Text("Friends")
+                        .font(.body1)
+                } else {
+                    Text("0")
+                        .font(.H5)
                     Text("Friends")
                         .font(.body1)
                 }
