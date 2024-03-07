@@ -15,6 +15,7 @@ struct AccountView: View {
     @State var statistics: [Statistic]?
     @State var topics: [TopicTag] = []
     @State var spiderGraphData: SpiderGraphData?
+    @State private var isShowingMenu = false
     @ObservedObject var viewModel: AccountViewModel = AccountViewModel()
     @ObservedObject var friendsViewModel = FriendsViewModel()
     @State var friends: [Friend]?
@@ -75,8 +76,8 @@ struct AccountView: View {
     }
     
     func menuButton() -> some View {
-        NavigationLink {
-            AccountMenu(viewModel: viewModel)
+        Button {
+            isShowingMenu = true
         } label: {
             Image(systemName: "line.horizontal.3")
                 .resizable()
@@ -84,6 +85,10 @@ struct AccountView: View {
                 .frame(width: 24, height: 24)
         }
         .foregroundColor(.primaryBlueBlack)
+        .sheet(isPresented: $isShowingMenu) {
+            AccountMenu(viewModel: viewModel)
+                .presentationDetents([.large, .medium])
+        }
     }
     
     func basicInformation() -> some View {
