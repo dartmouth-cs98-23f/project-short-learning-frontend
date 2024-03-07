@@ -87,6 +87,8 @@ struct FriendProfile: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: photoSize, height: photoSize)
                                 .clipShape(Circle())
+                        @unknown default:
+                            ProgressView()
                         }
                     }
                     Circle()

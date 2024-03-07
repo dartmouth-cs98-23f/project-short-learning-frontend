@@ -10,14 +10,26 @@ import SwiftUI
 struct WatchPage: View {
     var size: CGSize
     var safeArea: EdgeInsets
+    var seed: PlaylistPreview?
+    var includeNavigation: Bool
 
     @Environment(TabSelectionManager.self) private var tabSelection
-    @StateObject var viewModel = SequenceViewModel()
+    @StateObject var viewModel: SequenceViewModel
     @State var likedCounter: [Like] = []
+    
+    init(size: CGSize, safeArea: EdgeInsets, seed: PlaylistPreview? = nil, includeNavigation: Bool = true) {
+        self.size = size
+        self.safeArea = safeArea
+        self.seed = seed
+        self.includeNavigation = includeNavigation
+        
+        self._viewModel = StateObject(
+            wrappedValue: SequenceViewModel(seed: seed))
+    }
     
     var body: some View {
         if case .error = viewModel.state {
-            Text("Error loading content.")
+            errorView()
 
         } else if viewModel.items.isEmpty {
             ProgressView()
@@ -25,22 +37,17 @@ struct WatchPage: View {
                 .tint(.white)
                 .background(.black)
                 .animation(.easeOut(duration: 0.1), value: viewModel.items.isEmpty)
-                .task {
-                    if let seed = tabSelection.playlistSeed {
-                        viewModel.setSeed(seed: seed)
-                    }
-
-                    await viewModel.load()
-                }
             
         } else {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.items) { item in
-                        PlaylistView(playlist: item,
+                        PlaylistView(viewModel: viewModel,
+                                     playlist: item,
                                      likedCounter: $likedCounter,
                                      size: size,
-                                     safeArea: safeArea)
+                                     safeArea: safeArea,
+                                     includeNavigation: includeNavigation)
                         .frame(maxWidth: .infinity)
                         .containerRelativeFrame(.vertical)
                         .onAppear {
@@ -70,8 +77,27 @@ struct WatchPage: View {
             .environment(\.colorScheme, .dark)
         }
     }
+    
+    @ViewBuilder
+    private func errorView() -> some View {
+        VStack {
+            Text("Error loading content.")
+                .foregroundStyle(Color.secondaryPink)
+                .containerRelativeFrame([.horizontal, .vertical])
+            
+            Spacer()
+            
+            NavigationBar()
+        }
+        .background(Color.primaryBlueBlack)
+    }
 }
 
 #Preview {
-    ContentView()
+    // ContentView()
+    GeometryReader { geo in
+        WatchPage(size: geo.size, safeArea: geo.safeAreaInsets)
+            .environment(TabSelectionManager(selection: .Watch))
+            .environmentObject(User())
+    }
 }

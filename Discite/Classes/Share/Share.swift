@@ -15,7 +15,7 @@ struct Share: View {
     
     @State private var isShowingActivities = false
     @State private var friendSearch = ""
-    @State private var message = "This playlist is perfect for you. ✨ Join me on Discite to unlock more personalized, tailored content and enhance your learning experience! 📚"
+    @State private var message = "Wanted to share a playlist with you. Join me on Discite to unlock personalized and engaging computer science content, made for the modern attention span.\n"
     
     @ObservedObject var viewModel = FriendsViewModel()
     @State private var friends: [Friend]?
@@ -125,7 +125,8 @@ struct Share: View {
                     .frame(width: 54, height: 54)
                 
                 // Check thumbnail URL
-                if let url = URL(string: playlist.thumbnailURL) {
+                if let thumbnailURL = playlist.thumbnailURL,
+                   let url = URL(string: thumbnailURL) {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
@@ -218,13 +219,12 @@ struct Share: View {
 struct ShareRepresentable: UIViewControllerRepresentable {
     
     var message: String
-    var videoURL: String = "www.youtube.com"
+    var appStoreLink: URL = URL(string: "https://apps.apple.com/us/app/discite/id6471923551")!
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let fullMessage = message + " [\(videoURL)]"
-        return UIActivityViewController(activityItems: [ fullMessage ], applicationActivities: nil)
+        return UIActivityViewController(activityItems: [ message, appStoreLink ], applicationActivities: nil)
         
     }
 }

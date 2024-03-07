@@ -28,4 +28,11 @@ struct TopicTag: Codable, Identifiable {
         self.topicName = try container.decode(String.self, forKey: .topicName)
         self.isSaved = try container.decode(Bool.self, forKey: .isSaved)
     }
+    
+    init(id: UUID, topicId: String, topicName: String, isSaved: Bool = false) {
+        self.id = id
+        self.topicId = topicId
+        self.topicName = topicName
+        self.isSaved = isSaved
+    }
 }

@@ -9,44 +9,66 @@ import SwiftUI
 import AVKit
 
 struct VideoView: View {
+    @ObservedObject var viewModel: SequenceViewModel
     @ObservedObject var playlist: Playlist
     @ObservedObject var video: Video
     @Binding var likedCounter: [Like]
 
     var size: CGSize
     var safeArea: EdgeInsets
+    var includeNavigation: Bool = true
     
     @State var player: AVPlayer?
     @State var looper: AVPlayerLooper?
     @State var isPlaying: Bool = false
+    @State var error: Error?
+    @State var showOverlay: Bool = false
     
-    @State var isShareShowing = false
+    var duration: Double = 0
     
     var body: some View {
-        GeometryReader {
-            let rect = $0.frame(in: .scrollView(axis: .horizontal))
+        GeometryReader { geo in
+            let rect = geo.frame(in: .scrollView(axis: .horizontal))
             let shouldPlay = isMainView(rect)
             
             CustomVideoPlayer(player: $player)
-                // share sheet
-                .sheet(isPresented: $isShareShowing) {
-                    Share(playlist: playlist, isShowing: $isShareShowing)
-                }
-            
                 // details and controls, only show on pause
                 .overlay(alignment: .bottom) {
-                    if !isPlaying {
-                        PostDetailsView()
-                            .background(.black.opacity(0.7))
-                            .opacity(isPlaying ? 0 : 1)
+                    if showOverlay {
+                        VideoDetailsView(
+                            playlist: playlist,
+                            video: video,
+                            player: $player,
+                            safeArea: safeArea,
+                            includeNavigation: includeNavigation
+                        )
                     }
                 }
-                .animation(.easeIn(duration: 0.3), value: isPlaying)
+                .animation(.easeIn(duration: 0.3), value: showOverlay)
             
                 // offset updates
                 .preference(key: VisibleKey.self, value: shouldPlay)
                 .onPreferenceChange(VisibleKey.self, perform: { value in
-                    playPause(shouldPlay: value)
+                    // playPause(shouldPlay: value)
+                    if let looper = looper,
+                       let player = player,
+                       let currentPlayerItem = player.currentItem {
+                    
+                        let loopCount = looper.loopCount
+                        let totalDuration = CMTimeGetSeconds(currentPlayerItem.duration)
+                        let currentTime =  CMTimeGetSeconds(player.currentTime())
+                        
+                        let totalTime = Double(loopCount) + totalDuration + currentTime
+                        
+                        print("\tTotal time: \(totalTime)")
+                    }
+                    
+                    if !shouldPlay, let currentTime = player?.currentTime() {
+                        print("\tVideo \(video.id) should NOT play.")
+                        player = nil
+                        let timestamp = CMTimeGetSeconds(currentTime)
+                        Task { await video.postTimestamp(timestamp: timestamp) }
+                    }
                 })
             
                 // liking the video
@@ -64,23 +86,12 @@ struct VideoView: View {
                     
                     video.isLiked = true
                 })
-                
+            
                 // playing/pausing on tap
                 .onTapGesture {
-                    switch player?.timeControlStatus {
-                    case .paused:
-                        play()
-                    case .waitingToPlayAtSpecifiedRate:
-                        break
-                    case .playing:
-                        pause()
-                    case .none:
-                        break
-                    @unknown default:
-                        break
-                    }
+                    showOverlay.toggle()
                 }
-                
+            
                 // populating the player
                 .onAppear {
                     guard player == nil else { return }
@@ -91,11 +102,8 @@ struct VideoView: View {
                     let queue = AVQueuePlayer(playerItem: playerItem)
                     looper = AVPlayerLooper(player: queue, templateItem: playerItem)
                     player = queue
-                    
-                    player?.play()
-                    isPlaying = true
                 }
-                
+            
                 // clearing the player
                 .onDisappear {
                     player = nil
@@ -103,30 +111,30 @@ struct VideoView: View {
         }
     }
     
-    func isMainView(_ rect: CGRect) -> Bool {
+    private func isMainView(_ rect: CGRect) -> Bool {
         let mainVertical = -rect.minY < (rect.height * 0.5) && rect.minY < (rect.height * 0.5)
         let mainHorizontal = -rect.minX < (rect.width * 0.5) && rect.minX < (rect.width * 0.5)
         
         return mainVertical && mainHorizontal
     }
     
-    func play() {
+    private func play() {
         if !isPlaying {
-            print("play \(video.id)")
+            print("\tVideoView: PLAY \(video.id)")
             player?.play()
             isPlaying = true
         }
     }
     
-    func pause() {
+    private func pause() {
         if isPlaying {
-            print("pause \(video.id)")
+            print("\tVideoView: PAUSE \(video.id)")
             player?.pause()
             isPlaying = false
         }
     }
     
-    func playPause(shouldPlay: Bool) {
+    private func playPause(shouldPlay: Bool) {
         if shouldPlay {
             play()
 
@@ -135,144 +143,4 @@ struct VideoView: View {
             player?.seek(to: .zero)
         }
     }
-    
-    @ViewBuilder
-    func dotNavigation() -> some View {
-        let currentIndex = playlist.videos.firstIndex(where: { $0.id == video.id })
-        
-        HStack(spacing: 10) {
-            ForEach(0..<playlist.videos.count, id: \.self) { index in
-                if currentIndex == index {
-                    Circle()
-                        .fill(Color.primaryPurpleLightest.opacity(1))
-                        .frame(width: 12, height: 12)
-                } else {
-                    Circle()
-                        .fill(Color.primaryPurpleLight.opacity(0.5))
-                        .frame(width: 8, height: 8)
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func controls() -> some View {
-        VStack(spacing: 32) {
-            
-            Button {
-                playlist.isSaved.toggle()
-                
-                Task {
-                    // POST save or unsave
-                    await playlist.save()
-                }
-                
-            } label: {
-                Image(systemName: playlist.isSaved ? "bookmark.fill" : "bookmark")
-            }
-            .symbolEffect(.bounce, value: video.isLiked)
-            .foregroundStyle(playlist.isSaved ? Color.primaryPurpleLight : .white)
-            
-            Button {
-                video.isLiked.toggle()
-            } label: {
-                Image(systemName: video.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
-            }
-            .symbolEffect(.bounce, value: video.isLiked)
-            .foregroundStyle(video.isLiked ? Color.primaryPurpleLight : .white)
-            
-            Button {
-                video.isLiked = false
-            } label: {
-                Image(systemName: "hand.thumbsdown")
-            }
-            
-            Button {
-                isShareShowing = true
-                print("pressed share")
-            } label: {
-                Image(systemName: "paperplane")
-            }
-        }
-        .font(.title2)
-        .foregroundColor(.white)
-    }
-    
-    @ViewBuilder
-    func PostDetailsView() -> some View {
-        VStack(spacing: 12) {
-            dotNavigation()
-            Spacer()
-            HStack(alignment: .bottom, spacing: 10) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Button {
-                        openYouTube()
-                    } label: {
-                        HStack(spacing: 4) {
-                            Text("Open in YouTube")
-                            Image(systemName: "arrow.right")
-                        }
-                    }
-                    .font(.small)
-                    .foregroundStyle(Color.secondaryPurplePinkLight)
-                    
-                    Text(playlist.title)
-                        .font(.H4)
-                        .lineLimit(2)
-                        .clipped()
-                    
-                    // Author details
-                    HStack(spacing: 10) {
-                        Image(systemName: "person.circle.fill")
-                            .font(.title)
-                        
-                        Text(playlist.authorUsername)
-                            .font(.subtitle1)
-                            .lineLimit(1)
-                            .clipped()
-                    }
-                    .foregroundStyle(.white)
-                    
-                    Text(playlist.description)
-                        .font(.body1)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
-                        .clipped()
-                }
-                
-                Spacer(minLength: 0)
-                
-                // Controls
-                controls()
-            }
-            
-            NavigationBar()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .padding(.top, safeArea.top + 12)
-        .padding(.leading, safeArea.leading + 18)
-        .padding(.trailing, safeArea.trailing + 18)
-        .padding(.bottom, safeArea.bottom)
-    }
-    
-    private func openYouTube() {
-        // if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
-        if let youtubeURL = URL(string: "youtube://www.youtube.com"),
-            UIApplication.shared.canOpenURL(youtubeURL) {
-            // Open in YouTube app if installed
-            print("Opening YouTube App.")
-            UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
-            
-        // } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
-        } else if let youtubeURL = URL(string: "https://www.youtube.com") {
-            // Open in Safari if YouTube app is not installed
-            print("Opening YouTube in Safari.")
-            UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
-        }
-
-    }
-}
-
-#Preview {
-    ContentView()
 }

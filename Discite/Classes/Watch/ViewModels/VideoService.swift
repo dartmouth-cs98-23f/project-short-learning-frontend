@@ -18,44 +18,187 @@ struct SequenceData: Decodable {
     var playlists: [Playlist]
 }
 
-struct SavePlaylistRequest: Codable {
+struct UnderstandRequest: Encodable {
+    var understand: Bool
+}
+
+struct SavePlaylistRequest: Encodable {
     var playlistId: String
     var saved: Bool
 }
 
+struct VideoTimestampRequest: Encodable {
+    var clipId: String
+    var duration: Double
+}
+
+struct VectorizedRecommendationsResponse: Decodable {
+    struct Results: Decodable {
+        let userId: String
+        let videos: [Playlist]
+    }
+
+    let results: Results
+}
+
 class VideoService {
-    static func fetchSequence(playlistId: String? = nil) async throws -> [Playlist] {
+    
+    static func getSequence(playlistId: String? = nil) async throws -> [Playlist] {
         if let playlistId {
-            print("GET sequence with playlistId \(playlistId)")
-            let query = URLQueryItem(name: "firstPlaylistId", value: playlistId)
+            print("GET /api/recommendations/vectorized with \(playlistId)")
+            let query = URLQueryItem(name: "videoId", value: playlistId)
             
-            let data = try await APIRequest<EmptyRequest, SequenceData>
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
                 .apiRequest(method: .get,
                         authorized: true,
-                        path: "/api/playlists/sequence",
+                        path: "/api/recommendations/vectorized",
                         queryItems: [query])
             
-            return data.playlists
+            return data.results.videos
             
         } else {
-            print("GET playlists/sequence")
-            let data = try await APIRequest<EmptyRequest, SequenceData>
+            print("GET /api/recommendations/vectorized")
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
                 .apiRequest(method: .get,
-                             authorized: true,
-                             path: "/api/playlists/sequence")
+                            authorized: true,
+                            path: "/api/recommendations/vectorized")
 
-            return data.playlists
+            return data.results.videos
         }
     }
     
-    static func savePlaylist(parameters: SavePlaylistRequest) async throws {
-        print("POST api/save/playlists/\(parameters.playlistId)")
-        let path = "api/save/playlists/\(parameters.playlistId)"
+    static func mockGetSequence(playlistId: String? = nil) async throws -> [Playlist] {
+        if let playlistId {
+            print("GET /api/recommendations/vectorized with \(playlistId)")
+            let query = URLQueryItem(name: "videoId", value: playlistId)
+            
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
+                .mockRequest(method: .get,
+                        authorized: false,
+                        path: "/api/recommendations/vectorized",
+                        queryItems: [query])
+            
+            return data.results.videos
+            
+        } else {
+            print("GET /api/recommendations/vectorized")
+            let data = try await APIRequest<EmptyRequest, VectorizedRecommendationsResponse>
+                .mockRequest(method: .get,
+                            authorized: false,
+                            path: "/api/recommendations/vectorized")
+
+            return data.results.videos
+        }
+    }
+    
+    static func postSave(playlistId: String) async throws {
+        print("POST api/save/playlists/\(playlistId)")
+        let path = "/api/save/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func putSave(playlistId: String, saved: Bool) async throws {
+        print("POST api/user/savePlaylist: \(playlistId)")
+        let path = "/api/user/savePlaylist"
+        
+        let requestBody = SavePlaylistRequest(playlistId: playlistId, saved: saved)
         
         _ = try await APIRequest<SavePlaylistRequest, EmptyResponse>
+            .apiRequest(method: .put,
+                         authorized: true,
+                         path: path,
+                         parameters: requestBody)
+    }
+    
+    static func deleteSave(playlistId: String) async throws {
+        print("DELETE /api/save/playlists/\(playlistId)")
+        let path = "/api/save/playlists/\(playlistId)"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .delete,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postLike(playlistId: String) async throws {
+        print("POST /api/videos/\(playlistId)/like")
+        let path = "/api/videos/\(playlistId)/like"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func deleteLike(playlistId: String) async throws {
+        print("DELETE /api/videos/\(playlistId)/like")
+        let path = "/api/videos/\(playlistId)/like"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .delete,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postDislike(playlistId: String) async throws {
+        print("POST /api/videos/\(playlistId)/dislike")
+        let path = "/api/videos/\(playlistId)/dislike"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func deleteDislike(playlistId: String) async throws {
+        print("DELETE /api/videos/\(playlistId)/dislike")
+        let path = "/api/videos/\(playlistId)/dislike"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .delete,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postUnderstanding(videoId: String, understand: Bool) async throws {
+        print("POST api/videos/\(videoId)/understand")
+        let path = "/api/videos/\(videoId)/understand"
+        
+        let parameters = UnderstandRequest(understand: understand)
+        
+        _ = try await APIRequest<UnderstandRequest, EmptyResponse>
             .apiRequest(method: .post,
                          authorized: true,
                          path: path,
                          parameters: parameters)
+    }
+    
+    static func postTimestamp(playlistId: String, videoId: String, timestamp: Double) async throws {
+        print("POST /api/watchhistory/\(playlistId)")
+        let path = "/api/watchhistory/\(playlistId)"
+        
+        let parameters = VideoTimestampRequest(clipId: videoId, duration: timestamp)
+        
+        _ = try await APIRequest<VideoTimestampRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path,
+                         parameters: parameters)
+    }
+    
+    static func getPlaylistSummary(playlistId: String) async throws -> PlaylistInferenceSummary {
+        print("GET api/videos/\(playlistId)/summary")
+        let path = "/api/videos/\(playlistId)/summary"
+        
+        let response = try await APIRequest<EmptyRequest, PlaylistInferenceSummary>
+            .apiRequest(method: .get,
+                         authorized: true,
+                         path: path)
+        
+        return response
     }
 }

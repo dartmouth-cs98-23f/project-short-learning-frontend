@@ -66,8 +66,8 @@ struct SavedPage: View {
         } else {
             ScrollView(.vertical) {
                 VStack(spacing: 18) {
-                    ForEach($viewModel.savedTopics) { $topic in
-                        singleTopic(topic: $topic)
+                    ForEach(viewModel.savedTopics) { topic in
+                        singleTopic(topic: topic)
                     }
                 }
             }
@@ -95,7 +95,7 @@ struct SavedPage: View {
     }
     
     @ViewBuilder
-    func singleTopic(topic: Binding<TopicTag>) -> some View {
+    func singleTopic(topic: TopicTag) -> some View {
         NavigationLink {
             TopicPageView(topicSeed: topic)
             
@@ -106,7 +106,7 @@ struct SavedPage: View {
                     .scaledToFit()
                     .frame(width: 20, height: 20)
                 
-                Text(topic.wrappedValue.topicName)
+                Text(topic.topicName)
                     .font(.H6)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -176,5 +176,6 @@ struct SavedPage: View {
 
 #Preview {
     AccountView()
+        .environmentObject(User())
         .environment(TabSelectionManager(selection: .Account))
 }

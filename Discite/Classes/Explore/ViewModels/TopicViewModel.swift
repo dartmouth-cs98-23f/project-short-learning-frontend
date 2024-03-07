@@ -9,22 +9,77 @@ import Foundation
 
 class TopicViewModel: ObservableObject {
     @Published var topic: Topic?
-    @Published var error: Error? 
+    @Published var state: ViewModelState = .loading
     
-    init() { }
+    private var task: Task<Void, Error>?
+    
+    init(topicId: String) {
+        task = Task {
+            await mockGetTopicWithQuery(topicId: topicId)
+        }
+    }
     
     @MainActor
     public func getTopic(topicId: String) async {
+        self.state = .loading
+        let query = URLQueryItem(name: "topicId", value: topicId)
+        
         do {
-            let path = "/api/topics/\(topicId)"
+            let path = "/api/topics"
             
             topic = try await APIRequest<EmptyRequest, Topic>
                 .apiRequest(method: .get,
                         authorized: true,
-                        path: path)
+                        path: path,
+                        queryItems: [query])
+            
+            state = .loaded
+            
         } catch {
-            self.error = TopicError.getTopic
-            print("Error fetching topic: \(error)")
+            self.state = .error(error: TopicError.getTopic)
+            print("Error in TopicViewModel.getTopic: \(error)")
+        }
+    }
+    
+    @MainActor
+    public func mockGetTopic(topicId: String) async {
+        self.state = .loading
+        
+        do {
+            let path = "/api/topics/\(topicId)"
+            
+            topic = try await APIRequest<EmptyRequest, Topic>
+                .mockRequest(method: .get,
+                        authorized: true,
+                        path: path)
+            
+            state = .loaded
+            
+        } catch {
+            self.state = .error(error: TopicError.getTopic)
+            print("Error in TopicViewModel.mockGetTopic: \(error)")
+        }
+    }
+    
+    @MainActor
+    public func mockGetTopicWithQuery(topicId: String) async {
+        self.state = .loading
+        let query = URLQueryItem(name: "topicId", value: topicId)
+        
+        do {
+            let path = "/api/topics"
+            
+            topic = try await APIRequest<EmptyRequest, Topic>
+                .mockRequest(method: .get,
+                        authorized: true,
+                        path: path,
+                        queryItems: [query])
+            
+            state = .loaded
+            
+        } catch {
+            self.state = .error(error: TopicError.getTopic)
+            print("Error in TopicViewModel.getTopic: \(error)")
         }
     }
 
@@ -41,9 +96,13 @@ class TopicViewModel: ObservableObject {
                              parameters: parameters)
             
         } catch {
-            self.error = TopicError.saveTopic
-            print("Error saving topic: \(error)")
+            self.state = .error(error: TopicError.saveTopic)
+            print("Error in TopicViewModel.saveTopic: \(error)")
         }
+    }
+    
+    deinit {
+        task?.cancel()
     }
 }
 

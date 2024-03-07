@@ -7,54 +7,36 @@
 
 import Foundation
 
-let onboardingTopics = [
-    "Algorithms",
-    "UI/UX",
-    "AI/ML",
-    "Cybersecurity",
-    "Mobile App Development",
-    "Web Development",
-    "Databases",
-    "Networks",
-    "Cloud",
-    "Operating Systems",
-    "Games",
-    "Robotics",
-    "Blockchain",
-    "Data Science",
-    "Computer Vision",
-    "Quantum Computing"
+let onboardingTopics: [String: Set<Int>] = [
+    "Algorithms": [1, 61],
+    "AI/ML": [7, 19],
+    "Computer Architecture": [13],
+    "Data Science": [19],
+    "Databases": [25],
+    "UI/UX": [31],
+    "Mobile App Development": [49, 37, 43],
+    "Web Development": [49, 37, 43],
+    "Networks": [43],
+    "Programming Languages": [37],
+    "Software Engineering": [43],
+    "Computer Vision": [55],
+    "Theory": [61],
+    "Quantum Computing": [67]
 ]
 
 struct OnboardingTopic: Identifiable, Hashable {
     let id: UUID = UUID()
     let title: String
     var selected: Bool = false
+    let values: Set<Int>
     
     static func defaults() -> [OnboardingTopic] {
-        return onboardingTopics.map { topic in
-            return OnboardingTopic(title: topic)
+        return onboardingTopics.map { (title, values) in
+            return OnboardingTopic(title: title, values: values)
         }
     }
     
     mutating func toggle() {
         selected.toggle()
-    }
-}
-
-class OnboardingTopic1: Identifiable, ObservableObject {
-    let id: UUID = UUID()
-    let title: String
-    var selected: Bool
-    
-    init(title: String, selected: Bool = false) {
-        self.title = title
-        self.selected = selected
-    }
-    
-    static func defaults() -> [OnboardingTopic] {
-        return onboardingTopics.map { topic in
-            return OnboardingTopic(title: topic)
-        }
     }
 }

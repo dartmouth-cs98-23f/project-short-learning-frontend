@@ -21,11 +21,15 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    WatchPage(size: size, safeArea: safeArea)
+                    WatchPage(
+                        size: size,
+                        safeArea: safeArea,
+                        seed: tabSelectionManager.playlistSeed)
                         .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
-                    ExploreView()
+                    MainExplorePageSearchWrapper()
+                    
                 case .Saved:
                     SavedPage()
                 case .Account:
@@ -80,10 +84,15 @@ struct TabItem {
 @Observable class TabSelectionManager {
     var selection: Tab
     var topicSeed: TopicTag?
-    var playlistSeed: PlaylistPreview?
+    private(set) var playlistSeed: PlaylistPreview?
     
     init(selection: Tab = Tab.Watch) {
         self.selection = selection
+    }
+    
+    @MainActor
+    public func setSeed(playlist: PlaylistPreview?) {
+        playlistSeed = playlist
     }
 }
 

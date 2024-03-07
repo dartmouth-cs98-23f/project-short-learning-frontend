@@ -15,7 +15,12 @@ struct SignUpPage: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack {
-                textField(label: "Email", text: $viewModel.username) { text in
+                if viewModel.error != nil {
+                    Text("Sorry, couldn't sign you up.")
+                        .foregroundStyle(Color.red)
+                }
+                
+                textField(label: "Email", text: $viewModel.email) { text in
                     return !text.isEmpty
                 }
                 
@@ -39,11 +44,22 @@ struct SignUpPage: View {
                     return text == viewModel.password
                 }
             }
+            .animation(.smooth, value: viewModel.error == nil)
+            
+            if !viewModel.password.isEmpty && viewModel.password.count < 8 {
+                Text("Password must be at least 8 characters long.")
+                    .foregroundStyle(Color.red)
+            } else if viewModel.password != viewModel.confirmPassword {
+                Text("Passwords don't match.")
+                    .foregroundStyle(Color.red)
+            }
             
             signUpButton()
             
             loginFooter()
         }
+        .animation(.smooth, value: !viewModel.password.isEmpty && viewModel.password.count < 8)
+        .animation(.smooth, value: viewModel.password != viewModel.confirmPassword)
         .padding(.horizontal, 18)
     }
     

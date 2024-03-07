@@ -22,8 +22,8 @@ class LoginViewModel: ObservableObject {
         case apple
     }
     
-    @Published var usernameOrEmail: String = "johndoe"
-    @Published var password: String = "abc123"
+    @Published var usernameOrEmail: String = "jessietest@email.com"
+    @Published var password: String = "12345678"
     @Published var error: Error?
     @Published var isLoading = false
     
@@ -41,7 +41,7 @@ class LoginViewModel: ObservableObject {
                     email: usernameOrEmail,
                     password: password))
             
-            try await user.configure(data: data)
+            try await user.configure(token: data.token, data: data.user)
             
         } catch {
             print("Login failed: \(error)")

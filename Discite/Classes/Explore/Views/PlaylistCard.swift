@@ -7,6 +7,74 @@
 
 import SwiftUI
 
+struct ExplorePlaylistPreviewCard: View {
+    var playlist: PlaylistPreview
+    var imageWidth: CGFloat = 200
+    var imageHeight: CGFloat = 130
+    var cardHeight: CGFloat = 250
+    
+    @Binding var isWatchShowing: Bool
+    
+    @Environment(TabSelectionManager.self) private var tabSelection
+    
+    var body: some View {
+        Button {
+            print("Setting playlist seed to \(playlist.playlistId).")
+            tabSelection.setSeed(playlist: playlist)
+            isWatchShowing = true
+            // tabSelection.selection = .Watch
+                
+        } label: {
+            VStack(alignment: .leading, spacing: 8) {
+                
+                // image
+                if let imageURL = playlist.thumbnailURL {
+                    AsyncImage(url: URL(string: imageURL)) { image in
+                        image
+                            .resizable()
+
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: imageWidth, height: imageHeight)
+                    
+                } else {
+                    Rectangle()
+                        .fill(Color.grayNeutral)
+                        .frame(width: imageWidth, height: imageHeight)
+                }
+                
+                // details
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(playlist.title)
+                        .font(.subtitle2)
+                        .foregroundStyle(Color.primaryBlueBlack)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
+                        .clipped()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text(playlist.description ?? "")
+                        .font(.body2)
+                        .foregroundStyle(Color.grayDark)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(3)
+                    
+                }
+                .padding([.horizontal, .bottom], 10)
+                
+            }
+        }
+        .frame(width: imageWidth, height: cardHeight, alignment: .topLeading)
+        .background {
+            Rectangle()
+                .fill(Color.white)
+                .shadow(color: Color.black.opacity(0.5), radius: 4, x: 2, y: 2)
+        }
+        .padding(.all, 8)
+    }
+}
+
 struct PlaylistPreviewCard: View {
     var playlist: PlaylistPreview
     
@@ -14,7 +82,7 @@ struct PlaylistPreviewCard: View {
     
     var body: some View {
         Button {
-            tabSelection.playlistSeed = playlist
+            tabSelection.setSeed(playlist: playlist)
             tabSelection.selection = .Watch
                 
         } label: {
@@ -58,6 +126,10 @@ struct PlaylistPreviewCard: View {
 }
 
 #Preview {
-    ExploreView()
+    let playlistPreview = PlaylistPreview()
+    
+    return ExplorePlaylistPreviewCard(
+        playlist: playlistPreview,
+        isWatchShowing: .constant(false))
         .environment(TabSelectionManager(selection: .Explore))
 }

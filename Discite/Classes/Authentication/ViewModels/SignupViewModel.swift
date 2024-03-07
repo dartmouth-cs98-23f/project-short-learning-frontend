@@ -10,8 +10,8 @@ import Foundation
 class SignupViewModel: ObservableObject {
     @Published var firstname: String = "John"
     @Published var lastname: String = "Doe"
-    @Published var username: String = "johndoe"
-    @Published var email: String = "johndoe@email.com"
+    @Published var username: String = "100johndoe"
+    @Published var email: String = "100johndoe@email.com"
     @Published var password: String = "12345678"
     @Published var confirmPassword: String = "12345678"
 
@@ -31,7 +31,13 @@ class SignupViewModel: ObservableObject {
                     lastName: lastname,
                     password: password))
             
-            try await user.configure(data: response)
+            let userData = AuthResponseData(username: username,
+                                            firstName: firstname,
+                                            lastName: lastname,
+                                            email: email)
+            
+            try await user.configure(token: response.token, data: userData)
+            print("Signed up.")
             
         } catch {
             print("SignupViewModel.signup failed: \(error)")

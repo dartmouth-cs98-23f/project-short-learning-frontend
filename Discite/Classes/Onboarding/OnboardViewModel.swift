@@ -21,7 +21,7 @@ class OnboardViewModel: ObservableObject {
     @Published var resetGraph: Bool = false
     var values: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
     let defaultValues: [CGFloat] = [0.8, 0.8, 1.0, 0.7, 0.9, 0.75]
-    let roles: [String] = ["Front", "Backend", "ML", "AI/Data", "DevOps", "QA"]
+    let roles: [String] = ["Front", "Backend", "Systems", "AI/Data", "DevOps", "UI/UX"]
     
     public func resetGraphValues() {
         values = defaultValues
@@ -29,17 +29,16 @@ class OnboardViewModel: ObservableObject {
     }
     
     // POST onboarding
+    @MainActor
     public func onboard(user: User) async {
         error = nil
         
         let filteredTopics = topics.compactMap { topic in
-            topic.selected ? topic.title : nil
-        }
-        
-        print("Filtered topics: \(filteredTopics)")
+            topic.selected ? topic.values : nil
+        }.flatMap { $0 }
         
         let onboardRequest = OnboardRolesRequest(complexity: complexity,
-                                                 topics: filteredTopics,
+                                                 topics: Set(filteredTopics),
                                                  roles: roles,
                                                  values: values)
         
@@ -48,9 +47,8 @@ class OnboardViewModel: ObservableObject {
             _ = try await APIRequest<OnboardRolesRequest, EmptyResponse>
                 .apiRequest(method: .post,
                              authorized: true,
-                             path: "/api/onboard",
-                             parameters: onboardRequest,
-                             headers: [:])
+                             path: "/api/user/onboarding",
+                             parameters: onboardRequest)
             
             user.completeOnboarding()
             
@@ -63,7 +61,7 @@ class OnboardViewModel: ObservableObject {
 
 struct OnboardRolesRequest: Codable {
     var complexity: Double
-    var topics: [String]
+    var topics: Set<Int>
     var roles: [String]
     var values: [CGFloat]
 }

@@ -6,28 +6,14 @@
 //
 
 import Foundation
-import AVKit
 
 enum PlaylistError: Error {
     case noNextVideo
     case emptyPlaylist
     case indexOutOfRange
     case savePlaylist
-}
-
-extension PlaylistError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .noNextVideo:
-            return NSLocalizedString("Error.PlaylistError.NoNextVideo", comment: "Playlist error")
-        case .emptyPlaylist:
-            return NSLocalizedString("Error.PlaylistError.EmptyPlaylist", comment: "Playlist error")
-        case .indexOutOfRange:
-            return NSLocalizedString("Error.PlaylistError.IndexOutOfRange", comment: "Playlist error")
-        case.savePlaylist:
-            return NSLocalizedString("Error.PlaylistError.UnableToSavePlaylist", comment: "Playlist error")
-        }
-    }
+    case likePlaylist
+    case dislikePlaylist
 }
 
 class Playlist: Decodable, Identifiable, ObservableObject {
@@ -38,84 +24,84 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     var videos: [Video]
     
     private(set) var title: String
-    private(set) var description: String
-    private(set) var topics: [TopicTag]
-    private(set) var thumbnailURL: String
+    private(set) var description: String?
+    private(set) var thumbnailURL: String?
     private(set) var authorUsername: String = "johndoe"
-    private(set) var youtubeId: String?
+    private(set) var youtubeURL: String?
+    private(set) var inferenceTopics: [String]
+    private(set) var inferenceComplexities: [Double]
     
     @Published private(set) var currentIndex: Int
-    @Published var isLoading: Bool
+    @Published var state: ViewModelState = .loading
     @Published var isLiked: Bool = false
+    @Published var isDisliked: Bool = false
     @Published var isSaved: Bool
-    @Published var error: Error?
-    
-    private(set) var playerItem: AVPlayerItem?
+
+    var length: Int {
+        return videos.count
+    }
     
     enum CodingKeys: String, CodingKey {
-        case playlistId = "_id"
-        case title
-        case description
-        case isSaved
-        case uploadDate
-        case uploader
-        case duration
-        case thumbnailURL
-        case youtubeId
+        case playlistId = "videoId"
         case topics
-        case videos = "clips"
-        case views
-        case likes
-        case dislikes
+        case score
+        case metadata
+    }
+    
+    struct PlaylistMetadata: Decodable {
+        var title: String
+        var description: String?
+        var youtubeURL: String?
+        var thumbnailURL: String?
+        var clips: [Video]
+        var inferenceComplexities: [Double]
+        var inferenceTopics: [String]
     }
     
     required init(from decoder: Decoder) throws {
-        isLoading = true
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        id = UUID()
         playlistId = try container.decode(String.self, forKey: .playlistId)
-        title = try container.decode(String.self, forKey: .title)
-        description = try container.decode(String.self, forKey: .description)
-        isSaved = try container.decode(Bool.self, forKey: .isSaved)
-        topics = try container.decode([TopicTag].self, forKey: .topics)
-        thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
-        youtubeId = try container.decodeIfPresent(String.self, forKey: .youtubeId)
         
-        videos = try container.decode([Video].self, forKey: .videos)
+        let metadata = try container.decode(PlaylistMetadata.self, forKey: .metadata)
+        title = metadata.title
+        description = metadata.description
+        thumbnailURL = metadata.thumbnailURL
+        videos = metadata.clips
+        inferenceTopics = metadata.inferenceTopics
+        inferenceComplexities = metadata.inferenceComplexities
         
-        if videos.isEmpty {
-            throw PlaylistError.emptyPlaylist
+        if let youtubeLink = metadata.youtubeURL,
+           let url = URL(string: youtubeLink),
+           let path = url.host?.appending(url.path) {
+            youtubeURL = path
         }
         
-        sequenceIndex = -1
+        id = UUID()
+        isSaved = false
         
-        // Initialize player with first item
+        sequenceIndex = -1
         currentIndex = 0
-        playerItem = videos[0].getPlayerItem()
-        isLoading = false
+        state = .loaded
+    }
+    
+    init() {
+        self.id = UUID()
+        self.playlistId = "65d8fc1995f306b28d1b8870"
+        self.sequenceIndex = -1
+        self.videos = []
+        self.inferenceTopics = []
+        self.inferenceComplexities = []
+        
+        self.title = "Playlist Title"
+        self.description = "Playlist description here."
+        
+        self.currentIndex = -1
+        self.isSaved = false
     }
     
     // MARK: Getters
-    
-    func onLastVideo() -> Bool {
-        return currentIndex == videos.count - 1
-    }
-    
-    func nextVideo() -> Video? {
-        if currentIndex < videos.count - 1 {
-            currentIndex += 1
-            return videos[currentIndex]
-        }
-        
-        return nil
-    }
-    
-    func allVideos() -> [Video] {
-        return videos
-    }
-    
+
     func currentVideo() -> Video? {
         if currentIndex >= 0 && currentIndex < videos.count {
             return videos[currentIndex]
@@ -123,15 +109,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         
         return nil
     }
-    
-    func nextPlayerItem() -> AVPlayerItem? {
-        return nextVideo()?.getPlayerItem()
-    }
-    
-    func length() -> Int {
-        return videos.count
-    }
-    
+
     // MARK: Setters
     
     func setCurrentIndex(index: Int) -> Bool {
@@ -144,15 +122,80 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         return true
     }
     
-    func save() async {
+    @MainActor
+    func postSave() async {
         do {
-            _ = try await VideoService.savePlaylist(
-                parameters:
-                    SavePlaylistRequest(playlistId: playlistId, saved: isSaved))
+            _ = try await VideoService.postSave(playlistId: playlistId)
        
         } catch {
-            self.error = PlaylistError.savePlaylist
-            print("Error saving playlist: \(error)")
+            self.state = .error(error: PlaylistError.savePlaylist)
+            print("Error in Playlist.postSave: \(error)")
+        }
+    }
+    
+    @MainActor
+    func putSave() async {
+        do {
+            _ = try await VideoService.putSave(playlistId: playlistId, saved: isSaved)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.savePlaylist)
+            print("Error in Playlist.postSave: \(error)")
+        }
+    }
+    
+    @MainActor
+    func deleteSave() async {
+        do {
+            _ = try await VideoService.deleteSave(playlistId: playlistId)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.savePlaylist)
+            print("Error in Playlist.deleteSave: \(error)")
+        }
+    }
+    
+    @MainActor
+    func postLike() async {
+        do {
+            _ = try await VideoService.postLike(playlistId: playlistId)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.likePlaylist)
+            print("Error in Playlist.postLike: \(error)")
+        }
+    }
+    
+    @MainActor
+    func deleteLike() async {
+        do {
+            _ = try await VideoService.deleteLike(playlistId: playlistId)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.likePlaylist)
+            print("Error in Playlist.deleteLike: \(error)")
+        }
+    }
+    
+    @MainActor
+    func postDislike() async {
+        do {
+            _ = try await VideoService.postDislike(playlistId: playlistId)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.dislikePlaylist)
+            print("Error in Playlist.postDislike: \(error)")
+        }
+    }
+    
+    @MainActor
+    func deleteDislike() async {
+        do {
+            _ = try await VideoService.deleteDislike(playlistId: playlistId)
+       
+        } catch {
+            self.state = .error(error: PlaylistError.dislikePlaylist)
+            print("Error in Playlist.deleteDislike: \(error)")
         }
     }
 }

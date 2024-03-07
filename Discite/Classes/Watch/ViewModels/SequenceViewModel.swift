@@ -10,7 +10,7 @@ import Foundation
 
 class SequenceViewModel: ObservableObject {
     @Published var items: [Playlist] = []
-    @Published var state: PagingState
+    @Published var state: ViewModelState
     
     var seedPlaylist: PlaylistPreview?
     let threshold: Int
@@ -20,7 +20,6 @@ class SequenceViewModel: ObservableObject {
         willSet {
             if let task = currentTask {
                 if task.isCancelled { return }
-                print("CANCELING TASK.")
                 task.cancel()
                 // Setting a new task cancelling the current task
             }
@@ -28,11 +27,17 @@ class SequenceViewModel: ObservableObject {
     }
     
     init(seed: PlaylistPreview? = nil) {
-        state = .loadingFirstPage
+        state = .loading
         threshold = 1
         seedPlaylist = seed
+        
+        Task {
+            await self.load()
+            state = .loaded
+        }
     }
     
+    @MainActor
     public func setSeed(seed: PlaylistPreview?) {
         seedPlaylist = seed
     }
@@ -40,29 +45,26 @@ class SequenceViewModel: ObservableObject {
     public func onItemAppear(playlist: Playlist) {
         
         // (1) Appeared: Already loading
-        if state == .loadingNextPage || state == .loadingFirstPage {
-            print("STATUS: Already loading.")
+        if case .loading = state {
             return
         }
         
         // (2) No index
         guard let index = items.firstIndex(where: { $0.id == playlist.id }) else {
-            print("BAD: No match.")
             return
         }
         
-        print("STATUS: Saw ITEM \(index). Total length: \(items.count)")
+        print("\tSequenceViewModel: Saw ITEM \(index). Total length: \(items.count)")
 
         // (3) Appeared: Threshold not reached
         let thresholdIndex = items.index(items.endIndex, offsetBy: -threshold)
         if index != thresholdIndex {
-            print("\tOK: Enough playlists in queue.")
             return
         }
         
         print("\tLOADING NEXT.")
         // (4) Appeared: Load next page
-        state = .loadingNextPage
+        state = .loading
         currentTask = Task {
             await load()
         }
@@ -71,7 +73,11 @@ class SequenceViewModel: ObservableObject {
     public func load() async {
         do {
             // (1) Ask for more playlists
-            let newItems = try await VideoService.fetchSequence(playlistId: seedPlaylist?.playlistId)
+            // let newItems = try await VideoService.getSequence(playlistId: seedPlaylist?.playlistId)
+            print("Getting sequence with seed: \(seedPlaylist?.playlistId ?? "None")")
+            let newItems = try await VideoService.getSequence(playlistId: seedPlaylist?.playlistId)
+            // clear seed
+            await self.setSeed(seed: nil)
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence
@@ -93,11 +99,11 @@ class SequenceViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.items = allItems
                 self.state = .loaded
-                print("OK: Loaded. NEW TOTAL LENGTH: \(items.count)")
+                print("\tSequenceViewModel: OK, loaded. NEW LENGTH: \(items.count)")
             }
             
         } catch {
-            print("Error: Sequence 'load' failed. [\(error)]")
+            print("Error in Sequence.load [\(error)]")
             
             // (5) Publish error to SwiftUI
             DispatchQueue.main.async { [weak self] in
@@ -107,21 +113,9 @@ class SequenceViewModel: ObservableObject {
         }
 
     }
-    
 }
 
 enum SequenceError: Error {
     case emptySequence
     case indexOutOfRange
-}
-
-extension SequenceError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .emptySequence:
-            return NSLocalizedString("Error.SequenceError.EmptySequence", comment: "Sequence error")
-        case .indexOutOfRange:
-            return NSLocalizedString("Error.SequenceError.IndexOutOfRange", comment: "Sequence error")
-        }
-    }
 }

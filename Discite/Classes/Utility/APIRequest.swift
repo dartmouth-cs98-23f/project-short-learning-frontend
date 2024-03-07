@@ -30,11 +30,11 @@ enum APIError: Error {
 
 struct APIConfiguration {
     static let scheme: String = "http"
-    // static let host: String = "18.215.28.176"
+    static let host: String = "107.22.138.21"
     // static let host: String = "localhost"
-    static let host: String = "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io"
-    static let port: Int? = nil
-    // static let port: Int? = 3000
+    // static let host: String = "f88d6905-4ea0-47c3-b7e5-62341a73fe65.mock.pstmn.io"
+    // static let port: Int? = nil
+    static let port: Int? = 3000
 }
 
 extension APIError: LocalizedError {
