@@ -11,24 +11,23 @@ import AVKit
 
 class EmbeddedVideoCell: UICollectionViewCell {
     
-    // OPTION 1: PLAYER
-    private var player: AVPlayer?
-    private var playerLayer: AVPlayerLayer?
-    var paused: Bool = false
+    var video: Video?
     
-    var playerItem: AVPlayerItem? {
-        didSet {
-            // Configure here if needed
-            player?.replaceCurrentItem(with: self.playerItem)
+    var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
         }
     }
     
-    // OPTION 2
     fileprivate let playerView: PlayerView = {
         let view = PlayerView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.backgroundColor = UIColor.secondarySystemBackground
+        view.backgroundColor = UIColor.black
         return view
     }()
 
@@ -44,6 +43,15 @@ class EmbeddedVideoCell: UICollectionViewCell {
         contentView.addSubview(playerView)
         contentView.addSubview(activityView)
         
+    }
+    
+    public func configureWithVideo(video: Video?) {
+        playerView.video = video
+        
+        if let url = video?.videoLink {
+            let playerItem = AVPlayerItem(url: url)
+            configureWithPlayerItem(playerItem: playerItem)
+        }
     }
     
     public func configureWithPlayerItem(playerItem: AVPlayerItem?) {
@@ -65,21 +73,25 @@ class EmbeddedVideoCell: UICollectionViewCell {
     
     public func stopPlaybackInPlayerView() {
         self.playerView.player?.pause()
+        
+        #if DEBUG
+        print("\t\tStopped playback, posting watch history for \(playerView.video?.videoId ?? "None")")
+        #endif
+        
+        // Post timestamp
+        if let player = playerView.player, let currentPlayerItem = player.currentItem {
+            let totalDuration = CMTimeGetSeconds(currentPlayerItem.duration)
+            let currentTime =  CMTimeGetSeconds(player.currentTime())
+            
+            let totalTime = Double(playerView.loops) * totalDuration + currentTime
+            task = Task { await playerView.video?.postWatchHistory(timestamp: totalTime) }
+        }
     }
     
     public func startPlaybackInPlayerView() {
         if self.playerView.player?.rate == 0 {
             // self.playerView.player?.seek(to: CMTime.zero)
             self.playerView.player?.play()
-        }
-    }
-    
-    // A notification is fired and seeker is sent to the beginning to loop the video again
-    @objc func playerItemDidReachEnd(notification: Notification) {
-        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
-            playerItem.seek(to: CMTime.zero) { success in
-                print("\tRewind player: \(success)")
-            }
         }
     }
     
@@ -108,8 +120,7 @@ class EmbeddedVideoCell: UICollectionViewCell {
     }
     
     deinit {
-        player = nil
-        NotificationCenter.default.removeObserver(self)
+        task?.cancel()
     }
     
 }

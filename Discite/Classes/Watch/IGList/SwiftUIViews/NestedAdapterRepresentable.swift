@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct NestedAdapterRepresentable: UIViewControllerRepresentable {
+    var viewModel: SequenceViewModel
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let controller = NestedAdapterViewController()
+        let controller = NestedAdapterViewController(viewModel: viewModel)
         return controller
     }
     
@@ -20,11 +21,14 @@ struct NestedAdapterRepresentable: UIViewControllerRepresentable {
 }
 
 struct NestedAdapterRepresentablePreview: View {
+    var viewModel = SequenceViewModel()
+    
     var body: some View {
-        NestedAdapterRepresentable()
+        NestedAdapterRepresentable(viewModel: viewModel)
     }
 }
 
 #Preview {
     NestedAdapterRepresentablePreview()
+        .environment(TabSelectionManager(selection: .Watch))
 }

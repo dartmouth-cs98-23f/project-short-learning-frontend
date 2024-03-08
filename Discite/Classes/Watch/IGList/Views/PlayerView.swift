@@ -31,6 +31,11 @@ class PlayerView: UIView {
         }
     }
     
+    var video: Video?
+    
+    // How many times this player looped
+    private(set) var loops: Int = 0
+
     private lazy var overlayViewController: PlayerOverlayViewController = {
         let overlayController = PlayerOverlayViewController()
         let view = overlayController.view
@@ -41,9 +46,23 @@ class PlayerView: UIView {
         return overlayController
     }()
     
+    private let heartImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "hand.thumbsup.fill"))
+        imageView.tintColor = UIColor.red
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     private lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         return gesture
+    }()
+    
+    private lazy var doubleTapGesture: UITapGestureRecognizer = {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        return doubleTapGesture
     }()
     
     override init(frame: CGRect) {
@@ -51,6 +70,7 @@ class PlayerView: UIView {
         
         // Add controls and overlay
         addGestureRecognizer(tapGesture)
+        // addGestureRecognizer(doubleTapGesture)
         addSubview(overlayViewController.view)
         
         // Configure playerLayer
@@ -62,6 +82,17 @@ class PlayerView: UIView {
             selector: #selector(playerItemDidReachEnd(notification:)),
             name: .AVPlayerItemDidPlayToEndTime,
             object: player?.currentItem)
+    }
+    
+    private func setupHeartImageView() {
+        addSubview(heartImageView)
+        heartImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heartImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            heartImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            heartImageView.widthAnchor.constraint(equalToConstant: 50),
+            heartImageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     func setupVideoPlayer() {
@@ -78,13 +109,13 @@ class PlayerView: UIView {
         
     }
     
+    // A notification is fired and seeker is sent to the beginning to loop the video again
     @objc func playerItemDidReachEnd(notification: Notification) {
-        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
-            print("Got notification to rewind")
-            
-            //        playerItem.seek(to: CMTime.zero) { success in
-            //            print("\tRewind player: \(success)")
-            //        }
+        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem { 
+            loops += 1
+            playerItem.seek(to: CMTime.zero) { success in
+                print("\tRewind player: \(success)")
+            }
         }
     }
     
@@ -104,12 +135,27 @@ class PlayerView: UIView {
         }
     }
     
+    @objc private func handleDoubleTap() {
+        // Show like
+        heartImageView.isHidden = false
+
+        // Animate the heart image
+        UIView.animate(withDuration: 1.0, animations: {
+            self.heartImageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        }, completion: { _ in
+            // Hide the heart image after the animation completes
+            self.heartImageView.isHidden = true
+            self.heartImageView.transform = .identity
+        })
+    }
+    
     public func hideOverlay() {
         overlayViewController.view.isHidden = true
     }
     
     public func configureOverlay() {
         overlayViewController.player = player
+        overlayViewController.video = video
     }
     
     deinit {

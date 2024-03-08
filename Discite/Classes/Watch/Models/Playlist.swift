@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import IGListKit
 
 enum PlaylistError: Error {
     case noNextVideo
@@ -71,17 +72,23 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         inferenceTopics = metadata.inferenceTopics
         inferenceComplexities = metadata.inferenceComplexities
         
-        if let youtubeLink = metadata.youtubeURL,
-           let url = URL(string: youtubeLink),
-           let path = url.host?.appending(url.path) {
-            youtubeURL = path
-        }
-        
         id = UUID()
         isSaved = false
         
         sequenceIndex = -1
         currentIndex = 0
+        
+        // Give videos a reference back to self
+        for video in videos {
+            video.playlist = self
+        }
+        
+        if let youtubeLink = metadata.youtubeURL,
+           let url = URL(string: youtubeLink),
+           let path = url.host?.appending(url.path) {
+            youtubeURL = path
+        }
+
         state = .loaded
     }
     
@@ -197,5 +204,23 @@ class Playlist: Decodable, Identifiable, ObservableObject {
             self.state = .error(error: PlaylistError.dislikePlaylist)
             print("Error in Playlist.deleteDislike: \(error)")
         }
+    }
+}
+
+extension Playlist: ListDiffable {
+    public func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+        
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        if object === self {
+            return true
+        }
+        
+        if let object = object as? Playlist {
+            return id == object.id
+        }
+        
+        return false
     }
 }

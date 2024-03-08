@@ -100,11 +100,11 @@ struct VideoDetailsView: View {
         }
         .alert(alertTitle, isPresented: $didDislike) {
             Button("Too easy") {
-                Task { await video.postUnderstanding(understand: true) }
+                Task { await video.postTooEasy() }
             }
             
             Button("Too difficult") {
-                Task { await video.postUnderstanding(understand: false) }
+                Task { await video.postTooHard() }
             }
             
         } message: {

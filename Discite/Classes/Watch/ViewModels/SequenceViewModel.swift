@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import IGListKit
 
 class SequenceViewModel: ObservableObject {
     @Published var items: [Playlist] = []
     @Published var state: ViewModelState
     
+    var loadDelegate: SequenceLoadDelegate?
     var seedPlaylist: PlaylistPreview?
     let threshold: Int
     private var index: Int = 0
@@ -42,6 +44,27 @@ class SequenceViewModel: ObservableObject {
         seedPlaylist = seed
     }
     
+    public func onItemAppear(index: Int) {
+        print("\tSequenceViewModel: Saw ITEM \(index). Total length: \(items.count)")
+        
+        // (1) Appeared: Already loading
+        if case .loading = state {
+            return
+        }
+        
+        // (2) Appeared: Threshold not reached
+        let thresholdIndex = items.index(items.endIndex, offsetBy: -threshold)
+        if index != thresholdIndex {
+            return
+        }
+        
+        // (3) Appeared: Load next page
+        state = .loading
+        currentTask = Task {
+            await load()
+        }
+    }
+    
     public func onItemAppear(playlist: Playlist) {
         
         // (1) Appeared: Already loading
@@ -70,14 +93,14 @@ class SequenceViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     public func load() async {
         do {
             // (1) Ask for more playlists
-            // let newItems = try await VideoService.getSequence(playlistId: seedPlaylist?.playlistId)
-            print("Getting sequence with seed: \(seedPlaylist?.playlistId ?? "None")")
-            let newItems = try await VideoService.getSequence(playlistId: seedPlaylist?.playlistId)
+            // print("SequenceViewModel.load with seed: \(seedPlaylist?.playlistId ?? "None")")
+            let newItems = try await VideoService.getSequence(playlistId: "65d8fc3495f306b28d1b88d6")
             // clear seed
-            await self.setSeed(seed: nil)
+            self.setSeed(seed: nil)
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence
@@ -92,7 +115,10 @@ class SequenceViewModel: ObservableObject {
             if Task.isCancelled { return }
             
             // (3) Append to the existing set of items
-            let allItems = items + newItems
+            var allItems = items + newItems
+            if allItems.count > 15 {
+                allItems.removeFirst(5)
+            }
             
             // (4) Publish our changes to SwiftUI by setting our items and state
             DispatchQueue.main.async { [weak self] in
@@ -100,6 +126,7 @@ class SequenceViewModel: ObservableObject {
                 self.items = allItems
                 self.state = .loaded
                 print("\tSequenceViewModel: OK, loaded. NEW LENGTH: \(items.count)")
+                self.loadDelegate?.sequenceFinishedLoading(success: true, error: nil)
             }
             
         } catch {
@@ -109,6 +136,7 @@ class SequenceViewModel: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.state = .error(error: error)
+                self.loadDelegate?.sequenceFinishedLoading(success: false, error: error)
             }
         }
 
