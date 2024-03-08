@@ -7,6 +7,7 @@
 
 import Foundation
 import AVKit
+import IGListKit
 
 class Video: Decodable, Identifiable, ObservableObject {
 
@@ -16,6 +17,10 @@ class Video: Decodable, Identifiable, ObservableObject {
     private(set) var title: String
     private(set) var description: String
     private(set) var videoURL: String
+    private(set) var videoLink: URL?
+    
+    // Reference to parent playlist
+    var playlist: Playlist?
 
     @Published var state: ViewModelState = .loading
     public var isLiked: Bool = false
@@ -40,6 +45,7 @@ class Video: Decodable, Identifiable, ObservableObject {
         title = try container.decode(String.self, forKey: .title)
         description = try container.decode(String.self, forKey: .description)
         videoURL = try container.decode(String.self, forKey: .videoURL)
+        videoLink = URL(string: videoURL)
     }
     
     // A sample video for previews.
@@ -50,23 +56,13 @@ class Video: Decodable, Identifiable, ObservableObject {
         title = "Video Title"
         description = "Sample video description here."
         videoURL = "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761"
+        videoLink = URL(string: videoURL)
     }
     
     @MainActor
-    func postUnderstanding(understand: Bool) async {
+    func postWatchHistory(timestamp: Double) async {
         do {
-            _ = try await VideoService.postUnderstanding(videoId: videoId, understand: understand)
-            
-        } catch {
-            self.state = .error(error: error)
-            print("Error in Video.postUnderstanding: \(error)")
-        }
-    }
-    
-    @MainActor
-    func postTimestamp(timestamp: Double) async {
-        do {
-            _ = try await VideoService.postTimestamp(
+            _ = try await VideoService.postWatchHistory(
                 playlistId: playlistId,
                 videoId: videoId,
                 timestamp: timestamp
@@ -74,7 +70,43 @@ class Video: Decodable, Identifiable, ObservableObject {
             
         } catch {
             self.state = .error(error: error)
-            print("Error in Video.postTimestamp: \(error)")
+            print("Error in Video.postWatchHistory: \(error)")
         }
+    }
+    
+    func postTooEasy() async {
+        do {
+            _ = try await VideoService.postTooEasy(playlistId: playlistId)
+            
+        } catch {
+            print("Error in Video.postTooEasy: \(error)")
+        }
+    }
+    
+    func postTooHard() async {
+        do {
+            _ = try await VideoService.postTooHard(playlistId: playlistId)
+            
+        } catch {
+            print("Error in Video.postTooEasy: \(error)")
+        }
+    }
+}
+
+extension Video: ListDiffable {
+    public func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+        
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        if object === self {
+            return true
+        }
+        
+        if let object = object as? Playlist {
+            return id == object.id
+        }
+        
+        return false
     }
 }

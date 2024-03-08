@@ -164,21 +164,8 @@ class VideoService {
                          path: path)
     }
     
-    static func postUnderstanding(videoId: String, understand: Bool) async throws {
-        print("POST api/videos/\(videoId)/understand")
-        let path = "/api/videos/\(videoId)/understand"
-        
-        let parameters = UnderstandRequest(understand: understand)
-        
-        _ = try await APIRequest<UnderstandRequest, EmptyResponse>
-            .apiRequest(method: .post,
-                         authorized: true,
-                         path: path,
-                         parameters: parameters)
-    }
-    
-    static func postTimestamp(playlistId: String, videoId: String, timestamp: Double) async throws {
-        print("POST /api/watchhistory/\(playlistId)")
+    static func postWatchHistory(playlistId: String, videoId: String, timestamp: Double) async throws {
+        print("POST /api/watchhistory/\(playlistId) with timestamp \(timestamp)")
         let path = "/api/watchhistory/\(playlistId)"
         
         let parameters = VideoTimestampRequest(clipId: videoId, duration: timestamp)
@@ -188,6 +175,26 @@ class VideoService {
                          authorized: true,
                          path: path,
                          parameters: parameters)
+    }
+    
+    static func postTooEasy(playlistId: String) async throws {
+        print("POST /api/videos/\(playlistId)/tooeasy")
+        let path = "/api/videos/\(playlistId)/tooeasy"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
+    }
+    
+    static func postTooHard(playlistId: String) async throws {
+        print("POST /api/videos/\(playlistId)/toohard")
+        let path = "/api/videos/\(playlistId)/toohard"
+        
+        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+            .apiRequest(method: .post,
+                         authorized: true,
+                         path: path)
     }
     
     static func getPlaylistSummary(playlistId: String) async throws -> PlaylistInferenceSummary {

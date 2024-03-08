@@ -21,11 +21,16 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    WatchPage(
-                        size: size,
+                    NestedAdapterWatchWrapper(
+                        size: size, 
                         safeArea: safeArea,
-                        seed: tabSelectionManager.playlistSeed)
-                        .ignoresSafeArea(.container, edges: .all)
+                        seed: tabSelectionManager.playlistSeed
+                    )
+//                    WatchPage(
+//                        size: size,
+//                        safeArea: safeArea,
+//                        seed: tabSelectionManager.playlistSeed)
+//                        .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
                     MainExplorePageSearchWrapper()
@@ -65,6 +70,7 @@ struct NavigationBar: View {
             }
         }
         .padding(.top, 18)
+        .frame(width: .infinity)
         .background(tabSelection.selection == .Watch ? .clear : .white)
     }
 }

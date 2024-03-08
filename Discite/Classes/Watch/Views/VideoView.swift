@@ -67,7 +67,7 @@ struct VideoView: View {
                         print("\tVideo \(video.id) should NOT play.")
                         player = nil
                         let timestamp = CMTimeGetSeconds(currentTime)
-                        Task { await video.postTimestamp(timestamp: timestamp) }
+                        Task { await video.postWatchHistory(timestamp: timestamp) }
                     }
                 })
             
