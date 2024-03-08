@@ -13,7 +13,7 @@ class AccountViewModel: ObservableObject {
     
     // PUT user information
     @MainActor
-    func updateUser(firstName: String, lastName: String, profilePicture: String?) async {
+    func updateUser(firstName: String, lastName: String, username: String, profilePicture: String?) async {
         print("PUT /api/user")
         
         do {

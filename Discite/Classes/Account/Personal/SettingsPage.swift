@@ -66,7 +66,10 @@ struct Settings: View {
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $isEditingUserInfo) {
-            EditUserView(viewModel: viewModel, isEditingUserInfo: $isEditingUserInfo)
+            EditUserView(firstName: user.firstName,
+                         lastName: user.lastName,
+                         username: user.username,
+                         isEditingUserInfo: $isEditingUserInfo)
         }
         .task {
             if viewModel.error != nil {
@@ -82,7 +85,6 @@ struct Settings: View {
         }
     }
 }
-
 
 #Preview {
     let viewModel = AccountViewModel()
