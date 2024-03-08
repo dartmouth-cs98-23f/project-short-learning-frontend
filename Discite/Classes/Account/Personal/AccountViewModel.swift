@@ -3,12 +3,32 @@
 //  Discite
 //
 //  Created by Colton Sankey on 11/12/23.
+//  Updated by Bansharee Ireen on 3/7/24.
 //
 
 import Foundation
 
 class AccountViewModel: ObservableObject {
     @Published var error: Error?
+    
+    // PUT user information
+    @MainActor
+    func updateUser(firstName: String, lastName: String, profilePicture: String?) async {
+        print("PUT /api/user")
+        
+        do {
+            let requestBody = UpdateUserRequest(firstName: firstName, lastName: lastName, profilePicture: profilePicture)
+
+            _ = try await APIRequest<UpdateUserRequest, EmptyResponse>
+                .apiRequest(method: .put,
+                            authorized: true,
+                            path: "/api/user",
+                            parameters: requestBody)
+        } catch {
+            self.error = error
+            print("Error in AccountViewModel.updateUser: \(error)")
+        }
+    }
     
     // GET summary statistics
     @MainActor

@@ -10,27 +10,68 @@ import SwiftUI
 struct Settings: View {
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("darkModeEnabled") private var darkModeEnabled = false
-    @AppStorage("selectedTheme") private var selectedTheme = 0
-    let themes = ["Light", "Dark", "System"]
-
+    @State private var newName = ""
+    @State private var newProfileImage: Image?
+    @State private var isShowingImagePicker = false
+    @EnvironmentObject private var user: User
+    @ObservedObject var viewModel: AccountViewModel
+    @State private var isEditingUserInfo = false
+    
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Notifications")) {
-                    Toggle("Enable Notifications", isOn: $notificationsEnabled)
-                }
-                
-                Section(header: Text("Appearance")) {
-                    Toggle("Dark Mode", isOn: $darkModeEnabled)
-                    
-                    Picker("Theme", selection: $selectedTheme) {
-                        ForEach(0..<themes.count) { index in
-                            Text(themes[index])
+        Form {
+            Section(header: Text("Profile")) {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button("Edit") {
+                            isEditingUserInfo = true
                         }
                     }
+                    
+                    HStack {
+                        Spacer()
+                        HStack(alignment: .top) {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading) {
+                                Text(user.fullName)
+                                    .font(.body1)
+                                
+                                Text(user.username)
+                                    .font(.body2)
+                            }
+                            .padding(18)
+                            
+                            Spacer()
+                        }
+                        Spacer()
+                    }
                 }
+                .padding(.bottom, 18)
             }
-            .navigationTitle("Settings")
+            
+            Section(header: Text("Notifications")) {
+                Toggle("Enable Notifications", isOn: $notificationsEnabled)
+            }
+            
+            Section(header: Text("Appearance")) {
+                Toggle("Dark Mode", isOn: $darkModeEnabled)
+            }
+        }
+        .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.large)
+        .sheet(isPresented: $isEditingUserInfo) {
+            EditUserView(viewModel: viewModel, isEditingUserInfo: $isEditingUserInfo)
+        }
+        .task {
+            if viewModel.error != nil {
+                return
+            }
         }
         .onChange(of: notificationsEnabled) { newValue in
             UserDefaults.standard.set(newValue, forKey: "notificationsEnabled")
@@ -38,15 +79,14 @@ struct Settings: View {
         }
         .onChange(of: darkModeEnabled) { newValue in
             UserDefaults.standard.set(newValue, forKey: "darkModeEnabled")
-            // Apply dark mode settings here
-        }
-        .onChange(of: selectedTheme) { newValue in
-            UserDefaults.standard.set(newValue, forKey: "selectedTheme")
-            // Apply theme settings here
         }
     }
 }
 
+
 #Preview {
-    Settings()
+    let viewModel = AccountViewModel()
+    
+    return Settings(viewModel: viewModel)
+        .environmentObject(User())
 }

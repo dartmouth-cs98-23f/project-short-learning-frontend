@@ -14,6 +14,9 @@
 		2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */; };
 		2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B16E2B7A8B4400558227 /* CancelButton.swift */; };
 		2CA0B1712B7BFD5D00558227 /* SearchDestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA0B1702B7BFD5D00558227 /* SearchDestinationView.swift */; };
+		2CACE7E62B9A8B2500E3BF55 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACE7E52B9A8B2500E3BF55 /* EditUserView.swift */; };
+		2CACE7E82B9A8D2700E3BF55 /* ExampleSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACE7E72B9A8D2700E3BF55 /* ExampleSettings.swift */; };
+		2CACE7EA2B9AAAA100E3BF55 /* UpdateUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACE7E92B9AAAA100E3BF55 /* UpdateUserRequest.swift */; };
 		2CBE27162B6436D600DF585B /* TopicPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE27152B6436D600DF585B /* TopicPageView.swift */; };
 		2CF2EBE02B7FE4DC0063D80B /* FilterFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2EBDF2B7FE4DC0063D80B /* FilterFriends.swift */; };
 		42809CA77ACA2029F7351171 /* Pods_Discite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F468F65203DCE1AB8A18A164 /* Pods_Discite.framework */; };
@@ -163,6 +166,9 @@
 		2CA0B16C2B7A89A700558227 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		2CA0B16E2B7A8B4400558227 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		2CA0B1702B7BFD5D00558227 /* SearchDestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDestinationView.swift; sourceTree = "<group>"; };
+		2CACE7E52B9A8B2500E3BF55 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
+		2CACE7E72B9A8D2700E3BF55 /* ExampleSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleSettings.swift; sourceTree = "<group>"; };
+		2CACE7E92B9AAAA100E3BF55 /* UpdateUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserRequest.swift; sourceTree = "<group>"; };
 		2CBE27152B6436D600DF585B /* TopicPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPageView.swift; sourceTree = "<group>"; };
 		2CF2EBDF2B7FE4DC0063D80B /* FilterFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterFriends.swift; sourceTree = "<group>"; };
 		665D4CCF2AFED43D00F1C05C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -654,6 +660,9 @@
 				C2A44AAB2B76CE5E009FEEAB /* SavedPage.swift */,
 				C2A4AD742B84009400AD492F /* SavedViewModel.swift */,
 				C2A44AAF2B76D14D009FEEAB /* SettingsPage.swift */,
+				2CACE7E52B9A8B2500E3BF55 /* EditUserView.swift */,
+				2CACE7E72B9A8D2700E3BF55 /* ExampleSettings.swift */,
+				2CACE7E92B9AAAA100E3BF55 /* UpdateUserRequest.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -995,6 +1004,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C24C58602B8FAE76002146D3 /* GoogleSignOutExtension.swift in Sources */,
+				2CACE7EA2B9AAAA100E3BF55 /* UpdateUserRequest.swift in Sources */,
 				C2EE4E592B23B4C500FEA5B5 /* Shadows.swift in Sources */,
 				C2D9F1FA2B9A24DC00FDBD0F /* NestedAdapterViewController.swift in Sources */,
 				C20EFE782AFDCC9E0074EC9A /* Topic.swift in Sources */,
@@ -1055,10 +1065,12 @@
 				C2E3EFE22B96443E00F2AC65 /* MainExploreViewModel.swift in Sources */,
 				C2A44AB22B76D612009FEEAB /* Placeholder.swift in Sources */,
 				C2A4ADA22B8F8F5F00AD492F /* KeychainItem.swift in Sources */,
+				2CACE7E62B9A8B2500E3BF55 /* EditUserView.swift in Sources */,
 				C20EFE5C2AFBAFB90074EC9A /* SimpleTest.swift in Sources */,
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
 				C2A640F22B7C446F00C50F83 /* Like.swift in Sources */,
+				2CACE7E82B9A8D2700E3BF55 /* ExampleSettings.swift in Sources */,
 				C2EF0B022B5300AA0000DCE8 /* Signup.swift in Sources */,
 				C2A641092B7D670200C50F83 /* ExploreViewModel.swift in Sources */,
 				2CBE27162B6436D600DF585B /* TopicPageView.swift in Sources */,
