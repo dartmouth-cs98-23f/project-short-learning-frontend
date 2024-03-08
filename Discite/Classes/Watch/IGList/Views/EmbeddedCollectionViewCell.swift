@@ -25,10 +25,6 @@ final class EmbeddedCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(view)
         return view
     }()
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("EmbeddedCollectionViewCell did scroll")
-    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

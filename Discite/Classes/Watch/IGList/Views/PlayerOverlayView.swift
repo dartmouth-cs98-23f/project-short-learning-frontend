@@ -286,12 +286,18 @@ class PlayerOverlayView: UIView {
         }
         
         if player.rate == 0 {
+            #if DEBUG
             print("Playing...")
+            #endif
+            
             player.play()
             playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             
         } else {
+            #if DEBUG
             print("Pausing...")
+            #endif
+            
             player.pause()
             playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
@@ -332,7 +338,6 @@ class PlayerOverlayView: UIView {
     private func setupUI() {
         backgroundColor = UIColor.black.withAlphaComponent(0.7)
         addSubview(progressDots)
-        // addSubview(navigationDotsController.view)
         addSubview(playbackStackView)
         addSubview(bottomStackView)
         

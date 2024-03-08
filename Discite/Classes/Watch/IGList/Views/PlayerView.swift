@@ -33,6 +33,9 @@ class PlayerView: UIView {
     
     var video: Video?
     
+    // How many times this player looped
+    private(set) var loops: Int = 0
+
     private lazy var overlayViewController: PlayerOverlayViewController = {
         let overlayController = PlayerOverlayViewController()
         let view = overlayController.view
@@ -106,13 +109,13 @@ class PlayerView: UIView {
         
     }
     
+    // A notification is fired and seeker is sent to the beginning to loop the video again
     @objc func playerItemDidReachEnd(notification: Notification) {
-        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
-            print("Got notification to rewind")
-            
-            //        playerItem.seek(to: CMTime.zero) { success in
-            //            print("\tRewind player: \(success)")
-            //        }
+        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem { 
+            loops += 1
+            playerItem.seek(to: CMTime.zero) { success in
+                print("\tRewind player: \(success)")
+            }
         }
     }
     
@@ -139,11 +142,11 @@ class PlayerView: UIView {
         // Animate the heart image
         UIView.animate(withDuration: 1.0, animations: {
             self.heartImageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        }) { _ in
+        }, completion: { _ in
             // Hide the heart image after the animation completes
             self.heartImageView.isHidden = true
             self.heartImageView.transform = .identity
-        }
+        })
     }
     
     public func hideOverlay() {

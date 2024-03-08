@@ -134,8 +134,6 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard let playlist = playlist else { return [] }
         return playlist.videos as [ListDiffable]
-        // guard let number = number else { return [] }
-        // return (0..<number).map { $0 as ListDiffable }
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

@@ -11,21 +11,7 @@ import AVKit
 
 class EmbeddedVideoCell: UICollectionViewCell {
     
-    // OPTION 1: PLAYER
-    private var player: AVPlayer?
-    private var playerLayer: AVPlayerLayer?
-    
-    var playerItem: AVPlayerItem? {
-        didSet {
-            // Configure here if needed
-            player?.replaceCurrentItem(with: self.playerItem)
-        }
-    }
-    
     var video: Video?
-    
-    // How many times this player looped
-    private var loops: Int = 0
     
     var task: Task<Void, Error>? {
         willSet {
@@ -98,7 +84,7 @@ class EmbeddedVideoCell: UICollectionViewCell {
             let totalDuration = CMTimeGetSeconds(currentPlayerItem.duration)
             let currentTime =  CMTimeGetSeconds(player.currentTime())
             
-            let totalTime = Double(loops) * totalDuration + currentTime
+            let totalTime = Double(playerView.loops) * totalDuration + currentTime
             task = Task { await playerView.video?.postWatchHistory(timestamp: totalTime) }
         }
     }
@@ -107,16 +93,6 @@ class EmbeddedVideoCell: UICollectionViewCell {
         if self.playerView.player?.rate == 0 {
             // self.playerView.player?.seek(to: CMTime.zero)
             self.playerView.player?.play()
-        }
-    }
-    
-    // A notification is fired and seeker is sent to the beginning to loop the video again
-    @objc func playerItemDidReachEnd(notification: Notification) {
-        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
-            loops += 1
-            playerItem.seek(to: CMTime.zero) { success in
-                print("\tRewind player: \(success)")
-            }
         }
     }
     
@@ -145,9 +121,7 @@ class EmbeddedVideoCell: UICollectionViewCell {
     }
     
     deinit {
-        player = nil
         task?.cancel()
-        NotificationCenter.default.removeObserver(self)
     }
     
 }
