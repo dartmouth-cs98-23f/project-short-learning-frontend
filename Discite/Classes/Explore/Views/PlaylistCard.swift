@@ -10,7 +10,6 @@ import SwiftUI
 struct ExplorePlaylistPreviewCard: View {
     var playlist: PlaylistPreview
     var imageWidth: CGFloat = 200
-    var imageHeight: CGFloat = 130
     var cardHeight: CGFloat = 250
     
     @Binding var isWatchShowing: Bool
@@ -22,26 +21,29 @@ struct ExplorePlaylistPreviewCard: View {
             print("Setting playlist seed to \(playlist.playlistId).")
             tabSelection.setSeed(playlist: playlist)
             isWatchShowing = true
-            // tabSelection.selection = .Watch
                 
         } label: {
-            VStack(alignment: .leading, spacing: 8) {
+            ZStack(alignment: .bottom) {
                 
                 // image
                 if let imageURL = playlist.thumbnailURL {
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image
                             .resizable()
-
+                            .scaledToFill()
+                            .frame(width: imageWidth, height: cardHeight)
+                            .clipped()
+                        
                     } placeholder: {
                         ProgressView()
                     }
-                    .frame(width: imageWidth, height: imageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .frame(width: imageWidth, height: cardHeight)
                     
                 } else {
                     Rectangle()
                         .fill(Color.grayNeutral)
-                        .frame(width: imageWidth, height: imageHeight)
+                        .frame(width: imageWidth, height: cardHeight)
                 }
                 
                 // details
@@ -52,26 +54,31 @@ struct ExplorePlaylistPreviewCard: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
                         .clipped()
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Text(playlist.description ?? "")
                         .font(.body2)
                         .foregroundStyle(Color.grayDark)
                         .multilineTextAlignment(.leading)
-                        .lineLimit(3)
+                        .lineLimit(2)
                     
                 }
-                .padding([.horizontal, .bottom], 10)
+                .padding(32)
+                .frame(maxWidth: imageWidth, alignment: .leading)
+                .background {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.white)
+                        .shadow(color: Color.gray.opacity(0.4), radius: 10, x: 2, y: 2)
+                        .padding(16)
+                }
                 
             }
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white)
+                    .shadow(color: Color.grayDark.opacity(0.5), radius: 10, x: 2, y: 2)
+            }
+            
         }
-        .frame(width: imageWidth, height: cardHeight, alignment: .topLeading)
-        .background {
-            Rectangle()
-                .fill(Color.white)
-                .shadow(color: Color.black.opacity(0.5), radius: 4, x: 2, y: 2)
-        }
-        .padding(.all, 8)
     }
 }
 
