@@ -26,16 +26,18 @@ struct Share: View {
                 VStack {
                     VStack(alignment: .leading, spacing: 16) {
                         // Horizontally scrolling list of friends
-                        ScrollView(.horizontal) {
-                            HStack(spacing: 18) {
-                                ForEach(filteredFriends(friendsList: friends, searchText: friendSearch)) { friend in
-                                    profileSelectButton(friend: friend)
-                                        .frame(minWidth: 56)
+                        if let friends = friends {
+                            ScrollView(.horizontal) {
+                                HStack(spacing: 18) {
+                                    ForEach(filteredFriends(friendsList: friends, searchText: friendSearch)) { friend in
+                                        profileSelectButton(friend: friend)
+                                            .frame(minWidth: 56)
+                                    }
                                 }
                             }
+                            .frame(minHeight: 84)
+                            .animation(.spring(duration: 1), value: friends == nil)
                         }
-                        .frame(minHeight: 84)
-                        .animation(.spring(duration: 1), value: friends == nil)
                         
                         // Add friend or Export
                         moreSharingOptions()
