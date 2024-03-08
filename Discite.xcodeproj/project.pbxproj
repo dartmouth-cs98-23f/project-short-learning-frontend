@@ -1088,6 +1088,7 @@
 				C2A4ADA22B8F8F5F00AD492F /* KeychainItem.swift in Sources */,
 				2CACE7E62B9A8B2500E3BF55 /* EditUserView.swift in Sources */,
 				C2D9F21A2B9A9DAC00FDBD0F /* YouTubeButton.swift in Sources */,
+				2CACE7E62B9A8B2500E3BF55 /* EditUserView.swift in Sources */,
 				C20EFE5C2AFBAFB90074EC9A /* SimpleTest.swift in Sources */,
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
