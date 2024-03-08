@@ -14,7 +14,6 @@ class SequenceViewModel: ObservableObject {
     @Published var state: ViewModelState
     
     var loadDelegate: SequenceLoadDelegate?
-    var seedPlaylist: PlaylistPreview?
     let threshold: Int
     private var index: Int = 0
     
@@ -28,20 +27,14 @@ class SequenceViewModel: ObservableObject {
         }
     }
     
-    init(seed: PlaylistPreview? = nil) {
+    init(seed: String? = nil) {
         state = .loading
         threshold = 1
-        seedPlaylist = seed
         
         Task {
-            await self.load()
+            await self.load(seed: seed)
             state = .loaded
         }
-    }
-    
-    @MainActor
-    public func setSeed(seed: PlaylistPreview?) {
-        seedPlaylist = seed
     }
     
     public func onItemAppear(index: Int) {
@@ -94,13 +87,11 @@ class SequenceViewModel: ObservableObject {
     }
     
     @MainActor
-    public func load() async {
+    public func load(seed: String? = nil) async {
         do {
             // (1) Ask for more playlists
             // print("SequenceViewModel.load with seed: \(seedPlaylist?.playlistId ?? "None")")
-            let newItems = try await VideoService.getSequence(playlistId: "65d8fc3495f306b28d1b88d6")
-            // clear seed
-            self.setSeed(seed: nil)
+            let newItems = try await VideoService.getSequence(playlistId: seed ?? "65d8fc3495f306b28d1b88d6")
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence

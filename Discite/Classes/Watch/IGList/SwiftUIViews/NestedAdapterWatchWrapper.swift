@@ -10,11 +10,11 @@ import SwiftUI
 struct NestedAdapterWatchWrapper: View {
     var size: CGSize
     var safeArea: EdgeInsets
-    var seed: PlaylistPreview?
+    var seed: String?
     
     @StateObject var viewModel: SequenceViewModel
     
-    init(size: CGSize, safeArea: EdgeInsets, seed: PlaylistPreview? = nil) {
+    init(size: CGSize, safeArea: EdgeInsets, seed: String? = nil) {
         self.size = size
         self.safeArea = safeArea
         self.seed = seed

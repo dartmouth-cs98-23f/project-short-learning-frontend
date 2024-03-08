@@ -11,7 +11,8 @@ struct MainExplorePage: View {
     @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel = MainExploreViewModel()
     @Binding var searchText: String
-    @State var isWatchShowing: Bool = false
+    
+    @State var seed: String?
 
     @Environment(\.isSearching)
     private var isSearching: Bool
@@ -47,31 +48,6 @@ struct MainExplorePage: View {
                         
                     }
                 }
-            }
-            .fullScreenCover(isPresented: $isWatchShowing) {
-                VStack(alignment: .leading) {
-                    Button {
-                        isWatchShowing = false
-                        
-                    } label: {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundStyle(Color.secondaryPeachLight)
-                            .frame(width: 22, height: 22)
-                    }
-                    .frame(maxHeight: 24, alignment: .leading)
-                    .padding(.horizontal, 18)
-                    
-                    GeometryReader { geo in
-                        WatchPage(size: geo.size,
-                                  safeArea: geo.safeAreaInsets,
-                                  seed: tabSelection.playlistSeed,
-                                  includeNavigation: false)
-                    }
-                    .containerRelativeFrame([.vertical])
-                }
-                .background(.black)
             }
             .overlay {
                 if isSearching && !searchText.isEmpty {
@@ -154,7 +130,7 @@ struct MainExplorePage: View {
                     ForEach(topicVideo.videos) { playlist in
                         ExplorePlaylistPreviewCard(
                             playlist: playlist,
-                            isWatchShowing: $isWatchShowing)
+                            seed: seed)
                             .padding(.vertical, 18)
                     }
                 }
@@ -206,9 +182,8 @@ struct MainExplorePage: View {
             }
             
             // open Watch
-            Button {
-                tabSelection.setSeed(playlist: playlist)
-                isWatchShowing = true
+            NavigationLink {
+                WatchFullScreenCover(seed: seed)
                 
             } label: {
                 Image(systemName: "play.fill")

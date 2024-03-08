@@ -58,6 +58,16 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
         ])
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        #if DEBUG
+        print("\tView disappearing, pause player.")
+        #endif
+        
+        if player?.rate != 0 {
+            player?.pause()
+        }
+    }
+    
     // MARK: PlayerOverlayDelegate
     
     func presentShareController() {
