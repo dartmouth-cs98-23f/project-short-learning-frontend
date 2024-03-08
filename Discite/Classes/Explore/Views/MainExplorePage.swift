@@ -18,7 +18,7 @@ struct MainExplorePage: View {
     
     var body: some View {
             VStack(alignment: .leading) {
-                ScrollView(.vertical) {
+                ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack(spacing: 18) {
                         
                         ForEach(viewModel.topicsAndRolesVideos, id: \.id) { video in
@@ -78,7 +78,6 @@ struct MainExplorePage: View {
                     SearchSuggestionsList(searchText: $searchText)
                 }
             }
-            .padding(.horizontal, 18)
             
             NavigationBar()
     }
@@ -94,6 +93,7 @@ struct MainExplorePage: View {
                     Text(roleVideo.title)
                         .font(.H4)
                 }
+                
                 Spacer()
                 NavigationLink {
                     
@@ -103,12 +103,13 @@ struct MainExplorePage: View {
                         .foregroundStyle(Color.secondaryPink)
                 }
             }
+            .padding(.horizontal, 18)
             
             // playlists
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(roleVideo.videos) { playlist in
                     singlePlaylist(playlist: playlist)
-                    Divider()
+                    // Divider()
                 }
             }
         }
@@ -117,7 +118,7 @@ struct MainExplorePage: View {
     
     @ViewBuilder
     private func topicCarousel(topicVideo: TopicVideo) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 4) {
             // title
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 8) {
@@ -131,6 +132,7 @@ struct MainExplorePage: View {
                 }
                 
                 Spacer(minLength: 24)
+                
                 NavigationLink {
                     TopicPageView(topicSeed: TopicTag(
                         id: topicVideo.id,
@@ -144,18 +146,20 @@ struct MainExplorePage: View {
                         .foregroundStyle(Color.primaryPurple)
                 }
             }
+            .padding(.horizontal, 18)
             
             // playlist previews
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
+                HStack(spacing: 18) {
                     ForEach(topicVideo.videos) { playlist in
                         ExplorePlaylistPreviewCard(
                             playlist: playlist,
                             isWatchShowing: $isWatchShowing)
-                            .padding(.bottom, 18)
+                            .padding(.vertical, 18)
                     }
                 }
             }
+            .padding(.horizontal, 18)
         }
     }
 
@@ -168,15 +172,16 @@ struct MainExplorePage: View {
                 AsyncImage(url: imageURL) { image in
                     image
                         .resizable()
+                        .scaledToFill()
                         .frame(width: 60, height: 60)
                         .clipped()
                     
                 } placeholder: {
-                    Rectangle()
-                        .foregroundStyle(Color.grayDark)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 60)
+                    ProgressView()
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                .frame(width: 60, height: 60)
+                
             } else {
                 Rectangle()
                     .foregroundStyle(Color.grayDark)
@@ -202,16 +207,27 @@ struct MainExplorePage: View {
             
             // open Watch
             Button {
+                tabSelection.setSeed(playlist: playlist)
+                isWatchShowing = true
                 
             } label: {
-                Image(systemName: "chevron.right")
+                Image(systemName: "play.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 14, height: 14)
-                    .foregroundStyle(Color.primaryPurpleLight)
+                    .foregroundStyle(Color.primaryBlueBlack)
             }
+            .padding(4)
             
         }
+        .padding(8)
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+                .shadow(color: Color.grayDark.opacity(0.3), radius: 8, x: 2, y: 2)
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 4)
     }
 }
 
