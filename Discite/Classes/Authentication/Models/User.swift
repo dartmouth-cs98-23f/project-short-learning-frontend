@@ -38,6 +38,7 @@ class User: Identifiable, ObservableObject {
     // authentication
     var token: String = ""
     @Published var state: AuthState = .signedOut
+    @Published var loadingState: ViewModelState = .loading
     
     init() {
         do {
@@ -47,12 +48,16 @@ class User: Identifiable, ObservableObject {
             Task {
                 do {
                     try await getUser(token: self.token)
+                    loadingState = .loaded
                 } catch {
+                    self.loadingState = .error(error: error)
                     print("Error getting user: \(error)")
                 }
             }
             
         } catch {
+            // Not an error, just no token
+            loadingState = .loaded
             print("No token: \(error)")
         }
     }
@@ -81,6 +86,29 @@ class User: Identifiable, ObservableObject {
         withAnimation {
             print("Setting user state to signedIn.")
             self.state = response.onBoardingStatus ? .signedIn : .onboarding
+        }
+    }
+    
+    @MainActor
+    func updateUser(request: UpdateUserRequest) async throws {
+        print("PUT /api/user")
+        
+        do {
+            // Try updating user on backend
+            _ = try await APIRequest<UpdateUserRequest, EmptyResponse>
+                .apiRequest(method: .put,
+                            authorized: true,
+                            path: "/api/user",
+                            parameters: request)
+            
+            // If successful, update user on frontend
+            self.firstName = request.firstName
+            self.lastName = request.lastName
+            self.profilePicture = request.profilePicture
+            
+        } catch {
+            self.loadingState  = .error(error: error)
+            print("Error in User.updateUser: \(error)")
         }
     }
     
