@@ -43,9 +43,23 @@ class PlayerView: UIView {
         return overlayController
     }()
     
+    private let heartImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "hand.thumbsup.fill"))
+        imageView.tintColor = UIColor.red
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     private lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         return gesture
+    }()
+    
+    private lazy var doubleTapGesture: UITapGestureRecognizer = {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        return doubleTapGesture
     }()
     
     override init(frame: CGRect) {
@@ -53,6 +67,7 @@ class PlayerView: UIView {
         
         // Add controls and overlay
         addGestureRecognizer(tapGesture)
+        // addGestureRecognizer(doubleTapGesture)
         addSubview(overlayViewController.view)
         
         // Configure playerLayer
@@ -64,6 +79,17 @@ class PlayerView: UIView {
             selector: #selector(playerItemDidReachEnd(notification:)),
             name: .AVPlayerItemDidPlayToEndTime,
             object: player?.currentItem)
+    }
+    
+    private func setupHeartImageView() {
+        addSubview(heartImageView)
+        heartImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heartImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            heartImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            heartImageView.widthAnchor.constraint(equalToConstant: 50),
+            heartImageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     func setupVideoPlayer() {
@@ -103,6 +129,20 @@ class PlayerView: UIView {
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.3) {
             self.overlayViewController.view.isHidden.toggle()
+        }
+    }
+    
+    @objc private func handleDoubleTap() {
+        // Show like
+        heartImageView.isHidden = false
+
+        // Animate the heart image
+        UIView.animate(withDuration: 1.0, animations: {
+            self.heartImageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        }) { _ in
+            // Hide the heart image after the animation completes
+            self.heartImageView.isHidden = true
+            self.heartImageView.transform = .identity
         }
     }
     

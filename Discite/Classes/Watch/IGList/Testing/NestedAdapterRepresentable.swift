@@ -48,4 +48,5 @@ struct NestedAdapterRepresentablePreview: View {
 
 #Preview {
     NestedAdapterRepresentablePreview()
+        .environment(TabSelectionManager(selection: .Watch))
 }

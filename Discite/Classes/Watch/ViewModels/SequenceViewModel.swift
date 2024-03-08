@@ -34,7 +34,6 @@ class SequenceViewModel: ObservableObject {
         seedPlaylist = seed
         
         Task {
-            print("first load")
             await self.load()
             state = .loaded
         }
@@ -116,7 +115,10 @@ class SequenceViewModel: ObservableObject {
             if Task.isCancelled { return }
             
             // (3) Append to the existing set of items
-            let allItems = items + newItems
+            var allItems = items + newItems
+            if allItems.count > 20 {
+                allItems.removeFirst(5)
+            }
             
             // (4) Publish our changes to SwiftUI by setting our items and state
             DispatchQueue.main.async { [weak self] in

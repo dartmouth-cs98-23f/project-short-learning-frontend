@@ -65,6 +65,7 @@ struct NavigationBar: View {
             }
         }
         .padding(.top, 18)
+        .frame(width: .infinity)
         .background(tabSelection.selection == .Watch ? .clear : .white)
     }
 }

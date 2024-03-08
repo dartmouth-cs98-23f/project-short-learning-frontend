@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import AVKit
+import SwiftUI
 
 class PlayerOverlayView: UIView {
     var player: AVPlayer? {
@@ -34,14 +35,18 @@ class PlayerOverlayView: UIView {
     }
     
     weak var delegate: PlayerOverlayDelegate?
-
+    
     private lazy var bottomStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [metadataStackView, controlsStackView])
         stackView.axis = .horizontal
         stackView.spacing = 32
         stackView.alignment = .bottom
         stackView.tintColor = .white
-        return stackView
+        
+        let stackViewWithNavigation = UIStackView(arrangedSubviews: [stackView, navigationBar])
+        stackViewWithNavigation.axis = .vertical
+        stackViewWithNavigation.spacing = 12
+        return stackViewWithNavigation
     }()
     
     private lazy var controlsStackView: UIStackView = {
@@ -59,7 +64,7 @@ class PlayerOverlayView: UIView {
     }()
     
     private lazy var metadataStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+        let stackView = UIStackView(arrangedSubviews: [youtubeButton, titleLabel, descriptionLabel])
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.alignment = .leading
@@ -90,7 +95,7 @@ class PlayerOverlayView: UIView {
         button.tintColor = UIColor.white
         return button
     }()
-
+    
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
@@ -98,7 +103,7 @@ class PlayerOverlayView: UIView {
         button.tintColor = UIColor.white
         return button
     }()
-
+    
     private lazy var dislikeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "hand.thumbsdown"), for: .normal)
@@ -106,7 +111,7 @@ class PlayerOverlayView: UIView {
         button.tintColor = UIColor.white
         return button
     }()
-
+    
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
@@ -114,7 +119,7 @@ class PlayerOverlayView: UIView {
         button.tintColor = UIColor.white
         return button
     }()
-
+    
     private lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "paperplane"), for: .normal)
@@ -122,7 +127,7 @@ class PlayerOverlayView: UIView {
         button.tintColor = UIColor.white
         return button
     }()
-
+    
     private lazy var detailsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
@@ -133,21 +138,39 @@ class PlayerOverlayView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Title"
+        label.text = "Untitled"
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = .white
         label.numberOfLines = 2
         return label
-   }()
-   
-   private lazy var descriptionLabel: UILabel = {
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Description of the playlist goes here. Adding words to ensure that text wraps when the description is long, and is limited to two lines."
+        label.text = "No description available."
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .white
         label.numberOfLines = 2
         return label
-   }()
+    }()
+    
+    private lazy var progressDots: UIView = {
+        let controller = UIHostingController(rootView: NavigationDotsView(video: video))
+        controller.view.backgroundColor = .clear
+        return controller.view
+    }()
+    
+    private lazy var youtubeButton: UIView = {
+        let controller = UIHostingController(rootView: YouTubeButton(video: video))
+        controller.view.backgroundColor = .clear
+        return controller.view
+    }()
+    
+    private lazy var navigationBar: UIView = {
+        let controller = UIHostingController(rootView: NavigationBar())
+        controller.view.backgroundColor = .clear
+        return controller.view
+    }()
     
     @objc private func likeButtonTapped() {
         #if DEBUG
@@ -166,13 +189,20 @@ class PlayerOverlayView: UIView {
         }
         
         task = Task {
-            playlist.isDisliked
+            playlist.isLiked
             ? await playlist.postLike()
             : await playlist.deleteLike()
         }
         
-        likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
-        likeButton.tintColor = .systemPurple
+        if playlist.isLiked {
+            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+            likeButton.tintColor = .systemIndigo
+            dislikeButton.setImage(UIImage(systemName: "hand.thumbsdown"), for: .normal)
+            dislikeButton.tintColor = .white
+        } else {
+            likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+            likeButton.tintColor = .white
+        }
     }
 
     @objc private func dislikeButtonTapped() {
@@ -197,8 +227,17 @@ class PlayerOverlayView: UIView {
             : await playlist.deleteDislike()
         }
         
-        dislikeButton.setImage(UIImage(systemName: "hand.thumbsdown.fill"), for: .normal)
-        dislikeButton.tintColor = .systemPink
+        if playlist.isDisliked {
+            dislikeButton.setImage(UIImage(systemName: "hand.thumbsdown.fill"), for: .normal)
+            dislikeButton.tintColor = .systemPink
+            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+            likeButton.tintColor = .white
+            delegate?.dislikeButtonTapped(disliked: true)
+            
+        } else {
+            dislikeButton.setImage(UIImage(systemName: "hand.thumbsdown"), for: .normal)
+            dislikeButton.tintColor = .white
+        }
     }
 
     @objc private func bookmarkButtonTapped() {
@@ -241,7 +280,6 @@ class PlayerOverlayView: UIView {
     
     @objc private func playPauseButtonTapped() {
         guard let player = player else {
-            print("player is nil")
             return
         }
         
@@ -256,15 +294,27 @@ class PlayerOverlayView: UIView {
             playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
-
+    
     @objc private func skipForwardButtonTapped() {
-        // Implement skip forward logic here
-        // Adjust the time by 10 seconds (or your desired duration)
+        guard let player = player else { return }
+        
+        // Calculate the new time
+        let currentTime = player.currentTime()
+        let newTime = CMTime(seconds: currentTime.seconds + 10, preferredTimescale: currentTime.timescale)
+        
+        // Seek to the new time
+        player.seek(to: newTime)
     }
 
     @objc private func skipBackwardButtonTapped() {
-        // Implement skip backward logic here
-        // Adjust the time by -10 seconds (or your desired duration)
+        guard let player = player else { return }
+        
+        // Calculate the new time
+        let currentTime = player.currentTime()
+        let newTime = CMTime(seconds: currentTime.seconds - 10, preferredTimescale: currentTime.timescale)
+        
+        // Seek to the new time
+        player.seek(to: newTime)
     }
 
     override init(frame: CGRect) {
@@ -278,36 +328,40 @@ class PlayerOverlayView: UIView {
     }
 
     private func setupUI() {
-        backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        // addSubview(controlsStackView)
+        backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        addSubview(progressDots)
         addSubview(playbackStackView)
-        // addSubview(metadataStackView)
         addSubview(bottomStackView)
+        
+        progressDots.layer.borderColor = UIColor.systemPink.cgColor
         setupConstraints()
     }
 
     private func setupConstraints() {
-        // controlsStackView.translatesAutoresizingMaskIntoConstraints = false
+        progressDots.translatesAutoresizingMaskIntoConstraints = false
         playbackStackView.translatesAutoresizingMaskIntoConstraints = false
-        // metadataStackView.translatesAutoresizingMaskIntoConstraints = false
         bottomStackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-//            controlsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
-//            controlsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
-             playbackStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-             playbackStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            progressDots.centerXAnchor.constraint(equalTo: centerXAnchor),
+            progressDots.topAnchor.constraint(equalTo: topAnchor, constant: 18),
+            
+            playbackStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            playbackStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             bottomStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
             bottomStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
-            bottomStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48)
-//            metadataStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
-//            metadataStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
-//            metadataStackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -54)
+            bottomStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24)
         ])
     }
     
     deinit {
         task?.cancel()
     }
+}
+
+protocol PlaylistDetailsDelegate: AnyObject {
+    func playPauseButtonTapped()
+    func skipForwardButtonTapped()
+    func skipBackwardButtonTapped()
 }

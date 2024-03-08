@@ -49,6 +49,7 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
     }
     
     // MARK: PlayerOverlayDelegate
+    
     func presentShareController() {
         #if DEBUG
         print("\tIn presentDetailsView.")
@@ -72,9 +73,34 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
         let detailsController = UIHostingController(rootView: detailsView)
         self.present(detailsController, animated: true, completion: nil)
     }
+    
+    func dislikeButtonTapped(disliked: Bool) {
+        if disliked {
+            let alertController = UIAlertController(
+                title: "Tell us why you disliked this video.",
+                message: "Help us improve our recommendations by telling us why this video wasn't right for you.",
+                preferredStyle: .alert
+            )
+
+            let tooEasyButton = UIAlertAction(title: "Too easy", style: .default) { _ in
+                print("POST too easy")
+            }
+            
+            alertController.addAction(tooEasyButton)
+            
+            let tooHardButton = UIAlertAction(title: "Too hard", style: .default) { _ in
+                print("POST too hard")
+            }
+            
+            alertController.addAction(tooHardButton)
+
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
 }
 
 protocol PlayerOverlayDelegate: AnyObject {
     func presentShareController()
     func presentDetailsView()
+    func dislikeButtonTapped(disliked: Bool)
 }
