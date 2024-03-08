@@ -162,11 +162,6 @@ class PlayerOverlayView: UIView {
         return controller.view
     }()
     
-//    private lazy var navigationDotsController: UIHostingController = {
-//        let controller = UIHostingController(rootView: NavigationDotsView(video: video))
-//        return controller
-//    }()
-    
     private lazy var youtubeButton: UIView = {
         let controller = UIHostingController(rootView: YouTubeButton(video: video))
         controller.view.backgroundColor = .clear
@@ -346,13 +341,10 @@ class PlayerOverlayView: UIView {
 
     private func setupConstraints() {
         progressDots.translatesAutoresizingMaskIntoConstraints = false
-        // navigationDotsController.view.translatesAutoresizingMaskIntoConstraints = false
         playbackStackView.translatesAutoresizingMaskIntoConstraints = false
         bottomStackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-//            navigationDotsController.view.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            navigationDotsController.view.topAnchor.constraint(equalTo: topAnchor, constant: 18),
             progressDots.centerXAnchor.constraint(equalTo: centerXAnchor),
             progressDots.topAnchor.constraint(equalTo: topAnchor, constant: 18),
             

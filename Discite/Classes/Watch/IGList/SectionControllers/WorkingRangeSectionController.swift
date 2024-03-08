@@ -12,49 +12,23 @@ import IGListKit
 import UIKit
 import AVKit
 
-final class WorkingRangeSectionController: ListSectionController, ListDisplayDelegate, ListWorkingRangeDelegate {
-    private var height: Int?
-    private var downloadedImage: UIImage?
-    private var task: URLSessionDataTask?
-    
-    var visibleCell: EmbeddedVideoCell?
-    
-    var parentPlaylist: Playlist?
+final class WorkingRangeSectionController: ListSectionController, ListDisplayDelegate {
     private var video: Video?
-    
     private var player: AVPlayer?
-    var videoURLs = [URL]()
-    var visibleIP: IndexPath?
-    var aboutToBecomeInvisibleCell = -1
     
-    private var urlString: String? {
-        guard
-            let size = collectionContext?.containerSize
-            else { return nil }
-        let width = Int(size.width)
-        let height1 = Int(size.height)
-        return "https://unsplash.it/" + width.description + "/" + height1.description
-    }
-
-    deinit {
-        task?.cancel()
+    var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
+        }
     }
 
     override init() {
         super.init()
-        workingRangeDelegate = self
         displayDelegate = self
-        
-        for _ in 0..<2 {
-            if let url = Bundle.main.url(forResource: "2", withExtension: "mp4") {
-                videoURLs.append(url)
-                
-            } else {
-                print("\tVideo resource not found.")
-            }
-        }
-        
-        visibleIP = IndexPath.init(row: 0, section: 0)
     }
 
     override func numberOfItems() -> Int {
@@ -78,13 +52,6 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
         }
         
         cell.configureWithVideo(video: video)
-//        if let url = video?.videoLink {
-//            let playerItem = AVPlayerItem(url: url)
-//            cell.configureWithPlayerItem(playerItem: playerItem)
-//        }
-        
-//        let playerItem = AVPlayerItem.init(url: videoURLs[index % 2])
-//        cell.configureWithPlayerItem(playerItem: playerItem)
         return cell
     }
 
@@ -93,6 +60,7 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
     }
     
     // MARK: ListDisplayDelegate
+    
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
         
     }
@@ -112,7 +80,7 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
     
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         if let cell = cell as? EmbeddedVideoCell {
-            stopPlayBack(cell: cell, index: -1)
+            stopPlayBack(cell: cell, index: index)
             
         } else {
             print("\tError in WorkingRangeSectionController: Couldn't pause cell.")
@@ -133,51 +101,4 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying object: Any, at index: Int) {
     
     }
-
-    // MARK: ListWorkingRangeDelegate
-    
-    // VIDEO
-    private func configureCell(_ cell: EmbeddedVideoCell) {
-        guard let videoURL = URL(string: "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761")
-        else { return }
-        
-        let playerItem = AVPlayerItem(url: videoURL)
-        let player = AVPlayer(playerItem: playerItem)
-        cell.configure(with: player)
-        self.player = player
-    }
-    
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerWillEnterWorkingRange sectionController: ListSectionController) {
-        guard downloadedImage == nil,
-            task == nil,
-            let urlString = urlString,
-            let url = URL(string: urlString)
-            else { return }
-
-        task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, let image = UIImage(data: data) else {
-                return print("Error downloading \(urlString): " + String(describing: error))
-            }
-            
-            DispatchQueue.main.async {
-                self.downloadedImage = image
-//                if let cell = self.collectionContext?.cellForItem(at: 0, sectionController: self) as? EmbeddedVideoCell {
-//                    print("Setting video for cell at index 0...")
-//                    self.configureCell(cell)
-//                }
-            }
-//            DispatchQueue.main.async {
-//                self.downloadedImage = image
-//                if let cell = self.collectionContext?.cellForItem(at: 0, sectionController: self) as? ImageCell {
-//                    print("Setting image for cell at index 0...")
-////                if let cell = self.collectionContext?.cellForItem(at: 1, sectionController: self) as? ImageCell {
-//                    cell.setImage(image: image)
-//                }
-//            }
-        }
-        task?.resume()
-    }
-
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerDidExitWorkingRange sectionController: ListSectionController) {}
-
 }

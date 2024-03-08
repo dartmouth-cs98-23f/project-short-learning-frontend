@@ -60,20 +60,9 @@ class Video: Decodable, Identifiable, ObservableObject {
     }
     
     @MainActor
-    func postUnderstanding(understand: Bool) async {
+    func postWatchHistory(timestamp: Double) async {
         do {
-            _ = try await VideoService.postUnderstanding(videoId: videoId, understand: understand)
-            
-        } catch {
-            self.state = .error(error: error)
-            print("Error in Video.postUnderstanding: \(error)")
-        }
-    }
-    
-    @MainActor
-    func postTimestamp(timestamp: Double) async {
-        do {
-            _ = try await VideoService.postTimestamp(
+            _ = try await VideoService.postWatchHistory(
                 playlistId: playlistId,
                 videoId: videoId,
                 timestamp: timestamp
@@ -81,7 +70,25 @@ class Video: Decodable, Identifiable, ObservableObject {
             
         } catch {
             self.state = .error(error: error)
-            print("Error in Video.postTimestamp: \(error)")
+            print("Error in Video.postWatchHistory: \(error)")
+        }
+    }
+    
+    func postTooEasy() async {
+        do {
+            _ = try await VideoService.postTooEasy(playlistId: playlistId)
+            
+        } catch {
+            print("Error in Video.postTooEasy: \(error)")
+        }
+    }
+    
+    func postTooHard() async {
+        do {
+            _ = try await VideoService.postTooHard(playlistId: playlistId)
+            
+        } catch {
+            print("Error in Video.postTooEasy: \(error)")
         }
     }
 }

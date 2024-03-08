@@ -24,6 +24,19 @@ class EmbeddedVideoCell: UICollectionViewCell {
     
     var video: Video?
     
+    // How many times this player looped
+    private var loops: Int = 0
+    
+    var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
+        }
+    }
+    
     // OPTION 2
     fileprivate let playerView: PlayerView = {
         let view = PlayerView()
@@ -75,6 +88,19 @@ class EmbeddedVideoCell: UICollectionViewCell {
     
     public func stopPlaybackInPlayerView() {
         self.playerView.player?.pause()
+        
+        #if DEBUG
+        print("\t\tStopped playback, posting watch history for \(playerView.video?.videoId ?? "None")")
+        #endif
+        
+        // Post timestamp
+        if let player = playerView.player, let currentPlayerItem = player.currentItem {
+            let totalDuration = CMTimeGetSeconds(currentPlayerItem.duration)
+            let currentTime =  CMTimeGetSeconds(player.currentTime())
+            
+            let totalTime = Double(loops) * totalDuration + currentTime
+            task = Task { await playerView.video?.postWatchHistory(timestamp: totalTime) }
+        }
     }
     
     public func startPlaybackInPlayerView() {
@@ -87,6 +113,7 @@ class EmbeddedVideoCell: UICollectionViewCell {
     // A notification is fired and seeker is sent to the beginning to loop the video again
     @objc func playerItemDidReachEnd(notification: Notification) {
         if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
+            loops += 1
             playerItem.seek(to: CMTime.zero) { success in
                 print("\tRewind player: \(success)")
             }
@@ -119,6 +146,7 @@ class EmbeddedVideoCell: UICollectionViewCell {
     
     deinit {
         player = nil
+        task?.cancel()
         NotificationCenter.default.removeObserver(self)
     }
     

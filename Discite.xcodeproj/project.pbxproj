@@ -814,7 +814,6 @@
 		C2D9F2012B9A280200FDBD0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C2D9F21B2B9A9FF800FDBD0F /* PlaylistDetails.swift */,
 				C2D9F2082B9A28C800FDBD0F /* PlayerOverlayView.swift */,
 				C2D9F2042B9A287A00FDBD0F /* PlayerView.swift */,
 				C2D9F2022B9A281300FDBD0F /* EmbeddedVideoCell.swift */,
@@ -832,6 +831,7 @@
 				C2D9F20D2B9A2B1E00FDBD0F /* NestedAdapterRepresentable.swift */,
 				C2D9F2152B9A950800FDBD0F /* PlayerOverlayPreview.swift */,
 				C2D9F21F2B9ABBC100FDBD0F /* NavigationDots.swift */,
+				C2D9F21B2B9A9FF800FDBD0F /* PlaylistDetails.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";

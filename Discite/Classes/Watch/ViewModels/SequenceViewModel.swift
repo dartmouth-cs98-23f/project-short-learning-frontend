@@ -116,7 +116,7 @@ class SequenceViewModel: ObservableObject {
             
             // (3) Append to the existing set of items
             var allItems = items + newItems
-            if allItems.count > 20 {
+            if allItems.count > 15 {
                 allItems.removeFirst(5)
             }
             
