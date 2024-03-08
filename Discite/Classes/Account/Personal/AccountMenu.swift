@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AccountMenu: View {
     @EnvironmentObject var user: User
+    @Environment(\.colorScheme) private var colorScheme
     @ObservedObject var viewModel: AccountViewModel
 
     var body: some View {
@@ -29,7 +30,7 @@ struct AccountMenu: View {
     func textualMenuButton(label: String) -> some View {
         Text(label)
             .font(.H5)
-            .foregroundColor(Color.primaryBlueBlack)
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
     

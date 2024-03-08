@@ -83,6 +83,7 @@ struct AccountView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 24, height: 24)
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
         }
         .foregroundColor(.primaryBlueBlack)
     }
@@ -195,7 +196,7 @@ struct AccountView: View {
         } label: {
             Text("See all of my topics (17)")
                 .font(.small)
-                .foregroundColor(.primaryPurple)
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.primaryPurple)
         }
     }
     
@@ -249,7 +250,7 @@ struct AccountView: View {
     func placeholderRectangle(minHeight: CGFloat) -> some View {
         Rectangle()
             .frame(maxWidth: .infinity, minHeight: minHeight)
-            .foregroundColor(.grayLight)
+            .foregroundColor(colorScheme == .dark ? Color.primaryBlueNavy : Color.grayLight)
     }
     
 }
