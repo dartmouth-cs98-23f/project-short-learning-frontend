@@ -18,6 +18,9 @@ class Video: Decodable, Identifiable, ObservableObject {
     private(set) var description: String
     private(set) var videoURL: String
     private(set) var videoLink: URL?
+    
+    // Reference to parent playlist
+    var playlist: Playlist?
 
     @Published var state: ViewModelState = .loading
     public var isLiked: Bool = false

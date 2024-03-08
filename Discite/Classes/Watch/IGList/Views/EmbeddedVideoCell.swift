@@ -14,7 +14,6 @@ class EmbeddedVideoCell: UICollectionViewCell {
     // OPTION 1: PLAYER
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
-    var paused: Bool = false
     
     var playerItem: AVPlayerItem? {
         didSet {
@@ -22,6 +21,8 @@ class EmbeddedVideoCell: UICollectionViewCell {
             player?.replaceCurrentItem(with: self.playerItem)
         }
     }
+    
+    var video: Video?
     
     // OPTION 2
     fileprivate let playerView: PlayerView = {
@@ -44,6 +45,15 @@ class EmbeddedVideoCell: UICollectionViewCell {
         contentView.addSubview(playerView)
         contentView.addSubview(activityView)
         
+    }
+    
+    public func configureWithVideo(video: Video?) {
+        playerView.video = video
+        
+        if let url = video?.videoLink {
+            let playerItem = AVPlayerItem(url: url)
+            configureWithPlayerItem(playerItem: playerItem)
+        }
     }
     
     public func configureWithPlayerItem(playerItem: AVPlayerItem?) {

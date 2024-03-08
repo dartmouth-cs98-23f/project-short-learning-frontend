@@ -19,7 +19,7 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
     
     var visibleCell: EmbeddedVideoCell?
     
-    // single VIDEO goes here
+    var parentPlaylist: Playlist?
     private var video: Video?
     
     private var player: AVPlayer?
@@ -77,10 +77,12 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
             return UICollectionViewCell()
         }
         
-        if let url = video?.videoLink {
-            let playerItem = AVPlayerItem(url: url)
-            cell.configureWithPlayerItem(playerItem: playerItem)
-        }
+        cell.configureWithVideo(video: video)
+//        if let url = video?.videoLink {
+//            let playerItem = AVPlayerItem(url: url)
+//            cell.configureWithPlayerItem(playerItem: playerItem)
+//        }
+        
 //        let playerItem = AVPlayerItem.init(url: videoURLs[index % 2])
 //        cell.configureWithPlayerItem(playerItem: playerItem)
         return cell

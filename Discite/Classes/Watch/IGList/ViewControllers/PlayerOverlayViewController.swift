@@ -8,8 +8,9 @@
 import Foundation
 import UIKit
 import AVKit
+import SwiftUI
 
-class PlayerOverlayViewController: UIViewController {
+class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
 
     var player: AVPlayer? {
         didSet {
@@ -17,12 +18,20 @@ class PlayerOverlayViewController: UIViewController {
         }
     }
     
+    var video: Video? {
+        didSet {
+            playerControlsView.video = video
+        }
+    }
+    
     private let playerControlsView = PlayerOverlayView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         playerControlsView.player = player
+        playerControlsView.delegate = self
+        
         view.addSubview(playerControlsView)
         setupConstraints()
     }
@@ -38,4 +47,34 @@ class PlayerOverlayViewController: UIViewController {
             playerControlsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    // MARK: PlayerOverlayDelegate
+    func presentShareController() {
+        #if DEBUG
+        print("\tIn presentDetailsView.")
+        #endif
+        
+        guard let playlist = video?.playlist else { return }
+        
+        let shareView = SharePage(playlist: playlist)
+        let shareController = UIHostingController(rootView: shareView)
+        self.present(shareController, animated: true, completion: nil)
+    }
+    
+    func presentDetailsView() {
+        #if DEBUG
+        print("\tIn presentDetailsView.")
+        #endif
+        
+        guard let playlist = video?.playlist else { return }
+        
+        let detailsView = PlaylistSummaryView(playlist: playlist)
+        let detailsController = UIHostingController(rootView: detailsView)
+        self.present(detailsController, animated: true, completion: nil)
+    }
+}
+
+protocol PlayerOverlayDelegate: AnyObject {
+    func presentShareController()
+    func presentDetailsView()
 }

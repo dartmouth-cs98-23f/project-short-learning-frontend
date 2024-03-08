@@ -31,6 +31,8 @@ class PlayerView: UIView {
         }
     }
     
+    var video: Video?
+    
     private lazy var overlayViewController: PlayerOverlayViewController = {
         let overlayController = PlayerOverlayViewController()
         let view = overlayController.view
@@ -110,6 +112,7 @@ class PlayerView: UIView {
     
     public func configureOverlay() {
         overlayViewController.player = player
+        overlayViewController.video = video
     }
     
     deinit {

@@ -72,17 +72,23 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         inferenceTopics = metadata.inferenceTopics
         inferenceComplexities = metadata.inferenceComplexities
         
-        if let youtubeLink = metadata.youtubeURL,
-           let url = URL(string: youtubeLink),
-           let path = url.host?.appending(url.path) {
-            youtubeURL = path
-        }
-        
         id = UUID()
         isSaved = false
         
         sequenceIndex = -1
         currentIndex = 0
+        
+        // Give videos a reference back to self
+        for video in videos {
+            video.playlist = self
+        }
+        
+        if let youtubeLink = metadata.youtubeURL,
+           let url = URL(string: youtubeLink),
+           let path = url.host?.appending(url.path) {
+            youtubeURL = path
+        }
+
         state = .loaded
     }
     

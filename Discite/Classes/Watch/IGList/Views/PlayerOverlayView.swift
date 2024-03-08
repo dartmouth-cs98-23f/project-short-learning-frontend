@@ -15,6 +15,25 @@ class PlayerOverlayView: UIView {
             playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         }
     }
+    
+    var video: Video? {
+        didSet {
+            titleLabel.text = video?.playlist?.title ?? "Untitled"
+            descriptionLabel.text = video?.playlist?.description ?? "No description available."
+        }
+    }
+    
+    var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
+        }
+    }
+    
+    weak var delegate: PlayerOverlayDelegate?
 
     private lazy var bottomStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [metadataStackView, controlsStackView])
@@ -131,23 +150,93 @@ class PlayerOverlayView: UIView {
    }()
     
     @objc private func likeButtonTapped() {
-        // Handle thumbs up action
+        #if DEBUG
+        print("\tLike button tapped.")
+        #endif
+        
+        guard
+            let video = video,
+            let playlist = video.playlist
+        else { return }
+        
+        playlist.isLiked.toggle()
+        
+        if playlist.isLiked && playlist.isDisliked {
+            playlist.isDisliked = false
+        }
+        
+        task = Task {
+            playlist.isDisliked
+            ? await playlist.postLike()
+            : await playlist.deleteLike()
+        }
+        
+        likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+        likeButton.tintColor = .systemPurple
     }
 
     @objc private func dislikeButtonTapped() {
-        // Handle thumbs down action
+        #if DEBUG
+        print("\tDislike button tapped.")
+        #endif
+
+        guard
+            let video = video,
+            let playlist = video.playlist
+        else { return }
+        
+        playlist.isDisliked.toggle()
+        
+        if playlist.isLiked && playlist.isDisliked {
+            playlist.isLiked = false
+        }
+        
+        task = Task {
+            playlist.isDisliked
+            ? await playlist.postDislike()
+            : await playlist.deleteDislike()
+        }
+        
+        dislikeButton.setImage(UIImage(systemName: "hand.thumbsdown.fill"), for: .normal)
+        dislikeButton.tintColor = .systemPink
     }
 
     @objc private func bookmarkButtonTapped() {
-        // Handle bookmark action
+        #if DEBUG
+        print("\tSave button tapped.")
+        #endif
+
+        guard
+            let video = video,
+            let playlist = video.playlist
+        else { return }
+
+        playlist.isSaved.toggle()
+
+        task = Task {
+            playlist.isSaved
+            ? await playlist.postSave()
+            : await playlist.deleteSave()
+        }
+
+        bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        bookmarkButton.tintColor = .systemPurple
     }
 
     @objc private func shareButtonTapped() {
-        // Handle share action
+        #if DEBUG
+        print("\tShare button tapped.")
+        #endif
+        
+        delegate?.presentShareController()
     }
 
     @objc private func detailsButtonTapped() {
-        // Handle details action
+        #if DEBUG
+        print("\tDetails button tapped.")
+        #endif
+        
+        delegate?.presentDetailsView()
     }
     
     @objc private func playPauseButtonTapped() {
@@ -216,5 +305,9 @@ class PlayerOverlayView: UIView {
 //            metadataStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
 //            metadataStackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -54)
         ])
+    }
+    
+    deinit {
+        task?.cancel()
     }
 }
