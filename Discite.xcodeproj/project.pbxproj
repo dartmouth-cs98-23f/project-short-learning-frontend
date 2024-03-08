@@ -136,6 +136,7 @@
 		C2D9F2182B9A989100FDBD0F /* NavigationDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2172B9A989100FDBD0F /* NavigationDotsView.swift */; };
 		C2D9F21A2B9A9DAC00FDBD0F /* YouTubeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2192B9A9DAC00FDBD0F /* YouTubeButton.swift */; };
 		C2D9F2222B9B6C3800FDBD0F /* NestedAdapterWatchWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2212B9B6C3800FDBD0F /* NestedAdapterWatchWrapper.swift */; };
+		C2D9F2242B9B99A700FDBD0F /* WatchFullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2232B9B99A700FDBD0F /* WatchFullScreenCover.swift */; };
 		C2D9F2282B9BB4EC00FDBD0F /* EditUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2272B9BB4EC00FDBD0F /* EditUserViewModel.swift */; };
 		C2D9F22C2B9BB62200FDBD0F /* UpdateUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F22B2B9BB62200FDBD0F /* UpdateUserRequest.swift */; };
 		C2D9F22F2B9BB6CB00FDBD0F /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F22E2B9BB6CB00FDBD0F /* EditUserView.swift */; };
@@ -299,6 +300,7 @@
 		C2D9F2172B9A989100FDBD0F /* NavigationDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDotsView.swift; sourceTree = "<group>"; };
 		C2D9F2192B9A9DAC00FDBD0F /* YouTubeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeButton.swift; sourceTree = "<group>"; };
 		C2D9F2212B9B6C3800FDBD0F /* NestedAdapterWatchWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedAdapterWatchWrapper.swift; sourceTree = "<group>"; };
+		C2D9F2232B9B99A700FDBD0F /* WatchFullScreenCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchFullScreenCover.swift; sourceTree = "<group>"; };
 		C2D9F2272B9BB4EC00FDBD0F /* EditUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserViewModel.swift; sourceTree = "<group>"; };
 		C2D9F22B2B9BB62200FDBD0F /* UpdateUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserRequest.swift; sourceTree = "<group>"; };
 		C2D9F22E2B9BB6CB00FDBD0F /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
