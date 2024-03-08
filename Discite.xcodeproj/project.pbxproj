@@ -136,6 +136,7 @@
 		C2D9F2182B9A989100FDBD0F /* NavigationDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2172B9A989100FDBD0F /* NavigationDotsView.swift */; };
 		C2D9F21A2B9A9DAC00FDBD0F /* YouTubeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2192B9A9DAC00FDBD0F /* YouTubeButton.swift */; };
 		C2D9F21C2B9A9FF800FDBD0F /* PlaylistDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F21B2B9A9FF800FDBD0F /* PlaylistDetails.swift */; };
+		C2D9F2202B9ABBC100FDBD0F /* NavigationDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F21F2B9ABBC100FDBD0F /* NavigationDots.swift */; };
 		C2E3EFCE2B93CEE600F2AC65 /* VideoDetailsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFCD2B93CEE600F2AC65 /* VideoDetailsOverlay.swift */; };
 		C2E3EFD22B94FC8800F2AC65 /* TestVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD12B94FC8800F2AC65 /* TestVideo.swift */; };
 		C2E3EFD42B95278A00F2AC65 /* MainExplorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3EFD32B95278A00F2AC65 /* MainExplorePage.swift */; };
@@ -295,6 +296,7 @@
 		C2D9F2172B9A989100FDBD0F /* NavigationDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDotsView.swift; sourceTree = "<group>"; };
 		C2D9F2192B9A9DAC00FDBD0F /* YouTubeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeButton.swift; sourceTree = "<group>"; };
 		C2D9F21B2B9A9FF800FDBD0F /* PlaylistDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetails.swift; sourceTree = "<group>"; };
+		C2D9F21F2B9ABBC100FDBD0F /* NavigationDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDots.swift; sourceTree = "<group>"; };
 		C2E3EFCD2B93CEE600F2AC65 /* VideoDetailsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsOverlay.swift; sourceTree = "<group>"; };
 		C2E3EFD12B94FC8800F2AC65 /* TestVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVideo.swift; sourceTree = "<group>"; };
 		C2E3EFD32B95278A00F2AC65 /* MainExplorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExplorePage.swift; sourceTree = "<group>"; };
@@ -829,6 +831,7 @@
 			children = (
 				C2D9F20D2B9A2B1E00FDBD0F /* NestedAdapterRepresentable.swift */,
 				C2D9F2152B9A950800FDBD0F /* PlayerOverlayPreview.swift */,
+				C2D9F21F2B9ABBC100FDBD0F /* NavigationDots.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -1037,6 +1040,7 @@
 				C2E3EFD82B95527400F2AC65 /* PlaylistInferenceSummary.swift in Sources */,
 				C2128A782ADB270B00E90C66 /* ContentView.swift in Sources */,
 				C20EFE852B012C400074EC9A /* Share.swift in Sources */,
+				C2D9F2202B9ABBC100FDBD0F /* NavigationDots.swift in Sources */,
 				C2EE4E5F2B2A362500FEA5B5 /* SearchBar.swift in Sources */,
 				2CA0B16F2B7A8B4400558227 /* CancelButton.swift in Sources */,
 				2C8509EB2B68107800707646 /* AllTopics.swift in Sources */,

@@ -21,6 +21,7 @@ class PlayerOverlayView: UIView {
         didSet {
             titleLabel.text = video?.playlist?.title ?? "Untitled"
             descriptionLabel.text = video?.playlist?.description ?? "No description available."
+            videoWrapper.video = video
         }
     }
     
@@ -35,6 +36,7 @@ class PlayerOverlayView: UIView {
     }
     
     weak var delegate: PlayerOverlayDelegate?
+    private var videoWrapper = VideoWrapper()
     
     private lazy var bottomStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [metadataStackView, controlsStackView])
@@ -155,10 +157,15 @@ class PlayerOverlayView: UIView {
     }()
     
     private lazy var progressDots: UIView = {
-        let controller = UIHostingController(rootView: NavigationDotsView(video: video))
+        let controller = UIHostingController(rootView: NavigationDotsView(videoWrapper: videoWrapper))
         controller.view.backgroundColor = .clear
         return controller.view
     }()
+    
+//    private lazy var navigationDotsController: UIHostingController = {
+//        let controller = UIHostingController(rootView: NavigationDotsView(video: video))
+//        return controller
+//    }()
     
     private lazy var youtubeButton: UIView = {
         let controller = UIHostingController(rootView: YouTubeButton(video: video))
@@ -330,19 +337,22 @@ class PlayerOverlayView: UIView {
     private func setupUI() {
         backgroundColor = UIColor.black.withAlphaComponent(0.7)
         addSubview(progressDots)
+        // addSubview(navigationDotsController.view)
         addSubview(playbackStackView)
         addSubview(bottomStackView)
         
-        progressDots.layer.borderColor = UIColor.systemPink.cgColor
         setupConstraints()
     }
 
     private func setupConstraints() {
         progressDots.translatesAutoresizingMaskIntoConstraints = false
+        // navigationDotsController.view.translatesAutoresizingMaskIntoConstraints = false
         playbackStackView.translatesAutoresizingMaskIntoConstraints = false
         bottomStackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
+//            navigationDotsController.view.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            navigationDotsController.view.topAnchor.constraint(equalTo: topAnchor, constant: 18),
             progressDots.centerXAnchor.constraint(equalTo: centerXAnchor),
             progressDots.topAnchor.constraint(equalTo: topAnchor, constant: 18),
             
