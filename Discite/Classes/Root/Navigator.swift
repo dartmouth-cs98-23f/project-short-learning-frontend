@@ -21,11 +21,16 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    WatchPage(
-                        size: size,
+                    NestedAdapterWatchWrapper(
+                        size: size, 
                         safeArea: safeArea,
-                        seed: tabSelectionManager.playlistSeed)
-                        .ignoresSafeArea(.container, edges: .all)
+                        seed: tabSelectionManager.playlistSeed
+                    )
+//                    WatchPage(
+//                        size: size,
+//                        safeArea: safeArea,
+//                        seed: tabSelectionManager.playlistSeed)
+//                        .ignoresSafeArea(.container, edges: .all)
                     
                 case .Explore:
                     MainExplorePageSearchWrapper()

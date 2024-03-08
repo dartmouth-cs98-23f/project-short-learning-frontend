@@ -23,12 +23,11 @@ class EmbeddedVideoCell: UICollectionViewCell {
         }
     }
     
-    // OPTION 2
     fileprivate let playerView: PlayerView = {
         let view = PlayerView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.backgroundColor = UIColor.secondarySystemBackground
+        view.backgroundColor = UIColor.black
         return view
     }()
 
