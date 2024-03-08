@@ -113,7 +113,6 @@ struct Settings: View {
     }
 }
 
-
 #Preview {
     let viewModel = AccountViewModel()
     
