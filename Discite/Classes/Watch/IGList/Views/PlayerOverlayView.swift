@@ -169,7 +169,11 @@ class PlayerOverlayView: UIView {
     }()
     
     private lazy var navigationBar: UIView = {
-        let controller = UIHostingController(rootView: NavigationBar())
+        let controller = UIHostingController(rootView: NavigationBar(
+            foregroundColor: .secondaryPeachLight,
+            backgroundColor: .clear)
+        )
+        
         controller.view.backgroundColor = .clear
         return controller.view
     }()

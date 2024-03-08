@@ -23,8 +23,7 @@ struct Navigator: View {
                 case .Watch:
                     NestedAdapterWatchWrapper(
                         size: size, 
-                        safeArea: safeArea,
-                        seed: tabSelectionManager.playlistSeed
+                        safeArea: safeArea
                     )
 //                    WatchPage(
 //                        size: size,
@@ -49,6 +48,8 @@ struct Navigator: View {
 
 struct NavigationBar: View {
     @Environment(TabSelectionManager.self) private var tabSelection
+    var foregroundColor: Color = .primaryBlueBlack
+    var backgroundColor: Color = .white
     
     let tabs = [TabItem(systemImage: "play.square.fill", tag: .Watch),
                 TabItem(systemImage: "magnifyingglass", tag: .Explore),
@@ -65,13 +66,13 @@ struct NavigationBar: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: 24)
-                        .foregroundColor(tabSelection.selection == .Watch ? .secondaryPeachLight : .primaryBlueBlack)
+                        .foregroundColor(foregroundColor)
                 }
             }
         }
         .padding(.top, 18)
         .frame(width: .infinity)
-        .background(tabSelection.selection == .Watch ? .clear : .white)
+        .background(backgroundColor)
     }
 }
 

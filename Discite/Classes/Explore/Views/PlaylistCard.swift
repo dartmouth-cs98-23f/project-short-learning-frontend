@@ -12,15 +12,13 @@ struct ExplorePlaylistPreviewCard: View {
     var imageWidth: CGFloat = 200
     var cardHeight: CGFloat = 250
     
-    @Binding var isWatchShowing: Bool
+    var seed: String?
     
     @Environment(TabSelectionManager.self) private var tabSelection
     
     var body: some View {
-        Button {
-            print("Setting playlist seed to \(playlist.playlistId).")
-            tabSelection.setSeed(playlist: playlist)
-            isWatchShowing = true
+        NavigationLink {
+            WatchFullScreenCover(seed: seed)
                 
         } label: {
             ZStack(alignment: .bottom) {
@@ -137,6 +135,6 @@ struct PlaylistPreviewCard: View {
     
     return ExplorePlaylistPreviewCard(
         playlist: playlistPreview,
-        isWatchShowing: .constant(false))
+        seed: "65d8fc3495f306b28d1b88d6")
         .environment(TabSelectionManager(selection: .Explore))
 }

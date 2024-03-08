@@ -10,17 +10,15 @@ import SwiftUI
 struct WatchPage: View {
     var size: CGSize
     var safeArea: EdgeInsets
-    var seed: PlaylistPreview?
     var includeNavigation: Bool
 
     @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel: SequenceViewModel
     @State var likedCounter: [Like] = []
     
-    init(size: CGSize, safeArea: EdgeInsets, seed: PlaylistPreview? = nil, includeNavigation: Bool = true) {
+    init(size: CGSize, safeArea: EdgeInsets, seed: String? = nil, includeNavigation: Bool = true) {
         self.size = size
         self.safeArea = safeArea
-        self.seed = seed
         self.includeNavigation = includeNavigation
         
         self._viewModel = StateObject(
