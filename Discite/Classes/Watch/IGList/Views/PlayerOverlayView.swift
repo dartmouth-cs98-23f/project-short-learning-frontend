@@ -259,16 +259,15 @@ class PlayerOverlayView: UIView {
             let playlist = video.playlist
         else { return }
 
-        playlist.isSaved.toggle()
-
         task = Task {
             playlist.isSaved
-            ? await playlist.putSave()
-            : await playlist.deleteSave()
+            ? await playlist.deleteSave()
+            : await playlist.putSave()
             
-            if playlist.isSaved {
-                bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-            }
+            bookmarkButton.setImage(
+                playlist.isSaved
+                ? UIImage(systemName: "bookmark.fill")
+                : UIImage(systemName: "bookmark"), for: .normal)
         }
     }
 

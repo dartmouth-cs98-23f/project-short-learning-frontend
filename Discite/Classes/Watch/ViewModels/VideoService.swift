@@ -120,7 +120,7 @@ class VideoService {
     }
     
     static func putSave(playlistId: String, saved: Bool) async throws {
-        print("PUT api/user/savePlaylist: \(playlistId)")
+        print("PUT api/user/savePlaylist: \(playlistId), with save \(saved)")
         let path = "/api/user/savePlaylist"
         
         let requestBody = SavePlaylistRequest(playlistId: playlistId, saved: saved)
