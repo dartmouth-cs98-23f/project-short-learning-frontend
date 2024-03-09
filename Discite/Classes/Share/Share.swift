@@ -36,7 +36,6 @@ struct Share: View {
                                 }
                             }
                             .frame(minHeight: 84)
-                            .animation(.spring(duration: 1), value: friends == nil)
                         }
                         
                         // Add friend or Export
@@ -51,6 +50,7 @@ struct Share: View {
                         shareButton()                        
                     }
                 }
+                .animation(.spring(duration: 1), value: friends == nil)
                 .task {
                     if friends == nil && viewModel.error == nil {
                         friends = await viewModel.getFriends()

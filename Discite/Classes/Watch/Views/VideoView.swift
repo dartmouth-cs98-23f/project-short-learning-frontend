@@ -48,7 +48,7 @@ struct VideoView: View {
             
                 // offset updates
                 .preference(key: VisibleKey.self, value: shouldPlay)
-                .onPreferenceChange(VisibleKey.self, perform: { value in
+                .onPreferenceChange(VisibleKey.self, perform: { _ in
                     // playPause(shouldPlay: value)
                     if let looper = looper,
                        let player = player,

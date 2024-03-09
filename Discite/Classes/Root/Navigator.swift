@@ -13,29 +13,19 @@ struct Navigator: View {
     
     var body: some View {
         
-        GeometryReader {
-            let size = $0.size
-            let safeArea = $0.safeAreaInsets
-            
-            VStack(spacing: 0) {
-                switch tabSelectionManager.selection {
-                    
-                case .Watch:
-                    NestedAdapterWatchWrapper()
-//                    WatchPage(
-//                        size: size,
-//                        safeArea: safeArea,
-//                        seed: tabSelectionManager.playlistSeed)
-//                        .ignoresSafeArea(.container, edges: .all)
-                    
-                case .Explore:
-                    MainExplorePageSearchWrapper()
-                    
-                case .Saved:
-                    SavedPage()
-                case .Account:
-                    AccountView()
-                }
+        VStack(spacing: 0) {
+            switch tabSelectionManager.selection {
+                
+            case .Watch:
+                NestedAdapterWatchWrapper()
+
+            case .Explore:
+                MainExplorePageSearchWrapper()
+                
+            case .Saved:
+                SavedPage()
+            case .Account:
+                AccountView()
             }
         }
         .navigationBarBackButtonHidden(true)
