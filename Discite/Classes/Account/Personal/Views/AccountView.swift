@@ -11,7 +11,7 @@ import SwiftUI
 struct AccountView: View {
     @Environment(TabSelectionManager.self) private var tabSelection
     @EnvironmentObject private var user: User
-    
+    @Environment(\.colorScheme) private var colorScheme
     @State var statistics: [Statistic]?
     @State var topics: [TopicTag] = []
     @State var spiderGraphData: SpiderGraphData?
@@ -83,7 +83,7 @@ struct AccountView: View {
                 .scaledToFit()
                 .frame(width: 24, height: 24)
         }
-        .foregroundColor(.primaryBlueBlack)
+        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
     }
     
     func basicInformation() -> some View {
@@ -108,15 +108,16 @@ struct AccountView: View {
             VStack {
                 if let count = friends?.count {
                     Text("\(count)")
-                        .font(.H5)
-                    Text("Friends")
-                        .font(.body1)
+                        .font(.H3)
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 } else {
                     Text("0")
-                        .font(.H5)
-                    Text("Friends")
-                        .font(.body1)
+                        .font(.H3)
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }
+                Text("Friends")
+                    .font(.body1)
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             }
             .padding(0)
         }
@@ -193,7 +194,7 @@ struct AccountView: View {
         } label: {
             Text("See all of my topics (17)")
                 .font(.small)
-                .foregroundColor(.primaryPurple)
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.primaryPurple)
         }
     }
     
@@ -247,7 +248,7 @@ struct AccountView: View {
     func placeholderRectangle(minHeight: CGFloat) -> some View {
         Rectangle()
             .frame(maxWidth: .infinity, minHeight: minHeight)
-            .foregroundColor(.grayLight)
+            .foregroundColor(colorScheme == .dark ? Color.primaryBlueNavy : Color.grayLight)
     }
     
 }
