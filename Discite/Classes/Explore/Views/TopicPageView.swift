@@ -23,17 +23,29 @@ struct TopicPageView: View {
     ]
     
     var body: some View {
-        if let topic = viewModel.topic {
+        if case .loading = viewModel.state {
+            ProgressView()
+                .containerRelativeFrame([.horizontal, .vertical])
+            
+        } else if case .error(let error) = viewModel.state,
+                  error as? TopicError == TopicError.getTopic {
+            Text("Error getting topic page.")
+                .foregroundStyle(Color.pink)
+                .containerRelativeFrame([.horizontal, .vertical])
+            
+        } else {
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
                     topicHeader()
                         .padding(.horizontal, 18)
 
-                    topicDescription(description: topic.description, 
-                                     rolesData: topic.spiderGraphData)
+                    topicDescription(
+                        description: viewModel.description,
+                        values: viewModel.graphValues,
+                        roles: viewModel.roles)
                         .padding(.horizontal, 18)
                     
-                    playlistGrid(playlistPreviews: topic.playlistPreviews)
+                    playlistGrid(playlistPreviews: viewModel.playlists)
                 }
                 .padding(.bottom, 18)
             }
@@ -67,16 +79,6 @@ struct TopicPageView: View {
                     }
                 }
             }
-            
-        } else if case .error(let error) = viewModel.state,
-                  error as? TopicError == TopicError.getTopic {
-            Text("Error getting topic page.")
-                .foregroundStyle(Color.pink)
-                .containerRelativeFrame([.horizontal, .vertical])
-            
-        } else {
-            ProgressView()
-                .containerRelativeFrame([.horizontal, .vertical])
         }
     }
     
@@ -101,10 +103,11 @@ struct TopicPageView: View {
     }
     
     @ViewBuilder
-    func topicDescription(description: String?, rolesData: RolesResponse) -> some View {
+    func topicDescription(description: String?, values: [CGFloat], roles: [String]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Description")
                 .font(Font.H5)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(description ?? "No description available.")
                 .font(.body2)
@@ -113,9 +116,9 @@ struct TopicPageView: View {
             // "See roles" button
             ToggleRoles(spiderGraphData:
                 SpiderGraphData(data: [SpiderGraphEntry(
-                        values: rolesData.values,
+                        values: values,
                         color: .secondaryPink)],
-                    axes: rolesData.roles,
+                    axes: roles,
                     color: .grayNeutral, 
                     titleColor: .gray, bgColor: .white))
             

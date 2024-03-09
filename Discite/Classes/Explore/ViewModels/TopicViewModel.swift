@@ -12,6 +12,12 @@ class TopicViewModel: ObservableObject {
     @Published var state: ViewModelState = .loading
     @Published var toast: Toast?
     
+    @Published var playlists: [PlaylistPreview] = []
+    @Published var graphValues: [CGFloat] = []
+    @Published var description: String = "No description available."
+    
+    let roles: [String] = ["Front", "Backend", "Systems", "AI/Data", "DevOps", "UI/UX"]
+    
     private var task: Task<Void, Error>? {
         willSet {
             if let currentTask = task {
@@ -24,7 +30,7 @@ class TopicViewModel: ObservableObject {
     
     init(topicId: String) {
         task = Task {
-            await mockGetTopicWithQuery(topicId: topicId)
+            await getTopic(topicId: topicId)
         }
     }
     
@@ -34,14 +40,16 @@ class TopicViewModel: ObservableObject {
         let query = URLQueryItem(name: "topicId", value: topicId)
         
         do {
-            let path = "/api/topics"
+            let path = "/api/explore/topicpage/\(topicId)"
             
-            topic = try await APIRequest<EmptyRequest, Topic>
+            let response = try await APIRequest<EmptyRequest, GetTopicResponse>
                 .apiRequest(method: .get,
                         authorized: true,
                         path: path,
                         queryItems: [query])
             
+            self.playlists = response.videos
+            self.graphValues = response.graphValues
             state = .loaded
             
         } catch {
@@ -126,4 +134,9 @@ enum TopicError: Error {
 struct SaveTopicRequest: Codable {
     var topicId: String
     var saved: Bool
+}
+
+struct GetTopicResponse: Decodable {
+    var videos: [PlaylistPreview]
+    var graphValues: [CGFloat]
 }
