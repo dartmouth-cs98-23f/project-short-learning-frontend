@@ -7,11 +7,11 @@
 
 import Foundation
 
+@MainActor
 class AccountViewModel: ObservableObject {
     @Published var error: Error?
     
     // GET summary statistics
-    @MainActor
     func getProgressSummary() async -> [Statistic]? {
         print("GET /api/statistics")
         
@@ -31,7 +31,6 @@ class AccountViewModel: ObservableObject {
     }
     
     // GET recent topics
-    @MainActor
     func getRecentTopics() async -> [TopicTag]? {
         print("GET /api/recentTopics")
         
@@ -51,7 +50,6 @@ class AccountViewModel: ObservableObject {
     }
     
     // GET spider graph data
-    @MainActor
     func getSpiderGraphData() async -> SpiderGraphData? {
         print("GET /api/dashboard")
         

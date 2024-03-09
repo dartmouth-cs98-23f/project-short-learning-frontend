@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class SavedViewModel: ObservableObject {
     @Published var state: ViewModelState = .loading
     @Published var savedPlaylists: [PlaylistPreview] = []
@@ -29,7 +30,6 @@ class SavedViewModel: ObservableObject {
     }
     
     // GET saved playlists and topics
-    @MainActor
     public func getSaved() async {
         do {
             print("GET /api/user/savedPlaylists")

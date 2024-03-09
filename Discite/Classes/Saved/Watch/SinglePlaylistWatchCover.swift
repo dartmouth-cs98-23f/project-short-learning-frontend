@@ -13,7 +13,7 @@ struct SinglePlaylistWatchCover: View {
     
     var body: some View {
         WatchSinglePlaylist(playlistId: playlistId)
-        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {

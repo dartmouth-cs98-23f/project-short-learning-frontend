@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class ExploreViewModel: ObservableObject {
     
     @Published var topicRecommendations: [TopicTag] = []
@@ -15,7 +16,6 @@ class ExploreViewModel: ObservableObject {
     
     init() { }
     
-    @MainActor
     func getTopicRecommendations() async {
         do {
             topicRecommendations = try await ExploreService.getTopicRecommendations()
@@ -25,7 +25,6 @@ class ExploreViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func getPlaylistRecommendations() async {
         do {
             playlistRecommendations = try await ExploreService.getPlaylistRecommendations()

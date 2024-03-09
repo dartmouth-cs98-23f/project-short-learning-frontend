@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class TopicViewModel: ObservableObject {
     @Published var topic: Topic?
     @Published var state: ViewModelState = .loading
@@ -37,7 +38,6 @@ class TopicViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     public func getTopic(topicId: String) async {
         self.state = .loading
         let query = URLQueryItem(name: "topicId", value: topicId)
@@ -61,7 +61,6 @@ class TopicViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     public func mockGetTopic(topicId: String) async {
         self.state = .loading
         
@@ -81,7 +80,6 @@ class TopicViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     public func mockGetTopicWithQuery(topicId: String) async {
         self.state = .loading
         let query = URLQueryItem(name: "topicId", value: topicId)
@@ -103,7 +101,6 @@ class TopicViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     public func saveTopic(parameters: SaveTopicRequest) async {
         do {
             print("POST save topic \(parameters.topicId)")

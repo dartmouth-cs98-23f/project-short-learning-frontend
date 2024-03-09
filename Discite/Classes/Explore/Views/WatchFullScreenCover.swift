@@ -13,23 +13,24 @@ struct WatchFullScreenCover: View {
     
     var body: some View {
         NestedAdapterWatchWrapper(seed: seed)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-    
-                } label: {
-                    HStack(alignment: .center, spacing: 4) {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+        
+                    } label: {
+                        HStack(alignment: .center, spacing: 4) {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .font(.button)
+                        .foregroundStyle(Color.secondaryPeachLight)
                     }
-                    .font(.button)
                     .foregroundStyle(Color.secondaryPeachLight)
                 }
-                .foregroundStyle(Color.secondaryPeachLight)
             }
-        }
     }
 }
 

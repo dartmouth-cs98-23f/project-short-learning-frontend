@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class ExploreSearchViewModel: ObservableObject {
     static let shared = ExploreSearchViewModel()
     
@@ -28,7 +29,6 @@ class ExploreSearchViewModel: ObservableObject {
     
     private init() { }
     
-    @MainActor
     public func getSearchResults(query: String) {
         self.state = .loading
         

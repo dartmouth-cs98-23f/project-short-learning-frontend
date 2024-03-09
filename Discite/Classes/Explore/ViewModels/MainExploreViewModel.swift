@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class MainExploreViewModel: ObservableObject {
     @Published var topicsAndRolesVideos: [any GenericTopic] = []
     @Published var state: ViewModelState = .loading
@@ -24,7 +25,6 @@ class MainExploreViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     public func getExplorePage() async -> ExplorePageResponse? {
         do {
             let response = try await ExploreService.getExplorePage(page: page + 1)

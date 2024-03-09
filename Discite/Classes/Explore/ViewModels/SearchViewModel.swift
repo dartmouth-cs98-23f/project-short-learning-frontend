@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isFocused = false
