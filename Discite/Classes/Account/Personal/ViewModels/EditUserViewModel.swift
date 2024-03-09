@@ -13,7 +13,7 @@ class EditUserViewModel: ObservableObject {
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var username: String = ""
-    @Published var profilePicture: String?
+    @Published var profilePicture: String = ""
     
     @Published var toast: Toast?
     
@@ -28,11 +28,10 @@ class EditUserViewModel: ObservableObject {
     }
     
     public func configureWith(user: User) {
-        print("configuring user")
         self.firstName = user.firstName
         self.lastName = user.lastName
         self.username = user.username
-        self.profilePicture = user.profilePicture
+        self.profilePicture = user.profilePicture ?? ""
     }
     
     // PUT user information

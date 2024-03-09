@@ -31,6 +31,10 @@ struct EditUserView: View {
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .autocorrectionDisabled()
                 
+                TextField("Profile Picture URL", text: $viewModel.profilePicture)
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                    .autocorrectionDisabled()
+                
                 Button("Save Changes") {
                     viewModel.updateUser(user: user)
                 }
@@ -54,6 +58,4 @@ struct EditUserView: View {
 
 #Preview {
     EditUserView(user: User())
-       //  .environmentObject(User())
-    // Text("hello")
 }
