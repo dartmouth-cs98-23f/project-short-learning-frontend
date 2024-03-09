@@ -45,6 +45,7 @@
 		C21AB5AA2B9CB3EE0085B8EB /* SinglePlaylistWatchRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21AB5A92B9CB3EE0085B8EB /* SinglePlaylistWatchRepresentable.swift */; };
 		C21AB5AC2B9CB5CA0085B8EB /* SinglePlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21AB5AB2B9CB5CA0085B8EB /* SinglePlaylistViewController.swift */; };
 		C21AB5AF2B9CB8040085B8EB /* WatchSinglePlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21AB5AE2B9CB8040085B8EB /* WatchSinglePlaylistViewModel.swift */; };
+		C21AB5B12B9CC4C70085B8EB /* SinglePlaylistWatchCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21AB5B02B9CC4C70085B8EB /* SinglePlaylistWatchCover.swift */; };
 		C2237F432AE5E4A600C9396E /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2237F422AE5E4A600C9396E /* AccountView.swift */; };
 		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
 		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
@@ -209,6 +210,7 @@
 		C21AB5A92B9CB3EE0085B8EB /* SinglePlaylistWatchRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlaylistWatchRepresentable.swift; sourceTree = "<group>"; };
 		C21AB5AB2B9CB5CA0085B8EB /* SinglePlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlaylistViewController.swift; sourceTree = "<group>"; };
 		C21AB5AE2B9CB8040085B8EB /* WatchSinglePlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSinglePlaylistViewModel.swift; sourceTree = "<group>"; };
+		C21AB5B02B9CC4C70085B8EB /* SinglePlaylistWatchCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlaylistWatchCover.swift; sourceTree = "<group>"; };
 		C2237F422AE5E4A600C9396E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
 		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 		C21AB5AD2B9CB7E80085B8EB /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				C21AB5B02B9CC4C70085B8EB /* SinglePlaylistWatchCover.swift */,
 				C21AB5A72B9CB3B50085B8EB /* WatchSinglePlaylist.swift */,
 				C21AB5AE2B9CB8040085B8EB /* WatchSinglePlaylistViewModel.swift */,
 				C21AB5A92B9CB3EE0085B8EB /* SinglePlaylistWatchRepresentable.swift */,
@@ -1191,6 +1194,7 @@
 				2C0CAB8A2B891B3F00B8BA25 /* Searchable.swift in Sources */,
 				C20EFE662AFBCC3E0074EC9A /* TopicCard.swift in Sources */,
 				C2A641182B80138900C50F83 /* VisibleKey.swift in Sources */,
+				C21AB5B12B9CC4C70085B8EB /* SinglePlaylistWatchCover.swift in Sources */,
 				C2A44AAA2B76AD62009FEEAB /* AccountMenu.swift in Sources */,
 				C21AB5A82B9CB3B50085B8EB /* WatchSinglePlaylist.swift in Sources */,
 				66EE0EB62AF4D4A500F65F38 /* SignupViewModel.swift in Sources */,
