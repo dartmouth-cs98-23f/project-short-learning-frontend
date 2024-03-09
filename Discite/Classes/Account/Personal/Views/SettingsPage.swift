@@ -33,7 +33,7 @@ struct Settings: View {
                     HStack {
                         Spacer()
                         HStack(alignment: .top) {
-                            Image(systemName: "person.circle")
+                            profileImage
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 120, height: 120)
