@@ -36,7 +36,7 @@ struct SearchDestinationPage: View {
                         topicResults(viewModel.resultTopics ?? [])
                     },
                     CustomTabItem("Accounts") {
-                        Text("No accounts match the query '\(text)'.")
+                        userResults(viewModel.resultUsers ?? [])
                     }
                 ]
 
@@ -116,6 +116,40 @@ struct SearchDestinationPage: View {
     }
     
     @ViewBuilder
+    func userResults(_ users: [UserSearchResult]) -> some View {
+        if users.isEmpty {
+            Text("No accounts match the query '\(text).'")
+            
+        } else {
+            ScrollView(.vertical) {
+                ForEach(users) { user in
+                    NavigationLink {
+                        
+                    } label: {
+                        singleUser(user: user)
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func singleUser(user: UserSearchResult) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: "person.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 42, height: 42)
+            
+            VStack {
+                Text(user.firstName + " " + user.lastName).font(.body1)
+                Text(user.username).font(.button)
+            }
+        }
+        .padding(.vertical, 6)
+    }
+    
+    @ViewBuilder
     func singlePlaylist(playlist: PlaylistPreview) -> some View {
         HStack(spacing: 8) {
             // image
@@ -173,5 +207,5 @@ struct SearchDestinationPage: View {
 }
 
 #Preview {
-    SearchDestinationPage(text: "algorithms")
+    SearchDestinationPage(text: "jessie")
 }

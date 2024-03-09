@@ -14,7 +14,7 @@ class ExploreSearchViewModel: ObservableObject {
     
     private(set) var resultPlaylists: [PlaylistPreview]?
     private(set) var resultTopics: [TopicSearchResult]?
-    private(set) var resultUsers: [UserData]?
+    private(set) var resultUsers: [UserSearchResult]?
     
     private var task: Task<Void, Error>? {
         willSet {
@@ -38,6 +38,10 @@ class ExploreSearchViewModel: ObservableObject {
                 
                 self.resultTopics = response.topics
                 self.resultPlaylists = response.playlists
+                
+                let userResponse = try await ExploreService.getExploreSearch(accountName: query)
+                self.resultUsers = userResponse.users
+                
                 self.state = .loaded
                 
             } catch {

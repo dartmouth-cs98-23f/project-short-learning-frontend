@@ -91,7 +91,7 @@ class SequenceViewModel: ObservableObject {
         do {
             // (1) Ask for more playlists
             // print("SequenceViewModel.load with seed: \(seedPlaylist?.playlistId ?? "None")")
-            let newItems = try await VideoService.getSequence(playlistId: seed ?? "65d8fc3495f306b28d1b88d6")
+            let newItems = try await VideoService.getSequence(playlistId: seed)
             
             if newItems.isEmpty {
                 throw SequenceError.emptySequence
