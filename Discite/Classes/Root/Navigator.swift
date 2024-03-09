@@ -68,7 +68,6 @@ struct NavigationBar: View {
             }
         }
         .padding(.top, 18)
-        .frame(width: .infinity)
         .background(backgroundColor)
     }
 }

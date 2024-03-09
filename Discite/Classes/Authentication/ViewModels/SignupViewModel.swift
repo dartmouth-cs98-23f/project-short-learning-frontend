@@ -18,6 +18,7 @@ class SignupViewModel: ObservableObject {
     @Published var error: Error?
     @Published var isLoading = false
     
+    @MainActor
     func signup(user: User) async {
         
         isLoading = true
@@ -36,7 +37,7 @@ class SignupViewModel: ObservableObject {
                                             lastName: lastname,
                                             email: email)
             
-            try await user.configure(token: response.token, data: userData)
+            try user.configure(token: response.token, data: userData)
             print("Signed up.")
             
         } catch {

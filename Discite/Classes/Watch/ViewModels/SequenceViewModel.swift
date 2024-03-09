@@ -31,7 +31,7 @@ class SequenceViewModel: ObservableObject {
         state = .loading
         threshold = 1
         
-        Task {
+        Task { @MainActor in
             await self.load(seed: seed)
             state = .loaded
         }
@@ -53,7 +53,7 @@ class SequenceViewModel: ObservableObject {
         
         // (3) Appeared: Load next page
         state = .loading
-        currentTask = Task {
+        currentTask = Task { @MainActor in
             await load()
         }
     }
@@ -81,7 +81,7 @@ class SequenceViewModel: ObservableObject {
         print("\tLOADING NEXT.")
         // (4) Appeared: Load next page
         state = .loading
-        currentTask = Task {
+        currentTask = Task { @MainActor in
             await load()
         }
     }

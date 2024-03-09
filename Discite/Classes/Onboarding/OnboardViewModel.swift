@@ -44,6 +44,7 @@ class OnboardViewModel: ObservableObject {
         
         do {
             print("POST onboard")
+            values = rotateValues(values: values)
             _ = try await APIRequest<OnboardRolesRequest, EmptyResponse>
                 .apiRequest(method: .post,
                              authorized: true,
@@ -56,6 +57,16 @@ class OnboardViewModel: ObservableObject {
             self.error = error
             print("Error in OnboardViewModel.onboard: \(error)")
         }
+    }
+    
+    private func rotateValues(values: [CGFloat]) -> [CGFloat] {
+        let count = values.count
+        
+        if count <= 1 {
+            return values
+        }
+        
+        return values.prefix(count-1).reversed() + [values[count-1]]
     }
 }
 
