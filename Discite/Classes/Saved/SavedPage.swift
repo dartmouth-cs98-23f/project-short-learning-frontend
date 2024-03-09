@@ -85,7 +85,11 @@ struct SavedPage: View {
             ScrollView(.vertical) {
                 VStack(spacing: 8) {
                     ForEach(viewModel.savedPlaylists) { playlist in
-                        singlePlaylist(playlist: playlist)
+                        NavigationLink {
+                            SinglePlaylistWatchCover(playlistId: playlist.playlistId)
+                        } label: {
+                            singlePlaylist(playlist: playlist)
+                        }
                     }
                 }
             }
@@ -156,18 +160,14 @@ struct SavedPage: View {
                 .lineLimit(1)
                 .padding(.horizontal, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Color.primaryBlueBlack)
             
-            // open Watch
-            NavigationLink {
-                SinglePlaylistWatchCover(playlistId: playlist.playlistId)
-                
-            } label: {
-                Image(systemName: "play.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 14, height: 14)
-                    .foregroundStyle(Color.primaryPurpleLight)
-            }
+            Image(systemName: "play.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14, height: 14)
+                .foregroundStyle(Color.primaryPurpleLight)
+                .padding(4)
             
         }
     }

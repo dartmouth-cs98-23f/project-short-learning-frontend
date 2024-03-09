@@ -72,21 +72,17 @@ struct MainExplorePage: View {
                 }
                 
                 Spacer()
-                NavigationLink {
-                    
-                } label: {
-                    Text("See more")
-                        .font(.small)
-                        .foregroundStyle(Color.secondaryPink)
-                }
             }
             .padding(.horizontal, 18)
             
             // playlists
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(roleVideo.videos) { playlist in
-                    singlePlaylist(playlist: playlist)
-                    // Divider()
+                    NavigationLink {
+                        WatchFullScreenCover(seed: playlist.playlistId)
+                    } label: {
+                        singlePlaylist(playlist: playlist)
+                    }
                 }
             }
         }
@@ -167,7 +163,6 @@ struct MainExplorePage: View {
             }
             
             // title
-            
             VStack(alignment: .leading) {
                 Text(playlist.title)
                     .font(.subtitle2)
@@ -183,18 +178,12 @@ struct MainExplorePage: View {
             }
             
             // open Watch
-            NavigationLink {
-                WatchFullScreenCover(seed: seed)
-                
-            } label: {
-                Image(systemName: "play.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 14, height: 14)
-                    .foregroundStyle(Color.primaryBlueBlack)
-            }
-            .padding(4)
-            
+            Image(systemName: "play.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14, height: 14)
+                .foregroundStyle(Color.primaryBlueBlack)
+                .padding(4)
         }
         .padding(8)
         .background {
