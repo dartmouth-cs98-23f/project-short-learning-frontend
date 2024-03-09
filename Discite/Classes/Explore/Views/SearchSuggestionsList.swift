@@ -17,7 +17,6 @@ struct SearchSuggestionsList: View {
                     .font(.subtitle2)
                     .foregroundColor(.grayDark)
                     .frame(alignment: .leading)
-                    .padding(.top, 18)
                 
                 Divider()
                 
@@ -39,6 +38,7 @@ struct SearchSuggestionsList: View {
                 }
                 
             }
+            .padding(18)
         }
         .background(.white)
     }
