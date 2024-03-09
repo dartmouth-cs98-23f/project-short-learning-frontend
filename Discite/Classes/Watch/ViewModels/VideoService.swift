@@ -91,18 +91,8 @@ class VideoService {
         }
     }
     
-    static func postSave(playlistId: String) async throws {
-        print("POST api/save/playlists/\(playlistId)")
-        let path = "/api/save/playlists/\(playlistId)"
-        
-        _ = try await APIRequest<EmptyRequest, EmptyResponse>
-            .apiRequest(method: .post,
-                         authorized: true,
-                         path: path)
-    }
-    
     static func putSave(playlistId: String, saved: Bool) async throws {
-        print("POST api/user/savePlaylist: \(playlistId)")
+        print("PUT api/user/savePlaylist: \(playlistId)")
         let path = "/api/user/savePlaylist"
         
         let requestBody = SavePlaylistRequest(playlistId: playlistId, saved: saved)

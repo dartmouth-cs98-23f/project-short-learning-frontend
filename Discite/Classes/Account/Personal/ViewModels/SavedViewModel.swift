@@ -8,30 +8,45 @@
 import Foundation
 
 class SavedViewModel: ObservableObject {
-    @Published var error: Error?
+    @Published var state: ViewModelState = .loading
     @Published var savedPlaylists: [PlaylistPreview] = []
     @Published var savedTopics: [TopicTag] = []
     
-    init() { }
+    private var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
+        }
+    }
+    
+    init() { 
+        task = Task {
+            await getSaved()
+        }
+    }
     
     // GET saved playlists and topics
     @MainActor
     public func getSaved() async {
-        error = nil
+        self.state = .loading
         
         do {
-            print("GET saved")
+            print("GET /api/user/savedPlaylists")
             let response = try await APIRequest<EmptyRequest, SavedResponse>
-                .mockRequest(method: .get,
+                .apiRequest(method: .get,
                             authorized: true,
-                            path: "/api/saved")
+                            path: "/api/user/savedPlaylists")
             
-            savedPlaylists = response.savedPlaylists
-            savedTopics = response.savedTopics
+            savedPlaylists = response.playlists ?? []
+            savedTopics = response.topics ?? []
+            self.state = .loaded
             
         } catch {
             print("Error in SavedViewModel.getSaved: \(error)")
-            self.error = error
+            self.state = .error(error: error)
         }
     }
     
@@ -46,6 +61,6 @@ class SavedViewModel: ObservableObject {
 }
 
 struct SavedResponse: Codable {
-    var savedPlaylists: [PlaylistPreview]
-    var savedTopics: [TopicTag]
+    var playlists: [PlaylistPreview]?
+    var topics: [TopicTag]?
 }
