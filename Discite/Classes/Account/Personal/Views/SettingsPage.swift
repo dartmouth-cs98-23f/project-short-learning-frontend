@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct Settings: View {
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
@@ -13,10 +14,10 @@ struct Settings: View {
     @EnvironmentObject private var user: User
     @ObservedObject var viewModel: AccountViewModel
     @State private var isEditingUserInfo = false
-    // @State var showPhotoSheet = false
-    // @State var showPhotoLibrary = false
-    // @State var selectedPhoto: PhotosPickerItem?
-    // @State var profileImage = Image(systemName: "person.circle")
+     @State var showPhotoSheet = false
+     @State var showPhotoLibrary = false
+     @State var selectedPhoto: PhotosPickerItem?
+     @State var profileImage = Image(systemName: "person.circle")
     
     var body: some View {
         Form {
@@ -36,31 +37,31 @@ struct Settings: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 120, height: 120)
-                                // .onTapGesture {
-                                //     showPhotoSheet.toggle()
-                                // }
-                                // .confirmationDialog("Select a profile photo", isPresented: $showPhotoSheet) {
-                                //     Button {
-                                //         showPhotoLibrary.toggle()
-                                //     } label: {
-                                //         Text("Photo Library")
-                                //     }
-                                // }
-                                // .photosPicker(isPresented: $showPhotoLibrary, selection: $selectedPhoto, photoLibrary: .shared())
-                                // .onChange(of: selectedPhoto) { newValue in
-                                //     guard let photoItem = selectedPhoto else {
-                                //         return
-                                //     }
+                                 .onTapGesture {
+                                     showPhotoSheet.toggle()
+                                 }
+                                 .confirmationDialog("Select a profile photo", isPresented: $showPhotoSheet) {
+                                     Button {
+                                         showPhotoLibrary.toggle()
+                                     } label: {
+                                         Text("Photo Library")
+                                     }
+                                 }
+                                 .photosPicker(isPresented: $showPhotoLibrary, selection: $selectedPhoto, photoLibrary: .shared())
+                                 .onChange(of: selectedPhoto) { newValue in
+                                     guard let photoItem = selectedPhoto else {
+                                         return
+                                     }
                                     
-                                //     Task {
-                                //         if let photoData = try await photoItem.loadTransferable(type: Data.self),
-                                //            let uiImage = UIImage(data: photoData) {
-                                //             await MainActor.run {
-                                //                 profileImage = Image(uiImage: uiImage)
-                                //             }
-                                //         }
-                                //     }
-                                // }
+                                     Task {
+                                         if let photoData = try await photoItem.loadTransferable(type: Data.self),
+                                            let uiImage = UIImage(data: photoData) {
+                                             await MainActor.run {
+                                                 profileImage = Image(uiImage: uiImage)
+                                             }
+                                         }
+                                     }
+                                 }
                             
                             Spacer()
                             
