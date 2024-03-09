@@ -13,8 +13,10 @@ class TopicViewModel: ObservableObject {
     @Published var toast: Toast?
     
     @Published var playlists: [PlaylistPreview] = []
-    @Published var graphValues: [CGFloat] = []
+    @Published var graphValues: [CGFloat] = [0, 0, 0, 0, 0, 0]
     @Published var description: String = "No description available."
+    
+    var userGraphValues: [CGFloat] = [0, 0, 0, 0, 0, 0]
     
     let roles: [String] = ["Front", "Backend", "Systems", "AI/Data", "DevOps", "UI/UX"]
     
@@ -30,6 +32,7 @@ class TopicViewModel: ObservableObject {
     
     init(topicId: String) {
         task = Task {
+            await getUserGraphValues()
             await getTopic(topicId: topicId)
         }
     }
@@ -121,9 +124,37 @@ class TopicViewModel: ObservableObject {
         }
     }
     
+    public func getUserGraphValues() async {
+        do {
+            print("GET /api/dashboard")
+            let response = try await APIRequest<EmptyRequest, RolesResponse>
+                .apiRequest(method: .get,
+                             authorized: true,
+                             path: "/api/dashboard")
+            
+            self.userGraphValues = response.values
+            
+        } catch {
+            print("Error in TopicViewModel.getUserGraphValues: \(error)")
+        }
+    }
+    
+    public func makeSpiderGraphEntry(for type: SpiderGraphEntryType) -> SpiderGraphEntry {
+        switch type {
+        case .topic:
+            return SpiderGraphEntry(values: graphValues, color: .secondaryPink)
+        case .user:
+            return SpiderGraphEntry(values: userGraphValues, color: .primaryPurpleLight)
+        }
+    }
+    
     deinit {
         task?.cancel()
     }
+}
+
+enum SpiderGraphEntryType {
+    case topic, user
 }
 
 enum TopicError: Error {

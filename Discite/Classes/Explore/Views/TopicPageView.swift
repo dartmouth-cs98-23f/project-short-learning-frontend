@@ -104,6 +104,9 @@ struct TopicPageView: View {
     
     @ViewBuilder
     func topicDescription(description: String?, values: [CGFloat], roles: [String]) -> some View {
+        let topicData = viewModel.makeSpiderGraphEntry(for: .topic)
+        let userData = viewModel.makeSpiderGraphEntry(for: .user)
+        
         VStack(alignment: .leading, spacing: 12) {
             Text("Description")
                 .font(Font.H5)
@@ -115,9 +118,7 @@ struct TopicPageView: View {
             
             // "See roles" button
             ToggleRoles(spiderGraphData:
-                SpiderGraphData(data: [SpiderGraphEntry(
-                        values: values,
-                        color: .secondaryPink)],
+                SpiderGraphData(data: [topicData, userData],
                     axes: roles,
                     color: .grayNeutral, 
                     titleColor: .gray, bgColor: .white))
@@ -159,6 +160,14 @@ struct ToggleRoles: View {
             }
             
             if rolesVisible {
+                HStack {
+                    Circle()
+                        .fill(Color.primaryPurpleLight)
+                        .frame(width: 12, height: 12)
+                    
+                    Text("Me")
+                        .font(.body1)
+                }
                 spiderGraph()
             }
         }
