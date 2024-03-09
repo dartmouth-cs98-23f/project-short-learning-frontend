@@ -58,8 +58,21 @@ struct ExploreService {
     }
     
     static func getExploreSearch(query: String) async throws -> ExploreSearchResponse {
-        print("GET /api/explore/search")
+        print("GET /api/explore/search for general query: \(query)")
         let query = URLQueryItem(name: "q", value: query)
+        
+        let data = try await APIRequest<EmptyRequest, ExploreSearchResponse>
+            .apiRequest(method: .get,
+                        authorized: true,
+                        path: "/api/explore/search",
+                        queryItems: [query])
+        
+        return data
+    }
+    
+    static func getExploreSearch(accountName: String) async throws -> ExploreSearchResponse {
+        print("GET /api/explore/search for user query: \(accountName)")
+        let query = URLQueryItem(name: "user", value: accountName)
         
         let data = try await APIRequest<EmptyRequest, ExploreSearchResponse>
             .apiRequest(method: .get,
