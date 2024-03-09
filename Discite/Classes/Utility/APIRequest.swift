@@ -102,7 +102,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
                 request.httpBody = try? JSONEncoder().encode(parameters)
             }
             
-            if authorized, let token = User.getToken() {
+            if authorized, let token = await User.getToken() {
                 request.addValue("\(token)", forHTTPHeaderField: "Authorization")
             }
             

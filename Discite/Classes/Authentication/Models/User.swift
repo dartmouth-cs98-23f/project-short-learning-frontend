@@ -8,22 +8,20 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 class User: Identifiable, ObservableObject {
     
     enum KeychainKey: String {
         case token
     }
     
-    enum AuthState: String, CaseIterable, Identifiable {
+    enum AuthState: String, CaseIterable {
         case signedIn
         case signedOut
         case onboarding
-        
-        public var id: String { rawValue }
     }
     
     // properties
-    private(set) var id: UUID = UUID()
     private(set) var userId: String = ""
     private(set) var firstName: String = ""
     private(set) var lastName: String = ""
@@ -62,7 +60,7 @@ class User: Identifiable, ObservableObject {
         }
     }
     
-    static func getToken() -> String? {
+   static func getToken() -> String? {
         do {
             return try KeychainItem(account: KeychainKey.token.rawValue).readItem()
         } catch {
@@ -70,7 +68,6 @@ class User: Identifiable, ObservableObject {
         }
     }
     
-    @MainActor
     public func getUser(token: String) async throws {
         print("GET /api/user")
         let response = try await APIRequest<EmptyRequest, UserData>
@@ -89,7 +86,6 @@ class User: Identifiable, ObservableObject {
         }
     }
     
-    @MainActor
     func updateUser(request: UpdateUserRequest) async throws {
         print("PUT /api/user")
         
@@ -113,14 +109,12 @@ class User: Identifiable, ObservableObject {
         }
     }
     
-    @MainActor
     public func completeOnboarding() {
         withAnimation {
             state = .signedIn
         }
     }
     
-    @MainActor
     public func configure() {
         self.userId = "guest"
         self.firstName = "John"
@@ -133,9 +127,7 @@ class User: Identifiable, ObservableObject {
         }
     }
     
-    @MainActor
     public func configure(token: String, data: AuthResponseData) throws {
-        // self.userId = data.userId
         self.username = data.username
         self.firstName = data.firstName
         self.lastName = data.lastName
@@ -150,7 +142,6 @@ class User: Identifiable, ObservableObject {
         }
     }
     
-    @MainActor
     public func clear() throws {
         self.userId = ""
         self.username = ""

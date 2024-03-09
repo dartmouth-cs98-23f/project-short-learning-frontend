@@ -21,7 +21,7 @@ struct NestedAdapterRepresentable: UIViewControllerRepresentable {
 }
 
 struct NestedAdapterRepresentablePreview: View {
-    var viewModel = SequenceViewModel()
+    @StateObject var viewModel = SequenceViewModel()
     
     var body: some View {
         NestedAdapterRepresentable(viewModel: viewModel)

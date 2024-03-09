@@ -29,7 +29,6 @@ class OnboardViewModel: ObservableObject {
     }
     
     // POST onboarding
-    @MainActor
     public func onboard(user: User) async {
         error = nil
         

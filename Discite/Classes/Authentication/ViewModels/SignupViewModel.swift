@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class SignupViewModel: ObservableObject {
     @Published var firstname: String = "John"
     @Published var lastname: String = "Doe"
@@ -18,7 +19,6 @@ class SignupViewModel: ObservableObject {
     @Published var error: Error?
     @Published var isLoading = false
     
-    @MainActor
     func signup(user: User) async {
         
         isLoading = true

@@ -9,6 +9,7 @@
 import Foundation
 import IGListKit
 
+@MainActor
 class SequenceViewModel: ObservableObject {
     @Published var items: [Playlist] = []
     @Published var state: ViewModelState
@@ -86,7 +87,6 @@ class SequenceViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     public func load(seed: String? = nil) async {
         do {
             // (1) Ask for more playlists
