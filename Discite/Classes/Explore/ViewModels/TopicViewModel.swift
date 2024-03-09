@@ -10,12 +10,27 @@ import Foundation
 class TopicViewModel: ObservableObject {
     @Published var topic: Topic?
     @Published var state: ViewModelState = .loading
+    @Published var toast: Toast?
     
-    private var task: Task<Void, Error>?
+    @Published var playlists: [PlaylistPreview] = []
+    @Published var graphValues: [CGFloat] = []
+    @Published var description: String = "No description available."
+    
+    let roles: [String] = ["Front", "Backend", "Systems", "AI/Data", "DevOps", "UI/UX"]
+    
+    private var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
+        }
+    }
     
     init(topicId: String) {
         task = Task {
-            await mockGetTopicWithQuery(topicId: topicId)
+            await getTopic(topicId: topicId)
         }
     }
     
@@ -25,14 +40,16 @@ class TopicViewModel: ObservableObject {
         let query = URLQueryItem(name: "topicId", value: topicId)
         
         do {
-            let path = "/api/topics"
+            let path = "/api/explore/topicpage/\(topicId)"
             
-            topic = try await APIRequest<EmptyRequest, Topic>
+            let response = try await APIRequest<EmptyRequest, GetTopicResponse>
                 .apiRequest(method: .get,
                         authorized: true,
                         path: path,
                         queryItems: [query])
             
+            self.playlists = response.videos
+            self.graphValues = response.graphValues
             state = .loaded
             
         } catch {
@@ -95,8 +112,11 @@ class TopicViewModel: ObservableObject {
                              path: path,
                              parameters: parameters)
             
+            toast = Toast(style: .success, message: "Saved topic.")
+            
         } catch {
             self.state = .error(error: TopicError.saveTopic)
+            toast = Toast(style: .error, message: "Unable to save topic.")
             print("Error in TopicViewModel.saveTopic: \(error)")
         }
     }
@@ -114,4 +134,9 @@ enum TopicError: Error {
 struct SaveTopicRequest: Codable {
     var topicId: String
     var saved: Bool
+}
+
+struct GetTopicResponse: Decodable {
+    var videos: [PlaylistPreview]
+    var graphValues: [CGFloat]
 }

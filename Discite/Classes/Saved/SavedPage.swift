@@ -16,36 +16,40 @@ struct SavedPage: View {
     @State var selectedTab: SavedTab = .playlists
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            Text("Saved")
-                .font(.H2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // tabs
-            let tabItems: [CustomTabItem] = [
-                CustomTabItem("Playlists") {
-                    playlistsPage()
-                },
-                CustomTabItem("Topics") {
-                    topicsPage()
-                }
-            ]
-            
-            // tab view
-            CustomTabView(tabItems)
-            
-            Spacer()
-        }
-        .padding(.horizontal, 18)
-        .onAppear {
-            // Filter out topics that were unsaved
-            if !viewModel.savedTopics.isEmpty {
-                viewModel.filterSavedTopics()
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 18) {
+                Text("Saved")
+                    .font(.H2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // tabs
+                let tabItems: [CustomTabItem] = [
+                    CustomTabItem("Playlists") {
+                        playlistsPage()
+                    },
+                    CustomTabItem("Topics") {
+                        topicsPage()
+                    }
+                ]
+                
+                // tab view
+                CustomTabView(tabItems)
+                
+                Spacer()
             }
+            .padding(.horizontal, 18)
+            .animation(.smooth, value: viewModel.savedPlaylists.isEmpty)
+            .onAppear {
+                // Filter out unsaved items
+                // DOESN'T WORK, playlists are not passed by reference
+                // Requires reload
+                // viewModel.filter()
+                
+                viewModel.reload()
+            }
+            
+            NavigationBar()
         }
-        .animation(.smooth, value: viewModel.savedPlaylists.isEmpty)
-        
-        NavigationBar()
     }
     
     @ViewBuilder
@@ -154,10 +158,11 @@ struct SavedPage: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // open Watch
-            Button {
+            NavigationLink {
+                SinglePlaylistWatchCover(playlistId: playlist.playlistId)
                 
             } label: {
-                Image(systemName: "chevron.right")
+                Image(systemName: "play.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 14, height: 14)

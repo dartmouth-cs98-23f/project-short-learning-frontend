@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TopicPageView: View {
     @State var topicSeed: TopicTag
-    @State private var toast: Toast?
     @StateObject var viewModel: TopicViewModel
     
     init(topicSeed: TopicTag) {
@@ -24,41 +23,51 @@ struct TopicPageView: View {
     ]
     
     var body: some View {
-        if case .loaded = viewModel.state,
-            let topic = viewModel.topic {
+        if case .loading = viewModel.state {
+            ProgressView()
+                .containerRelativeFrame([.horizontal, .vertical])
+            
+        } else if case .error(let error) = viewModel.state,
+                  error as? TopicError == TopicError.getTopic {
+            Text("Error getting topic page.")
+                .foregroundStyle(Color.pink)
+                .containerRelativeFrame([.horizontal, .vertical])
+            
+        } else {
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
                     topicHeader()
                         .padding(.horizontal, 18)
 
-                    topicDescription(description: topic.description, 
-                                     rolesData: topic.spiderGraphData)
+                    topicDescription(
+                        description: viewModel.description,
+                        values: viewModel.graphValues,
+                        roles: viewModel.roles)
                         .padding(.horizontal, 18)
                     
-                    playlistGrid(playlistPreviews: topic.playlistPreviews)
+                    playlistGrid(playlistPreviews: viewModel.playlists)
                 }
                 .padding(.bottom, 18)
             }
             .ignoresSafeArea(edges: [.bottom, .horizontal])
             .navigationBarTitleDisplayMode(.inline)
-            .toastView(toast: $toast)
+            .toastView(toast: $viewModel.toast)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     // bookmark
                     Button {
-                        topicSeed.isSaved.toggle()
-                        
                         Task {
-                            await viewModel.saveTopic(
-                                parameters: SaveTopicRequest(
-                                    topicId: topicSeed.topicId,
-                                    saved: topicSeed.isSaved))
-                        }
-                        
-                        // Would normally check if error == nil
-                        // and look for success message from API
-                        if topicSeed.isSaved {
-                            toast = Toast(style: .success, message: "Saved.")
+                            if !topicSeed.isSaved {
+                                await viewModel.saveTopic(
+                                    parameters: SaveTopicRequest(
+                                        topicId: topicSeed.topicId,
+                                        saved: topicSeed.isSaved))
+                            }
+                            
+                            if case .error = viewModel.state {
+                            } else {
+                                topicSeed.isSaved.toggle()
+                            }
                         }
             
                     } label: {
@@ -70,15 +79,6 @@ struct TopicPageView: View {
                     }
                 }
             }
-            
-        } else if case .error = viewModel.state {
-            Text("Error getting topic page.")
-                .foregroundStyle(Color.pink)
-                .containerRelativeFrame([.horizontal, .vertical])
-            
-        } else {
-            ProgressView()
-                .containerRelativeFrame([.horizontal, .vertical])
         }
     }
     
@@ -103,10 +103,11 @@ struct TopicPageView: View {
     }
     
     @ViewBuilder
-    func topicDescription(description: String?, rolesData: RolesResponse) -> some View {
+    func topicDescription(description: String?, values: [CGFloat], roles: [String]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Description")
                 .font(Font.H5)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(description ?? "No description available.")
                 .font(.body2)
@@ -115,9 +116,9 @@ struct TopicPageView: View {
             // "See roles" button
             ToggleRoles(spiderGraphData:
                 SpiderGraphData(data: [SpiderGraphEntry(
-                        values: rolesData.values,
+                        values: values,
                         color: .secondaryPink)],
-                    axes: rolesData.roles,
+                    axes: roles,
                     color: .grayNeutral, 
                     titleColor: .gray, bgColor: .white))
             

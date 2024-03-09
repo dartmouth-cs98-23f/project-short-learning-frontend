@@ -79,31 +79,35 @@ struct SearchDestinationPage: View {
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns, spacing: 18) {
                     ForEach(topics) { topic in
-                        VStack(alignment: .leading) {
-                            HStack(spacing: 4) {
-                                Image(systemName: "tag")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 16, height: 16)
+                        NavigationLink {
+                            
+                        } label: {
+                            VStack(alignment: .leading) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "tag")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 16, height: 16)
+                                    
+                                    Text("TOPIC")
+                                        .font(Font.body1)
+                                }
                                 
-                                Text("TOPIC")
-                                    .font(Font.body1)
+                                Text(topic.topic)
+                                    .font(.subtitle2)
+                                    .lineLimit(3)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
                             }
-                            
-                            Text(topic.topic)
-                                .font(.subtitle2)
-                                .lineLimit(3)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 18)
-                        .frame(maxWidth: .infinity, maxHeight: 250)
-                        .foregroundColor(.primaryBlueBlack)
-                        .background {
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(Color.primaryPurpleLightest)
-                                .strokeBorder(Color.primaryPurpleLight, lineWidth: 2)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 18)
+                            .frame(maxWidth: .infinity, maxHeight: 250)
+                            .foregroundColor(.primaryBlueBlack)
+                            .background {
+                                RoundedRectangle(cornerRadius: 2)
+                                    .fill(Color.primaryPurpleLightest)
+                                    .strokeBorder(Color.primaryPurpleLight, lineWidth: 2)
+                            }
                         }
                     }
                 }
@@ -152,15 +156,17 @@ struct SearchDestinationPage: View {
             }
             
             // open Watch
-            Button {
+            NavigationLink {
+                WatchFullScreenCover(seed: playlist.playlistId)
                 
             } label: {
-                Image(systemName: "chevron.right")
+                Image(systemName: "play.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 14, height: 14)
-                    .foregroundStyle(Color.primaryPurpleLight)
+                    .foregroundStyle(Color.primaryBlueBlack)
             }
+            .padding(4)
             
         }
     }

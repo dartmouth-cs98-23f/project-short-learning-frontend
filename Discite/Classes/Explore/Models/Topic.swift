@@ -29,7 +29,7 @@ struct Topic: Decodable, Identifiable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.topicId = try container.decode(String.self, forKey: .topicId)
         self.topicName = try container.decode(String.self, forKey: .topicName)
-        self.description = try container.decode(String.self, forKey: .description)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.isSaved = try container.decode(Bool.self, forKey: .isSaved)
         self.spiderGraphData = try container.decode(RolesResponse.self, forKey: .roleDistribution)
         self.playlistPreviews = try container.decode([PlaylistPreview].self, forKey: .playlistPreviews)

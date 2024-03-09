@@ -1,18 +1,18 @@
 //
-//  WatchFullScreenCover.swift
+//  SinglePlaylistWatchCover.swift
 //  Discite
 //
-//  Created by Jessie Li on 3/8/24.
+//  Created by Jessie Li on 3/9/24.
 //
 
 import SwiftUI
 
-struct WatchFullScreenCover: View {
+struct SinglePlaylistWatchCover: View {
     @Environment(\.dismiss) var dismiss
-    let seed: String?
+    let playlistId: String
     
     var body: some View {
-        NestedAdapterWatchWrapper(seed: seed)
+        WatchSinglePlaylist(playlistId: playlistId)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -34,7 +34,7 @@ struct WatchFullScreenCover: View {
 }
 
 #Preview {
-    WatchFullScreenCover(seed: "65d8fc3495f306b28d1b88d6")
-    .environment(TabSelectionManager.init(selection: .Explore))
-    .environmentObject(User())
+    SinglePlaylistWatchCover(playlistId: "65d8fc3495f306b28d1b88d6")
+        .environment(TabSelectionManager.init(selection: .Explore))
+        .environmentObject(User())
 }

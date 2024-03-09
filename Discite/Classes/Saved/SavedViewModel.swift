@@ -31,8 +31,6 @@ class SavedViewModel: ObservableObject {
     // GET saved playlists and topics
     @MainActor
     public func getSaved() async {
-        self.state = .loading
-        
         do {
             print("GET /api/user/savedPlaylists")
             let response = try await APIRequest<EmptyRequest, SavedResponse>
@@ -50,13 +48,33 @@ class SavedViewModel: ObservableObject {
         }
     }
     
+    public func reload() {
+        self.state = .loading
+        task = Task {
+            await getSaved()
+        }
+    }
+    
+    public func filter() {
+        filterSavedTopics()
+        filterSavedPlaylists()
+    }
+    
     // Filters unsaved topics out of savedTopics
-    public func filterSavedTopics() {
+    private func filterSavedTopics() {
         let filteredTopics = savedTopics.filter { topic in
             return topic.isSaved
         }
         
         savedTopics = filteredTopics
+    }
+    
+    private func filterSavedPlaylists() {
+        let filteredPlaylists = savedPlaylists.filter { playlist in
+            return playlist.isSaved
+        }
+        
+        savedPlaylists = filteredPlaylists
     }
 }
 
