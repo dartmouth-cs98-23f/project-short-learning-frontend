@@ -18,7 +18,7 @@ class TopicViewModel: ObservableObject {
     
     var userGraphValues: [CGFloat] = [0, 0, 0, 0, 0, 0]
     
-    let roles: [String] = ["Front", "Backend", "Systems", "AI/Data", "DevOps", "UI/UX"]
+    let roles: [String] = ["Front", "Backend", "ML", "AI/Data", "DevOps", "QA"]
     
     private var task: Task<Void, Error>? {
         willSet {
