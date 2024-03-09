@@ -43,12 +43,6 @@ struct SavedPage: View {
                 viewModel.filterSavedTopics()
             }
         }
-        .task {
-            if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
-                print("task")
-                await viewModel.getSaved()
-            }
-        }
         .animation(.smooth, value: viewModel.savedPlaylists.isEmpty)
         
         NavigationBar()
@@ -56,11 +50,11 @@ struct SavedPage: View {
     
     @ViewBuilder
     func topicsPage() -> some View {
-        if viewModel.error == nil && viewModel.savedTopics.isEmpty {
+        if case .loading = viewModel.state {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-        } else if viewModel.error != nil {
+        } else if case .error = viewModel.state {
             Text("Couldn't load saved playlists.")
             
         } else {
@@ -76,11 +70,11 @@ struct SavedPage: View {
     
     @ViewBuilder
     func playlistsPage() -> some View {
-        if viewModel.error == nil && viewModel.savedPlaylists.isEmpty {
+        if case .loading = viewModel.state {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-        } else if viewModel.error != nil {
+        } else if case .error = viewModel.state {
             Text("Couldn't load saved topics.")
             
         } else {
@@ -175,7 +169,7 @@ struct SavedPage: View {
 }
 
 #Preview {
-    AccountView()
+    SavedPage()
         .environmentObject(User())
-        .environment(TabSelectionManager(selection: .Account))
+        .environment(TabSelectionManager(selection: .Saved))
 }
