@@ -51,9 +51,7 @@ struct NestedAdapterWatchWrapper: View {
 }
 
 #Preview {
-    GeometryReader { geo in
-        NestedAdapterWatchWrapper()
-            .environment(TabSelectionManager(selection: .Watch))
-            .environmentObject(User())
-    }
+    NestedAdapterWatchWrapper()
+        .environment(TabSelectionManager(selection: .Watch))
+        .environmentObject(User())
 }
