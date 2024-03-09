@@ -34,12 +34,12 @@ struct ExploreService {
     }
     
     static func getAllTopics() async throws -> [TopicTag] {
-        print("GET /api/topics/all")
+        print("GET /api/explore/alltopics")
         
         let data = try await APIRequest<EmptyRequest, AllTopicsResponse>
             .apiRequest(method: .get,
                          authorized: true,
-                         path: "/api/topics/all")
+                         path: "/api/explore/alltopics")
         
         return data.topics
     }

@@ -190,9 +190,10 @@ struct AccountView: View {
     
     func allTopicsButton() -> some View {
         NavigationLink {
-            Placeholder()
+            AllTopics()
+            
         } label: {
-            Text("See all of my topics (17)")
+            Text("See all topics")
                 .font(.small)
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.primaryPurple)
         }
