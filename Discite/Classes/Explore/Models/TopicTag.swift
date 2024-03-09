@@ -17,7 +17,6 @@ struct TopicTag: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case topicName
         case topicId
-        case isSaved
     }
     
     init(from decoder: Decoder) throws {
@@ -26,7 +25,7 @@ struct TopicTag: Codable, Identifiable {
         self.id = UUID()
         self.topicId = try container.decode(String.self, forKey: .topicId)
         self.topicName = try container.decode(String.self, forKey: .topicName)
-        self.isSaved = try container.decode(Bool.self, forKey: .isSaved)
+        self.isSaved = false
     }
     
     init(id: UUID, topicId: String, topicName: String, isSaved: Bool = false) {
