@@ -1,4 +1,11 @@
-# project-short-learning-frontend
+# Project Short Learning Frontend
 
-## Purpose 
-This repository is to hold our frontend and UI aspects of our Descite app project. We will be coding in Swift using Cocoapods libraries and HLS streaming
+## Languages, Frameworks, and Pods
+* Swift
+* SwiftUI, UIKit
+* IGListKit, SwiftLint
+
+## Set up
+* Clone repository
+* Run `pod install`
+* Open `Discite.xcworkspace`
