@@ -52,6 +52,7 @@ struct MainExplorePage: View {
             .overlay {
                 if isSearching && !searchText.isEmpty {
                     SearchSuggestionsList(searchText: $searchText)
+                        .clipped()
                 }
             }
             
