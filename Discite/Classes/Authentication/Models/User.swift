@@ -104,6 +104,7 @@ class User: Identifiable, ObservableObject {
             // If successful, update user on frontend
             self.firstName = request.firstName
             self.lastName = request.lastName
+            self.username = request.username
             self.profilePicture = request.profilePicture
             
         } catch {

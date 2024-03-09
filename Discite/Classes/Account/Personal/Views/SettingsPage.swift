@@ -12,12 +12,11 @@ struct Settings: View {
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("darkModeEnabled") private var darkModeEnabled = false
     @EnvironmentObject private var user: User
-    @ObservedObject var viewModel: AccountViewModel
     @State private var isEditingUserInfo = false
-     @State var showPhotoSheet = false
-     @State var showPhotoLibrary = false
-     @State var selectedPhoto: PhotosPickerItem?
-     @State var profileImage = Image(systemName: "person.circle")
+    @State var showPhotoSheet = false
+    @State var showPhotoLibrary = false
+    @State var selectedPhoto: PhotosPickerItem?
+    @State var profileImage = Image(systemName: "person.circle")
     
     var body: some View {
         Form {
@@ -95,11 +94,6 @@ struct Settings: View {
         .sheet(isPresented: $isEditingUserInfo) {
             EditUserView(user: user)
         }
-        .task {
-            if viewModel.error != nil {
-                return
-            }
-        }
         .onChange(of: notificationsEnabled) { newValue in
             UserDefaults.standard.set(newValue, forKey: "notificationsEnabled")
         }
@@ -109,9 +103,7 @@ struct Settings: View {
     }
 }
 
-#Preview {
-    let viewModel = AccountViewModel()
-    
-    return Settings(viewModel: viewModel)
+#Preview {    
+    return Settings()
         .environmentObject(User())
 }

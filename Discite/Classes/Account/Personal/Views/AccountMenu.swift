@@ -15,7 +15,7 @@ struct AccountMenu: View {
     var body: some View {
         VStack(spacing: 14) {            
             NavigationLink {
-                Settings(viewModel: viewModel)
+                Settings()
             } label: {
                 textualMenuButton(label: "Settings")
             }
