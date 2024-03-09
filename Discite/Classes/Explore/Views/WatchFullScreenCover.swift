@@ -12,28 +12,22 @@ struct WatchFullScreenCover: View {
     let seed: String?
     
     var body: some View {
-        GeometryReader { geo in
-            NestedAdapterWatchWrapper(
-                size: geo.size,
-                safeArea: geo.safeAreaInsets,
-                seed: seed
-            )
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-        
-                    } label: {
-                        HStack(alignment: .center, spacing: 4) {
-                            Image(systemName: "chevron.left")
-                            Text("Back to Explore")
-                        }
-                        .font(.button)
-                        .foregroundStyle(Color.secondaryPeachLight)
+        NestedAdapterWatchWrapper(seed: seed)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+    
+                } label: {
+                    HStack(alignment: .center, spacing: 4) {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
                     }
+                    .font(.button)
                     .foregroundStyle(Color.secondaryPeachLight)
                 }
+                .foregroundStyle(Color.secondaryPeachLight)
             }
         }
     }

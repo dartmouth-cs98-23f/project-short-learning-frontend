@@ -27,6 +27,10 @@ struct SavePlaylistRequest: Encodable {
     var saved: Bool
 }
 
+struct DeleteSavedPlaylistRequest: Encodable {
+    var playlistId: String
+}
+
 struct VideoTimestampRequest: Encodable {
     var clipId: String
     var duration: Double
@@ -39,6 +43,20 @@ struct VectorizedRecommendationsResponse: Decodable {
     }
 
     let results: Results
+}
+
+struct GetSavedPlaylistResponse: Decodable {
+    let playlist: Playlist
+    
+    enum CodingKeys: CodingKey {
+        case metadata
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let metadata = try container.decode(Playlist.PlaylistMetadata.self, forKey: .metadata)
+        self.playlist = Playlist(metadata: metadata, isSaved: true)
+    }
 }
 
 class VideoService {
@@ -91,6 +109,16 @@ class VideoService {
         }
     }
     
+    static func getSavedPlaylist(playlistId: String) async throws -> Playlist {
+        print("GET /api/recommendations/vectorized with \(playlistId)")
+        let path = "/api/videos/\(playlistId)"
+        
+        let response = try await APIRequest<EmptyRequest, GetSavedPlaylistResponse>
+            .apiRequest(method: .get, authorized: true, path: path)
+        
+        return response.playlist
+    }
+    
     static func postSave(playlistId: String) async throws {
         print("POST api/save/playlists/\(playlistId)")
         let path = "/api/save/playlists/\(playlistId)"
@@ -115,13 +143,16 @@ class VideoService {
     }
     
     static func deleteSave(playlistId: String) async throws {
-        print("DELETE /api/save/playlists/\(playlistId)")
-        let path = "/api/save/playlists/\(playlistId)"
+        print("DELETE /api/user/savedPlaylists: \(playlistId)")
+        let path = "/api/user/savedPlaylists"
         
-        _ = try await APIRequest<EmptyRequest, EmptyResponse>
+        let requestBody = DeleteSavedPlaylistRequest(playlistId: playlistId)
+        
+        _ = try await APIRequest<DeleteSavedPlaylistRequest, EmptyResponse>
             .apiRequest(method: .delete,
                          authorized: true,
-                         path: path)
+                         path: path,
+                         parameters: requestBody)
     }
     
     static func postLike(playlistId: String) async throws {

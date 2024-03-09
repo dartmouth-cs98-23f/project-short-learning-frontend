@@ -22,6 +22,9 @@ class PlayerOverlayView: UIView {
             titleLabel.text = video?.playlist?.title ?? "Untitled"
             descriptionLabel.text = video?.playlist?.description ?? "No description available."
             videoWrapper.video = video
+            bookmarkButton.setImage(video?.playlist?.isSaved ?? false
+                ? UIImage(systemName: "bookmark.fill")
+                : UIImage(systemName: "bookmark"), for: .normal)
         }
     }
     
@@ -262,10 +265,11 @@ class PlayerOverlayView: UIView {
             playlist.isSaved
             ? await playlist.postSave()
             : await playlist.deleteSave()
+            
+            if playlist.isSaved {
+                bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+            }
         }
-
-        bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-        bookmarkButton.tintColor = .systemPurple
     }
 
     @objc private func shareButtonTapped() {

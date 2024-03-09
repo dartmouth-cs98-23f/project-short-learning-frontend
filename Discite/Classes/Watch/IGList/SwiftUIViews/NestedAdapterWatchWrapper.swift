@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct NestedAdapterWatchWrapper: View {
-    var size: CGSize
-    var safeArea: EdgeInsets
     var seed: String?
     
     @StateObject var viewModel: SequenceViewModel
     
-    init(size: CGSize, safeArea: EdgeInsets, seed: String? = nil) {
-        self.size = size
-        self.safeArea = safeArea
+    init(seed: String? = nil) {
         self.seed = seed
         
         self._viewModel = StateObject(wrappedValue: SequenceViewModel(seed: seed))
@@ -56,7 +52,7 @@ struct NestedAdapterWatchWrapper: View {
 
 #Preview {
     GeometryReader { geo in
-        NestedAdapterWatchWrapper(size: geo.size, safeArea: geo.safeAreaInsets)
+        NestedAdapterWatchWrapper()
             .environment(TabSelectionManager(selection: .Watch))
             .environmentObject(User())
     }

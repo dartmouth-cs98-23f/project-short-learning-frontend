@@ -21,10 +21,7 @@ struct Navigator: View {
                 switch tabSelectionManager.selection {
                     
                 case .Watch:
-                    NestedAdapterWatchWrapper(
-                        size: size, 
-                        safeArea: safeArea
-                    )
+                    NestedAdapterWatchWrapper()
 //                    WatchPage(
 //                        size: size,
 //                        safeArea: safeArea,

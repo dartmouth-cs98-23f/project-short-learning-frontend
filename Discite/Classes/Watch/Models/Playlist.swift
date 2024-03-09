@@ -50,6 +50,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     }
     
     struct PlaylistMetadata: Decodable {
+        var _id: String
         var title: String
         var description: String?
         var youtubeURL: String?
@@ -107,6 +108,28 @@ class Playlist: Decodable, Identifiable, ObservableObject {
         self.isSaved = false
     }
     
+    init(metadata: PlaylistMetadata, isSaved: Bool) {
+        id = UUID()
+        playlistId = metadata._id
+        title = metadata.title
+        description = metadata.description
+        thumbnailURL = metadata.thumbnailURL
+        videos = metadata.clips
+        inferenceTopics = metadata.inferenceTopics
+        inferenceComplexities = metadata.inferenceComplexities
+        self.isSaved = isSaved
+        
+        sequenceIndex = -1
+        currentIndex = 0
+        
+        // Give videos a reference back to self
+        for video in videos {
+            video.playlist = self
+        }
+
+        state = .loaded
+    }
+    
     // MARK: Getters
 
     func currentVideo() -> Video? {
@@ -133,7 +156,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     func postSave() async {
         do {
             _ = try await VideoService.postSave(playlistId: playlistId)
-       
+
         } catch {
             self.state = .error(error: PlaylistError.savePlaylist)
             print("Error in Playlist.postSave: \(error)")
@@ -144,6 +167,7 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     func putSave() async {
         do {
             _ = try await VideoService.putSave(playlistId: playlistId, saved: isSaved)
+            self.isSaved = true
        
         } catch {
             self.state = .error(error: PlaylistError.savePlaylist)
@@ -155,7 +179,8 @@ class Playlist: Decodable, Identifiable, ObservableObject {
     func deleteSave() async {
         do {
             _ = try await VideoService.deleteSave(playlistId: playlistId)
-       
+            self.isSaved = false
+            
         } catch {
             self.state = .error(error: PlaylistError.savePlaylist)
             print("Error in Playlist.deleteSave: \(error)")
