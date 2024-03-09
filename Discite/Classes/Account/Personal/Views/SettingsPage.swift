@@ -94,12 +94,6 @@ struct Settings: View {
         .sheet(isPresented: $isEditingUserInfo) {
             EditUserView(user: user)
         }
-        .onChange(of: notificationsEnabled) { newValue in
-            UserDefaults.standard.set(newValue, forKey: "notificationsEnabled")
-        }
-        .onChange(of: darkModeEnabled) { newValue in
-            UserDefaults.standard.set(newValue, forKey: "darkModeEnabled")
-        }
     }
 }
 
