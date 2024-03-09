@@ -134,7 +134,6 @@
 		C2D9F2092B9A28C800FDBD0F /* PlayerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2082B9A28C800FDBD0F /* PlayerOverlayView.swift */; };
 		C2D9F20B2B9A28E700FDBD0F /* EmbeddedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F20A2B9A28E700FDBD0F /* EmbeddedCollectionViewCell.swift */; };
 		C2D9F20E2B9A2B1E00FDBD0F /* NestedAdapterRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F20D2B9A2B1E00FDBD0F /* NestedAdapterRepresentable.swift */; };
-		C2D9F2102B9A2E1600FDBD0F /* 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C2D9F20F2B9A2DB400FDBD0F /* 2.mp4 */; };
 		C2D9F2122B9A8ED400FDBD0F /* SharePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2112B9A8ED400FDBD0F /* SharePage.swift */; };
 		C2D9F2142B9A933600FDBD0F /* ProgressDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2132B9A933600FDBD0F /* ProgressDotsView.swift */; };
 		C2D9F2162B9A950800FDBD0F /* PlayerOverlayPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9F2152B9A950800FDBD0F /* PlayerOverlayPreview.swift */; };
@@ -302,7 +301,6 @@
 		C2D9F2082B9A28C800FDBD0F /* PlayerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOverlayView.swift; sourceTree = "<group>"; };
 		C2D9F20A2B9A28E700FDBD0F /* EmbeddedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2D9F20D2B9A2B1E00FDBD0F /* NestedAdapterRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedAdapterRepresentable.swift; sourceTree = "<group>"; };
-		C2D9F20F2B9A2DB400FDBD0F /* 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.mp4; sourceTree = "<group>"; };
 		C2D9F2112B9A8ED400FDBD0F /* SharePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePage.swift; sourceTree = "<group>"; };
 		C2D9F2132B9A933600FDBD0F /* ProgressDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDotsView.swift; sourceTree = "<group>"; };
 		C2D9F2152B9A950800FDBD0F /* PlayerOverlayPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOverlayPreview.swift; sourceTree = "<group>"; };
@@ -444,7 +442,6 @@
 				C28ABEC82AF3409C007181F4 /* Info.plist */,
 				C2128A842ADB2B1100E90C66 /* .swiftlint.yml */,
 				C20EFE562AFBABDD0074EC9A /* DisciteApp.swift */,
-				C2D9F20F2B9A2DB400FDBD0F /* 2.mp4 */,
 				C2128A8E2ADB32B100E90C66 /* Classes */,
 				C2128A8B2ADB2B9100E90C66 /* Common */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
@@ -985,7 +982,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2D9F2102B9A2E1600FDBD0F /* 2.mp4 in Resources */,
 				C28ABEB42AF33D74007181F4 /* Mulish-LightItalic.ttf in Resources */,
 				C28ABEB82AF33D74007181F4 /* Mulish-Black.ttf in Resources */,
 				C28ABEB72AF33D74007181F4 /* Mulish-Regular.ttf in Resources */,
