@@ -260,7 +260,7 @@ class PlayerOverlayView: UIView {
 
         task = Task {
             playlist.isSaved
-            ? await playlist.postSave()
+            ? await playlist.putSave()
             : await playlist.deleteSave()
         }
 
