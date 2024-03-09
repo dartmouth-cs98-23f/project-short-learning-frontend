@@ -10,8 +10,17 @@ import Foundation
 class TopicViewModel: ObservableObject {
     @Published var topic: Topic?
     @Published var state: ViewModelState = .loading
+    @Published var toast: Toast?
     
-    private var task: Task<Void, Error>?
+    private var task: Task<Void, Error>? {
+        willSet {
+            if let currentTask = task {
+                if currentTask.isCancelled { return }
+                currentTask.cancel()
+                // Setting a new task cancelling the current task
+            }
+        }
+    }
     
     init(topicId: String) {
         task = Task {
@@ -95,8 +104,11 @@ class TopicViewModel: ObservableObject {
                              path: path,
                              parameters: parameters)
             
+            toast = Toast(style: .success, message: "Saved topic.")
+            
         } catch {
             self.state = .error(error: TopicError.saveTopic)
+            toast = Toast(style: .error, message: "Unable to save topic.")
             print("Error in TopicViewModel.saveTopic: \(error)")
         }
     }

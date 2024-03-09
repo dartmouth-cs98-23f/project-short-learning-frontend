@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TopicPageView: View {
     @State var topicSeed: TopicTag
-    @State private var toast: Toast?
     @StateObject var viewModel: TopicViewModel
     
     init(topicSeed: TopicTag) {
@@ -24,8 +23,7 @@ struct TopicPageView: View {
     ]
     
     var body: some View {
-        if case .loaded = viewModel.state,
-            let topic = viewModel.topic {
+        if let topic = viewModel.topic {
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
                     topicHeader()
@@ -41,24 +39,23 @@ struct TopicPageView: View {
             }
             .ignoresSafeArea(edges: [.bottom, .horizontal])
             .navigationBarTitleDisplayMode(.inline)
-            .toastView(toast: $toast)
+            .toastView(toast: $viewModel.toast)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     // bookmark
                     Button {
-                        topicSeed.isSaved.toggle()
-                        
                         Task {
-                            await viewModel.saveTopic(
-                                parameters: SaveTopicRequest(
-                                    topicId: topicSeed.topicId,
-                                    saved: topicSeed.isSaved))
-                        }
-                        
-                        // Would normally check if error == nil
-                        // and look for success message from API
-                        if topicSeed.isSaved {
-                            toast = Toast(style: .success, message: "Saved.")
+                            if !topicSeed.isSaved {
+                                await viewModel.saveTopic(
+                                    parameters: SaveTopicRequest(
+                                        topicId: topicSeed.topicId,
+                                        saved: topicSeed.isSaved))
+                            }
+                            
+                            if case .error = viewModel.state {
+                            } else {
+                                topicSeed.isSaved.toggle()
+                            }
                         }
             
                     } label: {
@@ -71,7 +68,8 @@ struct TopicPageView: View {
                 }
             }
             
-        } else if case .error = viewModel.state {
+        } else if case .error(let error) = viewModel.state,
+                  error as? TopicError == TopicError.getTopic {
             Text("Error getting topic page.")
                 .foregroundStyle(Color.pink)
                 .containerRelativeFrame([.horizontal, .vertical])
