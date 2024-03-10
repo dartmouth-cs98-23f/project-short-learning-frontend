@@ -49,6 +49,7 @@ struct SearchDestinationPage: View {
             ExploreSearchViewModel.shared.getSearchResults(query: text)
         }
         .padding(.horizontal, 18)
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     @ViewBuilder
