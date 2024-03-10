@@ -16,16 +16,18 @@ struct UserSearchResult: Decodable, Identifiable {
 }
 
 struct TopicSearchResult: Decodable, Identifiable {
+    let topicId: String
     let topic: String
     let score: Int
     let id: UUID
     
     enum CodingKeys: String, CodingKey {
-        case topic, score
+        case topic, topicId, score
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.topicId = try container.decode(String.self, forKey: .topicId)
         self.topic = try container.decode(String.self, forKey: .topic)
         self.score = try container.decode(Int.self, forKey: .score)
         self.id = UUID()

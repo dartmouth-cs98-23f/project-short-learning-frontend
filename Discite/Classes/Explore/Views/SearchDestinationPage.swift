@@ -80,6 +80,10 @@ struct SearchDestinationPage: View {
                 LazyVGrid(columns: columns, spacing: 18) {
                     ForEach(topics) { topic in
                         NavigationLink {
+                            TopicPageView(topicSeed: TopicTag(
+                                id: topic.id,
+                                topicId: topic.topicId,
+                                topicName: topic.topic))
                             
                         } label: {
                             VStack(alignment: .leading) {
