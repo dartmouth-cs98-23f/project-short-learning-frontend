@@ -16,7 +16,9 @@ struct SignUpPage: View {
         VStack(alignment: .leading, spacing: 24) {
             VStack {
                 if viewModel.error != nil {
-                    Text("Sorry, couldn't sign you up.")
+                    Text("Sorry, couldn't sign you up. Try a different username or email.")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(Color.red)
                 }
                 
@@ -41,7 +43,7 @@ struct SignUpPage: View {
                 }
                 
                 secureTextField(label: "Confirm password", text: $viewModel.confirmPassword) { text in
-                    return text == viewModel.password
+                    return text == viewModel.password && text.count >= 8
                 }
             }
             .animation(.smooth, value: viewModel.error == nil)

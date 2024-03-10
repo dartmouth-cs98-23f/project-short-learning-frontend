@@ -22,8 +22,8 @@ class LoginViewModel: ObservableObject {
         case apple
     }
     
-    @Published var usernameOrEmail: String = "jessietest@email.com"
-    @Published var password: String = "12345678"
+    @Published var usernameOrEmail: String = ""
+    @Published var password: String = ""
     @Published var error: Error?
     @Published var isLoading = false
     

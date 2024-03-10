@@ -9,12 +9,12 @@ import Foundation
 
 @MainActor
 class SignupViewModel: ObservableObject {
-    @Published var firstname: String = "John"
-    @Published var lastname: String = "Doe"
-    @Published var username: String = "100johndoe"
-    @Published var email: String = "100johndoe@email.com"
-    @Published var password: String = "12345678"
-    @Published var confirmPassword: String = "12345678"
+    @Published var firstname: String = ""
+    @Published var lastname: String = ""
+    @Published var username: String = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var confirmPassword: String = ""
 
     @Published var error: Error?
     @Published var isLoading = false
