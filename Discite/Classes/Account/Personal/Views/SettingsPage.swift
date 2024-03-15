@@ -17,7 +17,7 @@ struct Settings: View {
     @State var showPhotoLibrary = false
     @State var selectedPhoto: PhotosPickerItem?
     @State var profileImage = Image(systemName: "person.circle")
-    
+
     var body: some View {
         Form {
             Section(header: Text("Profile")) {
@@ -28,7 +28,7 @@ struct Settings: View {
                             isEditingUserInfo = true
                         }
                     }
-                    
+
                     HStack {
                         Spacer()
                         HStack(alignment: .top) {
@@ -47,11 +47,11 @@ struct Settings: View {
                                      }
                                  }
                                  .photosPicker(isPresented: $showPhotoLibrary, selection: $selectedPhoto, photoLibrary: .shared())
-                                 .onChange(of: selectedPhoto) { newValue in
+                                 .onChange(of: selectedPhoto) { _ in
                                      guard let photoItem = selectedPhoto else {
                                          return
                                      }
-                                    
+
                                      Task {
                                          if let photoData = try await photoItem.loadTransferable(type: Data.self),
                                             let uiImage = UIImage(data: photoData) {
@@ -61,18 +61,18 @@ struct Settings: View {
                                          }
                                      }
                                  }
-                            
+
                             Spacer()
-                            
+
                             VStack(alignment: .leading) {
                                 Text(user.fullName)
                                     .font(.body1)
-                                
+
                                 Text(user.username)
                                     .font(.body2)
                             }
                             .padding(18)
-                            
+
                             Spacer()
                         }
                         Spacer()
@@ -80,11 +80,11 @@ struct Settings: View {
                 }
                 .padding(.bottom, 18)
             }
-            
+
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notificationsEnabled)
             }
-            
+
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $darkModeEnabled)
             }
@@ -97,7 +97,7 @@ struct Settings: View {
     }
 }
 
-#Preview {    
+#Preview {
     return Settings()
         .environmentObject(User())
 }

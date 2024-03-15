@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ErrorView: View {
     var text: String
-    
+
     var body: some View {
         Text(text)
             .foregroundStyle(Color.pink)

@@ -9,18 +9,18 @@
 import SwiftUI
 
 struct Share: View {
-    
+
     var playlist: Playlist
     @Binding var isShowing: Bool
-    
+
     @State private var isShowingActivities = false
     @State private var friendSearch = ""
     @State private var message = "Wanted to share a playlist with you. Join me on Discite to unlock personalized and engaging computer science content, made for the modern attention span.\n"
-    
+
     @ObservedObject var viewModel = FriendsViewModel()
     @State private var friends: [Friend]?
     @State private var selection = Set<Friend>()
-    
+
     var body: some View {
             NavigationStack {
                 VStack {
@@ -37,17 +37,17 @@ struct Share: View {
                             }
                             .frame(minHeight: 84)
                         }
-                        
+
                         // Add friend or Export
                         moreSharingOptions()
-                        
+
                         // Message box
                         messageBox()
-                        
+
                         Spacer()
-                        
+
                         // Share button
-                        shareButton()                        
+                        shareButton()
                     }
                 }
                 .animation(.spring(duration: 1), value: friends == nil)
@@ -72,14 +72,14 @@ struct Share: View {
         VStack(spacing: 4) {
             Text("Can't find who you're looking for?")
                 .font(.body2)
-            
+
             HStack {
                 Button("Add friend") { }
                     .foregroundColor(.secondaryPurplePink)
-                
+
                 Text("or")
                     .foregroundColor(.primaryBlueBlack)
-                
+
                 Button("Export") {
                     self.isShowingActivities.toggle()
                 }
@@ -94,14 +94,14 @@ struct Share: View {
                 .strokeBorder(Color.secondaryPurplePink, lineWidth: 2)
         }
     }
-    
+
     func messageBox() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             playlistPreview()
                 .padding(.horizontal, 8)
-            
+
             Divider()
-            
+
             // Text area
             TextField("Message", text: $message, axis: .vertical)
                 .font(Font.body1)
@@ -116,7 +116,7 @@ struct Share: View {
                 .opacity(0.5)
         )
     }
-    
+
     // Preview of playlist being shared
     func playlistPreview() -> some View {
         HStack {
@@ -125,7 +125,7 @@ struct Share: View {
                 Rectangle()
                     .fill(Color.grayNeutral)
                     .frame(width: 54, height: 54)
-                
+
                 // Check thumbnail URL
                 if let thumbnailURL = playlist.thumbnailURL,
                    let url = URL(string: thumbnailURL) {
@@ -141,18 +141,18 @@ struct Share: View {
                             .frame(width: 54, height: 54)
                     }
                 }
-                
+
             }
-            
+
             VStack(alignment: .leading) {
                 Text("PLAYLIST").font(.small)
                 Text(playlist.title).font(.H6)
             }
-            
+
         }
-        
+
     }
-    
+
     // Internal share button
     func shareButton() -> some View {
         NavigationLink {
@@ -163,7 +163,7 @@ struct Share: View {
         .disabled(selection.count == 0)
         .disabled(selection.count == 0)
     }
-    
+
     // Profile icons for each friend
     func profileSelectButton(friend: Friend) -> some View {
         Button {
@@ -172,7 +172,7 @@ struct Share: View {
             } else {
                 selection.insert(friend)
             }
-            
+
         } label: {
             VStack {
                 if selection.contains(friend) {
@@ -180,7 +180,7 @@ struct Share: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 52, height: 52)
-                    
+
                 } else {
                     if let imageStringURL = friend.profileImage,
                        let imageURL = URL(string: imageStringURL) {
@@ -188,16 +188,16 @@ struct Share: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                            
+
                         } placeholder: {
                             Image(systemName: "person.circle")
                                 .resizable()
                                 .scaledToFit()
-                            
+
                         }
                         .frame(width: 54, height: 54)
                         .clipShape(Circle())
-                        
+
                     } else {
                         Image(systemName: "person.circle")
                             .resizable()
@@ -205,28 +205,28 @@ struct Share: View {
                             .frame(width: 54, height: 54)
                     }
                 }
-                
+
                 Text(friend.username).font(Font.small)
             }
             .animation(.easeInOut(duration: 0.3), value: selection.contains(friend))
         }
         .foregroundColor(Color.primaryBlueBlack)
     }
-    
+
     func clearProfileSelection() {
         selection.removeAll()
     }
 }
 
 struct ShareRepresentable: UIViewControllerRepresentable {
-    
+
     var message: String
     var appStoreLink: URL = URL(string: "https://apps.apple.com/us/app/discite/id6471923551")!
-    
+
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
-    
+
     func makeUIViewController(context: Context) -> UIViewController {
         return UIActivityViewController(activityItems: [ message, appStoreLink ], applicationActivities: nil)
-        
+
     }
 }

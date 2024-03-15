@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchSuggestionsList: View {
     @Binding var searchText: String
-    
+
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 12) {
@@ -17,13 +17,13 @@ struct SearchSuggestionsList: View {
                     .font(.subtitle2)
                     .foregroundColor(.grayDark)
                     .frame(alignment: .leading)
-                
+
                 Divider()
-                
+
                 ForEach(filteredSuggestions, id: \.self) { suggestion in
                     NavigationLink {
                         SearchDestinationPage(text: suggestion)
-                        
+
                     } label: {
                         Text(suggestion)
                             .font(Font.body)
@@ -36,13 +36,13 @@ struct SearchSuggestionsList: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(4)
                 }
-                
+
             }
             .padding(18)
         }
         .background(.white)
     }
-    
+
     var filteredSuggestions: [String] {
         if searchText.isEmpty {
             return suggestions
@@ -50,7 +50,7 @@ struct SearchSuggestionsList: View {
             return suggestions.filter { $0.contains(searchText.lowercased()) }
         }
     }
-    
+
     private let suggestions: [String] = [
         "algorithms and data structures",
         "sorting algorithms",

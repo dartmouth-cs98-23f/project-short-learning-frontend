@@ -18,13 +18,13 @@ class Video: Decodable, Identifiable, ObservableObject {
     private(set) var description: String
     private(set) var videoURL: String
     private(set) var videoLink: URL?
-    
+
     // Reference to parent playlist
     var playlist: Playlist?
 
     @Published var state: ViewModelState = .loading
     public var isLiked: Bool = false
-    
+
     enum CodingKeys: String, CodingKey {
         case videoId = "_id"
         case playlistId = "videoId"
@@ -38,7 +38,7 @@ class Video: Decodable, Identifiable, ObservableObject {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         id = UUID()
         videoId = try container.decode(String.self, forKey: .videoId)
         playlistId = try container.decode(String.self, forKey: .playlistId)
@@ -47,7 +47,7 @@ class Video: Decodable, Identifiable, ObservableObject {
         videoURL = try container.decode(String.self, forKey: .videoURL)
         videoLink = URL(string: videoURL)
     }
-    
+
     // A sample video for previews.
     init() {
         id = UUID()
@@ -58,7 +58,7 @@ class Video: Decodable, Identifiable, ObservableObject {
         videoURL = "https://player.vimeo.com/external/518476405.hd.mp4?s=df881ca929fbcf84aaf4040445a581a1d8e2137c&profile_id=173&oauth2_token_id=57447761"
         videoLink = URL(string: videoURL)
     }
-    
+
     @MainActor
     func postWatchHistory(timestamp: Double) async {
         do {
@@ -67,26 +67,26 @@ class Video: Decodable, Identifiable, ObservableObject {
                 videoId: videoId,
                 timestamp: timestamp
             )
-            
+
         } catch {
             self.state = .error(error: error)
             print("Error in Video.postWatchHistory: \(error)")
         }
     }
-    
+
     func postTooEasy() async {
         do {
             _ = try await VideoService.postTooEasy(playlistId: playlistId)
-            
+
         } catch {
             print("Error in Video.postTooEasy: \(error)")
         }
     }
-    
+
     func postTooHard() async {
         do {
             _ = try await VideoService.postTooHard(playlistId: playlistId)
-            
+
         } catch {
             print("Error in Video.postTooEasy: \(error)")
         }
@@ -97,16 +97,16 @@ extension Video: ListDiffable {
     public func diffIdentifier() -> NSObjectProtocol {
         return id as NSObjectProtocol
     }
-        
+
     public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if object === self {
             return true
         }
-        
+
         if let object = object as? Playlist {
             return id == object.id
         }
-        
+
         return false
     }
 }

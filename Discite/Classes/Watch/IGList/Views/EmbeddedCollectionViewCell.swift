@@ -14,7 +14,7 @@ import UIKit
 final class EmbeddedCollectionViewCell: UICollectionViewCell {
 
     var visibleIndex: IndexPath?
-    
+
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal

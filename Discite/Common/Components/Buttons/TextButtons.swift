@@ -11,7 +11,7 @@ struct PrimaryActionButton: View {
     let action: () -> Void
     let label: String
     let disabled: Bool
-    
+
     init(action: @escaping () -> Void, label: String, disabled: Bool = false) {
         self.action = action
         self.label = label
@@ -36,7 +36,7 @@ struct PrimaryActionButtonBlue: View {
     let action: () -> Void
     let label: String
     let disabled: Bool
-    
+
     init(action: @escaping () -> Void, label: String, disabled: Bool = false) {
         self.action = action
         self.label = label
@@ -62,7 +62,7 @@ struct PrimaryActionButtonPurple: View {
     let action: () -> Void
     let label: String
     let disabled: Bool
-    
+
     init(action: @escaping () -> Void, label: String, disabled: Bool = false) {
         self.action = action
         self.label = label

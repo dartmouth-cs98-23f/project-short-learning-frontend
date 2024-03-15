@@ -11,11 +11,11 @@ import SwiftUI
 
 @main
 struct DisciteApp: App {
-        
+
     init() {
         NetworkMonitor.shared.startMonitoring()
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()

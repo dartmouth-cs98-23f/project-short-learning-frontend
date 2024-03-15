@@ -10,9 +10,9 @@ import SwiftUI
 struct Navigator: View {
     @State private var tabSelectionManager = TabSelectionManager()
     @State var seedPlaylist: PlaylistPreview?
-    
+
     var body: some View {
-        
+
         VStack(spacing: 0) {
             switch tabSelectionManager.selection {
                 
@@ -82,7 +82,7 @@ struct TabItem {
     init(selection: Tab = Tab.Watch) {
         self.selection = selection
     }
-    
+
     @MainActor
     public func setSeed(playlist: PlaylistPreview?) {
         playlistSeed = playlist

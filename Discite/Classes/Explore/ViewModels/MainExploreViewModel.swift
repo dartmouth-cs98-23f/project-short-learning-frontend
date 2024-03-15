@@ -12,11 +12,11 @@ class MainExploreViewModel: ObservableObject {
     @Published var topicsAndRolesVideos: [any GenericTopic] = []
     @Published var state: ViewModelState = .loading
     private var task: Task<Void, Error>?
-    
+
     private(set) var page: Int = 0
-    
+
     init() { }
-    
+
     public func loadNextExplorePage() {
         task = Task {
             let response = await getExplorePage()
@@ -24,7 +24,7 @@ class MainExploreViewModel: ObservableObject {
             self.topicsAndRolesVideos.append(contentsOf: response?.roleVideos ?? [])
         }
     }
-    
+
     public func getExplorePage() async -> ExplorePageResponse? {
         do {
             let response = try await ExploreService.getExplorePage(page: page + 1)
@@ -36,7 +36,7 @@ class MainExploreViewModel: ObservableObject {
             return nil
         }
     }
-    
+
     deinit {
         task?.cancel()
     }

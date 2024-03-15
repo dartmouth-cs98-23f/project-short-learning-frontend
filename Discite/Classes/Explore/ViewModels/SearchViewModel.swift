@@ -14,7 +14,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchHistory: [String] = ["Internet", "Algorithms"]
     @Published var shouldNavigate = false
     @Published var searchables: [Searchable] = []
-    
+
     // get search suggestions based on current text
     func getSuggestions(for text: String) -> [Searchable] {
         let predefinedSuggestions = searchables
@@ -22,7 +22,7 @@ class SearchViewModel: ObservableObject {
 
         return filteredSuggestions
     }
-    
+
     // perform search
     func performSearch() {
         // Set shouldNavigate to true to trigger navigation
@@ -37,7 +37,7 @@ class SearchViewModel: ObservableObject {
                     .font(Font.caption)
                     .foregroundColor(.gray)
                     .padding(.leading, 16)
-                
+
                 Divider()
 
                 ForEach(searchHistory.reversed(), id: \.self) { searchItem in
@@ -52,7 +52,7 @@ class SearchViewModel: ObservableObject {
             }
         }
     }
-    
+
     func showSuggestions() -> some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 8) {
@@ -61,7 +61,7 @@ class SearchViewModel: ObservableObject {
                     .foregroundColor(.gray)
                     .padding(.leading, 16)
                     .frame(alignment: .leading)
-                
+
                 Divider()
 
                 ForEach(self.getSuggestions(for: searchText), id: \.id) { suggestion in

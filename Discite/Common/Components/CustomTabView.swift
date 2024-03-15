@@ -14,19 +14,19 @@ struct CustomTabView: View {
     init(_ tabItems: [CustomTabItem]) {
         self.tabItems = tabItems
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(spacing: 16) {
                 // tabs
                 ForEach(tabItems.indices, id: \.self) { index in
                     let selected = index == selectedIndex
-                    
+
                     Button {
                         withAnimation(.smooth) {
                             selectedIndex = index
                         }
-                        
+
                     } label: {
                         Text(tabItems[index].label)
                             .font(.H6)
@@ -43,12 +43,12 @@ struct CustomTabView: View {
                                 }
                             }
                     }
-                    
+
                 }
-                
+
                 Spacer()
             }
-            
+
             // content
             tabItems[selectedIndex].content
                 .padding(.top, 12)
@@ -56,7 +56,7 @@ struct CustomTabView: View {
 
             Spacer()
         }
-        
+
     }
 }
 
@@ -78,7 +78,7 @@ struct SampleContentPage: View {
 
 struct SampleCustomTabView: View {
     var body: some View {
-      
+
         let tabItems: [CustomTabItem] = [
             CustomTabItem("Tab 1") {
                 Text("Tab 1 Content")

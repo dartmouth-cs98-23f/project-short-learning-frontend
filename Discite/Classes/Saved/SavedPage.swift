@@ -14,14 +14,14 @@ enum SavedTab {
 struct SavedPage: View {
     @StateObject var viewModel = SavedViewModel()
     @State var selectedTab: SavedTab = .playlists
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 18) {
                 Text("Saved")
                     .font(.H2)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 // tabs
                 let tabItems: [CustomTabItem] = [
                     CustomTabItem("Playlists") {
@@ -31,10 +31,10 @@ struct SavedPage: View {
                         topicsPage()
                     }
                 ]
-                
+
                 // tab view
                 CustomTabView(tabItems)
-                
+
                 Spacer()
             }
             .padding(.horizontal, 18)
@@ -44,23 +44,23 @@ struct SavedPage: View {
                 // DOESN'T WORK, playlists are not passed by reference
                 // Requires reload
                 // viewModel.filter()
-                
+
                 viewModel.reload()
             }
-            
+
             NavigationBar()
         }
     }
-    
+
     @ViewBuilder
     func topicsPage() -> some View {
         if case .loading = viewModel.state {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
         } else if case .error = viewModel.state {
             Text("Couldn't load saved playlists.")
-            
+
         } else {
             ScrollView(.vertical) {
                 VStack(spacing: 18) {
@@ -71,16 +71,16 @@ struct SavedPage: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func playlistsPage() -> some View {
         if case .loading = viewModel.state {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
         } else if case .error = viewModel.state {
             Text("Couldn't load saved topics.")
-            
+
         } else {
             ScrollView(.vertical) {
                 VStack(spacing: 8) {
@@ -95,24 +95,24 @@ struct SavedPage: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func singleTopic(topic: TopicTag) -> some View {
         NavigationLink {
             TopicPageView(topicSeed: topic)
-            
+
         } label: {
             HStack {
                 Image(systemName: "tag")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                
+
                 Text(topic.topicName)
                     .font(.H6)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Image(systemName: "chevron.right")
                     .resizable()
                     .scaledToFit()
@@ -127,7 +127,7 @@ struct SavedPage: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func singlePlaylist(playlist: PlaylistPreview) -> some View {
         HStack {
@@ -140,7 +140,7 @@ struct SavedPage: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60, height: 60)
                         .clipped()
-                    
+
                 } placeholder: {
                     Rectangle()
                         .foregroundStyle(Color.grayNeutral)
@@ -153,7 +153,7 @@ struct SavedPage: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 60)
             }
-            
+
             // title
             Text(playlist.title)
                 .font(.subtitle2)
@@ -161,14 +161,14 @@ struct SavedPage: View {
                 .padding(.horizontal, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.primaryBlueBlack)
-            
+
             Image(systemName: "play.fill")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 14, height: 14)
                 .foregroundStyle(Color.primaryPurpleLight)
                 .padding(4)
-            
+
         }
     }
 }

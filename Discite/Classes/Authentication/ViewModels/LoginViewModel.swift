@@ -15,24 +15,24 @@ class LoginViewModel: ObservableObject {
         case failedSignIn
         case tokenError
     }
-    
+
     enum AuthType: String, CaseIterable {
         case custom
         case google
         case apple
     }
-    
+
     @Published var usernameOrEmail: String = ""
     @Published var password: String = ""
     @Published var error: Error?
     @Published var isLoading = false
-    
+
     // Sets user to guest (for preview mode)
     @MainActor
     func setPreviewMode(user: User) {
         user.configure()
     }
-    
+
     // Default sign in with our own authentication
     func signIn(user: User) async {
         do {
@@ -40,13 +40,13 @@ class LoginViewModel: ObservableObject {
                 parameters: LoginRequest(
                     email: usernameOrEmail,
                     password: password))
-            
+
             try await user.configure(token: data.token, data: data.user)
-            
+
         } catch {
             print("Login failed: \(error)")
             self.error = error
-            
+
         }
     }
 }

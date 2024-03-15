@@ -13,7 +13,7 @@ import Foundation
 struct LoginResponse: Codable {
     let token: String
     let user: AuthResponseData
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.token = try container.decode(String.self, forKey: .token)
@@ -29,8 +29,8 @@ struct AuthResponseData: Codable {
     let birthDate: String?
     let profilePicture: String?
     let onBoardingStatus: Bool
-    
-    init(username: String, 
+
+    init(username: String,
          firstName: String,
          lastName: String,
          email: String,
@@ -72,25 +72,25 @@ struct GoogleLoginRequest: Codable {
 }
 
 struct AuthenticationService {
-    
+
     static func login(parameters: LoginRequest) async throws -> LoginResponse {
         let response = try await APIRequest<LoginRequest, LoginResponse>
             .apiRequest(method: .post,
                         authorized: true,
                         path: "/api/auth/signin",
                         parameters: parameters)
-        
+
         return response
     }
-    
+
     static func signup(parameters: SignupRequest) async throws -> SignUpResponseData {
         let response = try await APIRequest<SignupRequest, SignUpResponseData>
             .apiRequest(method: .post,
                         authorized: false,
                         path: "/api/auth/signup",
                         parameters: parameters)
-        
+
         return response
     }
-    
+
 }

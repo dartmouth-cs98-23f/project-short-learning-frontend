@@ -10,32 +10,32 @@ import SwiftUI
 struct OnboardingComplexity: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: OnboardViewModel
-    
+
     var body: some View {
         let color = Color.interpolate(from: .primaryBlueNavy,
                                       to: .secondaryPurplePinkLight,
                                       value: viewModel.complexity)
-        
+
         VStack(spacing: 24) {
             // header
             VStack(alignment: .leading, spacing: 4) {
                 Text("Experience")
                     .font(.H2)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Text("Estimate your overall computer science skill level on a scale of 0 to 1.")
                     .font(.body1)
             }
-            
+
             Spacer()
-            
+
             // slider
             VStack(spacing: 12) {
                 Text(String(format: "%.2f", viewModel.complexity))
                     .font(.extraBig)
                     .foregroundStyle(color)
                     .animation(.smooth, value: viewModel.complexity)
-                
+
                 Slider(value: $viewModel.complexity, in: 0...1, step: 0.01) {
                 } minimumValueLabel: {
                         Text("0")
@@ -44,38 +44,38 @@ struct OnboardingComplexity: View {
                 }
                 .tint(color)
             }
-            
+
             // key
             legend()
-            
+
             Spacer()
-        
+
         }
         .padding(.vertical, 24)
         .padding(.horizontal, 18)
         .navigationBarBackButtonHidden(true)
     }
-    
+
     @ViewBuilder
     func legend() -> some View {
         VStack(alignment: .leading) {
             let currComplexity = Complexity.complexity(for: viewModel.complexity)
             
             ForEach(0..<5, id: \.self) { i in
-                let val = Double(i)/5
+                let val = Double(i) / 5
                 
                 let complexity = Complexity.complexity(for: val)
-                
+
                 let color = Color.interpolate(
                     from: .primaryBlueNavy,
                     to: .secondaryPurplePinkLight,
                     value: val)
-                
+
                 HStack {
                     Circle()
                         .fill(color)
                         .frame(width: (currComplexity == complexity) ? 12 : 8)
-                    
+
                     Text(complexity.label)
                         .font(currComplexity == complexity ? .subtitle1 : .body2)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -84,7 +84,7 @@ struct OnboardingComplexity: View {
                 }
                 .animation(.smooth(duration: 0.2), value: currComplexity == complexity)
             }
-            
+
             // prevents key from shifting when last item is reached
             Circle()
                 .fill(.clear)
@@ -94,12 +94,12 @@ struct OnboardingComplexity: View {
 
         .frame(minHeight: 170)
     }
-    
+
 }
 
 enum Complexity: CaseIterable {
     case beginner, highschool, college, professional, expert
-    
+
     static func complexity(for value: Double) -> Complexity {
         switch value {
         case 0.0..<0.2:
@@ -116,7 +116,7 @@ enum Complexity: CaseIterable {
             fatalError("Invalid value")
         }
     }
-    
+
     var label: String {
         switch self {
         case .beginner:

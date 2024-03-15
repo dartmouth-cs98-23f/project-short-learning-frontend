@@ -32,7 +32,7 @@ extension ToastStyle {
         case .success: return Color.secondaryAqua
         }
     }
-    
+
     var iconFileName: String {
         switch self {
         case .info: return "info.circle.fill"

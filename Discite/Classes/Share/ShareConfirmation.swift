@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ShareConfirmation: View {
-    
+
     @Environment(\.dismiss) var dismiss
     @Binding var isShowingShare: Bool
     @State var appeared: Bool = false
     var playlist: Playlist
-    
+
     var body: some View {
-        
+
         VStack(alignment: .center, spacing: 42) {
             Image(systemName: "checkmark")
                 .resizable()
@@ -27,24 +27,24 @@ struct ShareConfirmation: View {
                 .onAppear {
                     appeared.toggle()
                 }
-            
+
             VStack(spacing: 8) {
                 Text("Thanks for sharing")
                     .font(Font.H4)
-                
+
                 Text("\"\(playlist.title)\"")
                     .font(Font.H3)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.primaryPurpleLight)
             }
-            
+
             VStack(spacing: 12) {
                 Button {
                     isShowingShare.toggle()
                 } label: {
                     primaryActionButton(label: "Keep learning", maxWidth: .infinity)
                 }
-                
+
                 Button {
                     dismiss()
                 } label: {
@@ -62,6 +62,6 @@ struct ShareConfirmation: View {
                 }, label: "Done")
             }
         }
-        
+
     }
 }

@@ -12,7 +12,7 @@ struct OnboardingTopics: View {
     @State private var totalHeight = CGFloat.zero
     let horizontalSpacing: CGFloat = 8
     let verticalSpacing: CGFloat = 8
-    
+
     var body: some View {
         GeometryReader { geo in
             ScrollView(.vertical) {
@@ -21,29 +21,29 @@ struct OnboardingTopics: View {
                         Text("Pick topics.")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.H2)
-                        
+
                         Text("Select topics that interest you.")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.body1)
                     }
                     .padding(.horizontal, 18)
                     .foregroundStyle(Color.primaryBlueBlack)
-                    
+
                     Spacer(minLength: 52)
-                    
+
                     topicCloud(in: geo)
-                    
+
                 }
                 .padding(.vertical, 24)
             }
         }
     }
-    
+
     @ViewBuilder
     private func topicButton(_ index: Int) -> some View {
         Button {
             viewModel.topics[index].selected.toggle()
-            
+
         } label: {
             Text(viewModel.topics[index].title)
                 .font(.body1)
@@ -56,13 +56,13 @@ struct OnboardingTopics: View {
                 }
         }
     }
-    
+
     // stackoverflow.com/questions/62102647
     @ViewBuilder
     private func topicCloud(in geometry: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
-        
+
         ZStack(alignment: .topLeading) {
              ForEach(viewModel.topics.indices, id: \.self) { i in
                 topicButton(i)
@@ -91,9 +91,9 @@ struct OnboardingTopics: View {
             }
         }
         .background(viewHeightReader($totalHeight))
-        
+
     }
-    
+
     @ViewBuilder
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
         GeometryReader { geometry -> Color in
@@ -104,7 +104,7 @@ struct OnboardingTopics: View {
             return .clear
         }
     }
-    
+
 }
 
 #Preview {

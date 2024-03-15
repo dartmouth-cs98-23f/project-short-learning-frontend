@@ -49,7 +49,7 @@
 		C235C6732ADF463600870600 /* KeychainTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6722ADF463600870600 /* KeychainTools.swift */; };
 		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
 		C23A44192AE9E813004C6927 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A44182AE9E813004C6927 /* VideoService.swift */; };
-		C23A779F2BA3D2C50057D516 /* AirbnbSwiftFormatTool in Frameworks */ = {isa = PBXBuildFile; productRef = C23A779E2BA3D2C50057D516 /* AirbnbSwiftFormatTool */; };
+		C23A77A22BA4A1310057D516 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C23A77A12BA4A1310057D516 /* .swiftlint.yml */; };
 		C24C585B2B8FA302002146D3 /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585A2B8FA302002146D3 /* SignUpPage.swift */; };
 		C24C585E2B8FADCE002146D3 /* GoogleLoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */; };
 		C24C58602B8FAE76002146D3 /* GoogleSignOutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */; };
@@ -213,6 +213,7 @@
 		C235C6722ADF463600870600 /* KeychainTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTools.swift; sourceTree = "<group>"; };
 		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		C23A44182AE9E813004C6927 /* VideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
+		C23A77A12BA4A1310057D516 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C24C585A2B8FA302002146D3 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginExtension.swift; sourceTree = "<group>"; };
 		C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignOutExtension.swift; sourceTree = "<group>"; };
@@ -342,7 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42809CA77ACA2029F7351171 /* Pods_Discite.framework in Frameworks */,
-				C23A779F2BA3D2C50057D516 /* AirbnbSwiftFormatTool in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +441,7 @@
 			children = (
 				C28ABEC82AF3409C007181F4 /* Info.plist */,
 				C20EFE562AFBABDD0074EC9A /* DisciteApp.swift */,
+				C23A77A12BA4A1310057D516 /* .swiftlint.yml */,
 				C2128A8E2ADB32B100E90C66 /* Classes */,
 				C2128A8B2ADB2B9100E90C66 /* Common */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
@@ -940,7 +941,6 @@
 			);
 			name = Discite;
 			packageProductDependencies = (
-				C23A779E2BA3D2C50057D516 /* AirbnbSwiftFormatTool */,
 			);
 			productName = Discite;
 			productReference = C2128A722ADB270B00E90C66 /* Discite.app */;
@@ -971,7 +971,6 @@
 			);
 			mainGroup = C2128A692ADB270B00E90C66;
 			packageReferences = (
-				C23A779D2BA3D2C50057D516 /* XCRemoteSwiftPackageReference "swift" */,
 			);
 			productRefGroup = C2128A732ADB270B00E90C66 /* Products */;
 			projectDirPath = "";
@@ -997,6 +996,7 @@
 				C28ABEC22AF33D75007181F4 /* Mulish-SemiBold.ttf in Resources */,
 				C28ABEBC2AF33D74007181F4 /* Mulish-Bold.ttf in Resources */,
 				C28ABEBB2AF33D74007181F4 /* Mulish-ExtraLightItalic.ttf in Resources */,
+				C23A77A22BA4A1310057D516 /* .swiftlint.yml in Resources */,
 				C28ABEBF2AF33D74007181F4 /* Mulish-ExtraLight.ttf in Resources */,
 				C28ABEC42AF33D75007181F4 /* OFL.txt in Resources */,
 				C28ABEC52AF33D75007181F4 /* README.txt in Resources */,
@@ -1437,25 +1437,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C23A779D2BA3D2C50057D516 /* XCRemoteSwiftPackageReference "swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.6;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C23A779E2BA3D2C50057D516 /* AirbnbSwiftFormatTool */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C23A779D2BA3D2C50057D516 /* XCRemoteSwiftPackageReference "swift" */;
-			productName = AirbnbSwiftFormatTool;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C2128A6A2ADB270B00E90C66 /* Project object */;
 }

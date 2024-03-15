@@ -25,12 +25,12 @@ struct SpiderGraphView: View {
                                 interactive: false)],
         axes: ["Frontend", "Backend", "ML", "AI/Data", "DevOps", "QA"],
         color: .primaryPurpleLight, titleColor: .gray, bgColor: .white)
-    
+
     var body: some View {
         GeometryReader { geometry in
-            
-            let center = CGPoint(x: geometry.size.width/2, y: geometry.size.height/2)
-            
+
+            let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+
             ZStack {
 
                 SpiderGraph(

@@ -12,42 +12,42 @@ import UIKit
 struct VideoDetailsView: View {
     @ObservedObject var playlist: Playlist
     @ObservedObject var video: Video
-    
+
     @Binding var player: AVPlayer?
-    
+
     @State var didDislike: Bool = false
     @State var shareShowing: Bool = false
     @State var detailsShowing: Bool = false
     @State var isPlaying: Bool
-    
+
     private var includeNavigation: Bool
     private var safeArea: EdgeInsets
     private let alertTitle = "Tell us why you disliked this video."
 
-    init(playlist: Playlist, 
+    init(playlist: Playlist,
          video: Video,
          player: Binding<AVPlayer?>,
          safeArea: EdgeInsets,
          includeNavigation: Bool = true
     ) {
-       
+
         self.playlist = playlist
         self.video = video
         self.safeArea = safeArea
         self.includeNavigation = includeNavigation
         self._player = player
-        self._isPlaying =  State(initialValue: player.wrappedValue?.timeControlStatus == .playing)
+        self._isPlaying = State(initialValue: player.wrappedValue?.timeControlStatus == .playing)
     }
-    
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 VStack(spacing: 12) {
                     dotNavigation()
                         .padding(8)
-                    
+
                     Spacer()
-                    
+
                     HStack(alignment: .bottom, spacing: 10) {
                         VStack(alignment: .leading, spacing: 10) {
                             Button {
@@ -60,13 +60,13 @@ struct VideoDetailsView: View {
                             }
                             .font(.small)
                             .foregroundStyle(Color.secondaryPurplePinkLight)
-                            
+
                             Text(playlist.title)
                                 .font(.H4)
                                 .lineLimit(2)
                                 .foregroundStyle(Color.secondaryPeachLight)
                                 .clipped()
-                            
+
                             if geo.size.height > 400 {
                                 Text(playlist.description ?? "")
                                     .font(.body1)
@@ -75,18 +75,18 @@ struct VideoDetailsView: View {
                                     .clipped()
                             }
                         }
-                        
+
                         Spacer(minLength: 0)
-                        
+
                         // Controls
                         controls()
                     }
-                    
+
                     if includeNavigation {
                         NavigationBar()
                     }
                 }
-                
+
                 playBackControls()
                     .frame(maxWidth: 200)
                     .padding(.horizontal, 64)
@@ -102,11 +102,11 @@ struct VideoDetailsView: View {
             Button("Too easy") {
                 Task { await video.postTooEasy() }
             }
-            
+
             Button("Too difficult") {
                 Task { await video.postTooHard() }
             }
-            
+
         } message: {
             Text("Help us improve our recommendations by telling us why this video wasn't right for you.")
         }
@@ -117,11 +117,11 @@ struct VideoDetailsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.7))
     }
-    
+
     // Function to skip ahead/go back in the video
     private func skipTime(seconds: Double) {
         guard let player = player else { return }
-            
+
         // Calculate the new time
         let currentTime = player.currentTime()
         let newTime = CMTime(seconds: currentTime.seconds + seconds, preferredTimescale: currentTime.timescale)
@@ -129,7 +129,7 @@ struct VideoDetailsView: View {
         // Seek to the new time
         player.seek(to: newTime)
     }
-    
+
     @ViewBuilder
     func playBackControls() -> some View {
         HStack {
@@ -138,24 +138,24 @@ struct VideoDetailsView: View {
             } label: {
                 Image(systemName: "arrow.counterclockwise")
             }
-            
+
             Spacer()
-            
+
             Button {
                 if isPlaying {
                     player?.pause()
                 } else {
                     player?.play()
                 }
-    
+
                 isPlaying.toggle()
-                
+
             } label: {
                 Image(systemName: isPlaying ? "pause.fill" : "play.fill")
             }
-        
+
             Spacer()
-            
+
             Button {
                 skipTime(seconds: -10)
             } label: {
@@ -165,7 +165,7 @@ struct VideoDetailsView: View {
         .foregroundStyle(Color.white)
         .font(.largeTitle)
     }
-    
+
     @ViewBuilder
     private func controls() -> some View {
         VStack(spacing: 32) {
@@ -178,11 +178,11 @@ struct VideoDetailsView: View {
         .font(.title2)
         .foregroundStyle(Color.secondaryPeachLight)
     }
-    
+
     @ViewBuilder
     private func dotNavigation() -> some View {
         let currentIndex = playlist.videos.firstIndex(where: { $0.id == video.id })
-        
+
         HStack(spacing: 10) {
             ForEach(0..<playlist.videos.count, id: \.self) { index in
                 if currentIndex == index {
@@ -197,7 +197,7 @@ struct VideoDetailsView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func saveButton() -> some View {
         Button {
@@ -216,19 +216,19 @@ struct VideoDetailsView: View {
                          ? Color.primaryPurpleLight
                          : Color.secondaryPeachLight)
     }
-    
+
     @ViewBuilder
     private func likeButton() -> some View {
         Button {
             playlist.isDisliked = false
             playlist.isLiked.toggle()
-            
+
             Task {
                 playlist.isLiked
                 ? await playlist.postLike()
                 : await playlist.deleteLike()
             }
-            
+
         } label: {
             Image(systemName: playlist.isLiked
                   ? "hand.thumbsup.fill"
@@ -239,21 +239,21 @@ struct VideoDetailsView: View {
                          ? Color.primaryPurpleLight
                          : Color.secondaryPeachLight)
     }
-    
+
     @ViewBuilder
     private func dislikeButton() -> some View {
         Button {
             playlist.isLiked = false
             playlist.isDisliked.toggle()
-            
+
             if playlist.isDisliked { didDislike = true }
-            
+
             Task {
                 playlist.isDisliked
                 ? await playlist.postDislike()
                 : await playlist.deleteDislike()
             }
-            
+
         } label: {
             Image(systemName: playlist.isDisliked
                   ? "hand.thumbsdown.fill"
@@ -264,7 +264,7 @@ struct VideoDetailsView: View {
                          ? Color.red
                          : Color.secondaryPeachLight)
     }
-    
+
     @ViewBuilder
     private func shareButton() -> some View {
         Button {
@@ -273,7 +273,7 @@ struct VideoDetailsView: View {
             Image(systemName: "paperplane")
         }
     }
-    
+
     @ViewBuilder
     private func detailsButton() -> some View {
         Button {
@@ -282,17 +282,17 @@ struct VideoDetailsView: View {
             Image(systemName: "ellipsis")
         }
     }
-    
+
     private func openYouTube() {
         // if let youtubeURL = URL(string: "youtube://\(playlist.youtubeId)"),
         let youtubeLink = playlist.youtubeURL != nil ? playlist.youtubeURL! : "www.youtube.com"
-           
+
         if let youtubeURL = URL(string: "youtube://\(youtubeLink)"),
             UIApplication.shared.canOpenURL(youtubeURL) {
             // Open in YouTube app if installed
             print("Opening YouTube App.")
             UIApplication.shared.open(youtubeURL, options: [:], completionHandler: nil)
-            
+
         // } else if let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(playlist.youtubeId)") {
         } else if let youtubeURL = URL(string: "https://\(youtubeLink)") {
             // Open in Safari if YouTube app is not installed
@@ -307,11 +307,11 @@ struct VideoDetailsView: View {
     @State var player: AVPlayer?
     let video = Video()
     let playlist = Playlist()
-    
+
     return GeometryReader {
         let size = $0.size
         let safeArea = $0.safeAreaInsets
-        
+
         VideoDetailsView(playlist: playlist,
                          video: video,
                          player: $player,

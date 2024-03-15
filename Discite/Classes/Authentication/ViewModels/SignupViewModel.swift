@@ -18,11 +18,11 @@ class SignupViewModel: ObservableObject {
 
     @Published var error: Error?
     @Published var isLoading = false
-    
+
     func signup(user: User) async {
-        
+
         isLoading = true
-        
+
         do {
             let response = try await AuthenticationService.signup(
                 parameters: SignupRequest(
@@ -31,23 +31,23 @@ class SignupViewModel: ObservableObject {
                     firstName: firstname,
                     lastName: lastname,
                     password: password))
-            
+
             let userData = AuthResponseData(username: username,
                                             firstName: firstname,
                                             lastName: lastname,
                                             email: email)
-            
+
             try user.configure(token: response.token, data: userData)
             print("Signed up.")
-            
+
         } catch {
             print("SignupViewModel.signup failed: \(error)")
             self.error = error
         }
-        
+
         isLoading = false
     }
-    
+
 }
 
 extension Date {

@@ -9,24 +9,24 @@ import SwiftUI
 
 struct SearchDestinationPage: View {
     @ObservedObject var viewModel = ExploreSearchViewModel.shared
-    
+
     let text: String
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading) {
                 Text("Results for")
                     .font(.subtitle1)
-                
+
                 Text(text)
                     .font(.H4)
                     .foregroundStyle(Color.primaryPurpleLight)
             }
-            
+
             if case .loading = viewModel.state {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
+
             } else {
                 let tabItems: [CustomTabItem] = [
                     CustomTabItem("Playlists") {
@@ -43,7 +43,7 @@ struct SearchDestinationPage: View {
                 CustomTabView(tabItems)
 
             }
-        
+
         }
         .onAppear {
             ExploreSearchViewModel.shared.getSearchResults(query: text)
@@ -51,12 +51,12 @@ struct SearchDestinationPage: View {
         .padding(.horizontal, 18)
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     @ViewBuilder
     func playlistResults(_ playlists: [PlaylistPreview]) -> some View {
         if playlists.isEmpty {
             Text("No playlists match the query '\(text).'")
-            
+
         } else {
             ScrollView(.vertical) {
                 VStack(spacing: 16) {
@@ -65,17 +65,17 @@ struct SearchDestinationPage: View {
                     }
                 }
             }
-        
+
         }
     }
-    
+
     @ViewBuilder
     func topicResults(_ topics: [TopicSearchResult]) -> some View {
         let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
-        
+
         if topics.isEmpty {
             Text("No topics match the query '\(text).'")
-            
+
         } else {
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns, spacing: 18) {
@@ -85,7 +85,7 @@ struct SearchDestinationPage: View {
                                 id: topic.id,
                                 topicId: topic.topicId,
                                 topicName: topic.topic))
-                            
+
                         } label: {
                             VStack(alignment: .leading) {
                                 HStack(spacing: 4) {
@@ -93,16 +93,16 @@ struct SearchDestinationPage: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 16, height: 16)
-                                    
+
                                     Text("TOPIC")
                                         .font(Font.body1)
                                 }
-                                
+
                                 Text(topic.topic)
                                     .font(.subtitle2)
                                     .lineLimit(3)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                
+
                             }
                             .padding(.horizontal, 12)
                             .padding(.vertical, 18)
@@ -119,17 +119,17 @@ struct SearchDestinationPage: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func userResults(_ users: [UserSearchResult]) -> some View {
         if users.isEmpty {
             Text("No accounts match the query '\(text).'")
-            
+
         } else {
             ScrollView(.vertical) {
                 ForEach(users) { user in
                     NavigationLink {
-                        
+
                     } label: {
                         singleUser(user: user)
                     }
@@ -137,7 +137,7 @@ struct SearchDestinationPage: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func singleUser(user: UserSearchResult) -> some View {
         HStack(spacing: 8) {
@@ -145,7 +145,7 @@ struct SearchDestinationPage: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 42, height: 42)
-            
+
             VStack {
                 Text(user.firstName + " " + user.lastName).font(.body1)
                 Text(user.username).font(.button)
@@ -153,7 +153,7 @@ struct SearchDestinationPage: View {
         }
         .padding(.vertical, 6)
     }
-    
+
     @ViewBuilder
     func singlePlaylist(playlist: PlaylistPreview) -> some View {
         HStack(spacing: 8) {
@@ -165,7 +165,7 @@ struct SearchDestinationPage: View {
                         .resizable()
                         .frame(width: 60, height: 60)
                         .clipped()
-                    
+
                 } placeholder: {
                     Rectangle()
                         .foregroundStyle(Color.grayDark)
@@ -178,14 +178,14 @@ struct SearchDestinationPage: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 60)
             }
-            
+
             // title
             VStack(alignment: .leading) {
                 Text(playlist.title)
                     .font(.subtitle2)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Text(playlist.description ?? "")
                     .font(.body2)
                     .lineLimit(2)
@@ -193,11 +193,11 @@ struct SearchDestinationPage: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .clipped()
             }
-            
+
             // open Watch
             NavigationLink {
                 WatchFullScreenCover(seed: playlist.playlistId)
-                
+
             } label: {
                 Image(systemName: "play.fill")
                     .resizable()
@@ -206,7 +206,7 @@ struct SearchDestinationPage: View {
                     .foregroundStyle(Color.primaryBlueBlack)
             }
             .padding(4)
-            
+
         }
     }
 }

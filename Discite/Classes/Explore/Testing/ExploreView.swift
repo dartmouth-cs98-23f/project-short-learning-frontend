@@ -12,11 +12,11 @@ import SwiftUI
 struct ExploreView: View {
     @StateObject var viewModel = ExploreViewModel()
     @StateObject var searchViewModel = SearchViewModel()
-    
+
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 0)
     ]
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -41,38 +41,38 @@ struct ExploreView: View {
                 })
             }
             .padding(.horizontal, 18)
-            
+
             // no focus + no text, display regular page
             if !searchViewModel.isFocused && searchViewModel.searchText.isEmpty {
                 ScrollView(.vertical) {
                     VStack(alignment: .leading, spacing: 24) {
-                        
+
                         // Section: Recommended topics
                         if !viewModel.topicRecommendations.isEmpty {
                             topicScrollSection(topics: $viewModel.topicRecommendations)
-                            
+
                         } else if viewModel.error != nil {
                             Text("Error fetching topic recommendations.")
                                 .frame(minHeight: 40)
-                            
+
                         } else {
                             placeholderRectangle(minHeight: 40)
                                 .task {
                                     await viewModel.getTopicRecommendations()
                                 }
                         }
-                        
+
                         // Section: Recommended playlists
                         if let playlistRecs = viewModel.playlistRecommendations {
                             playlistScrollSection(playlists: playlistRecs)
-                            
+
                         } else {
                             placeholderGrid()
                                 .task {
                                     await viewModel.getPlaylistRecommendations()
                                 }
                         }
-                        
+
                     }
                 }
                 .animation(.easeIn(duration: 0.3),
@@ -80,9 +80,9 @@ struct ExploreView: View {
                 .animation(.easeIn(duration: 0.3),
                            value: viewModel.playlistRecommendations == nil)
             }
-            
+
             Spacer()
-            
+
             NavigationBar()
         }
         .ignoresSafeArea(edges: [.bottom, .leading, .trailing])
@@ -94,7 +94,7 @@ struct ExploreView: View {
             }
         }
     }
-    
+
     // Horizontally scrolling list of topics
     @ViewBuilder
     func topicScrollSection(topics: Binding<[TopicTag]>) -> some View {
@@ -105,7 +105,7 @@ struct ExploreView: View {
                     ForEach(topics) { topic in
                         TopicTagWithNavigation(topic: topic)
                     }
-                    
+
                     NavigationLink(destination: {
                         AllTopics()
                     }, label: {
@@ -119,7 +119,7 @@ struct ExploreView: View {
         }
         .padding(.horizontal, 18)
     }
-    
+
     // Vertically scrolling 2 column grid of playlists
     @ViewBuilder
     func playlistScrollSection(playlists: [PlaylistPreview]) -> some View {
@@ -131,25 +131,25 @@ struct ExploreView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func placeholderRectangle(minHeight: CGFloat) -> some View {
         Rectangle()
             .frame(maxWidth: .infinity, minHeight: minHeight)
             .foregroundColor(.grayLight)
     }
-    
+
     @ViewBuilder
     func placeholderGrid() -> some View {
         LazyVGrid(columns: columns, spacing: 1) {
             ForEach(0..<10, id: \.self) { _ in
                 placeholderRectangle(minHeight: 10)
                     .aspectRatio(1.0, contentMode: .fit)
-                    
+
             }
         }
     }
-    
+
 }
 
 #Preview {

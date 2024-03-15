@@ -19,9 +19,9 @@ struct PlayerPreview: UIViewRepresentable {
     func makeUIView(context: Context) -> PlayerOverlayView {
         return PlayerOverlayView()
     }
-    
+
     func updateUIView(_ uiView: PlayerOverlayView, context: Context) {
-        
+
     }
 }
 
@@ -29,9 +29,9 @@ struct PlayerControlsPreviewRep: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some PlayerOverlayViewController {
         return PlayerOverlayViewController()
     }
-    
+
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        
+
     }
 }
 

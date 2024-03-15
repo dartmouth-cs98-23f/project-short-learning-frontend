@@ -9,20 +9,20 @@ import SwiftUI
 
 struct WatchSinglePlaylist: View {
     @StateObject var viewModel: WatchSinglePlaylistViewModel
-    
+
     init(playlistId: String) {
         self._viewModel = StateObject(
             wrappedValue: WatchSinglePlaylistViewModel(playlistId: playlistId))
     }
-    
+
     var body: some View {
         Group {
             if case .error = viewModel.state {
                 ErrorView(text: "Failed to load saved playlist.")
-                
+
             } else if let playlist = viewModel.playlist {
                 SinglePlaylistWatchRepresentable(playlist: playlist)
-                
+
             } else {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -14,7 +14,7 @@ class ProgressDotsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
 //    init(video: Video?) {
 //        self.video = video
 //        self.playlist = video?.playlist
@@ -24,10 +24,10 @@ class ProgressDotsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func draw(_ rect: CGRect) {
         print("draw called")
-        
+
         let currentIndex = 1
         let dotSpacing: CGFloat = 10
         let dotSizeSelected: CGFloat = 12

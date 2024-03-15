@@ -10,7 +10,7 @@ import SwiftUI
 struct AccentPlayButton: View {
     let action: () -> Void
     let label: String?
-    
+
     var body: some View {
         Button(action: action) {
             VStack {
@@ -18,7 +18,7 @@ struct AccentPlayButton: View {
                     .resizable()
                     .scaledToFit()
                     .addGradient(gradient: LinearGradient.pinkOrangeGradient)
-                
+
                 if label != nil {
                     Text(label!)
                         .foregroundColor(Color.secondaryPink)
@@ -31,7 +31,7 @@ struct AccentPlayButton: View {
 
 struct ShareButtonLabeled: View {
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             VStack {
@@ -40,7 +40,7 @@ struct ShareButtonLabeled: View {
                     .scaledToFit()
                     .frame(width: 24, height: 24)
                     .foregroundColor(.primaryBlueNavy)
-                
+
                 Text("Share")
                     .foregroundColor(.primaryBlueNavy)
                     .font(.button)
@@ -51,7 +51,7 @@ struct ShareButtonLabeled: View {
 
 struct ShareButton: View {
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             Image(systemName: "paperplane")
@@ -66,7 +66,7 @@ struct ShareButton: View {
 struct SaveButtonLabeled: View {
     let action: () -> Void
     let isSaved: Bool
-    
+
     var body: some View {
         Button(action: action) {
             VStack {
@@ -75,7 +75,7 @@ struct SaveButtonLabeled: View {
                     .scaledToFit()
                     .frame(width: 24, height: 24)
                     .foregroundColor(.primaryBlueNavy)
-                
+
                 Text("Save")
                     .foregroundColor(.primaryBlueNavy)
                     .font(.button)
@@ -87,7 +87,7 @@ struct SaveButtonLabeled: View {
 struct SaveButton: View {
     let action: () -> Void
     let isSaved: Bool
-    
+
     var body: some View {
         Button(action: action) {
             Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
@@ -102,13 +102,13 @@ struct IconButtons_Previews: PreviewProvider {
     static var previews: some View {
         AccentPlayButton(action: { }, label: "PLAY")
             .previewDisplayName("Accent Play")
-        
+
         ShareButtonLabeled(action: { })
             .previewDisplayName("Share (labeled)")
-        
+
         SaveButton(action: { }, isSaved: false)
             .previewDisplayName("Save")
-        
+
         SaveButtonLabeled(action: { }, isSaved: false)
             .previewDisplayName("Save (labeled)")
     }

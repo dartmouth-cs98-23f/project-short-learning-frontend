@@ -9,28 +9,28 @@ import SwiftUI
 
 struct Hello: View {
     @EnvironmentObject var user: User
-    
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 18) {
                 VStack(alignment: .leading) {
                     Text("Hello,")
                         .font(.H1)
-                    
+
                     Text("\(user.firstName).")
                         .font(.extraBig)
                         .foregroundStyle(Color.primaryPurpleLight)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Text("Help us personalize your learning experience.")
                     .font(.subtitle1)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 18)
-                
+
                 NavigationLink {
                     OnboardingPage()
-                    
+
                 } label: {
                     Text("Get started")
                         .font(.button)

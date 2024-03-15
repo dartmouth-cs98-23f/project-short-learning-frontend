@@ -12,10 +12,10 @@ import IGListKit
 import UIKit
 
 final class HorizontalSectionController: ListSectionController, ListAdapterDataSource, ListDisplayDelegate {
-    
+
     // Each horizontal section is a playlist of videos
     private var playlist: Playlist?
-    
+
     // private var number: Int?
     var visibleIP: IndexPath?
 
@@ -26,7 +26,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
         adapter.dataSource = self
         return adapter
     }()
-    
+
     override init() {
         super.init()
         displayDelegate = self
@@ -47,7 +47,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
             // Handle the case where the dequeued cell is not of the expected type
             return UICollectionViewCell()
         }
-        
+
         adapter.collectionView = cell.collectionView
         return cell
     }
@@ -56,21 +56,21 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
         playlist = object as? Playlist
         // number = object as? Int
     }
-    
+
     // MARK: ListDisplayDelegate
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
-        
+
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
-        
+
     }
 
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
-         
+
         if let cell = cell as? EmbeddedCollectionViewCell {
              let indexPaths = cell.collectionView.indexPathsForVisibleItems
-             
+
              cell.collectionView.cellForItem(at: IndexPath(index: index))
              var cells = [Any]()
              for ip in indexPaths {
@@ -78,15 +78,15 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
                      cells.append(videoCell)
                  }
              }
-             
+
              let cellCount = cells.count
              if cellCount == 0 { return }
-             
+
              if cellCount == 1 {
                  if visibleIP != indexPaths[0] {
                      visibleIP = indexPaths[0]
                  }
-                 
+
                  if let videoCell = cells.last! as? EmbeddedVideoCell {
                      videoCell.startPlaybackInPlayerView()
                  }
@@ -96,7 +96,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
              print("\tCell couldn't be casted to an EmbeddedCollectionViewCell")
          }
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
 
         if let cell = cell as? EmbeddedCollectionViewCell {
@@ -109,15 +109,15 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
                     cells.append(videoCell)
                 }
             }
-            
+
             let cellCount = cells.count
             if cellCount == 0 { return }
-            
+
             if cellCount == 1 {
                 if visibleIP != indexPaths[0] {
                     visibleIP = indexPaths[0]
                 }
-                
+
                 if let videoCell = cells.last! as? EmbeddedVideoCell {
                     videoCell.stopPlaybackInPlayerView()
                     videoCell.hideOverlay()
@@ -128,7 +128,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
             print("\tError in HorizontalSectionController: Cell couldn't be casted to an EmbeddedCollectionViewCell")
         }
     }
-    
+
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
@@ -143,5 +143,5 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
-    
+
 }

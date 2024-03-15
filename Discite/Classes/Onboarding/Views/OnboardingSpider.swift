@@ -9,17 +9,17 @@ import SwiftUI
 
 struct OnboardingSpider: View {
     @ObservedObject var viewModel: OnboardViewModel
-    
+
     var body: some View {
         GeometryReader { mainGeo in
-            let radius = mainGeo.size.width/2
+            let radius = mainGeo.size.width / 2
 
             VStack(alignment: .leading) {
                 VStack(spacing: 12) {
                     Text("Create your ideal profile.")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.H2)
-                    
+
                     // description
                     Text("Drag the corners of the graph to help us understand your preferred roles.")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -28,20 +28,20 @@ struct OnboardingSpider: View {
                 }
                 .foregroundStyle(Color.primaryBlueBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 // reset
                 resetButton()
-                
+
                 // spider graph
                 GeometryReader { geometry in
-                    let center = CGPoint(x: radius, y: geometry.size.height/2)
-                    
+                    let center = CGPoint(x: radius, y: geometry.size.height / 2)
+
                     let spiderGraphEntry = SpiderGraphEntry(
                         values: viewModel.values,
                         color: .primaryPurpleLight,
                         interactive: true,
                         handleCornerDrag: onCornerDrag)
-                    
+
                     SpiderGraph(
                         axes: viewModel.roles,
                         values: [spiderGraphEntry],
@@ -58,7 +58,7 @@ struct OnboardingSpider: View {
         .padding(.vertical, 24)
         .padding(.horizontal, 18)
     }
-    
+
     @ViewBuilder
     func resetButton() -> some View {
         Button {
@@ -75,7 +75,7 @@ struct OnboardingSpider: View {
         .frame(alignment: .trailing)
         .padding(.vertical, 8)
     }
-    
+
     // Update values when a corner is dragged
     func onCornerDrag(values: [CGFloat]) {
         viewModel.values = values

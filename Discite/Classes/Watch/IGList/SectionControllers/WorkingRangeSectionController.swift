@@ -15,7 +15,7 @@ import AVKit
 final class WorkingRangeSectionController: ListSectionController, ListDisplayDelegate {
     private var video: Video?
     private var player: AVPlayer?
-    
+
     var task: Task<Void, Error>? {
         willSet {
             if let currentTask = task {
@@ -50,7 +50,7 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
             // Handle the case where the dequeued cell is not of the expected type.
             return UICollectionViewCell()
         }
-        
+
         cell.configureWithVideo(video: video)
         return cell
     }
@@ -58,47 +58,47 @@ final class WorkingRangeSectionController: ListSectionController, ListDisplayDel
     override func didUpdate(to object: Any) {
         self.video = object as? Video
     }
-    
+
     // MARK: ListDisplayDelegate
-    
+
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
-        
+
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
 
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         if let cell = cell as? EmbeddedVideoCell {
             playVideoOnTheCell(cell: cell as EmbeddedVideoCell, index: index)
-            
+
         } else {
             print("\tError in WorkingRangeSectionController: Couldn't play cell.")
         }
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         if let cell = cell as? EmbeddedVideoCell {
             stopPlayBack(cell: cell, index: index)
-            
+
         } else {
             print("\tError in WorkingRangeSectionController: Couldn't pause cell.")
         }
     }
-    
+
     func playVideoOnTheCell(cell: EmbeddedVideoCell, index: Int) {
         print("\t\tStarting playback for cell at index \(index)")
         cell.startPlaybackInPlayerView()
     }
-    
+
     func stopPlayBack(cell: EmbeddedVideoCell, index: Int) {
         print("\t\tStopping playback for cell at index \(index)")
         cell.stopPlaybackInPlayerView()
         cell.hideOverlay()
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying object: Any, at index: Int) {
-    
+
     }
 }

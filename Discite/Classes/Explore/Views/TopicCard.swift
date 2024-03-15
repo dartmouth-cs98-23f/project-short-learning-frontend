@@ -10,12 +10,12 @@ import SwiftUI
 struct LargeTopicTagWithNavigation: View {
     @Binding var topic: TopicTag
     var maxHeight: CGFloat
-    
+
     var body: some View {
-        
+
         NavigationLink(destination: {
             TopicPageView(topicSeed: topic)
-            
+
         }, label: {
             VStack(alignment: .leading) {
                 HStack(spacing: 4) {
@@ -23,16 +23,16 @@ struct LargeTopicTagWithNavigation: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 16, height: 16)
-                    
+
                     Text("TOPIC")
                         .font(Font.body1)
                 }
-                
+
                 Text(topic.topicName)
                     .font(Font.H6)
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 18)
@@ -49,19 +49,19 @@ struct LargeTopicTagWithNavigation: View {
 
 struct TopicTagWithNavigation: View {
     @Binding var topic: TopicTag
-    
+
     var body: some View {
-        
+
         NavigationLink(destination: {
             TopicPageView(topicSeed: topic)
-            
+
         }, label: {
             HStack(spacing: 4) {
                 Image(systemName: "tag")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 16, height: 16)
-                
+
                 Text(topic.topicName)
                     .font(Font.button)
             }
@@ -84,18 +84,18 @@ struct TopicTagWithNavigation: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 16, height: 16)
-            
+
             Text("TOPIC")
                 .font(Font.body1)
         }
         .border(.pink)
-        
+
         Text("Topic")
             .font(Font.H6)
             .lineLimit(2)
             .border(.blue)
             .frame(maxWidth: .infinity, alignment: .leading)
-        
+
     }
     .padding(.horizontal, 12)
     .padding(.vertical, 18)

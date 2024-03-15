@@ -30,7 +30,7 @@ struct FriendProfile: View {
             .task {
                 if self.userSpiderGraphData == nil {
                     self.userSpiderGraphData = await viewModel.getUserSpiderGraphData()
-                    
+
                     if spiderGraphData == nil {
                         spiderGraphData = SpiderGraphData(
                             data: [
@@ -103,11 +103,11 @@ struct FriendProfile: View {
         VStack(alignment: .leading) {
             Text("Compare Roles")
                 .font(.H5)
-            
+
             if let spiderGraphData = spiderGraphData {
                 GeometryReader { geometry in
                     let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                    
+
                     SpiderGraph(
                         axes: spiderGraphData.axes,
                         values: spiderGraphData.data,

@@ -9,15 +9,15 @@ import SwiftUI
 
 struct SharePage: View {
     var playlist: Playlist
-    
+
     @State private var isShowingActivities = false
     @State private var friendSearch = ""
     @State private var message = "Wanted to share a playlist with you. Join me on Discite to unlock personalized and engaging computer science content, made for the modern attention span.\n"
-    
+
     @ObservedObject var viewModel = FriendsViewModel()
     @State private var friends: [Friend]?
     @State private var selection = Set<Friend>()
-    
+
     var body: some View {
             NavigationStack {
                 VStack {
@@ -34,15 +34,15 @@ struct SharePage: View {
                             }
                             .frame(minHeight: 84)
                         }
-                        
+
                         // Add friend or Export
                         moreSharingOptions()
-                        
+
                         // Message box
                         messageBox()
-                        
+
                         Spacer()
-                        
+
                         // Share button
                         shareButton()
                     }
@@ -69,14 +69,14 @@ struct SharePage: View {
         VStack(spacing: 4) {
             Text("Can't find who you're looking for?")
                 .font(.body2)
-            
+
             HStack {
                 Button("Add friend") { }
                     .foregroundColor(.secondaryPurplePink)
-                
+
                 Text("or")
                     .foregroundColor(.primaryBlueBlack)
-                
+
                 Button("Export") {
                     self.isShowingActivities.toggle()
                 }
@@ -91,14 +91,14 @@ struct SharePage: View {
                 .strokeBorder(Color.secondaryPurplePink, lineWidth: 2)
         }
     }
-    
+
     func messageBox() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             playlistPreview()
                 .padding(.horizontal, 8)
-            
+
             Divider()
-            
+
             // Text area
             TextField("Message", text: $message, axis: .vertical)
                 .font(Font.body1)
@@ -113,7 +113,7 @@ struct SharePage: View {
                 .opacity(0.5)
         )
     }
-    
+
     // Preview of playlist being shared
     func playlistPreview() -> some View {
         HStack {
@@ -122,7 +122,7 @@ struct SharePage: View {
                 Rectangle()
                     .fill(Color.grayNeutral)
                     .frame(width: 54, height: 54)
-                
+
                 // Check thumbnail URL
                 if let thumbnailURL = playlist.thumbnailURL,
                    let url = URL(string: thumbnailURL) {
@@ -138,18 +138,18 @@ struct SharePage: View {
                             .frame(width: 54, height: 54)
                     }
                 }
-                
+
             }
-            
+
             VStack(alignment: .leading) {
                 Text("PLAYLIST").font(.small)
                 Text(playlist.title).font(.H6)
             }
-            
+
         }
-        
+
     }
-    
+
     // Internal share button
     func shareButton() -> some View {
         Button {
@@ -159,7 +159,7 @@ struct SharePage: View {
         }
         .disabled(selection.count == 0)
     }
-    
+
     // Profile icons for each friend
     func profileSelectButton(friend: Friend) -> some View {
         Button {
@@ -168,7 +168,7 @@ struct SharePage: View {
             } else {
                 selection.insert(friend)
             }
-            
+
         } label: {
             VStack {
                 if selection.contains(friend) {
@@ -176,7 +176,7 @@ struct SharePage: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 52, height: 52)
-                    
+
                 } else {
                     if let imageStringURL = friend.profileImage,
                        let imageURL = URL(string: imageStringURL) {
@@ -184,16 +184,16 @@ struct SharePage: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                            
+
                         } placeholder: {
                             Image(systemName: "person.circle")
                                 .resizable()
                                 .scaledToFit()
-                            
+
                         }
                         .frame(width: 54, height: 54)
                         .clipShape(Circle())
-                        
+
                     } else {
                         Image(systemName: "person.circle")
                             .resizable()
@@ -201,14 +201,14 @@ struct SharePage: View {
                             .frame(width: 54, height: 54)
                     }
                 }
-                
+
                 Text(friend.username).font(Font.small)
             }
             .animation(.easeInOut(duration: 0.3), value: selection.contains(friend))
         }
         .foregroundColor(Color.primaryBlueBlack)
     }
-    
+
     func clearProfileSelection() {
         selection.removeAll()
     }

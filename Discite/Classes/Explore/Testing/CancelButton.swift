@@ -11,7 +11,7 @@ struct CancelButton: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: SearchViewModel
     @State var cancelButtonOffset: CGFloat
-    
+
     var body: some View {
         Button("Cancel") {
             endEditing()
@@ -26,7 +26,7 @@ struct CancelButton: View {
             }
         }
     }
-    
+
     private func endEditing() {
         viewModel.searchText = ""
         viewModel.isFocused = false

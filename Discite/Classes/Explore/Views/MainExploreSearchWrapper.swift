@@ -11,7 +11,7 @@ struct MainExplorePageSearchWrapper: View {
     @State var searchText: String = ""
     @StateObject var searchViewModel = ExploreSearchViewModel.shared
     @State var didSubmitSearchQuery: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             MainExplorePage(searchText: $searchText)

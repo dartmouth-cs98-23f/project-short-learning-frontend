@@ -9,12 +9,12 @@ import SwiftUI
 
 struct NavigationDotsView: View {
     @ObservedObject var videoWrapper: VideoWrapper
-    
+
     var body: some View {
         if let video = videoWrapper.video, let playlist = video.playlist {
             let currentIndex = playlist.videos.firstIndex(where: { $0.id == video.id })
             // let currentIndex = 1
-            
+
             HStack(spacing: 10) {
                 // ForEach(0..<3, id: \.self) { index in
                 ForEach(0..<playlist.videos.count, id: \.self) { index in

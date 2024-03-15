@@ -12,25 +12,25 @@ struct AllTopics: View {
     private var columns: [GridItem] = [
             GridItem(.flexible()), GridItem(.flexible())
     ]
-    
+
     @State var topics: [TopicTag] = []
-    @State private var selectedSortOption: SortOption = .Recommendations
+    @State private var selectedSortOption: SortOption = .recommendations
     @State var searchText: String = ""
-    
+
     enum SortOption: String, CaseIterable {
-        case Recommendations
-        case Name
+        case recommendations
+        case name
     }
 
     private var sortedTopics: [TopicTag]? {
         switch selectedSortOption {
-        case .Recommendations:  // Recommendations
+        case .recommendations:  // Recommendations
             return topics
-        case .Name:             // Name
+        case .name:             // Name
             return topics.sorted { $0.topicName < $1.topicName }
         }
     }
-    
+
     private var filteredAndSortedTopics: [TopicTag] {
         var filteredTopics = topics
         // filter topics
@@ -39,9 +39,9 @@ struct AllTopics: View {
         }
         // sort topics
         switch selectedSortOption {
-        case .Recommendations:
+        case .recommendations:
             return filteredTopics
-        case .Name:
+        case .name:
             return filteredTopics.sorted { $0.topicName < $1.topicName }
         }
     }
@@ -52,7 +52,7 @@ struct AllTopics: View {
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
                         Text("Sort by:")
-                        
+
                         Picker("", selection: $selectedSortOption) {
                             ForEach(SortOption.allCases, id: \.self) { option in
                                 Text("\(option.rawValue)")
@@ -62,10 +62,10 @@ struct AllTopics: View {
                         .pickerStyle(MenuPickerStyle())
                         .padding(0)
                     }
-                    
+
                     topicScrollSection(searchText: searchText)
                         .animation(.easeIn(duration: 0.3), value: topics.isEmpty)
-                    
+
                 }
                 .navigationTitle("All Topics")
                 .padding(18)
@@ -81,7 +81,7 @@ struct AllTopics: View {
             }
         }
     }
-    
+
     // Vertically scrolling 2 column grid of topics
     func topicScrollSection(searchText: String) -> some View {
         LazyVGrid(columns: columns, spacing: 18) {

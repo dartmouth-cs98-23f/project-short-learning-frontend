@@ -15,7 +15,7 @@ struct ContentView: View {
     let transition: AnyTransition = .asymmetric(
         insertion: .move(edge: .trailing),
         removal: .move(edge: .leading))
-        
+
     var body: some View {
         // applying dark mode settings to the grouped content view
         Group {
@@ -24,12 +24,12 @@ struct ContentView: View {
                 Navigator()
                     .transition(transition)
                     .environmentObject(user)
-                
+
             case .onboarding:
                 Hello()
                     .transition(transition)
                     .environmentObject(user)
-                
+
             case .signedOut:
                 MainAuthPage()
                     .transition(transition)

@@ -10,33 +10,33 @@
 import Foundation
 
 class Auth: ObservableObject {
-    
+
     enum AuthError: Error {
         case noToken
         case setToken
         case failedOnboard
     }
-    
+
     enum KeychainKey: String {
         case token
         case onboarded
     }
-    
+
     static let shared: Auth = Auth()
     private let keychain: KeychainTools = KeychainTools()
-    
+
     @Published var loggedIn: Bool = false
     @Published var onboarded: Bool = false
     @Published var playlist: Playlist?
-    
+
     private init() {
         loggedIn = hasToken()
     }
-    
+
     // Stores token in keychain
     func setToken(token: String?) throws {
         guard token != nil else { throw AuthError.noToken }
-        
+
         let success = keychain.set(token!, forKey: KeychainKey.token.rawValue)
         guard success else { throw AuthError.setToken }
         Auth.shared.loggedIn = true
@@ -44,11 +44,11 @@ class Auth: ObservableObject {
 //            Auth.shared.loggedIn = true
 //        }
     }
-    
+
     func hasToken() -> Bool {
         return getToken() != nil
     }
-    
+
     func getToken() -> String? {
         return keychain.string(forKey: KeychainKey.token.rawValue)
     }

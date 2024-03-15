@@ -13,21 +13,21 @@ struct TopicTag: Codable, Identifiable {
     var topicId: String
     var topicName: String
     var isSaved: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case topicName
         case topicId
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         self.id = UUID()
         self.topicId = try container.decode(String.self, forKey: .topicId)
         self.topicName = try container.decode(String.self, forKey: .topicName)
         self.isSaved = false
     }
-    
+
     init(id: UUID, topicId: String, topicName: String, isSaved: Bool = false) {
         self.id = id
         self.topicId = topicId

@@ -13,9 +13,9 @@ import SwiftUI
 struct LoginPage: View {
     @EnvironmentObject var user: User
     @ObservedObject var viewModel = LoginViewModel()
-    
+
     var body: some View {
-        
+
         VStack(spacing: 32) {
             // logo and subtitle
             VStack(alignment: .leading, spacing: 18) {
@@ -24,59 +24,59 @@ struct LoginPage: View {
                     .font(.subtitle1)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 if viewModel.error != nil {
                     Text("Sorry, we couldn't log you in.")
                         .foregroundStyle(Color.red)
                 }
             }
             .animation(.smooth, value: viewModel.error == nil)
-            
+
             // regular sign in
             textField(label: "Email", text: $viewModel.usernameOrEmail)
             secureTextField(label: "Password", text: $viewModel.password)
-            
+
             signInButton()
-            
+
             // buttons
             HStack(alignment: .center, spacing: 24) {
                 signUpFooter()
-                
+
                 Spacer()
-                
+
                 // preview first button
                 // previewButton()
-                
+
             }
         }
         .padding(.horizontal, 18)
         .navigationBarBackButtonHidden(true)
-        
+
     }
-    
+
     @ViewBuilder
     func signUpFooter() -> some View {
         HStack {
             Text("Need an account?")
-            
+
             NavigationLink {
                 SignUpPage()
-                
+
             } label: {
                 Text("Sign up")
             }
         }
         .font(.body2)
     }
-    
+
     @ViewBuilder
     func textField(label: String, text: Binding<String>) -> some View {
         VStack(alignment: .leading) {
-            
+
             Text(!text.wrappedValue.isEmpty ? label : "")
                 .frame(minHeight: 18)
                 .font(Font.small)
-            
+
             TextField(label, text: text)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
@@ -90,20 +90,20 @@ struct LoginPage: View {
         .frame(minHeight: 56)
         .foregroundColor(Color.primaryBlueBlack)
     }
-    
+
     @ViewBuilder
     func secureTextField(label: String, text: Binding<String>) -> some View {
         VStack(alignment: .leading) {
             Text(!text.wrappedValue.isEmpty ? label : "")
                 .frame(minHeight: 18)
                 .font(Font.small)
-            
+
             SecureField(label, text: text)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
                 .padding(.vertical, 2)
                 .font(Font.body1)
-            
+
             Divider()
                 .foregroundStyle(Color.primaryBlueBlack)
         }
@@ -111,16 +111,16 @@ struct LoginPage: View {
         .frame(minHeight: 56)
         .foregroundColor(Color.primaryBlueBlack)
     }
-    
+
     @ViewBuilder
     func signInButton() -> some View {
         let disabled = viewModel.usernameOrEmail.count == 0
-        
+
         Button {
             Task {
                 await viewModel.signIn(user: user)
             }
-            
+
         } label: {
             Text("Log in")
                 .frame(maxWidth: .infinity)
@@ -129,13 +129,13 @@ struct LoginPage: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(disabled ? Color.grayNeutral : Color.primaryBlueBlack)
                 }
-            
+
         }
         .font(.button)
         .foregroundStyle(Color.white)
         .disabled(disabled)
     }
-    
+
 //    @ViewBuilder
 //    func googleSignInButton() -> some View {
 //        Button {
@@ -158,7 +158,7 @@ struct LoginPage: View {
 //            .frame(width: 50, height: 50)
 //        }
 //    }
-    
+
 //    @ViewBuilder
 //    func appleSignInButton() -> some View {
 //        SignInWithAppleButton(.continue) { request in
@@ -186,12 +186,12 @@ struct LoginPage: View {
 //        .signInWithAppleButtonStyle(.whiteOutline)
 //        .frame(height: 48)
 //    }
-    
+
     @ViewBuilder
     func previewButton() -> some View {
         Button {
             user.configure()
-            
+
         } label: {
             HStack(alignment: .center, spacing: 4) {
                 Text("Preview first")

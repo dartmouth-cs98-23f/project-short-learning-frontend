@@ -11,11 +11,11 @@ struct PlaylistView: View {
     @ObservedObject var viewModel: SequenceViewModel
     @ObservedObject var playlist: Playlist
     @Binding var likedCounter: [Like]
-    
+
     var size: CGSize
     var safeArea: EdgeInsets
     var includeNavigation: Bool = true
-    
+
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 0) {
@@ -34,7 +34,7 @@ struct PlaylistView: View {
         }
         .scrollIndicators(.hidden)
         .scrollTargetBehavior(.paging)
-        
+
     }
 }
 

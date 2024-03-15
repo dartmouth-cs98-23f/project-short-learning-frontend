@@ -9,13 +9,13 @@ import Foundation
 
 @MainActor
 class ExploreViewModel: ObservableObject {
-    
+
     @Published var topicRecommendations: [TopicTag] = []
     @Published var playlistRecommendations: [PlaylistPreview]?
     @Published var error: Error?
-    
+
     init() { }
-    
+
     func getTopicRecommendations() async {
         do {
             topicRecommendations = try await ExploreService.getTopicRecommendations()
@@ -24,7 +24,7 @@ class ExploreViewModel: ObservableObject {
             print("Error fetching topic recommendations: \(error)")
         }
     }
-    
+
     func getPlaylistRecommendations() async {
         do {
             playlistRecommendations = try await ExploreService.getPlaylistRecommendations()
@@ -33,17 +33,17 @@ class ExploreViewModel: ObservableObject {
             print("Error fetching playlist recommendations: \(error)")
         }
     }
-    
+
     // combine topics and recommendations
     func createSearchables() -> [Searchable] {
         var searchables: [Searchable] = []
-        
+
         // add topic recommendations
         for topic in topicRecommendations {
             let searchable = Searchable(id: topic.id.uuidString, name: topic.topicName, type: .topic, topic: topic, playlist: nil)
             searchables.append(searchable)
         }
-        
+
         // add playlist recommendations
         if let playlists = playlistRecommendations {
             for playlist in playlists {
@@ -53,7 +53,7 @@ class ExploreViewModel: ObservableObject {
         }
 
         print("Searchables complete")
-        
+
         return searchables
     }
 }

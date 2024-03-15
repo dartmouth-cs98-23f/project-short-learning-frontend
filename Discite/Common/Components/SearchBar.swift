@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchBar: View {
     var placeholder: String?
     @ObservedObject var viewModel: SearchViewModel
-    
+
     var body: some View {
         VStack {
             HStack {

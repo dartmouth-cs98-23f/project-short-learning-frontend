@@ -12,7 +12,7 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var auth = Auth.shared
-      
+
     var body: some View {
         OnboardingView()
     }

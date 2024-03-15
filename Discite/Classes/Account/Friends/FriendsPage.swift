@@ -11,19 +11,19 @@ import SwiftUI
 struct FriendsPage: View {
     @ObservedObject var viewModel = FriendsViewModel()
     @State var friends: [Friend]?
-    
+
     var body: some View {
         VStack(spacing: 8) {
             if viewModel.error != nil {
                 Text("Nobody here to display.")
-                                
+
             } else if friends == nil {
                 ProgressView("Loading...")
                     .frame(minHeight: 400)
                     .task {
                         friends = await viewModel.getFriends()
                     }
-                
+
             } else {
                 ScrollView(.vertical) {
                     LazyVStack(alignment: .leading) {
@@ -36,15 +36,15 @@ struct FriendsPage: View {
                 }
                 .padding(.vertical, 8)
             }
-                
+
             Spacer()
-            
+
         }
         .navigationTitle("Friends")
         .padding(.horizontal, 18)
         .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
-    
+
     func friendRow(friend: Friend) -> some View {
         HStack {
             // Profile image
@@ -56,19 +56,19 @@ struct FriendsPage: View {
                         .aspectRatio(contentMode: .fill)
                 } placeholder: {
                     placeHolderProfileImage()
-                    
+
                 }
                 .frame(width: 52, height: 52)
                 .clipShape(Circle())
-                
+
             } else {
                 placeHolderProfileImage()
             }
-            
+
             VStack {
                 Text(friend.username)
                     .font(.button)
-                
+
                 Text(friend.firstName + " " + friend.lastName)
                     .font(.body2)
             }
@@ -77,7 +77,7 @@ struct FriendsPage: View {
         .padding([.top, .bottom], 4)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     func placeHolderProfileImage() -> some View {
         Image(systemName: "person.circle")
             .resizable()

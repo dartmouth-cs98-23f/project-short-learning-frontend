@@ -10,26 +10,26 @@
 import SwiftUI
 
 struct ToastView: View {
-  
+
   var style: ToastStyle
   var message: String
   var width = CGFloat.infinity
   var onCancelTapped: (() -> Void)
-  
+
   var body: some View {
       HStack(alignment: .center, spacing: 12) {
-        
+
           // icon
           Image(systemName: style.iconFileName)
               .foregroundStyle(style.themeColor)
-      
+
           // message
           Text(message)
               .font(Font.body1)
               .foregroundStyle(Color.white)
-      
+
           Spacer(minLength: 10)
-        
+
           // close button
           Button {
               onCancelTapped()
@@ -37,7 +37,7 @@ struct ToastView: View {
               Image(systemName: "xmark")
                   .foregroundStyle(Color.white)
           }
-        
+
       }
       .frame(maxWidth: .infinity, minHeight: 48)
       .padding(.horizontal, 12)

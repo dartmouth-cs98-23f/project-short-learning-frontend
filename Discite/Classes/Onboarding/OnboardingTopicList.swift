@@ -29,13 +29,13 @@ struct OnboardingTopic: Identifiable, Hashable {
     let title: String
     var selected: Bool = false
     let values: Set<Int>
-    
+
     static func defaults() -> [OnboardingTopic] {
         return onboardingTopics.map { (title, values) in
             return OnboardingTopic(title: title, values: values)
         }
     }
-    
+
     mutating func toggle() {
         selected.toggle()
     }

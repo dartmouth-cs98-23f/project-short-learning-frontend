@@ -11,7 +11,7 @@ struct Shadows: View {
     var body: some View {
         Button {
             // Update sequence on click
-            
+
         } label: {
             Text("Button with shadow")
         }
@@ -27,7 +27,7 @@ extension View {
         self.shadow(color: Color.grayNeutral, radius: 2, x: 1, y: 4)
             .padding([.bottom, .top], 12)
     }
-    
+
     public func cardInnerShadow() -> some View {
         self.overlay(
             RoundedRectangle(cornerRadius: 10)

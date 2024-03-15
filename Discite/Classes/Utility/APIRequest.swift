@@ -55,7 +55,7 @@ extension APIError: LocalizedError {
 }
 
 class APIRequest<Parameters: Encodable, Model: Decodable> {
-    
+
     static func apiRequest(
         method: HTTPMethod,
         scheme: String = APIConfiguration.scheme,
@@ -66,30 +66,30 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         parameters: Parameters? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String]? = nil) async throws -> Model {
-        
+
             if !NetworkMonitor.shared.isReachable {
                 throw APIError.noInternet
             }
-            
+
             // Construct URL
             var components = URLComponents()
             components.scheme = scheme
             components.host = host
             components.path = path
             components.port = port
-            
+
             if queryItems != nil {
                 components.queryItems = queryItems
             }
-            
+
             guard let url = components.url else {
                 throw APIError.invalidURL
             }
-            
+
             // Construct the request: method, body, and headers
             var request = URLRequest(url: url)
             request.httpMethod = method.rawValue
-            
+
             if headers != nil {
                 for header in headers! {
                     request.addValue(header.value, forHTTPHeaderField: header.key)
@@ -97,27 +97,27 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
             } else {
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             }
-            
+
             if parameters != nil {
                 request.httpBody = try? JSONEncoder().encode(parameters)
             }
-            
+
             if authorized, let token = await User.getToken() {
                 request.addValue("\(token)", forHTTPHeaderField: "Authorization")
             }
-            
+
             // Make request
             let (data, response) = try await URLSession.shared.data(for: request)
-            
+
             let httpResponse = response as? HTTPURLResponse
             guard (200..<300).contains(httpResponse?.statusCode ?? 520) else {
                 throw APIError.requestFailed
             }
-            
+
             let decoded = try CustomJSONDecoder.shared.decode(Model.self, from: data)
             return decoded
     }
-    
+
     // Calls mock Postman server.
     static func mockRequest(
         method: HTTPMethod,
@@ -126,7 +126,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
         parameters: Parameters? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String]? = nil) async throws -> Model {
-            
+
             var mockHeaders = headers
             if parameters != nil && headers == nil {
                 mockHeaders = [
@@ -134,7 +134,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
                     "x-mock-match-request-body": "true"
                 ]
             }
-            
+
             let response = try await apiRequest(
                 method: method,
                 scheme: "https",
@@ -145,7 +145,7 @@ class APIRequest<Parameters: Encodable, Model: Decodable> {
                 parameters: parameters,
                 queryItems: queryItems,
                 headers: mockHeaders)
-        
+
             return response
     }
 }

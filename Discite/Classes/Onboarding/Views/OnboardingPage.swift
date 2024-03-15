@@ -9,21 +9,21 @@ import SwiftUI
 
 struct OnboardingPage: View {
     @EnvironmentObject var user: User
-    
+
     let totalPages = 3
     @State var currentPage = 0
     @StateObject var viewModel = OnboardViewModel()
     @State private var toast: Toast?
-    
+
     let transition: AnyTransition = .asymmetric(
         insertion: .move(edge: .trailing),
         removal: .move(edge: .leading))
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             progressDots()
                 .padding(.horizontal, 18)
-            
+
             switch currentPage {
             case 0:
                 OnboardingComplexity(viewModel: viewModel)
@@ -37,7 +37,7 @@ struct OnboardingPage: View {
             default:
                 Hello()
             }
-            
+
         }
         .toastView(toast: $toast)
         .navigationBarBackButtonHidden(true)
@@ -49,7 +49,7 @@ struct OnboardingPage: View {
                         withAnimation {
                             currentPage -= 1
                         }
-                        
+
                     } label: {
                         HStack(alignment: .center) {
                             Image(systemName: "chevron.left")
@@ -59,27 +59,27 @@ struct OnboardingPage: View {
                     .font(.button)
                     .foregroundStyle(Color.primaryPurple)
                 }
-                
+
                 Spacer()
-                
+
                 // next
                 if currentPage < totalPages - 1 {
                     Button {
                         withAnimation {
                             currentPage += 1
                         }
-                        
+
                     } label: {
                         HStack(alignment: .center) {
                             Text("Next")
                                 .frame(maxWidth: .infinity, alignment: .trailing)
-                            
+
                             Image(systemName: "chevron.right")
                         }
                     }
                     .font(.button)
                     .foregroundStyle(Color.primaryPurple)
-                    
+
                 } else {
                     Button {
                         Task {
@@ -89,7 +89,7 @@ struct OnboardingPage: View {
                                               message: "Failed to onboard.")
                             }
                         }
-                        
+
                     } label: {
                         Text("FINISH")
                     }
@@ -98,8 +98,8 @@ struct OnboardingPage: View {
         }
         .padding(.top, 36)
     }
-    
-    @ViewBuilder 
+
+    @ViewBuilder
     func progressDots() -> some View {
         HStack {
             ForEach(0..<totalPages, id: \.self) { i in
@@ -107,7 +107,7 @@ struct OnboardingPage: View {
                     .frame(width: i == currentPage ? 12 : 8)
                     .foregroundStyle(i == currentPage ?
                                      Color.secondaryPurplePink : Color.grayNeutral)
-                
+
             }
         }
     }

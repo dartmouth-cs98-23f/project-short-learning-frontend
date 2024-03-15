@@ -13,19 +13,19 @@ struct AccountMenu: View {
     @ObservedObject var viewModel: AccountViewModel
 
     var body: some View {
-        VStack(spacing: 14) {            
+        VStack(spacing: 14) {
             NavigationLink {
                 Settings()
             } label: {
                 textualMenuButton(label: "Settings")
             }
-            
+
             logoutButton()
-            
+
         }
         .padding([.leading, .trailing], 18)
     }
-    
+
     @ViewBuilder
     func textualMenuButton(label: String) -> some View {
         Text(label)
@@ -33,16 +33,16 @@ struct AccountMenu: View {
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     @ViewBuilder
     func logoutButton() -> some View {
         Button(action: {
-            do { 
+            do {
                 try user.clear()
             } catch {
                 print("Unable to log out \(error)")
             }
-            
+
         }, label: {
             Text("Log out")
                 .font(.button)
@@ -54,7 +54,7 @@ struct AccountMenu: View {
 
 #Preview {
     let viewModel = AccountViewModel()
-    
+
     return AccountMenu(viewModel: viewModel)
         .environmentObject(User())
 }

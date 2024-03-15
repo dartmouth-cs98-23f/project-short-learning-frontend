@@ -10,30 +10,30 @@ import SwiftUI
 struct PlaylistSummaryView: View {
     @StateObject var viewModel: PlaylistDetailsViewModel
     @ObservedObject private var playlist: Playlist
-    
+
     @State private var isShareShowing: Bool = false
     @State private var totalHeight = CGFloat.zero
-    
+
     init(playlist: Playlist) {
         self.playlist = playlist
         self._viewModel = StateObject(wrappedValue: PlaylistDetailsViewModel(playlist: playlist))
     }
-    
+
     var body: some View {
         if case .error = viewModel.state {
             ErrorView(text: "Error getting summary.")
-            
+
         } else if case .loaded = viewModel.state,
                   let summary = viewModel.summary {
-            
+
             GeometryReader { geo in
                 ScrollView(.vertical) {
                     VStack(spacing: 18) {
                         // playlist details
                         playlistDetails()
-                        
+
                         Divider()
-                        
+
                         // introduction
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Summary")
@@ -42,9 +42,9 @@ struct PlaylistSummaryView: View {
                             Text(summary.introduction)
                                 .font(.body2)
                         }
-                        
+
                         Divider()
-                        
+
                         // topics
                         VStack(spacing: 8) {
                             Text("Topics")
@@ -52,9 +52,9 @@ struct PlaylistSummaryView: View {
                                 .font(.H5)
                             topicCloud(in: geo, topics: summary.topics)
                         }
-                        
+
                         Divider()
-                        
+
                         // key points
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Key points")
@@ -63,7 +63,7 @@ struct PlaylistSummaryView: View {
                                 sectionView(section: section)
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -71,25 +71,25 @@ struct PlaylistSummaryView: View {
             .sheet(isPresented: $isShareShowing) {
                 Share(playlist: playlist, isShowing: $isShareShowing)
             }
-            
+
         } else {
             ProgressView()
                 .containerRelativeFrame([.vertical, .horizontal])
         }
     }
-    
+
     @ViewBuilder
     private func playlistDetails() -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(playlist.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.H3)
-            
+
             // Author details
             HStack(spacing: 10) {
                 Image(systemName: "person.circle.fill")
                     .font(.title)
-                
+
                 Text(playlist.authorUsername)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.subtitle2)
@@ -97,19 +97,19 @@ struct PlaylistSummaryView: View {
                     .clipped()
             }
             .foregroundStyle(Color.primaryBlueBlack)
-        
+
         }
         .font(.title2)
 
     }
-    
+
     @ViewBuilder
     private func sectionView(section: PlaylistInferenceSummary.Section) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(section.title)
                 .font(.H6)
                 .foregroundStyle(Color.primaryPurple)
-            
+
             ForEach(section.content, id: \.self) { bullet in
                 HStack(alignment: .top) {
                     Text("•")
@@ -121,7 +121,7 @@ struct PlaylistSummaryView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func topicTag(_ title: String) -> some View {
         Text(title)
@@ -133,7 +133,7 @@ struct PlaylistSummaryView: View {
                     .strokeBorder(Color.primaryPurple, lineWidth: 2)
             }
     }
-    
+
     // stackoverflow.com/questions/62102647
     @ViewBuilder
     private func topicCloud(in geometry: GeometryProxy, topics: [String]) -> some View {
@@ -141,7 +141,7 @@ struct PlaylistSummaryView: View {
         var height = CGFloat.zero
         let horizontalSpacing: CGFloat = 4
         let verticalSpacing: CGFloat = 4
-        
+
         ZStack(alignment: .topLeading) {
              ForEach(topics, id: \.self) { topic in
                 topicTag(topic)
@@ -170,9 +170,9 @@ struct PlaylistSummaryView: View {
             }
         }
         .background(viewHeightReader($totalHeight))
-        
+
     }
-    
+
     @ViewBuilder
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
         GeometryReader { geometry -> Color in
@@ -187,6 +187,6 @@ struct PlaylistSummaryView: View {
 
 #Preview {
     let playlist = Playlist()
-    
+
     return PlaylistSummaryView(playlist: playlist)
 }

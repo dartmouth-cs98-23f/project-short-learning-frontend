@@ -17,13 +17,13 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
             playerControlsView.player = player
         }
     }
-    
+
     var video: Video? {
         didSet {
             playerControlsView.video = video
         }
     }
-    
+
     var task: Task<Void, Error>? {
         willSet {
             if let currentTask = task {
@@ -33,15 +33,15 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
             }
         }
     }
-    
+
     private let playerControlsView = PlayerOverlayView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         playerControlsView.player = player
         playerControlsView.delegate = self
-        
+
         view.addSubview(playerControlsView)
         setupConstraints()
     }
@@ -49,7 +49,7 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
     private func setupConstraints() {
         playerControlsView.layer.borderColor = UIColor.systemPink.cgColor
         playerControlsView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             playerControlsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerControlsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -57,43 +57,43 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
             playerControlsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         #if DEBUG
         print("\tView disappearing, pause player.")
         #endif
-        
+
         if player?.rate != 0 {
             player?.pause()
         }
     }
-    
+
     // MARK: PlayerOverlayDelegate
-    
+
     func presentShareController() {
         #if DEBUG
         print("\tIn presentDetailsView.")
         #endif
-        
+
         guard let playlist = video?.playlist else { return }
-        
+
         let shareView = SharePage(playlist: playlist)
         let shareController = UIHostingController(rootView: shareView)
         self.present(shareController, animated: true, completion: nil)
     }
-    
+
     func presentDetailsView() {
         #if DEBUG
         print("\tIn presentDetailsView.")
         #endif
-        
+
         guard let playlist = video?.playlist else { return }
-        
+
         let detailsView = PlaylistSummaryView(playlist: playlist)
         let detailsController = UIHostingController(rootView: detailsView)
         self.present(detailsController, animated: true, completion: nil)
     }
-    
+
     func dislikeButtonTapped(disliked: Bool) {
         if disliked {
             let alertController = UIAlertController(
@@ -105,19 +105,19 @@ class PlayerOverlayViewController: UIViewController, PlayerOverlayDelegate {
             let tooEasyButton = UIAlertAction(title: "Too easy", style: .default) { _ in
                 self.task = Task { await self.video?.postTooEasy() }
             }
-            
+
             alertController.addAction(tooEasyButton)
-            
+
             let tooHardButton = UIAlertAction(title: "Too hard", style: .default) { _ in
                 self.task = Task { await self.video?.postTooHard() }
             }
-            
+
             alertController.addAction(tooHardButton)
 
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
+
     deinit {
         task?.cancel()
     }

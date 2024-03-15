@@ -11,11 +11,11 @@ struct PrimaryNavigationButton<Content: View>: View {
     @ViewBuilder let destination: Content
     let label: String
     let disabled: Bool
-    
+
     init(destination: @escaping () -> Content,
          label: String,
          disabled: Bool = false) {
-        
+
         self.destination = destination()
         self.label = label
         self.disabled = disabled
@@ -39,11 +39,11 @@ struct SecondaryNavigationButton<Content: View>: View {
     @ViewBuilder let destination: Content
     let label: String
     let disabled: Bool
-    
+
     init(destination: @escaping () -> Content,
          label: String,
          disabled: Bool = false) {
-        
+
         self.destination = destination()
         self.label = label
         self.disabled = disabled
@@ -71,11 +71,11 @@ struct TextualNavigationButton<Content: View>: View {
     @ViewBuilder let destination: Content
     let label: String
     let disabled: Bool
-    
+
     init(destination: @escaping () -> Content,
          label: String,
          disabled: Bool = false) {
-        
+
         self.destination = destination()
         self.label = label
         self.disabled = disabled

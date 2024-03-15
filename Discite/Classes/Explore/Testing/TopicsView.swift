@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct TopicsView: View {
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -25,5 +25,5 @@ struct TopicsView: View {
             print("Topics disappear")
         }
     }
-    
+
 }

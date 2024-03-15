@@ -20,11 +20,11 @@ struct TopicSearchResult: Decodable, Identifiable {
     let topic: String
     let score: Int
     let id: UUID
-    
+
     enum CodingKeys: String, CodingKey {
         case topic, topicId, score
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.topicId = try container.decode(String.self, forKey: .topicId)
@@ -38,18 +38,18 @@ struct ExploreSearchResponse: Decodable {
     let playlists: [PlaylistPreview]?
     let topics: [TopicSearchResult]?
     let users: [UserSearchResult]?
-    
+
     enum CodingKeys: String, CodingKey {
         case videos, topics, users
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         self.topics = try container.decodeIfPresent([TopicSearchResult].self, forKey: .topics)
         self.users = try container.decodeIfPresent([UserSearchResult].self, forKey: .users)
-        self.playlists = (try? container.decodeIfPresent([Playlist].self, forKey: .videos))?.map { p in
-            return PlaylistPreview(playlist: p)
+        self.playlists = (try? container.decodeIfPresent([Playlist].self, forKey: .videos))?.map { playlist in
+            return PlaylistPreview(playlist: playlist)
         }
     }
 }

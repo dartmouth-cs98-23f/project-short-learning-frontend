@@ -10,7 +10,7 @@
 import SwiftUI
 
 extension Font {
-    
+
     // Headings
     static let H1 = Font.custom("Mulish-Bold", size: 56)
     static let H2 = Font.custom("Mulish-Bold", size: 40)
@@ -18,15 +18,15 @@ extension Font {
     static let H4 = Font.custom("Mulish-SemiBold", size: 26)
     static let H5 = Font.custom("Mulish-Bold", size: 20)
     static let H6 = Font.custom("Mulish-SemiBold", size: 18)
-    
+
     // Subtitles
     static let subtitle1 = Font.custom("Mulish-SemiBold", size: 20)
     static let subtitle2 = Font.custom("Mulish-SemiBold", size: 16)
-    
+
     // Body
     static let body1 = Font.custom("Mulish-Regular", size: 16)
     static let body2 = Font.custom("Mulish-Regular", size: 14)
-    
+
     // Special
     static let small = Font.custom("Mulish-SemiBold", size: 12)
     static let button = Font.custom("Mulish-Bold", size: 16)
@@ -53,24 +53,24 @@ struct Fonts: View {
                 Text("H6")
                     .font(Font.H6)
             }
-            
+
             VStack {
                 Text("Body 1")
                     .font(Font.body1)
                 Text("Body 2")
                     .font(Font.body2)
             }
-            
+
             VStack {
                 Text("Button")
                     .font(Font.button)
                 Text("Small")
                     .font(Font.small)
             }
-            
+
             Text("CAPTION")
                 .font(Font.captionBold)
-            
+
         }
     }
 }

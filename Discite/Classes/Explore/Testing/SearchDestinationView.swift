@@ -12,7 +12,7 @@ struct SearchDestinationView: View {
     var searchables: [Searchable]
     var playlists: [Searchable]     // extracted playlists
     var topics: [Searchable]        // extracted topics
-    
+
     init(searchText: String, searchables: [Searchable]) {
         self.searchText = searchText
         self.searchables = searchables
@@ -25,10 +25,10 @@ struct SearchDestinationView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Results")
                 .font(Font.H2)
-                
+
                 Text(searchText)
                     .font(.H3)
-                
+
                 let tabItems: [CustomTabItem] = [
                     CustomTabItem("Playlists") {
                         playlistResults()
@@ -44,15 +44,15 @@ struct SearchDestinationView: View {
                 CustomTabView(tabItems)
             }
             .padding(18)
-            
+
             Spacer()
         }
     }
-    
+
     @ViewBuilder
     func playlistResults() -> some View {
         let results = playlists.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        
+
         if results.isEmpty && playlists.isEmpty {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -68,11 +68,11 @@ struct SearchDestinationView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func topicResults() -> some View {
         let results = topics.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        
+
         if results.isEmpty && topics.isEmpty {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,25 +88,25 @@ struct SearchDestinationView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func singleTopic(topic: TopicTag) -> some View {
-        
+
         NavigationLink {
             TopicPageView(topicSeed: topic)
-            
+
         } label: {
             HStack {
                 Image(systemName: "tag")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                
+
                 Text(topic.topicName)
                     .font(.H6)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Image(systemName: "chevron.right")
                     .resizable()
                     .scaledToFit()
@@ -121,7 +121,7 @@ struct SearchDestinationView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func singlePlaylist(playlist: PlaylistPreview) -> some View {
         HStack {
@@ -134,7 +134,7 @@ struct SearchDestinationView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60, height: 60)
                         .clipped()
-                    
+
                 } placeholder: {
                     Rectangle()
                         .foregroundStyle(Color.grayNeutral)
@@ -147,17 +147,17 @@ struct SearchDestinationView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 60)
             }
-            
+
             // title
             Text(playlist.title)
                 .font(.subtitle2)
                 .lineLimit(1)
                 .padding(.horizontal, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // open Watch
             Button {
-                
+
             } label: {
                 Image(systemName: "chevron.right")
                     .resizable()
@@ -165,8 +165,8 @@ struct SearchDestinationView: View {
                     .frame(width: 14, height: 14)
                     .foregroundStyle(Color.primaryPurpleLight)
             }
-            
+
         }
     }
-    
+
 }

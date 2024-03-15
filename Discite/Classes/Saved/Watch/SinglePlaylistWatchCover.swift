@@ -10,7 +10,7 @@ import SwiftUI
 struct SinglePlaylistWatchCover: View {
     @Environment(\.dismiss) var dismiss
     let playlistId: String
-    
+
     var body: some View {
         WatchSinglePlaylist(playlistId: playlistId)
         .navigationBarTitleDisplayMode(.inline)
@@ -18,7 +18,7 @@ struct SinglePlaylistWatchCover: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
                     dismiss()
-    
+
                 } label: {
                     HStack(alignment: .center, spacing: 4) {
                         Image(systemName: "chevron.left")

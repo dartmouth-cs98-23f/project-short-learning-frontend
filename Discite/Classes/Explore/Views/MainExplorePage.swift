@@ -11,33 +11,33 @@ struct MainExplorePage: View {
     @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel = MainExploreViewModel()
     @Binding var searchText: String
-    
+
     @State var seed: String?
 
     @Environment(\.isSearching)
     private var isSearching: Bool
-    
+
     var body: some View {
             VStack(alignment: .leading) {
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack(spacing: 18) {
-                        
+
                         ForEach(viewModel.topicsAndRolesVideos, id: \.id) { video in
-                            
+
                             // topic carousel for topics
                             if let topicVideo = video as? TopicVideo {
                                 topicCarousel(topicVideo: topicVideo)
-                            
+
                             // vertical role carousel for roles
                             } else if let roleVideo = video as? RoleVideo {
                                 rolesCarousel(roleVideo: roleVideo)
                             } else {
-                                
+
                             }
                         }
-                        
+
                         Spacer()
-                        
+
                         // loading indicator at the bottom
                         ProgressView()
                             .padding(.vertical, 18)
@@ -45,7 +45,7 @@ struct MainExplorePage: View {
                             .onAppear {
                                 viewModel.loadNextExplorePage()
                             }
-                        
+
                     }
                 }
             }
@@ -55,10 +55,10 @@ struct MainExplorePage: View {
                         .clipped()
                 }
             }
-            
+
             NavigationBar()
     }
-    
+
     @ViewBuilder
     private func rolesCarousel(roleVideo: RoleVideo) -> some View {
         VStack(alignment: .leading) {
@@ -70,11 +70,11 @@ struct MainExplorePage: View {
                     Text(roleVideo.title)
                         .font(.H4)
                 }
-                
+
                 Spacer()
             }
             .padding(.horizontal, 18)
-            
+
             // playlists
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(roleVideo.videos) { playlist in
@@ -88,7 +88,7 @@ struct MainExplorePage: View {
         }
         .padding(.bottom, 12)
     }
-    
+
     @ViewBuilder
     private func topicCarousel(topicVideo: TopicVideo) -> some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -97,22 +97,22 @@ struct MainExplorePage: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("TOPIC")
                         .foregroundColor(.primaryPurpleLight)
-                    
+
                     Text(topicVideo.title)
                         .lineLimit(2)
                         .clipped()
                         .font(.H5)
                 }
-                
+
                 Spacer(minLength: 24)
-                
+
                 NavigationLink {
                     TopicPageView(topicSeed: TopicTag(
                         id: topicVideo.id,
                         topicId: topicVideo.topicId,
                         topicName: topicVideo.title
                     ))
-                    
+
                 } label: {
                     Text("See more")
                         .font(.small)
@@ -120,7 +120,7 @@ struct MainExplorePage: View {
                 }
             }
             .padding(.horizontal, 18)
-            
+
             // playlist previews
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 18) {
@@ -148,27 +148,27 @@ struct MainExplorePage: View {
                         .scaledToFill()
                         .frame(width: 60, height: 60)
                         .clipped()
-                    
+
                 } placeholder: {
                     ProgressView()
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 .frame(width: 60, height: 60)
-                
+
             } else {
                 Rectangle()
                     .foregroundStyle(Color.grayDark)
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 60)
             }
-            
+
             // title
             VStack(alignment: .leading) {
                 Text(playlist.title)
                     .font(.subtitle2)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Text(playlist.description ?? "")
                     .font(.body2)
                     .lineLimit(2)
@@ -176,7 +176,7 @@ struct MainExplorePage: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .clipped()
             }
-            
+
             // open Watch
             Image(systemName: "play.fill")
                 .resizable()

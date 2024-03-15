@@ -10,7 +10,7 @@ import SwiftUI
 struct WatchFullScreenCover: View {
     @Environment(\.dismiss) var dismiss
     let seed: String?
-    
+
     var body: some View {
         NestedAdapterWatchWrapper(seed: seed)
             .navigationBarTitleDisplayMode(.inline)
@@ -19,7 +19,7 @@ struct WatchFullScreenCover: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
-        
+
                     } label: {
                         HStack(alignment: .center, spacing: 4) {
                             Image(systemName: "chevron.left")

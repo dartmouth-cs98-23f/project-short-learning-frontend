@@ -23,5 +23,5 @@ struct SharedView: View {
             print("Shared disappear")
         }
     }
-    
+
 }

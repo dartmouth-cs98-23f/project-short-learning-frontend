@@ -15,7 +15,7 @@ enum SwipeDirection: CaseIterable {
 }
 
 func swipeDirection(value: DragGesture.Value) -> SwipeDirection {
-    
+
     switch(value.translation.width, value.translation.height) {
     case (...0, -30...30):
         return .left
@@ -28,5 +28,5 @@ func swipeDirection(value: DragGesture.Value) -> SwipeDirection {
     default:
         return .none
     }
-    
+
 }

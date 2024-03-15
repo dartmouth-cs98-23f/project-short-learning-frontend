@@ -15,16 +15,16 @@ struct WatchPage: View {
     @Environment(TabSelectionManager.self) private var tabSelection
     @StateObject var viewModel: SequenceViewModel
     @State var likedCounter: [Like] = []
-    
+
     init(size: CGSize, safeArea: EdgeInsets, seed: String? = nil, includeNavigation: Bool = true) {
         self.size = size
         self.safeArea = safeArea
         self.includeNavigation = includeNavigation
-        
+
         self._viewModel = StateObject(
             wrappedValue: SequenceViewModel(seed: seed))
     }
-    
+
     var body: some View {
         if case .error = viewModel.state {
             errorView()
@@ -35,7 +35,7 @@ struct WatchPage: View {
                 .tint(.white)
                 .background(.black)
                 .animation(.easeOut(duration: 0.1), value: viewModel.items.isEmpty)
-            
+
         } else {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
@@ -57,7 +57,7 @@ struct WatchPage: View {
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.paging)
             .background(.black)
-            
+
             // like animation
             .overlay(alignment: .topLeading) {
                 ZStack {
@@ -75,16 +75,16 @@ struct WatchPage: View {
             .environment(\.colorScheme, .dark)
         }
     }
-    
+
     @ViewBuilder
     private func errorView() -> some View {
         VStack {
             Text("Error loading content.")
                 .foregroundStyle(Color.secondaryPink)
                 .containerRelativeFrame([.horizontal, .vertical])
-            
+
             Spacer()
-            
+
             NavigationBar()
         }
         .background(Color.primaryBlueBlack)
