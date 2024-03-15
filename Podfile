@@ -8,6 +8,7 @@ target 'Discite' do
   # Pods for Discite
   pod 'SwiftLint'
   pod 'IGListKit', '~> 4.0.0'
+  pod 'lottie-ios'
 
   # pod 'GoogleSignIn'
   # pod 'GoogleSignInSwiftSupport'

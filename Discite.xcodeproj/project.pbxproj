@@ -50,6 +50,7 @@
 		C235C6752ADF842500870600 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C235C6742ADF842500870600 /* Auth.swift */; };
 		C23A44192AE9E813004C6927 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A44182AE9E813004C6927 /* VideoService.swift */; };
 		C23A77A22BA4A1310057D516 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C23A77A12BA4A1310057D516 /* .swiftlint.yml */; };
+		C23A77B22BA4CAE50057D516 /* DisciteLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77B12BA4CAE50057D516 /* DisciteLogger.swift */; };
 		C24C585B2B8FA302002146D3 /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585A2B8FA302002146D3 /* SignUpPage.swift */; };
 		C24C585E2B8FADCE002146D3 /* GoogleLoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */; };
 		C24C58602B8FAE76002146D3 /* GoogleSignOutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */; };
@@ -214,6 +215,7 @@
 		C235C6742ADF842500870600 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		C23A44182AE9E813004C6927 /* VideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
 		C23A77A12BA4A1310057D516 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C23A77B12BA4CAE50057D516 /* DisciteLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteLogger.swift; sourceTree = "<group>"; };
 		C24C585A2B8FA302002146D3 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginExtension.swift; sourceTree = "<group>"; };
 		C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignOutExtension.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 		C2128A692ADB270B00E90C66 = {
 			isa = PBXGroup;
 			children = (
+				C23A77A12BA4A1310057D516 /* .swiftlint.yml */,
 				C2128A742ADB270B00E90C66 /* Discite */,
 				C2128A732ADB270B00E90C66 /* Products */,
 				3622EC259FD8B4B212031657 /* Pods */,
@@ -441,7 +444,6 @@
 			children = (
 				C28ABEC82AF3409C007181F4 /* Info.plist */,
 				C20EFE562AFBABDD0074EC9A /* DisciteApp.swift */,
-				C23A77A12BA4A1310057D516 /* .swiftlint.yml */,
 				C2128A8E2ADB32B100E90C66 /* Classes */,
 				C2128A8B2ADB2B9100E90C66 /* Common */,
 				C2128A7B2ADB271300E90C66 /* Preview Content */,
@@ -475,6 +477,7 @@
 		C2128A8E2ADB32B100E90C66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C23A77A32BA4B2530057D516 /* Logging */,
 				C2237F412AE5E41500C9396E /* Account */,
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
 				C291450B2AE60DBF000BEB88 /* Explore */,
@@ -564,6 +567,14 @@
 				C2BA1CC02AEC7C8200DC21B2 /* SwipeDirection.swift */,
 			);
 			path = Watch;
+			sourceTree = "<group>";
+		};
+		C23A77A32BA4B2530057D516 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77B12BA4CAE50057D516 /* DisciteLogger.swift */,
+			);
+			path = Logging;
 			sourceTree = "<group>";
 		};
 		C24C58592B8FA2E7002146D3 /* Views */ = {
@@ -1123,6 +1134,7 @@
 				C2D9F2182B9A989100FDBD0F /* NavigationDotsView.swift in Sources */,
 				C20EFE5A2AFBAF870074EC9A /* SampleData.swift in Sources */,
 				C20EFE572AFBABDD0074EC9A /* DisciteApp.swift in Sources */,
+				C23A77B22BA4CAE50057D516 /* DisciteLogger.swift in Sources */,
 				C2A3FF142B01CE5C001EDE9F /* SharedPlaylist.swift in Sources */,
 				C2A3FF162B01CF5F001EDE9F /* Friend.swift in Sources */,
 				C2BA1CC12AEC7C8200DC21B2 /* SwipeDirection.swift in Sources */,
