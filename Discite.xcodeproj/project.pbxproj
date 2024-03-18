@@ -51,6 +51,9 @@
 		C23A44192AE9E813004C6927 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A44182AE9E813004C6927 /* VideoService.swift */; };
 		C23A77A22BA4A1310057D516 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C23A77A12BA4A1310057D516 /* .swiftlint.yml */; };
 		C23A77B22BA4CAE50057D516 /* DisciteLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77B12BA4CAE50057D516 /* DisciteLogger.swift */; };
+		C23A77BD2BA87BA00057D516 /* DisciteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77BC2BA87BA00057D516 /* DisciteTests.swift */; };
+		C23A77CA2BA87BAE0057D516 /* DisciteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77C92BA87BAE0057D516 /* DisciteUITests.swift */; };
+		C23A77CC2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77CB2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift */; };
 		C24C585B2B8FA302002146D3 /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585A2B8FA302002146D3 /* SignUpPage.swift */; };
 		C24C585E2B8FADCE002146D3 /* GoogleLoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */; };
 		C24C58602B8FAE76002146D3 /* GoogleSignOutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */; };
@@ -169,6 +172,23 @@
 		C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF0B032B5315440000DCE8 /* NavigationButtons.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C23A77BE2BA87BA00057D516 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2128A6A2ADB270B00E90C66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2128A712ADB270B00E90C66;
+			remoteInfo = Discite;
+		};
+		C23A77CD2BA87BAE0057D516 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2128A6A2ADB270B00E90C66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2128A712ADB270B00E90C66;
+			remoteInfo = Discite;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0F2EA9055C2D649F90179C57 /* Pods-Discite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discite.release.xcconfig"; path = "Target Support Files/Pods-Discite/Pods-Discite.release.xcconfig"; sourceTree = "<group>"; };
 		2C0CAB6F2B85845200B8BA25 /* FriendProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfile.swift; sourceTree = "<group>"; };
@@ -216,6 +236,11 @@
 		C23A44182AE9E813004C6927 /* VideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
 		C23A77A12BA4A1310057D516 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C23A77B12BA4CAE50057D516 /* DisciteLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteLogger.swift; sourceTree = "<group>"; };
+		C23A77BA2BA87BA00057D516 /* DisciteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisciteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C23A77BC2BA87BA00057D516 /* DisciteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteTests.swift; sourceTree = "<group>"; };
+		C23A77C72BA87BAE0057D516 /* DisciteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisciteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C23A77C92BA87BAE0057D516 /* DisciteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteUITests.swift; sourceTree = "<group>"; };
+		C23A77CB2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C24C585A2B8FA302002146D3 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginExtension.swift; sourceTree = "<group>"; };
 		C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignOutExtension.swift; sourceTree = "<group>"; };
@@ -348,6 +373,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C23A77B72BA87BA00057D516 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C23A77C42BA87BAE0057D516 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -425,6 +464,8 @@
 			children = (
 				C23A77A12BA4A1310057D516 /* .swiftlint.yml */,
 				C2128A742ADB270B00E90C66 /* Discite */,
+				C23A77BB2BA87BA00057D516 /* DisciteTests */,
+				C23A77C82BA87BAE0057D516 /* DisciteUITests */,
 				C2128A732ADB270B00E90C66 /* Products */,
 				3622EC259FD8B4B212031657 /* Pods */,
 				4293D4045B8B40739121FB43 /* Frameworks */,
@@ -435,6 +476,8 @@
 			isa = PBXGroup;
 			children = (
 				C2128A722ADB270B00E90C66 /* Discite.app */,
+				C23A77BA2BA87BA00057D516 /* DisciteTests.xctest */,
+				C23A77C72BA87BAE0057D516 /* DisciteUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -477,6 +520,7 @@
 		C2128A8E2ADB32B100E90C66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C23A77B32BA7411D0057D516 /* Injected */,
 				C23A77A32BA4B2530057D516 /* Logging */,
 				C2237F412AE5E41500C9396E /* Account */,
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
@@ -575,6 +619,30 @@
 				C23A77B12BA4CAE50057D516 /* DisciteLogger.swift */,
 			);
 			path = Logging;
+			sourceTree = "<group>";
+		};
+		C23A77B32BA7411D0057D516 /* Injected */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Injected;
+			sourceTree = "<group>";
+		};
+		C23A77BB2BA87BA00057D516 /* DisciteTests */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77BC2BA87BA00057D516 /* DisciteTests.swift */,
+			);
+			path = DisciteTests;
+			sourceTree = "<group>";
+		};
+		C23A77C82BA87BAE0057D516 /* DisciteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77C92BA87BAE0057D516 /* DisciteUITests.swift */,
+				C23A77CB2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift */,
+			);
+			path = DisciteUITests;
 			sourceTree = "<group>";
 		};
 		C24C58592B8FA2E7002146D3 /* Views */ = {
@@ -957,6 +1025,42 @@
 			productReference = C2128A722ADB270B00E90C66 /* Discite.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C23A77B92BA87BA00057D516 /* DisciteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C23A77C02BA87BA00057D516 /* Build configuration list for PBXNativeTarget "DisciteTests" */;
+			buildPhases = (
+				C23A77B62BA87BA00057D516 /* Sources */,
+				C23A77B72BA87BA00057D516 /* Frameworks */,
+				C23A77B82BA87BA00057D516 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C23A77BF2BA87BA00057D516 /* PBXTargetDependency */,
+			);
+			name = DisciteTests;
+			productName = DisciteTests;
+			productReference = C23A77BA2BA87BA00057D516 /* DisciteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C23A77C62BA87BAE0057D516 /* DisciteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C23A77CF2BA87BAE0057D516 /* Build configuration list for PBXNativeTarget "DisciteUITests" */;
+			buildPhases = (
+				C23A77C32BA87BAE0057D516 /* Sources */,
+				C23A77C42BA87BAE0057D516 /* Frameworks */,
+				C23A77C52BA87BAE0057D516 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C23A77CE2BA87BAE0057D516 /* PBXTargetDependency */,
+			);
+			name = DisciteUITests;
+			productName = DisciteUITests;
+			productReference = C23A77C72BA87BAE0057D516 /* DisciteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -964,11 +1068,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					C2128A712ADB270B00E90C66 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					C23A77B92BA87BA00057D516 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = C2128A712ADB270B00E90C66;
+					};
+					C23A77C62BA87BAE0057D516 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = C2128A712ADB270B00E90C66;
 					};
 				};
 			};
@@ -988,6 +1100,8 @@
 			projectRoot = "";
 			targets = (
 				C2128A712ADB270B00E90C66 /* Discite */,
+				C23A77B92BA87BA00057D516 /* DisciteTests */,
+				C23A77C62BA87BAE0057D516 /* DisciteUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1019,6 +1133,20 @@
 				C28ABEBE2AF33D74007181F4 /* Mulish-ExtraBold.ttf in Resources */,
 				C2128A7A2ADB271300E90C66 /* Assets.xcassets in Resources */,
 				C28ABEBA2AF33D74007181F4 /* Mulish-SemiBoldItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C23A77B82BA87BA00057D516 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C23A77C52BA87BAE0057D516 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,7 +1358,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C23A77B62BA87BA00057D516 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C23A77BD2BA87BA00057D516 /* DisciteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C23A77C32BA87BAE0057D516 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C23A77CC2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift in Sources */,
+				C23A77CA2BA87BAE0057D516 /* DisciteUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C23A77BF2BA87BA00057D516 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2128A712ADB270B00E90C66 /* Discite */;
+			targetProxy = C23A77BE2BA87BA00057D516 /* PBXContainerItemProxy */;
+		};
+		C23A77CE2BA87BAE0057D516 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2128A712ADB270B00E90C66 /* Discite */;
+			targetProxy = C23A77CD2BA87BAE0057D516 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C2128A8A2ADB2B8100E90C66 /* Localizable.strings */ = {
@@ -1427,6 +1585,100 @@
 			};
 			name = Release;
 		};
+		C23A77C12BA87BA00057D516 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XY5D4R9882;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessieli.DisciteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Discite.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Discite";
+			};
+			name = Debug;
+		};
+		C23A77C22BA87BA00057D516 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XY5D4R9882;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessieli.DisciteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Discite.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Discite";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C23A77D02BA87BAE0057D516 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XY5D4R9882;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessieli.DisciteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Discite;
+			};
+			name = Debug;
+		};
+		C23A77D12BA87BAE0057D516 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XY5D4R9882;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessieli.DisciteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Discite;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1444,6 +1696,24 @@
 			buildConfigurations = (
 				C2128A812ADB271300E90C66 /* Debug */,
 				C2128A822ADB271300E90C66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C23A77C02BA87BA00057D516 /* Build configuration list for PBXNativeTarget "DisciteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C23A77C12BA87BA00057D516 /* Debug */,
+				C23A77C22BA87BA00057D516 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C23A77CF2BA87BAE0057D516 /* Build configuration list for PBXNativeTarget "DisciteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C23A77D02BA87BAE0057D516 /* Debug */,
+				C23A77D12BA87BAE0057D516 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
