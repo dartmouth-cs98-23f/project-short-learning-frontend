@@ -54,6 +54,18 @@
 		C23A77BD2BA87BA00057D516 /* DisciteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77BC2BA87BA00057D516 /* DisciteTests.swift */; };
 		C23A77CA2BA87BAE0057D516 /* DisciteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77C92BA87BAE0057D516 /* DisciteUITests.swift */; };
 		C23A77CC2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77CB2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift */; };
+		C23A77D32BA87C850057D516 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77D22BA87C850057D516 /* AppState.swift */; };
+		C23A77D52BA87F3E0057D516 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77D42BA87F3E0057D516 /* DependencyInjector.swift */; };
+		C23A77D72BA881F60057D516 /* ServicesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77D62BA881F60057D516 /* ServicesContainer.swift */; };
+		C23A77DA2BA8A7D60057D516 /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77D92BA8A7D60057D516 /* APICall.swift */; };
+		C23A77DE2BA8AA550057D516 /* ExploreWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77DD2BA8AA550057D516 /* ExploreWebRepository.swift */; };
+		C23A77E02BA8AA6D0057D516 /* WebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77DF2BA8AA6D0057D516 /* WebRepository.swift */; };
+		C23A77E22BA8AB2F0057D516 /* ExploreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77E12BA8AB2F0057D516 /* ExploreService.swift */; };
+		C23A77E62BA8C30F0057D516 /* ExplorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77E52BA8C30F0057D516 /* ExplorePage.swift */; };
+		C23A77EA2BA8C4F90057D516 /* ExplorePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77E92BA8C4F90057D516 /* ExplorePageViewModel.swift */; };
+		C23A77EC2BA8C5F50057D516 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77EB2BA8C5F50057D516 /* Loadable.swift */; };
+		C23A77EE2BAA13C20057D516 /* ErrorView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77ED2BAA13C20057D516 /* ErrorView2.swift */; };
+		C23A77F12BAA7B3F0057D516 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A77F02BAA7B3F0057D516 /* AppEnvironment.swift */; };
 		C24C585B2B8FA302002146D3 /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585A2B8FA302002146D3 /* SignUpPage.swift */; };
 		C24C585E2B8FADCE002146D3 /* GoogleLoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */; };
 		C24C58602B8FAE76002146D3 /* GoogleSignOutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */; };
@@ -241,6 +253,18 @@
 		C23A77C72BA87BAE0057D516 /* DisciteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisciteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C23A77C92BA87BAE0057D516 /* DisciteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteUITests.swift; sourceTree = "<group>"; };
 		C23A77CB2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciteUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C23A77D22BA87C850057D516 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		C23A77D42BA87F3E0057D516 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		C23A77D62BA881F60057D516 /* ServicesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesContainer.swift; sourceTree = "<group>"; };
+		C23A77D92BA8A7D60057D516 /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
+		C23A77DD2BA8AA550057D516 /* ExploreWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreWebRepository.swift; sourceTree = "<group>"; };
+		C23A77DF2BA8AA6D0057D516 /* WebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRepository.swift; sourceTree = "<group>"; };
+		C23A77E12BA8AB2F0057D516 /* ExploreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreService.swift; sourceTree = "<group>"; };
+		C23A77E52BA8C30F0057D516 /* ExplorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePage.swift; sourceTree = "<group>"; };
+		C23A77E92BA8C4F90057D516 /* ExplorePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePageViewModel.swift; sourceTree = "<group>"; };
+		C23A77EB2BA8C5F50057D516 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
+		C23A77ED2BAA13C20057D516 /* ErrorView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView2.swift; sourceTree = "<group>"; };
+		C23A77F02BAA7B3F0057D516 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		C24C585A2B8FA302002146D3 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		C24C585D2B8FADCE002146D3 /* GoogleLoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginExtension.swift; sourceTree = "<group>"; };
 		C24C585F2B8FAE76002146D3 /* GoogleSignOutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignOutExtension.swift; sourceTree = "<group>"; };
@@ -520,7 +544,12 @@
 		C2128A8E2ADB32B100E90C66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C23A77EF2BAA7B310057D516 /* System */,
+				C23A77E32BA8C2E70057D516 /* UI */,
+				C23A77DC2BA8AA040057D516 /* Repositories */,
 				C23A77B32BA7411D0057D516 /* Injected */,
+				C23A77DB2BA8A7E30057D516 /* Services */,
+				C23A77D82BA8A7920057D516 /* Utilities */,
 				C23A77A32BA4B2530057D516 /* Logging */,
 				C2237F412AE5E41500C9396E /* Account */,
 				C2128A972ADB4F3A00E90C66 /* Authentication */,
@@ -624,6 +653,9 @@
 		C23A77B32BA7411D0057D516 /* Injected */ = {
 			isa = PBXGroup;
 			children = (
+				C23A77D22BA87C850057D516 /* AppState.swift */,
+				C23A77D42BA87F3E0057D516 /* DependencyInjector.swift */,
+				C23A77D62BA881F60057D516 /* ServicesContainer.swift */,
 			);
 			path = Injected;
 			sourceTree = "<group>";
@@ -643,6 +675,58 @@
 				C23A77CB2BA87BAE0057D516 /* DisciteUITestsLaunchTests.swift */,
 			);
 			path = DisciteUITests;
+			sourceTree = "<group>";
+		};
+		C23A77D82BA8A7920057D516 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77D92BA8A7D60057D516 /* APICall.swift */,
+				C23A77DF2BA8AA6D0057D516 /* WebRepository.swift */,
+				C23A77EB2BA8C5F50057D516 /* Loadable.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C23A77DB2BA8A7E30057D516 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77E12BA8AB2F0057D516 /* ExploreService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C23A77DC2BA8AA040057D516 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77DD2BA8AA550057D516 /* ExploreWebRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C23A77E32BA8C2E70057D516 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77E42BA8C2F00057D516 /* Test */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		C23A77E42BA8C2F00057D516 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77E52BA8C30F0057D516 /* ExplorePage.swift */,
+				C23A77E92BA8C4F90057D516 /* ExplorePageViewModel.swift */,
+				C23A77ED2BAA13C20057D516 /* ErrorView2.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		C23A77EF2BAA7B310057D516 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				C23A77F02BAA7B3F0057D516 /* AppEnvironment.swift */,
+			);
+			path = System;
 			sourceTree = "<group>";
 		};
 		C24C58592B8FA2E7002146D3 /* Views */ = {
@@ -1251,6 +1335,7 @@
 				C2A44AB02B76D14D009FEEAB /* SettingsPage.swift in Sources */,
 				C25B35862B8FE71B00EB130F /* UserData.swift in Sources */,
 				2CA0B16D2B7A89A700558227 /* SearchViewModel.swift in Sources */,
+				C23A77E62BA8C30F0057D516 /* ExplorePage.swift in Sources */,
 				C2EF0B002B52E9020000DCE8 /* AuthView.swift in Sources */,
 				C2A44AAE2B76CEE3009FEEAB /* FriendsPage.swift in Sources */,
 				C2A3FF1E2B0266FB001EDE9F /* ShareConfirmation.swift in Sources */,
@@ -1276,11 +1361,13 @@
 				C2A4AD752B84009400AD492F /* SavedViewModel.swift in Sources */,
 				C2A3FF112B01CC57001EDE9F /* Shared.swift in Sources */,
 				C2EF0AFE2B52D6D10000DCE8 /* Login.swift in Sources */,
+				C23A77E02BA8AA6D0057D516 /* WebRepository.swift in Sources */,
 				C291450E2AE60DF1000BEB88 /* SharedView.swift in Sources */,
 				C2A6410F2B7D75DC00C50F83 /* TopicViewModel.swift in Sources */,
 				C20EFE6E2AFD93C20074EC9A /* PlaylistCard.swift in Sources */,
 				C20EFE682AFBCF4C0074EC9A /* ExploreView.swift in Sources */,
 				C2E3EFE22B96443E00F2AC65 /* MainExploreViewModel.swift in Sources */,
+				C23A77D32BA87C850057D516 /* AppState.swift in Sources */,
 				C2A44AB22B76D612009FEEAB /* Placeholder.swift in Sources */,
 				C2A4ADA22B8F8F5F00AD492F /* KeychainItem.swift in Sources */,
 				C2D9F22C2B9BB62200FDBD0F /* UpdateUserRequest.swift in Sources */,
@@ -1288,12 +1375,16 @@
 				C20EFE5C2AFBAFB90074EC9A /* SimpleTest.swift in Sources */,
 				C28ABE962AF31945007181F4 /* CustomJSONDecoder.swift in Sources */,
 				C28ABE9D2AF3370B007181F4 /* Fonts.swift in Sources */,
+				C23A77EA2BA8C4F90057D516 /* ExplorePageViewModel.swift in Sources */,
+				C23A77EE2BAA13C20057D516 /* ErrorView2.swift in Sources */,
 				C2A640F22B7C446F00C50F83 /* Like.swift in Sources */,
 				C2EF0B022B5300AA0000DCE8 /* Signup.swift in Sources */,
 				C2A641092B7D670200C50F83 /* ExploreViewModel.swift in Sources */,
 				2CBE27162B6436D600DF585B /* TopicPageView.swift in Sources */,
 				C2E3EFF32B96BBCB00F2AC65 /* ExploreSearchResponse.swift in Sources */,
 				C2D9F2162B9A950800FDBD0F /* PlayerOverlayPreview.swift in Sources */,
+				C23A77D72BA881F60057D516 /* ServicesContainer.swift in Sources */,
+				C23A77E22BA8AB2F0057D516 /* ExploreService.swift in Sources */,
 				C2E3EFCE2B93CEE600F2AC65 /* VideoDetailsOverlay.swift in Sources */,
 				C2E3EFEF2B96AD1000F2AC65 /* SearchSuggestionsList.swift in Sources */,
 				C2A4ADA62B8F9FC700AD492F /* MainAuthPage.swift in Sources */,
@@ -1311,6 +1402,7 @@
 				C235C6732ADF463600870600 /* KeychainTools.swift in Sources */,
 				C251C9862AF4960F00922B00 /* Playlist.swift in Sources */,
 				C24C585E2B8FADCE002146D3 /* GoogleLoginExtension.swift in Sources */,
+				C23A77DA2BA8A7D60057D516 /* APICall.swift in Sources */,
 				C2D9F22F2B9BB6CB00FDBD0F /* EditUserView.swift in Sources */,
 				C2D9F2072B9A28AE00FDBD0F /* PlayerOverlayViewController.swift in Sources */,
 				C2E3EFF52B96BD7600F2AC65 /* ExploreSearchViewModel.swift in Sources */,
@@ -1324,6 +1416,7 @@
 				C2A3FF1C2B024B9E001EDE9F /* ShareCard.swift in Sources */,
 				C2EF0B042B5315440000DCE8 /* NavigationButtons.swift in Sources */,
 				C2A6411E2B80488900C50F83 /* ToastView.swift in Sources */,
+				C23A77EC2BA8C5F50057D516 /* Loadable.swift in Sources */,
 				C28ABE9A2AF33118007181F4 /* Colors.swift in Sources */,
 				2CF2EBE02B7FE4DC0063D80B /* FilterFriends.swift in Sources */,
 				C2D9F20B2B9A28E700FDBD0F /* EmbeddedCollectionViewCell.swift in Sources */,
@@ -1343,7 +1436,9 @@
 				C2A3FF222B02B185001EDE9F /* IconButtons.swift in Sources */,
 				C21AB5AC2B9CB5CA0085B8EB /* SinglePlaylistViewController.swift in Sources */,
 				C2A640F82B7C476700C50F83 /* CustomVideoPlayer.swift in Sources */,
+				C23A77F12BAA7B3F0057D516 /* AppEnvironment.swift in Sources */,
 				C2A44AAC2B76CE5E009FEEAB /* SavedPage.swift in Sources */,
+				C23A77D52BA87F3E0057D516 /* DependencyInjector.swift in Sources */,
 				C2EE4E5D2B2A148D00FEA5B5 /* ContinueCard.swift in Sources */,
 				C2A4AD8E2B8E35EB00AD492F /* OnboardingComplexity.swift in Sources */,
 				C2D287272AE0BA8F00BB263C /* APIRequest.swift in Sources */,
@@ -1354,6 +1449,7 @@
 				C2D9F2142B9A933600FDBD0F /* ProgressDotsView.swift in Sources */,
 				C2E3EFF72B96C19900F2AC65 /* SearchDestinationPage.swift in Sources */,
 				C2D9F2092B9A28C800FDBD0F /* PlayerOverlayView.swift in Sources */,
+				C23A77DE2BA8AA550057D516 /* ExploreWebRepository.swift in Sources */,
 				C21AB5AA2B9CB3EE0085B8EB /* SinglePlaylistWatchRepresentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
